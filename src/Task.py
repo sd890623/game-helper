@@ -1,6 +1,6 @@
 from windows import *
 from images import *
-from utils import wait
+from utils import *
 import guiUtils
 import time
 import random
@@ -25,7 +25,7 @@ class Task:
         self.goHome()
 
     def print(self,text):
-        print(str(self.index)+"号玩家： "+text)
+        print(getDateTimeString()+" "+ str(self.index)+"号玩家： "+text)
 
 
     def findPlayerCountByType(self,type):
@@ -111,7 +111,7 @@ class Task:
         wait(lambda: self.simulatorInstance.click_point(891,172+oreSiteCalibrater))
         wait(lambda: self.simulatorInstance.click_point(685,237+oreSiteCalibrater))
         #点平衡器
-        wait(lambda: self.simulatorInstance.click_keyboard("4"), 45)
+        wait(lambda: self.simulatorInstance.click_keyboard("4"), 55)
         #上滑至顶
         times = 25
         #todo solve foreground scroll 

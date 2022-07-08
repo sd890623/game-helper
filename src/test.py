@@ -1,5 +1,7 @@
 from windows import *
 from Task import Task
+from datetime import datetime
+
 
 yBuffer = 36
 
@@ -10,6 +12,12 @@ if (len(allWindowsWithTitle) > id):
     hwndObject = allWindowsWithTitle[id]
 
 print(allWindowsWithTitle)    
+
+now = datetime.now()
+dt_string = now.strftime("%d %H:%M:%S")
+print("Time: ", dt_string)
+
+
 
 
 

@@ -23,6 +23,6 @@ def remove_noise(image):
     return cv2.medianBlur(image,5)
 
 def getOCRfromImageBlob(imageBlob):
-    gray = get_grayscale(imageBlob)
-    res = ocr.ocr_for_single_line(gray)
+    #gray = get_grayscale(imageBlob)
+    res = ocr.ocr_for_single_line(imageBlob)
     return res

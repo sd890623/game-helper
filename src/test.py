@@ -16,7 +16,7 @@ print(allWindowsWithTitle)
 task = Task(526402, 2)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
-#task.runTask()
+task.runTask()
 while(True):
     task.startMiningTask()
 

@@ -205,8 +205,8 @@ class win ():#line:35
 
     def click_point (O0000000OOO00000O ,O000OOOOO000O0O00 ,OOO000O0000O0O0O0 ,bor =True ):#line:223
         if bor :#line:224
-            O000OOOOO000O0O00 =O000OOOOO000O0O00 +random .randint (10 ,10 )#line:225
-            OOO000O0000O0O0O0 =OOO000O0000O0O0O0 +random .randint (10 ,10 )#line:226
+            O000OOOOO000O0O00 =O000OOOOO000O0O00 +random .randint (-5 ,5 )#line:225
+            OOO000O0000O0O0O0 =OOO000O0000O0O0O0 +random .randint (-5 ,5 )#line:226
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,0 ,((OOO000O0000O0O0O0 )<<16 |(O000OOOOO000O0O00 )));#line:228
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,0 ,((OOO000O0000O0O0O0 )<<16 |(O000OOOOO000O0O00 )));#line:229
     def send_enter (O00000OOOOOOOOOO0 ):#line:231

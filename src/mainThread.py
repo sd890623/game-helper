@@ -1,10 +1,13 @@
 from threading import Thread
 from windows import *
 from Task import Task
+import time
 
 def runTask(hwnd, index):
     task = Task(hwnd, index)
+    time.sleep(index*20)
     while(True):
+        #task.runTask()
         task.startMiningTask()
 def main():
     allWindowsWithTitle = getAllWindowsWithTitle("星战前夜：无烬星河 - MuMu模拟器")

@@ -19,7 +19,7 @@ def base642Str (OOO0OOOOOOOO0000O ):#line:16
 scale =1 #line:21
 
 def getDecimalValueFromKeyStroke (keyStroke):
-    mapping = [{"key": "b", "value": 66}]
+    mapping = [{"key": "b", "value": 66}, {"key": "q", "value": 81}, {"key": "w", "value": 87}, {"key": "e", "value": 69}, {"key": "r", "value": 82}, {"key": "t", "value": 84}, {"key": "y", "value": 89}, {"key": "1", "value": 49}, {"key": "2", "value": 50}, {"key": "3", "value": 51}, {"key": "4", "value": 52}, {"key": "`", "value": 192} ]
     for object in mapping:
         if (object["key"] == keyStroke.lower()):
             return object["value"]
@@ -45,7 +45,7 @@ class win ():#line:35
         else :#line:50
             OO00OO0O00O0OOO0O .hwnd =OO0OOO0O0OOOO0O0O #line:51
 
-    def output_window_screenshot(OOO0O000000O0O0O0 ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
+    def output_window_screenshot(OOO0O000000O0O0O0 ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
         OO00O0OO0O0OOO000 =win32gui .GetWindowRect (OOO0O000000O0O0O0 .hwnd )#line:58
         OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
         OOOOO00OO0OOO000O =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
@@ -165,6 +165,44 @@ class win ():#line:35
             win32api .SetCursorPos (O0O0000OOOO00OO00 )#line:219
             OO00OO0OO00000OOO .x =OO0OOO00OO0OOOO0O #line:220
             OO00OO0OO00000OOO .y =O0OO00O0O00O0OO0O #line:221
+    def new_mousemove(self, x, y):
+        tmp = win32api.MAKELONG(x, y)
+        win32api.PostMessage(self.hwnd, win32con.WM_MOUSEMOVE, win32con.MK_LBUTTON, tmp)
+    def moveClickAndDrag(self, position, direction):
+        x =position[0] +random .randint (10 ,10 )
+        y =position[1] +random .randint (10 ,10 )
+        win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONDOWN ,0 ,((y )<<16 |(x )));
+        time.sleep(1)
+        if (direction == "up"):
+            self.mouse_move(x, y-80)
+            time.sleep(1)
+            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y-80 )<<16 |(x )));
+        elif (direction == "down"):
+            self.mouse_move(x, y+80)
+            time.sleep(1)
+            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y+80 )<<16 |(x )));
+    def newClickAndDrag(self, position, direction):
+        x =position[0] +random .randint (10 ,10 )
+        y =position[1] +random .randint (10 ,10 )
+        if (direction == "up"):
+            self.move(x,y,x,y+80)
+        elif (direction == "down"):
+            self.move(x,y,x,y-80)
+
+    def mouseWheel(self, position, direction):
+        win32gui.SetForegroundWindow(self.hwnd)
+        x =position[0] +random .randint (10 ,10 )
+        y =position[1] +random .randint (10 ,10 )
+        self.new_mousemove(x, y)
+
+        if (direction == "up"):
+            win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, 120), win32api.MAKELONG(x,y))
+            win32api.SendMessage(self.hwnd, win32con.WM_NCHITTEST, 0, win32api.MAKELONG(x,y))
+
+        elif (direction == "down"):
+            win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, -120), win32api.MAKELONG(x,y))
+            win32api.SendMessage(self.hwnd, win32con.WM_NCHITTEST, 0, win32api.MAKELONG(x,y))
+
     def click_point (O0000000OOO00000O ,O000OOOOO000O0O00 ,OOO000O0000O0O0O0 ,bor =True ):#line:223
         if bor :#line:224
             O000OOOOO000O0O00 =O000OOOOO000O0O00 +random .randint (10 ,10 )#line:225

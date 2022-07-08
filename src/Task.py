@@ -131,7 +131,8 @@ class Task:
 
         homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\homeRoute.bmp")
         homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,203,178,601])
-        wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+6),4)
+
+        wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)
         wait(lambda: self.simulatorInstance.click_point(206,182))
 

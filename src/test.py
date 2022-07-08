@@ -21,12 +21,11 @@ print("Time: ", dt_string)
 
 
 
-task = Task(526402, 2)
+task = Task(658710, 0)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
 task.runTask()
-while(True):
-    task.startMiningTask()
+
 
 
 

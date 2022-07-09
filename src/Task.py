@@ -54,12 +54,15 @@ class Task:
             return True
         elif (minerX and not(cloneCenterX)):
             return False
+        else:
+            return True
 
     def startMiningTask(self):
         self.print("新一轮开始了")
-        time.sleep(20+random.randint(0,25))
+        time.sleep(random.randint(0,5))
         if(not(self.isSafe())):
             self.print("有海盗，蹲站")
+            time.sleep(20+random.randint(0,25))
             return
         self.print("开始存货")
         self.stockOre()

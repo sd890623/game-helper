@@ -5,7 +5,7 @@ import time
 
 def runTask(hwnd, index):
     task = Task(hwnd, index)
-    time.sleep(index*30)
+    time.sleep(index*40)
     while(True):
         #task.runTask()
         task.startMiningTask()

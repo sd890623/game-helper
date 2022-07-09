@@ -139,6 +139,59 @@ class Task:
         while(not(self.isPlayerInSite())):
              time.sleep(5)
 
+
+    def passOre(self):
+        if(not(self.isSafe())):
+            self.print("有海盗，蹲站")
+            time.sleep(30)
+            return
+        wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
+        while(self.isPlayerInSite()):
+            time.sleep(5)
+        time.sleep(15)
+        wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
+        wait(lambda: self.simulatorInstance.click_point(131,186),4)
+        wait(lambda: self.simulatorInstance.click_point(204,231),4)
+        time.sleep(15)
+        while(not(self.isPlayerInSite())):
+             time.sleep(5)
+        time.sleep(15)
+
+        wait(lambda: self.simulatorInstance.click_keyboard("b"),8)
+
+        wait(lambda: self.simulatorInstance.click_point(102,147),4)
+
+        wait(lambda: self.simulatorInstance.click_point(505,138))
+        wait(lambda: self.simulatorInstance.click_point(905,93))
+        wait(lambda: self.simulatorInstance.click_point(965,141))
+        wait(lambda: self.simulatorInstance.click_point(903,70))
+        wait(lambda: self.simulatorInstance.click_point(967,245),4)
+        wait(lambda: self.simulatorInstance.click_keyboard("5"),4)
+        
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+        wait(lambda: self.simulatorInstance.click_point(961,31))
+
+
+        wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
+        wait(lambda: self.simulatorInstance.click_point(131,186))
+        wait(lambda: self.simulatorInstance.click_point(204,355),5)
+        wait(lambda: self.simulatorInstance.click_point(915,456))
+
+        time.sleep(15)
+        while(not(self.isPlayerInSite())):
+             time.sleep(5)
+        time.sleep(15)
+
+        self.stockOre()
+        time.sleep(10)
+
+
+
         
 
 

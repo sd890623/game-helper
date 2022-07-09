@@ -19,7 +19,7 @@ def base642Str (OOO0OOOOOOOO0000O ):#line:16
 scale =1 #line:21
 
 def getDecimalValueFromKeyStroke (keyStroke):
-    mapping = [{"key": "b", "value": 66}, {"key": "q", "value": 81}, {"key": "w", "value": 87}, {"key": "e", "value": 69}, {"key": "r", "value": 82}, {"key": "t", "value": 84}, {"key": "y", "value": 89}, {"key": "1", "value": 49}, {"key": "2", "value": 50}, {"key": "3", "value": 51}, {"key": "4", "value": 52}, {"key": "`", "value": 192} ]
+    mapping = [{"key": "b", "value": 66}, {"key": "q", "value": 81}, {"key": "w", "value": 87}, {"key": "e", "value": 69}, {"key": "r", "value": 82}, {"key": "t", "value": 84}, {"key": "y", "value": 89}, {"key": "1", "value": 49}, {"key": "2", "value": 50}, {"key": "3", "value": 51}, {"key": "4", "value": 52}, {"key": "4", "value": 53}, {"key": "4", "value": 54}, {"key": "`", "value": 192} ]
     for object in mapping:
         if (object["key"] == keyStroke.lower()):
             return object["value"]

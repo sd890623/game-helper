@@ -4,7 +4,7 @@ from datetime import datetime
 
 def wait(func, seconds = 2):
     func()
-    time.sleep(seconds+random.randint(0,3))
+    time.sleep(seconds+random.randint(3,6))
 
 def getDateTimeString():
     now = datetime.now()

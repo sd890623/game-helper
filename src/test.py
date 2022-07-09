@@ -21,7 +21,7 @@ print("Time: ", dt_string)
 
 
 
-task = Task(658710, 0)
+task = Task(198912, 0)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
 task.runTask()

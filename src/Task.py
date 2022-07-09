@@ -103,7 +103,7 @@ class Task:
         wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
         while(self.isPlayerInSite()):
             time.sleep(5)
-        time.sleep(15)
+        time.sleep(25)
         wait(lambda: self.simulatorInstance.click_point(961,350))
         wait(lambda: self.simulatorInstance.click_point(928,19,True))
         wait(lambda: self.simulatorInstance.click_point(878,376))
@@ -130,8 +130,8 @@ class Task:
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
 
         homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\homeRoute.bmp")
-        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,203,178,601])
-
+        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,201,179,556])
+        self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+10))
         wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)
         wait(lambda: self.simulatorInstance.click_point(206,182))

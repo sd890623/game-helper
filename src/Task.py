@@ -117,7 +117,7 @@ class Task:
             time.sleep(5)
         time.sleep(25)
         wait(lambda: self.simulatorInstance.click_point(961,350))
-        wait(lambda: self.simulatorInstance.click_point(928,19,True))
+        wait(lambda: self.simulatorInstance.click_point(847,17,True))
         wait(lambda: self.simulatorInstance.click_point(878,376))
         self.print("点矿区y偏移量："+str(oreSiteCalibrater))
         wait(lambda: self.simulatorInstance.click_point(891,172+oreSiteCalibrater))

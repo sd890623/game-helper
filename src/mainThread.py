@@ -6,11 +6,10 @@ import time
 # todo 
 # restart app when crash?
 # ocr key words to replace image match
-# Keep time difference by 60s all the time.
+# Keep time difference by 60s all the time. Done partial
 
 def runTask(hwnd, index):
     task = Task(hwnd, index)
-    time.sleep(index*40)
     while(True):
         try:
             #task.runTask()

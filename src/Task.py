@@ -13,6 +13,7 @@ class Task:
     hwnd = None
     simulatorInstance = None
     index = None
+    syncBetweenUsers = True
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -62,13 +63,17 @@ class Task:
             return False
         else:
             return True
+        
 
     def startMiningTask(self):
+        if (self.syncBetweenUsers):
+            self.print("账号差异化，等待x*50s")
+            time.sleep(50*self.index)
+            self.syncBetweenUsers = not(self.syncBetweenUsers)
         self.print("新一轮开始了")
-        time.sleep(random.randint(0,5))
         if(not(self.isSafe())):
             self.print("有海盗，蹲站")
-            time.sleep(30+random.randint(0,25))
+            time.sleep(50+random.randint(0,5))
             return
         self.print("开始存货")
         self.stockOre()
@@ -86,7 +91,7 @@ class Task:
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(20+random.randint(0,25))
+        time.sleep(30+random.randint(0,10))
 
 
 
@@ -108,6 +113,8 @@ class Task:
         while(self.isSafe() and totalSeconds > 0):
             time.sleep(frequency)
             totalSeconds -= frequency
+        if(self.isSafe()==False):
+            self.syncBetweenUsers = True
 
 
     def goOut(self):

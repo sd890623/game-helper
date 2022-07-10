@@ -23,6 +23,9 @@ class Task:
         self.checkSafeForMinutes(0.1)
         self.print("回家")
         self.goHome()
+    
+    def closeWindow(self):
+        self.simulatorInstance.close_window()
 
     def print(self,text):
         print(getDateTimeString()+" "+ str(self.index)+"号玩家： "+text)
@@ -33,6 +36,9 @@ class Task:
         iconWitdhHeight = 11
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+type+".bmp")
         x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
+        if(x == 0 and y == 0):
+            print("没打开人物列表？")
+            return 1
         countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
         countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
         ocrCount = getOCRfromImageBlob(countImageBlob)
@@ -137,6 +143,8 @@ class Task:
 
         homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\homeRoute.bmp")
         homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,201,179,556])
+        if(homeRouteImgX==0):
+            return
         self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+10))
         wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)

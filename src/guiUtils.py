@@ -69,40 +69,44 @@ class win ():#line:35
 
         
     def window_capture (OOO0O000000O0O0O0 ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
-        OO00O0OO0O0OOO000 =win32gui .GetWindowRect (OOO0O000000O0O0O0 .hwnd )#line:58
-        OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
-        OOOOO00OO0OOO000O =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
-        O0OO0OOO00O0000O0 =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
-        OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:63
-        OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:64
-        OOO0OOO000000OO00 =win32gui .GetWindowDC (OOO0O000000O0O0O0 .hwnd )#line:66
-        OOOOOOO00O00O00O0 =win32ui .CreateDCFromHandle (OOO0OOO000000OO00 )#line:67
-        O0OOO00OO0OOOOOOO =OOOOOOO00O00O00O0 .CreateCompatibleDC ()#line:68
-        OOO0OOO00O0OO0000 =win32ui .CreateBitmap ()#line:69
-        OOO0OOO00O0OO0000 .CreateCompatibleBitmap (OOOOOOO00O00O00O0 ,OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO )#line:70
-        O0OOO00OO0OOOOOOO .SelectObject (OOO0OOO00O0OO0000 )#line:71
-        OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:72
-        OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:73
-        O0OOO00OO0OOOOOOO .BitBlt ((0 ,0 ),(OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO ),OOOOOOO00O00O00O0 ,(A [0 ],A [1 ]),win32con .SRCCOPY )#line:74
-        OOOOO0OOO00OOOOO0 =OOO0OOO00O0OO0000 .GetInfo ()#line:77
-        O0O00OOOOO0OOO00O =OOO0OOO00O0OO0000 .GetBitmapBits (True )#line:78
-        OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
-        OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
-        OOO0O00OO0O00OOOO =OOO00OOOOO0OO0O00 #line:83
-        O00OOO0O000000000 =cv2 .imread (O000OO00O0OO0O00O )#line:87
-        O00O0OOO000O0OOO0 ,O0O0OO000O00O000O =O00OOO0O000000000 .shape [:2 ]#line:89
-        O0000OO00O00OOOOO =cv2 .matchTemplate (OOO0O00OO0O00OOOO ,O00OOO0O000000000 ,cv2 .TM_SQDIFF_NORMED )#line:91
-        cv2 .normalize (O0000OO00O00OOOOO ,O0000OO00O00OOOOO ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93
-        O0000O00O00O0OO0O ,OOO000OO0OOOO0000 ,O00O00O0OO0OOOOOO ,O0OOOO00000OOOO00 =cv2 .minMaxLoc (O0000OO00O00OOOOO )#line:95
-        OOOOO0OOOOOO0OOO0 =str (O0000O00O00O0OO0O )#line:99
-        win32gui .DeleteObject (OOO0OOO00O0OO0000 .GetHandle ())#line:111
-        OOOOOOO00O00O00O0 .DeleteDC ()#line:112
-        O0OOO00OO0OOOOOOO .DeleteDC ()#line:113
-        win32gui .ReleaseDC (OOO0O000000O0O0O0 .hwnd ,OOO0OOO000000OO00 )#line:114
-        if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and O00O00O0OO0OOOOOO [0 ]!=0 and O00O00O0OO0OOOOOO [1 ]!=0 :#line:115
-            return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117
-        else :#line:118
-            return 0 ,0 #line:120
+        try:
+            OO00O0OO0O0OOO000 =win32gui .GetWindowRect (OOO0O000000O0O0O0 .hwnd )#line:58
+            OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
+            OOOOO00OO0OOO000O =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
+            O0OO0OOO00O0000O0 =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
+            OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:63
+            OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:64
+            OOO0OOO000000OO00 =win32gui .GetWindowDC (OOO0O000000O0O0O0 .hwnd )#line:66
+            OOOOOOO00O00O00O0 =win32ui .CreateDCFromHandle (OOO0OOO000000OO00 )#line:67
+            O0OOO00OO0OOOOOOO =OOOOOOO00O00O00O0 .CreateCompatibleDC ()#line:68
+            OOO0OOO00O0OO0000 =win32ui .CreateBitmap ()#line:69
+            OOO0OOO00O0OO0000 .CreateCompatibleBitmap (OOOOOOO00O00O00O0 ,OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO )#line:70
+            O0OOO00OO0OOOOOOO .SelectObject (OOO0OOO00O0OO0000 )#line:71
+            OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:72
+            OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:73
+            O0OOO00OO0OOOOOOO .BitBlt ((0 ,0 ),(OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO ),OOOOOOO00O00O00O0 ,(A [0 ],A [1 ]),win32con .SRCCOPY )#line:74
+            OOOOO0OOO00OOOOO0 =OOO0OOO00O0OO0000 .GetInfo ()#line:77
+            O0O00OOOOO0OOO00O =OOO0OOO00O0OO0000 .GetBitmapBits (True )#line:78
+            OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
+            OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
+            OOO0O00OO0O00OOOO =OOO00OOOOO0OO0O00 #line:83
+            O00OOO0O000000000 =cv2 .imread (O000OO00O0OO0O00O )#line:87
+            O00O0OOO000O0OOO0 ,O0O0OO000O00O000O =O00OOO0O000000000 .shape [:2 ]#line:89
+            O0000OO00O00OOOOO =cv2 .matchTemplate (OOO0O00OO0O00OOOO ,O00OOO0O000000000 ,cv2 .TM_SQDIFF_NORMED )#line:91
+            cv2 .normalize (O0000OO00O00OOOOO ,O0000OO00O00OOOOO ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93
+            O0000O00O00O0OO0O ,OOO000OO0OOOO0000 ,O00O00O0OO0OOOOOO ,O0OOOO00000OOOO00 =cv2 .minMaxLoc (O0000OO00O00OOOOO )#line:95
+            OOOOO0OOOOOO0OOO0 =str (O0000O00O00O0OO0O )#line:99
+            win32gui .DeleteObject (OOO0OOO00O0OO0000 .GetHandle ())#line:111
+            OOOOOOO00O00O00O0 .DeleteDC ()#line:112
+            O0OOO00OO0OOOOOOO .DeleteDC ()#line:113
+            win32gui .ReleaseDC (OOO0O000000O0O0O0 .hwnd ,OOO0OOO000000OO00 )#line:114
+            if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and O00O00O0OO0OOOOOO [0 ]!=0 and O00O00O0OO0OOOOOO [1 ]!=0 :#line:115
+                return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117
+            else :#line:118
+                return 0 ,0 #line:120
+        except:
+            print("window_capture error, return 0,0")
+            return 0 ,0
     def window_str (OOO0OOOOOOOOOO0O0 ,A =[0 ,0 ,0 ,0 ],bor =True ):#line:122
         O0O0O0OO000O000OO =win32gui .GetWindowRect (OOO0OOOOOOOOOO0O0 .hwnd )#line:128
         O0O0O0OO000O000OO =list (O0O0O0OO000O000OO )#line:129
@@ -231,6 +235,10 @@ class win ():#line:35
         time .sleep (1 )#line:249
         win32gui .SendMessage (OOOO0O000O00000OO .hwnd ,win32con .WM_LBUTTONUP ,0 ,0 )#line:250
         time .sleep (1 )#line:251
+
+    def close_window(self):
+        win32gui.PostMessage(self.hwnd,win32con.WM_CLOSE,0,0)
+
 def image_binarization (O00OO000O0000OO00 ):#line:254
     O00OOOO000O000O00 =cv2 .cvtColor (O00OO000O0000OO00 ,cv2 .COLOR_BGR2GRAY )#line:257
     O0OO000O0O00OO0O0 ,OO0O00OOOO0O00OO0 =cv2 .threshold (O00OOOO000O000O00 ,127 ,255 ,cv2 .THRESH_BINARY )#line:261
@@ -258,6 +266,7 @@ def get_all_windows ():#line:291
     O00O0OO0O0OO0O00O =[]#line:292
     win32gui .EnumWindows (lambda O00O00O000O000OOO ,O0OOOO00OO0OO00O0 :O0OOOO00OO0OO00O0 .append (O00O00O000O000OOO ),O00O0OO0O0OO0O00O )#line:293
     return O00O0OO0O0OO0O00O #line:295
+
 def get_title (OOO000000OOOOO0OO ,OOO0OO0OOOOO00000 ):#line:298
     OO0O0OO00OOO0O0OO =win32gui .GetClassName (OOO000000OOOOO0OO )#line:299
     if OO0O0OO00OOO0O0OO ==OOO0OO0OOOOO00000 :#line:300

@@ -62,7 +62,7 @@ class Task:
         time.sleep(random.randint(0,5))
         if(not(self.isSafe())):
             self.print("有海盗，蹲站")
-            time.sleep(20+random.randint(0,25))
+            time.sleep(30+random.randint(0,25))
             return
         self.print("开始存货")
         self.stockOre()
@@ -80,12 +80,15 @@ class Task:
         self.print("回家")
         self.goHome()
         self.print("到家")
+        time.sleep(20+random.randint(0,25))
+
+
 
     def stockOre(self):
-        wait(lambda: self.simulatorInstance.click_keyboard("B"), 7)
-        wait(lambda: self.simulatorInstance.click_point(86,430,True), 4)
-        wait(lambda: self.simulatorInstance.click_keyboard("E"), 2)
-        wait(lambda: self.simulatorInstance.click_point(98,129,True), 2)
+        wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
+        wait(lambda: self.simulatorInstance.click_point(86,430,True), 8)
+        wait(lambda: self.simulatorInstance.click_keyboard("E"), 4)
+        wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
         wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)
         wait(lambda: self.simulatorInstance.click_point(961,31), 2)
         wait(lambda: self.simulatorInstance.click_point(961,31), 2)

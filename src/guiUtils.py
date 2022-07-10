@@ -207,12 +207,13 @@ class win ():#line:35
             win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, -120), win32api.MAKELONG(x,y))
             win32api.SendMessage(self.hwnd, win32con.WM_NCHITTEST, 0, win32api.MAKELONG(x,y))
 
-    def click_point (O0000000OOO00000O ,O000OOOOO000O0O00 ,OOO000O0000O0O0O0 ,bor =True ):#line:223
+    def click_point (O0000000OOO00000O ,x ,y ,bor =True ):#line:223
         if bor :#line:224
-            O000OOOOO000O0O00 =O000OOOOO000O0O00 +random .randint (-5 ,5 )#line:225
-            OOO000O0000O0O0O0 =OOO000O0000O0O0O0 +random .randint (-5 ,5 )#line:226
-        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,0 ,((OOO000O0000O0O0O0 )<<16 |(O000OOOOO000O0O00 )));#line:228
-        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,0 ,((OOO000O0000O0O0O0 )<<16 |(O000OOOOO000O0O00 )));#line:229
+            xRandom =x +random .randint (-5 ,5 )#line:225
+            yRandom =y +random .randint (-5 ,5 )#line:226
+        long_position = win32api.MAKELONG(xRandom, yRandom)
+        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
+        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,win32con.MK_LBUTTON , long_position);#line:229
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233

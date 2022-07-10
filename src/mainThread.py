@@ -3,6 +3,11 @@ from windows import *
 from Task import Task
 import time
 
+# todo 
+# restart app when crash?
+# ocr key words to replace image match
+# Keep time difference by 60s all the time.
+
 def runTask(hwnd, index):
     task = Task(hwnd, index)
     time.sleep(index*40)

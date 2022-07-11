@@ -15,9 +15,9 @@ def runTask(hwnd, index):
             #task.runTask()
             task.startMiningTask()
         except:
-            print("thread failed, close and wait 60s")
             task.closeWindow()
-            time.sleep(60)
+            print("thread failed, stop")
+            return
         
 
 

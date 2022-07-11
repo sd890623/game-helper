@@ -26,7 +26,9 @@ class Task:
         self.goHome()
     
     def closeWindow(self):
-        self.simulatorInstance.close_window()
+        wait(lambda: self.simulatorInstance.click_point(76,32))
+        wait(lambda: self.simulatorInstance.click_point(537,488))
+        wait(lambda: self.simulatorInstance.click_keyboard("t"),30)
 
     def print(self,text):
         print(getDateTimeString()+" "+ str(self.index)+"号玩家： "+text)
@@ -67,13 +69,13 @@ class Task:
 
     def startMiningTask(self):
         if (self.syncBetweenUsers):
-            self.print("账号差异化，等待x*50s")
-            time.sleep(50*self.index)
+            self.print("账号差异化，等待x*60s")
+            time.sleep(60*self.index)
             self.syncBetweenUsers = not(self.syncBetweenUsers)
         self.print("新一轮开始了")
         if(not(self.isSafe())):
             self.print("有海盗，蹲站")
-            time.sleep(50+random.randint(0,5))
+            time.sleep(60+random.randint(0,5))
             return
         self.print("开始存货")
         self.stockOre()

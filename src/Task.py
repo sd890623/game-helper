@@ -42,19 +42,26 @@ class Task:
         count = 0
         iconWitdhHeight = 11
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+type+".bmp")
-        x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
+        findPlayerCountLk.acquire()
+        try:
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
+        except:
+            findPlayerCountLk.release()
+            raise Exception("error")
         if(x == 0 and y == 0):
             self.print("没打开人物列表？")
             return 0
         countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
         countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
         ocrCount = getOCRfromImageBlob(countImageBlob)
+        findPlayerCountLk.release()
+
         try:
             if(len(ocrCount[0]) == 0):
                 return 0
             count = int(ocrCount[0][0])
             return count
-        except e:
+        except:
             return 1
 
     def isPlayerInSite(self):

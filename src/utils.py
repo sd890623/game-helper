@@ -12,4 +12,4 @@ def getDateTimeString():
     dt_string = now.strftime("%d %H:%M:%S")
     return("Time: "+dt_string)
 
-gl=threading.Lock()
+findPlayerCountLk=threading.Lock()

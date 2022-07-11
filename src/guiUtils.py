@@ -103,10 +103,9 @@ class win ():#line:35
                 return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117
             else :#line:118
                 return 0 ,0 #line:120
-        except:
+        except Exception as e:
             print("window_capture error, return 0,0")
-            raise Exception("bitmap exception")
-            return 0 ,0
+            raise e
             
     def window_str (OOO0OOOOOOOOOO0O0 ,A =[0 ,0 ,0 ,0 ],bor =True ):#line:122
         O0O0O0OO000O000OO =win32gui .GetWindowRect (OOO0OOOOOOOOOO0O0 .hwnd )#line:128

@@ -12,10 +12,10 @@ def get_all_windows():
 
 def getAllWindowsWithTitle(title):
     hwndList = get_all_windows()
-    hwndWithTitle = [];
+    hwndWithTitle = []
     for hwnd in hwndList:
-        text = win32gui.GetWindowText(hwnd);
-        className = win32gui.GetClassName(hwnd);
+        text = win32gui.GetWindowText(hwnd)
+        className = win32gui.GetClassName(hwnd)
         if(text == title):
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
@@ -24,8 +24,8 @@ def getWindowHwndObjectById(id):
     hwnds = get_all_windows()
     for hwnd in hwnds:
         if (hwnd == id):
-            text = win32gui.GetWindowText(hwnd);
-            className = win32gui.GetClassName(hwnd);
+            text = win32gui.GetWindowText(hwnd)
+            className = win32gui.GetClassName(hwnd)
             return {"hwnd": hwnd, "title": text, "className": className}
     return None
 

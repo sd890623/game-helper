@@ -99,8 +99,6 @@ class win ():#line:35
             win32gui .DeleteObject (OOO0OOO00O0OO0000 .GetHandle ())#line:111
             OOOOOOO00O00O00O0 .DeleteDC ()#line:112
             O0OOO00OO0OOOOOOO .DeleteDC ()#line:113
-            raise Exception("bitmap exception")
-
             win32gui .ReleaseDC (OOO0O000000O0O0O0 .hwnd ,OOO0OOO000000OO00 )#line:114
             if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and O00O00O0OO0OOOOOO [0 ]!=0 and O00O00O0OO0OOOOOO [1 ]!=0 :#line:115
                 return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117

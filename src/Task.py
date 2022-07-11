@@ -21,9 +21,13 @@ class Task:
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"])
 
     def runTask(self):
-        self.checkSafeForMinutes(0.1)
-        self.print("回家")
-        self.goHome()
+        count = 1
+        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+self.exclamationRedPlayerType+".bmp")
+        while(count>0):
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
+            print(str(count)+" times and x="+str(x))
+            time.sleep(0.1)
+            count+=1
     
     def closeWindow(self):
         wait(lambda: self.simulatorInstance.click_point(76,32))
@@ -40,7 +44,7 @@ class Task:
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+type+".bmp")
         x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
         if(x == 0 and y == 0):
-            print("没打开人物列表？")
+            self.print("没打开人物列表？")
             return 0
         countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
         countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)

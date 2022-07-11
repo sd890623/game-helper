@@ -48,8 +48,8 @@ class win ():#line:35
     def output_window_screenshot(OOO0O000000O0O0O0 ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
         OO00O0OO0O0OOO000 =win32gui .GetWindowRect (OOO0O000000O0O0O0 .hwnd )#line:58
         OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
-        OOOOO00OO0OOO000O =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
-        O0OO0OOO00O0000O0 =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
+        width =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
+        height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
         OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:63
         OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:64
         OOO0OOO000000OO00 =win32gui .GetWindowDC (OOO0O000000O0O0O0 .hwnd )#line:66
@@ -68,25 +68,24 @@ class win ():#line:35
         return OOO00OOOOO0OO0O00
 
         
-    def window_capture (OOO0O000000O0O0O0 ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
+    def window_capture (self ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
         try:
-            OO00O0OO0O0OOO000 =win32gui .GetWindowRect (OOO0O000000O0O0O0 .hwnd )#line:58
+            OO00O0OO0O0OOO000 =win32gui .GetWindowRect (self .hwnd )#line:58
             OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
-            OOOOO00OO0OOO000O =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
-            O0OO0OOO00O0000O0 =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
-            OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:63
-            OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:64
-            OOO0OOO000000OO00 =win32gui .GetWindowDC (OOO0O000000O0O0O0 .hwnd )#line:66
-            OOOOOOO00O00O00O0 =win32ui .CreateDCFromHandle (OOO0OOO000000OO00 )#line:67
-            O0OOO00OO0OOOOOOO =OOOOOOO00O00O00O0 .CreateCompatibleDC ()#line:68
-            OOO0OOO00O0OO0000 =win32ui .CreateBitmap ()#line:69
-            OOO0OOO00O0OO0000 .CreateCompatibleBitmap (OOOOOOO00O00O00O0 ,OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO )#line:70
-            O0OOO00OO0OOOOOOO .SelectObject (OOO0OOO00O0OO0000 )#line:71
-            OOOO0OOO00O0OOO0O =A [2 ]-A [0 ]#line:72
-            OOO0OO00OOOOO00OO =A [3 ]-A [1 ]#line:73
-            O0OOO00OO0OOOOOOO .BitBlt ((0 ,0 ),(OOOO0OOO00O0OOO0O ,OOO0OO00OOOOO00OO ),OOOOOOO00O00O00O0 ,(A [0 ],A [1 ]),win32con .SRCCOPY )#line:74
-            OOOOO0OOO00OOOOO0 =OOO0OOO00O0OO0000 .GetInfo ()#line:77
-            O0O00OOOOO0OOO00O =OOO0OOO00O0OO0000 .GetBitmapBits (True )#line:78
+            width =OO00O0OO0O0OOO000 [2 ]-OO00O0OO0O0OOO000 [0 ]#line:61
+            height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
+            targetWidth =A [2 ]-A [0 ]#line:72
+            targetHeight =A [3 ]-A [1 ]#line:73
+            winDc =win32gui .GetWindowDC (self .hwnd )#line:66
+            mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
+            saveDc =mfcDc .CreateCompatibleDC ()#line:68
+            saveBitMap =win32ui .CreateBitmap ()#line:69
+            saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+            saveDc .SelectObject (saveBitMap )#line:71
+
+            saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(A [0 ],A [1 ]),win32con .SRCCOPY )#line:74
+            OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
+            O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
             OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
             OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
             OOO0O00OO0O00OOOO =OOO00OOOOO0OO0O00 #line:83
@@ -96,10 +95,10 @@ class win ():#line:35
             cv2 .normalize (O0000OO00O00OOOOO ,O0000OO00O00OOOOO ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93
             O0000O00O00O0OO0O ,OOO000OO0OOOO0000 ,O00O00O0OO0OOOOOO ,O0OOOO00000OOOO00 =cv2 .minMaxLoc (O0000OO00O00OOOOO )#line:95
             OOOOO0OOOOOO0OOO0 =str (O0000O00O00O0OO0O )#line:99
-            win32gui .DeleteObject (OOO0OOO00O0OO0000 .GetHandle ())#line:111
-            OOOOOOO00O00O00O0 .DeleteDC ()#line:112
-            O0OOO00OO0OOOOOOO .DeleteDC ()#line:113
-            win32gui .ReleaseDC (OOO0O000000O0O0O0 .hwnd ,OOO0OOO000000OO00 )#line:114
+            win32gui .DeleteObject (saveBitMap.GetHandle ())#line:111
+            saveDc .DeleteDC ()#line:112
+            mfcDc .DeleteDC ()#line:113
+            win32gui .ReleaseDC (self.hwnd ,winDc)#line:114
             if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and O00O00O0OO0OOOOOO [0 ]!=0 and O00O00O0OO0OOOOOO [1 ]!=0 :#line:115
                 return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117
             else :#line:118
@@ -108,6 +107,7 @@ class win ():#line:35
             print("window_capture error, return 0,0")
             raise Exception("bitmap exception")
             return 0 ,0
+            
     def window_str (OOO0OOOOOOOOOO0O0 ,A =[0 ,0 ,0 ,0 ],bor =True ):#line:122
         O0O0O0OO000O000OO =win32gui .GetWindowRect (OOO0OOOOOOOOOO0O0 .hwnd )#line:128
         O0O0O0OO000O000OO =list (O0O0O0OO000O000OO )#line:129

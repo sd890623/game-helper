@@ -50,9 +50,9 @@ class Task:
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
             ocrCount = getOCRfromImageBlob(countImageBlob)
             findPlayerCountLk.release()
-        except:
+        except Exception as e:
             findPlayerCountLk.release()
-            raise Exception("error")      
+            raise e  
 
         if(x == 0 and y == 0):
             self.print("没打开人物列表？")
@@ -123,14 +123,16 @@ class Task:
         return self.findPlayerCountByType(self.exclamationRedPlayerType) < 1 and self.findPlayerCountByType(self.minusRedPlayerType) < 1 and self.findPlayerCountByType(self.whitePlayerType) < 1
     
     def checkSafeForMinutes(self, mins):
-        frequency = 20
+        frequency = 10
         totalSeconds = mins*60
+        # count=0
         while(self.isSafe() and totalSeconds > 0):
             time.sleep(frequency)
             totalSeconds -= frequency
+            #self.print("count:"+str(count))
+            #count+=1
         if(self.isSafe()==False):
             self.syncBetweenUsers = True
-
 
     def goOut(self):
         oreSiteCalibrater = random.randint(-70,70)

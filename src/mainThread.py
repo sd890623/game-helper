@@ -12,12 +12,11 @@ def runTask(hwnd, index):
     task = Task(hwnd, index)
     while(True):
         try:
-            #task.runTask()
             task.startMiningTask()
-        except:
+        except Exception as e:
             task.closeWindow()
             print("thread failed, stop")
-            return
+            raise(e)
         
 
 

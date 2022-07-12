@@ -106,7 +106,7 @@ class Task:
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(20+random.randint(0,25))
+        time.sleep(30+random.randint(0,25))
 
 
 
@@ -147,7 +147,16 @@ class Task:
         wait(lambda: self.simulatorInstance.click_point(858,184+oreSiteCalibrater))
         wait(lambda: self.simulatorInstance.click_point(657,240+oreSiteCalibrater))
         #点平衡器
-        wait(lambda: self.simulatorInstance.click_keyboard("4"), 55)
+        wait(lambda: self.simulatorInstance.click_keyboard("4"), 5)
+
+        duration = 60
+        while(self.isSafe() and duration > 0):
+            time.sleep(5)
+            duration -= 5
+        if(self.isSafe()==False):
+            self.syncBetweenUsers = True
+            return
+        
         #上滑至顶
         times = 25
         #todo solve foreground scroll 

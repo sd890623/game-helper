@@ -135,7 +135,7 @@ class Task:
             self.syncBetweenUsers = True
 
     def goOut(self):
-        oreSiteCalibrater = random.randint(-70,70)
+        oreSiteCalibrater = random.randint(-130,130)
         wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
         while(self.isPlayerInSite()):
             time.sleep(5)
@@ -144,8 +144,8 @@ class Task:
         wait(lambda: self.simulatorInstance.click_point(847,17,True))
         wait(lambda: self.simulatorInstance.click_point(878,376))
         self.print("点矿区y偏移量："+str(oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(891,172+oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(685,237+oreSiteCalibrater))
+        wait(lambda: self.simulatorInstance.click_point(858,184+oreSiteCalibrater))
+        wait(lambda: self.simulatorInstance.click_point(657,240+oreSiteCalibrater))
         #点平衡器
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 55)
         #上滑至顶

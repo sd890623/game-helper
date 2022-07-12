@@ -21,7 +21,7 @@ def runTask(hwnd, index):
 
 
 def main():
-    print("开工前todo list: 打开本地列表,v船到广角,检查快捷列表有无长字符")
+    print("开工前todo list: 打开本地列表,v船到广角,检查快捷列表有无长字符,改变战斗列表为名称排序")
     allWindowsWithTitle = getAllWindowsWithTitle("星战前夜：无烬星河 - MuMu模拟器")
     threads = []
     for index,window in enumerate(allWindowsWithTitle):

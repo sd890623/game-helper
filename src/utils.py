@@ -5,7 +5,7 @@ import threading
 
 def wait(func, seconds = 2):
     func()
-    time.sleep(seconds+random.randint(3,6))
+    time.sleep(seconds+random.randint(0,3))
 
 def getDateTimeString():
     now = datetime.now()

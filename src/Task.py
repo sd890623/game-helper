@@ -73,11 +73,11 @@ class Task:
         minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[927,525,996,593])
 
         if (cloneCenterX and not(minerX)):
-            return True
+            return "in"
         elif (minerX and not(cloneCenterX)):
-            return False
+            return "out"
         else:
-            return True
+            return "middle"
         
 
     def startMiningTask(self):
@@ -106,14 +106,14 @@ class Task:
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(30+random.randint(0,10))
+        time.sleep(20+random.randint(0,25))
 
 
 
     def stockOre(self):
         wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
-        wait(lambda: self.simulatorInstance.click_point(86,430,True), 8)
-        wait(lambda: self.simulatorInstance.click_keyboard("E"), 4)
+        wait(lambda: self.simulatorInstance.click_point(86,430,True), 10)
+        wait(lambda: self.simulatorInstance.click_keyboard("E"), 5)
         wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
         wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)
         wait(lambda: self.simulatorInstance.click_point(961,31), 2)
@@ -137,9 +137,9 @@ class Task:
     def goOut(self):
         oreSiteCalibrater = random.randint(-130,130)
         wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
-        while(self.isPlayerInSite()):
+        while(self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle"):
             time.sleep(5)
-        time.sleep(25)
+        time.sleep(20)
         wait(lambda: self.simulatorInstance.click_point(961,350))
         wait(lambda: self.simulatorInstance.click_point(847,17,True))
         wait(lambda: self.simulatorInstance.click_point(878,376))
@@ -172,9 +172,9 @@ class Task:
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)
         wait(lambda: self.simulatorInstance.click_point(206,182))
 
-        while(not(self.isPlayerInSite())):
+        while(self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle"):
              time.sleep(5)
-
+        time.sleep(10)
 
     def passOre(self):
         if(not(self.isSafe())):
@@ -182,14 +182,14 @@ class Task:
             time.sleep(30)
             return
         wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
-        while(self.isPlayerInSite()):
+        while(self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle"):
             time.sleep(5)
         time.sleep(15)
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
         wait(lambda: self.simulatorInstance.click_point(131,186),4)
         wait(lambda: self.simulatorInstance.click_point(204,231),4)
         time.sleep(15)
-        while(not(self.isPlayerInSite())):
+        while(self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle"):
              time.sleep(5)
         time.sleep(15)
 
@@ -219,7 +219,7 @@ class Task:
         wait(lambda: self.simulatorInstance.click_point(915,456))
 
         time.sleep(15)
-        while(not(self.isPlayerInSite())):
+        while(self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle"):
              time.sleep(5)
         time.sleep(15)
 

@@ -21,10 +21,10 @@ print("Time: ", dt_string)
 
 
 
-task = Task(198478, 0)
+task = Task(68780, 0)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
-task.checkSafeForMinutes(15)
+task.startMiningTask()
 
 
 

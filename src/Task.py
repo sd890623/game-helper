@@ -135,17 +135,18 @@ class Task:
             self.syncBetweenUsers = True
 
     def goOut(self):
-        oreSiteCalibrater = random.randint(-130,130)
+        minerYDiff=56
+        oreSiteCalibrater = random.randint(-2,2)
         wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
         while(self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle"):
             time.sleep(5)
         time.sleep(20)
-        wait(lambda: self.simulatorInstance.click_point(961,350))
+        wait(lambda: self.simulatorInstance.click_point(961,350),4)
         wait(lambda: self.simulatorInstance.click_point(847,17,True))
-        wait(lambda: self.simulatorInstance.click_point(878,376))
+        wait(lambda: self.simulatorInstance.click_point(878,376),4)
         self.print("点矿区y偏移量："+str(oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(858,184+oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(657,240+oreSiteCalibrater))
+        wait(lambda: self.simulatorInstance.click_point(855,178+oreSiteCalibrater*minerYDiff),4)
+        wait(lambda: self.simulatorInstance.click_point(653,243+oreSiteCalibrater*minerYDiff,4))
         #点平衡器
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 5)
 
@@ -170,6 +171,7 @@ class Task:
         wait(lambda: self.simulatorInstance.click_keyboard("r"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("t"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("y"), 1)
+        wait(lambda: self.simulatorInstance.click_keyboard("6"), 1)
 
     def goHome(self):
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)

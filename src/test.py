@@ -11,21 +11,20 @@ allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - Media-PC")
 if (len(allWindowsWithTitle) > id):
     hwndObject = allWindowsWithTitle[id]
 
-print(allWindowsWithTitle)    
-
-now = datetime.now()
-dt_string = now.strftime("%d %H:%M:%S")
-print("Time: ", dt_string)
+print(allWindowsWithTitle) 
 
 
 
 
+task = UWTask(2625692, 0)
+# task.market()
 
-task = UWTask(198518, 0)
-# task.startJourney()
-
-while(True):
-    task.startJourney()
+try:
+    while(True):
+        task.startJourney()
+except Exception as e:
+    print(e)
+    
 
 
 

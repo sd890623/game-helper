@@ -3,18 +3,17 @@ import random
 from datetime import datetime
 import threading
 
-def wait(func, seconds = 5):
+def wait(func, seconds = 3):
     func()
-    time.sleep(seconds+random.randint(0,3))
+    time.sleep(seconds+random.uniform(0,1))
 
-def doMoreTimesWithWait(func, times=1, seconds=3):
+def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
     while(times>0):
         func()
         time.sleep(seconds)
         times-=1
-    time.sleep(random.randint(0,3))
 
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 5):
+def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
     wait(func, seconds)
     timeout = 60
     while(not(untilFunc()) and timeout >0):

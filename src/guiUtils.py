@@ -45,6 +45,41 @@ class win ():#line:35
         else :#line:50
             OO00OO0O00O0OOO0O .hwnd =OO0OOO0O0OOOO0O0O #line:51
 
+
+    def outputWindowScreenshotV2(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
+        left, top, right, bot = win32gui.GetWindowRect(self .hwnd )#line:58
+        w = right - left
+        h = bot - top
+        targetWidth =A [2 ]-A [0 ]#line:72
+        targetHeight =A [3 ]-A [1 ]#line:73
+        if(targetHeight == 0 and targetWidth == 0):
+            targetWidth=w
+            targetHeight=h
+        win32gui.SetForegroundWindow(self .hwnd)
+        time.sleep(0.5)
+
+        hdesktop = win32gui.GetDesktopWindow()
+        winDc =win32gui .GetWindowDC (hdesktop)#line:66
+        mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
+        saveDc =mfcDc .CreateCompatibleDC ()#line:68
+        saveBitMap =win32ui .CreateBitmap ()#line:69
+        saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+        saveDc .SelectObject (saveBitMap )#line:71
+
+        saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(left+A[0], top+A[1]),win32con .SRCCOPY )#line:74
+        OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
+        O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
+        OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
+        OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
+
+        mfcDc.DeleteDC()
+        saveDc.DeleteDC()
+        win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
+        win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
+
+        return OOO00OOOOO0OO0O00
+
+
     def output_window_screenshot(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
         OO00O0OO0O0OOO000 =win32gui .GetWindowRect (self .hwnd )#line:58
         OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
@@ -52,6 +87,9 @@ class win ():#line:35
         height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
         targetWidth =A [2 ]-A [0 ]#line:72
         targetHeight =A [3 ]-A [1 ]#line:73
+        if(targetHeight == 0 and targetWidth == 0):
+            targetWidth=width
+            targetHeight=height
         winDc =win32gui .GetWindowDC (self .hwnd )#line:66
         mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
         saveDc =mfcDc .CreateCompatibleDC ()#line:68
@@ -81,6 +119,9 @@ class win ():#line:35
             height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
             targetWidth =A [2 ]-A [0 ]#line:72
             targetHeight =A [3 ]-A [1 ]#line:73
+            if(targetHeight == 0 and targetWidth == 0):
+                targetWidth=width
+                targetHeight=height
             winDc =win32gui .GetWindowDC (self .hwnd )#line:66
             mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
             saveDc =mfcDc .CreateCompatibleDC ()#line:68

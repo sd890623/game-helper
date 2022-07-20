@@ -1,5 +1,5 @@
 from windows import *
-from Task import Task
+from UWTask import UWTask
 from datetime import datetime
 
 
@@ -7,7 +7,7 @@ yBuffer = 36
 
 hwndObject = None
 id = 0
-allWindowsWithTitle = getAllWindowsWithTitle("星战前夜：无烬星河 - MuMu模拟器")
+allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - Media-PC")
 if (len(allWindowsWithTitle) > id):
     hwndObject = allWindowsWithTitle[id]
 
@@ -21,10 +21,11 @@ print("Time: ", dt_string)
 
 
 
-task = Task(68780, 0)
-#print(task.clickOnTestPic())
-#print(task.findPlayerCountByType(Task.whitePlayerType))
-task.startMiningTask()
+task = UWTask(198518, 0)
+# task.startJourney()
+
+while(True):
+    task.startJourney()
 
 
 

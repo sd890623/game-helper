@@ -18,7 +18,7 @@ class Task:
         self.hwnd = hwnd
         self.index = index
         hwndObject = getWindowHwndObjectById(hwnd)
-        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"])
+        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def runTask(self):
         count = 1

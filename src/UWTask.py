@@ -37,7 +37,7 @@ class UWTask:
             x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath)
 
             if(x and y):
-                self.print(x+A[0],y+A[1])
+                print(x+A[0],y+A[1])
                 return (x+A[0],y+A[1])
             else:
                 return False
@@ -157,7 +157,7 @@ class UWTask:
         continueWithUntilBy(lambda: self.inJourneyTask(), lambda: self.inCityList(), 9)
 
     def checkForGiftAndReceive(self):
-        if(self.hasImageInScreen("redDot", A=[1329,13,1355,31])):
+        if(self.hasImageInScreen("redDot", A=[1333,13,1350,26])):
             wait(lambda: self.simulatorInstance.click_point(1324,33),2)
             wait(lambda: self.simulatorInstance.click_point(470,626),2)
 

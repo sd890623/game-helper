@@ -6,7 +6,7 @@ import time
 import random
 import cv2
 
-cityNames = ["syracuse", "naples", "pisa", "genoa", "marseille", "montpellier", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi"]
+cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi"]
 
 class UWTask:
 
@@ -15,7 +15,7 @@ class UWTask:
     hwnd = None
     simulatorInstance = None
     syncBetweenUsers = True
-    currentCity = "syracuse"
+    currentCity = "marseille"
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -125,6 +125,10 @@ class UWTask:
         self.print("补给")
         wait(lambda: self.simulatorInstance.click_point(1465,385),1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1465,385), lambda: self.hasSingleLineWordsInArea("supply", A=[54,17,142,55]),1)
+
+        if(self.hasSingleLineWordsInArea("o", A=[990,394,1003,408])):
+            wait(lambda: self.simulatorInstance.click_point(23,27),1)
+            return
         # Destroy excess
         # wait(lambda: self.simulatorInstance.click_point(662,398))
         # wait(lambda: self.simulatorInstance.click_point(1132,750))
@@ -181,7 +185,7 @@ class UWTask:
         wait(lambda: self.simulatorInstance.click_point(40,146),0.2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(40,146), lambda: self.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
           
-        count=7
+        count=11
         while(count>0):
             position=self.simulatorInstance.window_capture_v2(coinPath, A=[172,99,1192,370])
             if(self.hasSingleLineWordsInArea("noitemtosell", A=[623,444,737,469])):
@@ -200,13 +204,14 @@ class UWTask:
                 
 
         #buy
+        count=11
         wait(lambda: self.simulatorInstance.click_point(54,88),0.2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(54,88), lambda: self.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
-        while(True):
+        while(count>0):
             if(self.hasSingleLineWordsInArea("max", A=[1212,126,1265,139])):
                 break
             position=self.simulatorInstance.window_capture_v2(coinPath, A=[172,99,1192,370])
-
+            count-=1
             if(position):
                 print("buy item x")
                 wait(lambda: self.simulatorInstance.click_point(position[0], position[1]),0.2)  

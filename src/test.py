@@ -16,8 +16,8 @@ print(allWindowsWithTitle)
 
 
 
-task = UWTask(2625692, 0)
-# task.market()
+task = UWTask(722778, 0)
+# task.inCityList()
 
 try:
     while(True):

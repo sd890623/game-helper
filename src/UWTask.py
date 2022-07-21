@@ -1,6 +1,7 @@
 from windows import *
 from images import *
 from utils import *
+from Market import Market
 import guiUtils
 import time
 import random
@@ -26,7 +27,7 @@ class UWTask:
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"anchor"+".bmp")
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         self.saveImageToFile(screenshotBlob)
-        print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath))
+        self.print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath))
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0]):
         imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
@@ -36,7 +37,7 @@ class UWTask:
             x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath)
 
             if(x and y):
-                print(x+A[0],y+A[1])
+                self.print(x+A[0],y+A[1])
                 return (x+A[0],y+A[1])
             else:
                 return False
@@ -50,19 +51,19 @@ class UWTask:
         targetHeigh, targetWidth, channel = targetImage.shape
         position=self.simulatorInstance.window_capture_v2(imagePath, A)
         if(position):
-            #print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
+            #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.click_point(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 
     def hasSingleLineWordsInArea(self, words, A=[0,0,0,0]):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            self.saveImageToFile(screenshotBlob)
+            #self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob)
             if(len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
             
-            print(words +" in "+ str)
+            self.print(words +" in "+ str)
             return words in str.lower()
         except Exception as e:
             print(e)    
@@ -76,7 +77,7 @@ class UWTask:
             if(len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
-            print(" ocred city: "+ str)
+            self.print(" ocred city: "+ str)
             for city in cityNames:
                 if(city in str.lower()):
                     self.currentCity = city
@@ -93,7 +94,7 @@ class UWTask:
             nextCityName=cityNames[0]
         else:
             nextCityName = cityNames[index+1]
-        print(nextCityName)
+        self.print(nextCityName)
 
         #firstCityPosi in list 1314,231,1364,249
         #height between 47.4
@@ -175,50 +176,19 @@ class UWTask:
 
     def market(self):
         self.print("去超市")
+        #mem overflow?
+        market=Market(self.simulatorInstance, self)
+
         doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1366,91),2)  
         wait(lambda: self.simulatorInstance.click_point(1329,268),1)      
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1329,268), lambda: self.hasSingleLineWordsInArea("market", A=[54,17,142,55]))
-        
-        coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
         #sell
-        wait(lambda: self.simulatorInstance.click_point(40,146),0.2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(40,146), lambda: self.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
-          
-        count=11
-        while(count>0):
-            position=self.simulatorInstance.window_capture_v2(coinPath, A=[172,99,1192,370])
-            if(self.hasSingleLineWordsInArea("noitemtosell", A=[623,444,737,469])):
-                break
-            else:
-                print("sell item x")
-                count-=1
-                wait(lambda: self.simulatorInstance.click_point(position[0], position[1]),0.2)
-                if(self.hasSingleLineWordsInArea("-", A=[1401,761,1469,782])):
-                    self.clickWithImage("crossInSell", A=[1203,94,1274,131])
-                    continue  
-                wait(lambda: self.simulatorInstance.click_point(1398,808),1)
-                wait(lambda: self.simulatorInstance.click_point(809,658))
-                self.bargin()
-                doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(809,658),3,1) 
+        market.sellV1()
                 
-
         #buy
-        count=11
-        wait(lambda: self.simulatorInstance.click_point(54,88),0.2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(54,88), lambda: self.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
-        while(count>0):
-            if(self.hasSingleLineWordsInArea("max", A=[1212,126,1265,139])):
-                break
-            position=self.simulatorInstance.window_capture_v2(coinPath, A=[172,99,1192,370])
-            count-=1
-            if(position):
-                print("buy item x")
-                wait(lambda: self.simulatorInstance.click_point(position[0], position[1]),0.2)  
-                wait(lambda: self.simulatorInstance.click_point(1398,808),1)
-                wait(lambda: self.simulatorInstance.click_point(809,658))
-                self.bargin()
-                doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(809,658),3,1) 
+        market.buyV1()
+
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1470,34), lambda: self.inCityList())        
 
 

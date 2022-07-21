@@ -20,7 +20,12 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
         time.sleep(frequency)
         timeout-=frequency
     if(timeout<=0):
-        func()
+        wait(lambda: func())
+        if(untilFunc()):
+            return
+        wait(lambda: func())
+        if(untilFunc()):
+            return
     time.sleep(frequency)
         
 def continueWithUntilBy(func, untilFunc, frequency = 5):

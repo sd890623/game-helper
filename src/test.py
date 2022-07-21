@@ -14,10 +14,11 @@ if (len(allWindowsWithTitle) > id):
 print(allWindowsWithTitle) 
 
 
-
+# mouse=FrontWindow()
+# mouse.mouseClick(1398,162)
 
 task = UWTask(722778, 0)
-task.targetCity="benghazi"
+# task.targetCity="benghazi"
 task.playNotification()
 task.setCurrentCityFromScreen()
 try:

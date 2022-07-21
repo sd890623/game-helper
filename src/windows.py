@@ -1,8 +1,9 @@
-import sys 
+import time
 import win32gui
 import win32con
 import cv2
 import os 
+import win32api
 
 
 def get_all_windows():
@@ -95,6 +96,19 @@ def getWholeScreenshot():
         im.save("test.png")
 
 
+class FrontWindow():
+    # def __init__(self):
+        
+    def mouseMove(self, x,y):
+        win32api.SetCursorPos((x,y))
+    
+    def mouseClick(self,x,y):
+        self.mouseMove(x,y)
+        time.sleep(0.03)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0,0,0,0)
+        time.sleep(0.03)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0,0,0,0)
 
 
+    
 

@@ -9,7 +9,7 @@ import cv2
 from playsound import playsound
 
 
-cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi", "candia", "athens"]
+cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis"]
 
 class UWTask:
 

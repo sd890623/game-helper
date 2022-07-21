@@ -2,6 +2,7 @@ import cv2
 from cnocr import CnOcr
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-")
+numberOcr=CnOcr(cand_alphabet="1234567890-()")
 def getCoordinateByScreenshotTarget(screenshotBlob, imagePath):
     targetImage = cv2.imread(imagePath)
     targetHeigh, targetWidth, channel = targetImage.shape
@@ -32,7 +33,25 @@ def get_grayscale(image):
 def remove_noise(image):
     return cv2.medianBlur(image,5)
 
-def getOCRfromImageBlob(imageBlob):
+def getOCRfromImageBlob(imageBlob, ocrType=1):
     #gray = get_grayscale(imageBlob)
-    res = ocr.ocr_for_single_line(imageBlob)
+    ocrInstance=None
+    if(ocrType==1):
+        ocrInstance=ocr
+    elif(ocrType==2):
+        ocrInstance=numberOcr
+    res = ocrInstance.ocr_for_single_line(imageBlob)
     return res
+
+def getNumberfromImageBlob(imageBlob):
+    #gray = get_grayscale(imageBlob)
+    try:
+        res = numberOcr.ocr_for_single_line(imageBlob)
+        if(len(res[0]) == 0):
+            return False
+        str = "".join(res[0])
+        print("ocred number: "+ str)
+        return int(str)
+    except Exception as e:
+        print(e)    
+        return False       

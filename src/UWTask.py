@@ -7,7 +7,7 @@ import time
 import random
 import cv2
 
-cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi"]
+cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi", "candia", "athens"]
 
 class UWTask:
 
@@ -16,7 +16,7 @@ class UWTask:
     hwnd = None
     simulatorInstance = None
     syncBetweenUsers = True
-    currentCity = "marseille"
+    currentCity = "naples"
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -24,10 +24,10 @@ class UWTask:
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def runTask(self):        
-        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"anchor"+".bmp")
-        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
+        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"redLock"+".bmp")
+        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A=[512, 200, 622, 235])
         self.saveImageToFile(screenshotBlob)
-        self.print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath))
+        print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0]):
         imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
@@ -54,11 +54,11 @@ class UWTask:
             #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.click_point(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 
-    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0]):
+    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             #self.saveImageToFile(screenshotBlob)
-            ocrObj = getOCRfromImageBlob(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
@@ -67,7 +67,12 @@ class UWTask:
             return words in str.lower()
         except Exception as e:
             print(e)    
-            return False         
+            return False      
+    
+    def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
+        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+        self.saveImageToFile(screenshotBlob)
+        return getNumberfromImageBlob(screenshotBlob)
 
     def inCityList(self):
         try:
@@ -103,7 +108,7 @@ class UWTask:
         index=0
         found=False
         while(not(found)):
-            time.sleep(1)
+            # time.sleep(1)
             yDiff=int(index%10*52.7)
             if(self.hasSingleLineWordsInArea(nextCityName, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
                 found=True
@@ -184,10 +189,11 @@ class UWTask:
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1329,268), lambda: self.hasSingleLineWordsInArea("market", A=[54,17,142,55]))
 
         #sell
-        market.sellV1()
+        market.sellV3()
+        time.sleep(2)
                 
         #buy
-        market.buyV1()
+        market.buyV2()
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1470,34), lambda: self.inCityList())        
 

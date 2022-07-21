@@ -17,7 +17,7 @@ print(allWindowsWithTitle)
 
 
 task = UWTask(722778, 0)
-task.waitForCity()
+# task.market()
 
 try:
     while(True):

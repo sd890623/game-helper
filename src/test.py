@@ -17,8 +17,9 @@ print(allWindowsWithTitle)
 
 
 task = UWTask(722778, 0)
-# task.market()
-
+task.targetCity="benghazi"
+task.playNotification()
+task.setCurrentCityFromScreen()
 try:
     while(True):
         task.startJourney()

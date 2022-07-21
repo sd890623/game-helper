@@ -134,7 +134,7 @@ class Market:
         while (index<9):
             xDiff=int(index%9*112.3)
             index+=1
-            if(self.uwtask.hasSingleLineWordsInArea("-", A=[212+xDiff,210,270+xDiff,224], ocrType=2)):
+            if(self.uwtask.hasSingleLineWordsInArea("-", A=[217+xDiff,210,275+xDiff,224], ocrType=2)):
                 continue
             wait(lambda: self.instance.click_point(228+xDiff,218),0.2)
         wait(lambda: self.instance.click_point(1398,808),1)

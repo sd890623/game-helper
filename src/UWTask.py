@@ -6,6 +6,8 @@ import guiUtils
 import time
 import random
 import cv2
+from playsound import playsound
+
 
 cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis", "tripoli", "benghazi", "candia", "athens"]
 
@@ -17,6 +19,7 @@ class UWTask:
     simulatorInstance = None
     syncBetweenUsers = True
     currentCity = "naples"
+    targetCity=None
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -33,7 +36,7 @@ class UWTask:
         imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            self.saveImageToFile(screenshotBlob)
+            #self.saveImageToFile(screenshotBlob)
             x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath)
 
             if(x and y):
@@ -71,7 +74,7 @@ class UWTask:
     
     def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        self.saveImageToFile(screenshotBlob)
+        #self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
 
     def inCityList(self):
@@ -91,6 +94,21 @@ class UWTask:
         except Exception as e:
             print(e)    
             return False      
+
+    def setCurrentCityFromScreen(self):
+        self.inCityList()
+
+    def checkReachingPlace(self):
+        if(self.targetCity==self.currentCity):
+            self.playNotification()
+            time.sleep(300)
+
+    def playNotification(self):
+        soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
+        #print(soundPath)
+        #playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
+        playsound(soundPath)
+
 
     def findNextCityAndClick(self):
         index=cityNames.index(self.currentCity)
@@ -147,7 +165,7 @@ class UWTask:
 
     def selectCity(self):
         self.print("选城市")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1364,91),2)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1364,91),2,1)
         #2nd city
         self.findNextCityAndClick()
 
@@ -208,6 +226,7 @@ class UWTask:
         self.selectCity()
         self.waitForCity()
         self.market()
+        self.checkReachingPlace()
         time.sleep(random.randint(1,5))
 
     def saveImageToFile(self,imageBlob):

@@ -112,8 +112,7 @@ class Task:
 
     def stockOre(self):
         wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
-        wait(lambda: self.simulatorInstance.click_point(194,346,True),4)
-        wait(lambda: self.simulatorInstance.click_point(103,514,True), 10)
+        wait(lambda: self.simulatorInstance.click_point(86,430,True), 10)
         wait(lambda: self.simulatorInstance.click_keyboard("E"), 5)
         wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
         wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)

@@ -7,7 +7,7 @@ yBuffer = 36
 
 hwndObject = None
 id = 0
-allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - Media-PC")
+allWindowsWithTitle = getAllWindowsWithTitle("Chrome Legacy Window")
 if (len(allWindowsWithTitle) > id):
     hwndObject = allWindowsWithTitle[id]
 
@@ -17,8 +17,8 @@ print(allWindowsWithTitle)
 # mouse=FrontWindow()
 # mouse.mouseClick(1398,162)
 
-task = UWTask(722778, 0)
-# task.targetCity="benghazi"
+task = UWTask(329662, 0)
+# task.targetCity="ceuta"
 task.playNotification()
 task.setCurrentCityFromScreen()
 try:

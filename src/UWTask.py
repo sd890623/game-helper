@@ -9,7 +9,7 @@ import cv2
 from playsound import playsound
 
 
-cityNames = ["syracuse", "naples", "pisa", "genoa", "calvi", "marseille", "palma", "valencia", "algiers", "sassari", "cagliari", "tunis"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "palma", "valencia", "malaga", "seville", "faro", "lisbon", "ceuta", "algiers", "cagliari","sassari"]
 
 class UWTask:
 
@@ -106,8 +106,8 @@ class UWTask:
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
         #print(soundPath)
-        #playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
-        playsound(soundPath)
+        playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
+        #playsound(soundPath)
 
 
     def findNextCityAndClick(self):

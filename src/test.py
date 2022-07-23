@@ -17,7 +17,8 @@ print(allWindowsWithTitle)
 # mouse=FrontWindow()
 # mouse.mouseClick(1398,162)
 
-task = UWTask(329662, 0)
+task = UWTask(197936, 0)
+# task.waitForCity()
 # task.targetCity="ceuta"
 task.playNotification()
 task.setCurrentCityFromScreen()

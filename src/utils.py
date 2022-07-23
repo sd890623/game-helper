@@ -34,6 +34,20 @@ def continueWithUntilBy(func, untilFunc, frequency = 5):
         time.sleep(frequency)
     time.sleep(frequency)
 
+def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, backupFunc=lambda: False):
+    while(not(untilFunc()) and timeout>0):
+        func()
+        time.sleep(frequency)
+        timeout-=frequency
+    if(timeout<=0):
+        wait(backupFunc,10)
+        if(untilFunc()):
+            return
+        wait(backupFunc,10)
+        if(untilFunc()):
+            return
+    time.sleep(frequency)
+
 def getDateTimeString():
     now = datetime.now()
     dt_string = now.strftime("%d %H:%M:%S")

@@ -18,7 +18,7 @@ class UWTask:
     hwnd = None
     simulatorInstance = None
     syncBetweenUsers = True
-    currentCity = "naples"
+    currentCity = "palma"
     targetCity=None
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
@@ -177,7 +177,10 @@ class UWTask:
     def waitForCity(self):
         self.print("航行中")
         #click on "move immediately continusly"
-        continueWithUntilBy(lambda: self.inJourneyTask(), lambda: self.inCityList(), 9)
+        def backupFunc():
+            wait(self.selectCity, 15)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1310,786),3,15)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 9, timeout=240, backupFunc=backupFunc)
 
     def checkForGiftAndReceive(self):
         if(self.hasImageInScreen("redDot", A=[1333,13,1350,26])):

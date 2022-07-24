@@ -2,6 +2,7 @@ from windows import *
 from images import *
 from utils import *
 from Market import Market
+from Sb import Sb
 import guiUtils
 import time
 import random
@@ -10,11 +11,15 @@ from playsound import playsound
 
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "palma", "valencia", "malaga", "seville", "faro", "lisbon", "ceuta", "algiers", "cagliari","sassari"]
-rightCatePoint1=1095,88
-rightCatePoint2=1144,85
+
 
 class UWTask:
-
+    rightCatePoint1=1095,88
+    rightCatePoint2=1144,85
+    titleArea=[54,8,201,47]
+    rightTopTownIcon=1249,26
+    inTownCityNameArea=[116,18,222,44]
+    inScreenConfirmYesButton=978,673
     #window size: 1280x768, vmware inside window size
 
     hwnd = None
@@ -84,7 +89,7 @@ class UWTask:
 
     def inCityList(self):
         try:
-            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A=[110,25,236,52])
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A=self.inTownCityNameArea)
             #self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob)
             if(len(ocrObj[0]) == 0):
@@ -114,6 +119,8 @@ class UWTask:
         playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
 
+    def bringWindowToFront(self):
+        self.simulatorInstance.outputWindowScreenshotV2()
 
     def findNextCityAndClick(self):
         index=cityNames.index(self.currentCity)
@@ -141,19 +148,15 @@ class UWTask:
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%10*52.7)), 2)
     
         
-    # 1318,90, 1st point
-    # 1366,91, 2nd point
-    # 110,25,236,52 in harbor city name area
-    # 54,17,142,55 title area, Harbor/Supply,etc
     def goToHarbor(self):
         self.print("去码头")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*rightCatePoint2),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1104,244), lambda: self.hasSingleLineWordsInArea("harbor", A=[54,17,142,55]))
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1104,244), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea))
     
     def restock(self):
         self.print("补给")
         wait(lambda: self.simulatorInstance.clickPointV2(1465,385),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1465,385), lambda: self.hasSingleLineWordsInArea("supply", A=[54,17,142,55]),1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1465,385), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1)
 
         if(self.hasSingleLineWordsInArea("o", A=[990,394,1003,408])):
             wait(lambda: self.simulatorInstance.clickPointV2(23,27),1)
@@ -212,7 +215,7 @@ class UWTask:
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1366,91),2)  
         wait(lambda: self.simulatorInstance.clickPointV2(1329,268),1)      
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,268), lambda: self.hasSingleLineWordsInArea("market", A=[54,17,142,55]))
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,268), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea))
 
         #sell
         market.sellV3()
@@ -222,6 +225,18 @@ class UWTask:
         market.buyV2()
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1470,34), lambda: self.inCityList())        
+
+    def shipBuilding(self):
+        self.print("SB 开始")
+        sb=Sb(self.simulatorInstance, self)
+        time=45000      
+        while(time>0):
+            sb.pickup()
+            sb.dismantle()
+            sb.build()
+            time-=1500
+            self.print("一轮完成，开始等25分")
+            time.sleep(1500)
 
 
     def print(self,text):

@@ -1,4 +1,3 @@
-import pyautogui
 import pydirectinput
 import time
 

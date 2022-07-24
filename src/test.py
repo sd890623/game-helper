@@ -18,15 +18,15 @@ print(allWindowsWithTitle)
 # mouse.mouseClick(1398,162)
 
 task = UWTask(2952126, 0)
-task.runTask()
+# task.runTask()
 # # task.targetCity="ceuta"
-# task.playNotification()
-# task.setCurrentCityFromScreen()
-# try:
-#     while(True):
-#         task.startJourney()
-# except Exception as e:
-#     print(e)
+task.playNotification()
+task.setCurrentCityFromScreen()
+try:
+    while(True):
+        task.startJourney()
+except Exception as e:
+    print(e)
     
 
 

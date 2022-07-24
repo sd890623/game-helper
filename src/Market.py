@@ -15,8 +15,8 @@ class Market:
     
     def buyV1(self):
         count=11
-        wait(lambda: self.instance.click_point(54,88),1)
-        doAndWaitUntilBy(lambda: self.instance.click_point(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
+        wait(lambda: self.instance.clickPointV2(54,88),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
         while(count>0):
             if(self.uwtask.hasSingleLineWordsInArea("max", A=[1212,126,1265,139])):
                 break
@@ -24,16 +24,16 @@ class Market:
             count-=1
             if(position):
                 self.uwtask.print("buy item x")
-                wait(lambda: self.instance.click_point(position[0], position[1]),0.2)  
-                wait(lambda: self.instance.click_point(1398,808),1)
-                wait(lambda: self.instance.click_point(809,658))
+                wait(lambda: self.instance.clickPointV2(position[0], position[1]),0.2)  
+                wait(lambda: self.instance.clickPointV2(1398,808),1)
+                wait(lambda: self.instance.clickPointV2(809,658))
                 self.uwtask.bargin()
-                doMoreTimesWithWait(lambda: self.instance.click_point(809,658),3,1) 
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1) 
 
     def sellV1(self):
         count=11
-        wait(lambda: self.instance.click_point(40,146),1)
-        doAndWaitUntilBy(lambda: self.instance.click_point(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
+        wait(lambda: self.instance.clickPointV2(40,146),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
         while(count>0):
             position=self.instance.window_capture_v2(coinPath, A=[172,99,1192,370])
             if(self.uwtask.hasSingleLineWordsInArea("noitemtosell", A=[623,444,737,469])):
@@ -41,14 +41,14 @@ class Market:
             else:
                 self.uwtask.print("sell item x")
                 count-=1
-                wait(lambda: self.instance.click_point(position[0], position[1]),0.2)
+                wait(lambda: self.instance.clickPointV2(position[0], position[1]),0.2)
                 if(self.uwtask.hasSingleLineWordsInArea("-", A=[1401,761,1469,782], ocrType=2)):
                     self.uwtask.clickWithImage("crossInSell", A=[1203,94,1274,131])
                     continue  
-                wait(lambda: self.instance.click_point(1398,808),1)
-                wait(lambda: self.instance.click_point(809,658))
+                wait(lambda: self.instance.clickPointV2(1398,808),1)
+                wait(lambda: self.instance.clickPointV2(809,658))
                 self.uwtask.bargin()
-                doMoreTimesWithWait(lambda: self.instance.click_point(809,658),3,1)     
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1)     
 
 
     #             x   y    x   y
@@ -62,8 +62,8 @@ class Market:
         end=False
         buyList=[]
 
-        wait(lambda: self.instance.click_point(54,88),1)
-        doAndWaitUntilBy(lambda: self.instance.click_point(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
+        wait(lambda: self.instance.clickPointV2(54,88),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=[54,17,142,55]), 1)        
 
         #Loop through and find what can be bought
         while (index<15 and end==False):
@@ -90,17 +90,17 @@ class Market:
             xDiff=int(index%9*112.3)
             yDiff=(0 if (index<9) else 1)*131
             self.uwtask.print("buy item "+str(index))
-            wait(lambda: self.instance.click_point(228+xDiff,218+yDiff),0.2)
+            wait(lambda: self.instance.clickPointV2(228+xDiff,218+yDiff),0.2)
         
-        wait(lambda: self.instance.click_point(1398,808),1)
-        wait(lambda: self.instance.click_point(809,658))
+        wait(lambda: self.instance.clickPointV2(1398,808),1)
+        wait(lambda: self.instance.clickPointV2(809,658))
         self.uwtask.bargin()
-        doMoreTimesWithWait(lambda: self.instance.click_point(809,658),3,1)  
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1)  
         self.uwtask.print("buy fin")
            
     def sellV2(self):
-        wait(lambda: self.instance.click_point(40,146),1)
-        doAndWaitUntilBy(lambda: self.instance.click_point(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
+        wait(lambda: self.instance.clickPointV2(40,146),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
 
         moveIndex=0
         moveEnd=False
@@ -114,19 +114,19 @@ class Market:
                     moveEnd=True
                     break
                 self.uwtask.print("sell item x")
-                wait(lambda: self.instance.click_point(228+xDiff,218),0.2)
+                wait(lambda: self.instance.clickPointV2(228+xDiff,218),0.2)
                 if(self.uwtask.hasSingleLineWordsInArea("-", A=[1401,761,1469,782], ocrType=2)):
                     self.uwtask.clickWithImage("crossInSell", A=[1203,94,1274,131])
                     break
-                wait(lambda: self.instance.click_point(1398,808),1)
-                wait(lambda: self.instance.click_point(809,658))
+                wait(lambda: self.instance.clickPointV2(1398,808),1)
+                wait(lambda: self.instance.clickPointV2(809,658))
                 self.uwtask.bargin()
-                doMoreTimesWithWait(lambda: self.instance.click_point(809,658),3,1)    
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1)    
         self.uwtask.print("sell fin")
 
     def sellV3(self):
-        wait(lambda: self.instance.click_point(40,146),1)
-        doAndWaitUntilBy(lambda: self.instance.click_point(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
+        wait(lambda: self.instance.clickPointV2(40,146),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(40,146), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
         
         index=0
         #Loop through and find what can be bought
@@ -136,9 +136,9 @@ class Market:
             index+=1
             if(self.uwtask.hasSingleLineWordsInArea("-", A=[217+xDiff,210,275+xDiff,224], ocrType=2)):
                 continue
-            wait(lambda: self.instance.click_point(228+xDiff,218),0.2)
-        wait(lambda: self.instance.click_point(1398,808),1)
-        wait(lambda: self.instance.click_point(809,658))
+            wait(lambda: self.instance.clickPointV2(228+xDiff,218),0.2)
+        wait(lambda: self.instance.clickPointV2(1398,808),1)
+        wait(lambda: self.instance.clickPointV2(809,658))
         self.uwtask.bargin()
-        doMoreTimesWithWait(lambda: self.instance.click_point(809,658),3,1) 
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1) 
         self.uwtask.print("sell fin")

@@ -28,9 +28,12 @@ class UWTask:
 
     def runTask(self):        
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"redLock"+".bmp")
-        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A=[512, 200, 622, 235])
+        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         self.saveImageToFile(screenshotBlob)
-        print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
+
+        wait(lambda: self.simulatorInstance.click_point(54,55),1)
+
+        #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0]):
         imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")

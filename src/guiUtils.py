@@ -11,6 +11,7 @@ import base64 #line:10
 import operator #line:11
 import requests #line:12
 import easyocr #line:13
+import pydirectinput
 from PIL import Image #line:23
 
 def base642Str (OOO0OOOOOOOO0000O ):#line:16
@@ -311,6 +312,25 @@ class win ():#line:35
         long_position = win32api.MAKELONG(xRandom, yRandom)
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,win32con.MK_LBUTTON , long_position);#line:229
+    def clickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        pydirectinput.leftClick(xRandom+left, yRandom+top)
+    def rightClickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        pydirectinput.rightClick(xRandom+left, yRandom+top)
+
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233

@@ -31,7 +31,7 @@ class UWTask:
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         self.saveImageToFile(screenshotBlob)
 
-        wait(lambda: self.simulatorInstance.click_point(54,55),1)
+        wait(lambda: self.simulatorInstance.rightClickPointV2(43,51),1)
 
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 

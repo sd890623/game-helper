@@ -13,7 +13,7 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "palma", "valen
 
 class UWTask:
 
-    #window size: 1495,860 chrome remote content window
+    #window size: 1280x768, vmware inside window size
 
     hwnd = None
     simulatorInstance = None

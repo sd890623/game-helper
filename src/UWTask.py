@@ -116,7 +116,7 @@ class UWTask:
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
         #print(soundPath)
-        playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
+        # playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
 
     def bringWindowToFront(self):
@@ -229,12 +229,12 @@ class UWTask:
     def shipBuilding(self):
         self.print("SB 开始")
         sb=Sb(self.simulatorInstance, self)
-        time=45000      
-        while(time>0):
+        timeout=45000      
+        while(timeout>0):
             sb.pickup()
             sb.dismantle()
             sb.build()
-            time-=1500
+            timeout-=1500
             self.print("一轮完成，开始等25分")
             time.sleep(1500)
 

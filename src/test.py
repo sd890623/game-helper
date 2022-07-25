@@ -17,17 +17,17 @@ print(allWindowsWithTitle)
 # mouse=FrontWindow()
 # mouse.mouseClick(1398,162)
 
-task = UWTask(2952126, 0)
+task = UWTask(263816, 0)
 task.bringWindowToFront()
 task.shipBuilding()
 # # task.targetCity="ceuta"
-task.playNotification()
-task.setCurrentCityFromScreen()
-try:
-    while(True):
-        task.startJourney()
-except Exception as e:
-    print(e)
+# task.playNotification()
+# task.setCurrentCityFromScreen()
+# try:
+#     while(True):
+#         task.startJourney()
+# except Exception as e:
+#     print(e)
     
 
 

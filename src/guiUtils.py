@@ -321,6 +321,17 @@ class win ():#line:35
             yRandom=y
         left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
         pydirectinput.leftClick(xRandom+left, yRandom+top)
+
+    def doubleClickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        pydirectinput.doubleClick(xRandom+left, yRandom+top)
+
     def rightClickPointV2(self,x,y,random=False):
         if(random):
             xRandom =x +random .randint (-5 ,5 )

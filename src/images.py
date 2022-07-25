@@ -3,10 +3,12 @@ from cnocr import CnOcr
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-")
 numberOcr=CnOcr(cand_alphabet="1234567890-()")
-def getCoordinateByScreenshotTarget(screenshotBlob, imagePath):
+def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     targetImage = cv2.imread(imagePath)
     targetHeigh, targetWidth, channel = targetImage.shape
-    
+    if(greyMode):
+        targetImage=get_grayscale(targetImage)
+        screenshotBlob=get_grayscale(screenshotBlob)
     result = cv2.matchTemplate(screenshotBlob, targetImage, cv2.TM_SQDIFF_NORMED)
     # return (cv2.minMaxLoc(result)[2])
     cv2 .normalize (result ,result ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93

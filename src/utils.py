@@ -10,7 +10,7 @@ def wait(func, seconds = 3):
 def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
     while(times>0):
         func()
-        time.sleep(seconds)
+        time.sleep(seconds+random.uniform(0,1))
         times-=1
 
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
@@ -46,7 +46,7 @@ def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, 
         wait(backupFunc,10)
         if(untilFunc()):
             return
-    time.sleep(frequency)
+    time.sleep(2+random.uniform(0,1))
 
 def getDateTimeString():
     now = datetime.now()

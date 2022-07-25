@@ -19,15 +19,21 @@ print(allWindowsWithTitle)
 
 task = UWTask(hwndObject["hwnd"], 0)
 task.bringWindowToFront()
-task.shipBuilding(options=[0])
-# # task.targetCity="ceuta"
-# task.playNotification()
-# task.setCurrentCityFromScreen()
-# try:
-#     while(True):
-#         task.startJourney()
-# except Exception as e:
-#     print(e)
+time.sleep(3)
+
+#test
+# task.market()
+
+task.enableSB("faro",options=[1,2])
+# task.targetCity="ceuta"
+task.playNotification()
+task.setCurrentCityFromScreen()
+
+try:
+    while(True):
+        task.startJourney()
+except Exception as e:
+    print(e)
     
 
 

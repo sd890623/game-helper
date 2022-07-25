@@ -10,7 +10,7 @@ import cv2
 from playsound import playsound
 
 
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "palma", "valencia", "malaga", "seville", "faro", "lisbon", "ceuta", "algiers", "cagliari","sassari"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "faro", "lisbon", "ceuta", "algiers", "cagliari","sassari"]
 
 
 class UWTask:
@@ -27,6 +27,8 @@ class UWTask:
     syncBetweenUsers = True
     currentCity = "palma"
     targetCity=None
+    sbCity=None
+    sbOptions=[]
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -42,12 +44,12 @@ class UWTask:
 
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
-    def hasImageInScreen(self, imageName, A=[0,0,0,0]):
+    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
         imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            #self.saveImageToFile(screenshotBlob)
-            x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath)
+            # self.saveImageToFile(screenshotBlob)
+            x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode)
 
             if(x and y):
                 print(x+A[0],y+A[1])
@@ -84,7 +86,7 @@ class UWTask:
     
     def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        #self.saveImageToFile(screenshotBlob)
+        # self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
 
     def inCityList(self):
@@ -131,21 +133,22 @@ class UWTask:
             nextCityName = cityNames[index+1]
         self.print(nextCityName)
 
-        #firstCityPosi in list 1314,231,1364,249
+        #firstCityarea in list 1088,234,1183,258
+        #9th city rea in 1088,698,1194,723
         #height between 47.4
-        firstPosi = (1328,239)
-        area=[1316,231,1407,249]
+        firstPosi = (1101,259)
+        area=[1088,234,1183,258]
         index=0
         found=False
         while(not(found)):
             # time.sleep(1)
-            yDiff=int(index%10*52.7)
+            yDiff=int(index%9*58)
             if(self.hasSingleLineWordsInArea(nextCityName, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
                 found=True
                 break
             index+=1
 
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%10*52.7)), 2)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(firstPosi[0],firstPosi[1]+int(index%9*58)), 2)
     
         
     def goToHarbor(self):
@@ -155,31 +158,30 @@ class UWTask:
     
     def restock(self):
         self.print("补给")
-        wait(lambda: self.simulatorInstance.clickPointV2(1465,385),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1465,385), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(53,84),1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(53,84), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1)
 
-        if(self.hasSingleLineWordsInArea("o", A=[990,394,1003,408])):
-            wait(lambda: self.simulatorInstance.clickPointV2(23,27),1)
+        if(self.hasSingleLineWordsInArea("o", A=[900,408,914,425])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(22,24),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 5)
             return
         # Destroy excess
         # wait(lambda: self.simulatorInstance.click_point(662,398))
         # wait(lambda: self.simulatorInstance.click_point(1132,750))
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1058,396), 3)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(987,416), 3)
 
     def depart(self):
         self.print("出海")
-        wait(lambda: self.simulatorInstance.clickPointV2(1370,620),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1370,620), lambda: self.hasSingleLineWordsInArea("waters", A=[68,24,238,53]))
+        wait(lambda: self.simulatorInstance.doubleClickPointV2(1131,587),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 10)
 
     def selectCity(self):
         self.print("选城市")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1364,91),2,1)
-        #2nd city
+        doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(*self.rightCatePoint2),2,1)
         self.findNextCityAndClick()
 
     def inJourneyTask(self):
         self.checkForGiftAndReceive()
-        self.simulatorInstance.clickPointV2(1310,786)
+        self.simulatorInstance.clickPointV2(1027,703)
         #self.checkForBottleAndClick()
 
     def waitForCity(self):
@@ -187,12 +189,13 @@ class UWTask:
         #click on "move immediately continusly"
         def backupFunc():
             wait(self.selectCity, 15)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1310,786),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 9, timeout=240, backupFunc=backupFunc)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1027,703),3,15)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 10, timeout=240, backupFunc=backupFunc)
+        time.sleep(random.randint(1,5))
 
     def checkForGiftAndReceive(self):
-        if(self.hasImageInScreen("redDot", A=[1333,13,1350,26])):
-            wait(lambda: self.simulatorInstance.clickPointV2(1324,33),2)
+        if(self.hasImageInScreen("redDot", A=[1106,2,1128,22], greyMode=True)):
+            wait(lambda: self.simulatorInstance.clickPointV2(1100,21),2)
             wait(lambda: self.simulatorInstance.clickPointV2(470,626),2)
 
     ## Not use
@@ -200,47 +203,46 @@ class UWTask:
         position=self.hasImageInScreen("flowBottle")
         if(position):
             wait(lambda: self.simulatorInstance.clickPointV2(position[0], position[1]))
-                 
-    def bargin(self):
-        if(self.hasSingleLineWordsInArea("yes", A=[1094,736,1145,764])):
-            #click yes
-            wait(lambda: self.simulatorInstance.clickPointV2(1126,752),10)
-            #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1116,668),2)
 
     def market(self):
         self.print("去超市")
         #mem overflow?
         market=Market(self.simulatorInstance, self)
 
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1366,91),2)  
-        wait(lambda: self.simulatorInstance.clickPointV2(1329,268),1)      
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,268), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea))
+        doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(*self.rightCatePoint2),2)  
+        wait(lambda: self.simulatorInstance.clickPointV2(1112,276),1)      
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(1112,276), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea))
 
         #sell
         market.sellV3()
-        time.sleep(2)
+        time.sleep(3)
                 
         #buy
         market.buyV2()
 
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1470,34), lambda: self.inCityList())        
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCityList())        
 
-    def shipBuilding(self,options=[0], city="faro"):
+    def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
         sb=Sb(self.simulatorInstance, self)
-        timeout=45000      
+        timeout=times*1400      
         while(timeout>0):
             sb.pickup()
             sb.dismantle()
             for option in options:
                 sb.build(option)
             sb.goBackTown(city)
-            timeout-=1500
-            self.print("一轮完成，开始等25分")
-            time.sleep(1500)
+            timeout-=1400
+            self.print("一轮完成，开始等23分")
+            if(times is not 1):
+                time.sleep(1400)
 
-
+    def enableSB(self,cityName, options):
+        self.sbCity=cityName
+        self.sbOptions=options
+    def checkSB(self):
+        if(self.currentCity==self.sbCity):
+            self.shipBuilding(self.sbOptions, self.sbCity, 1)
     def print(self,text):
         print(getDateTimeString()+"： "+text)
 
@@ -252,6 +254,7 @@ class UWTask:
         self.waitForCity()
         self.market()
         self.checkReachingPlace()
+        self.checkSB()
         time.sleep(random.randint(1,5))
 
     def saveImageToFile(self,imageBlob):

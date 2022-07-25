@@ -18,8 +18,8 @@ class Sb:
         doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))
         #click build in tab
         doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(355,80), 2, 4)
-        #click receive
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(264,322), 2, 4)
+        #click receive#2 ship
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(465,327), 2, 4)
         #click ok
         doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(637,494), 2,7)
         #click a few times to out

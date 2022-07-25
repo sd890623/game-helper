@@ -30,7 +30,17 @@ def getWindowHwndObjectById(id):
             return {"hwnd": hwnd, "title": text, "className": className}
     return None
 
-def getWindowSubObjectById(id):
+def getChildHwndByTitleAndParentHwnd(childTitle,parentHwnd):
+    hWnd_child_list = []
+    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
+    for hwnd in hWnd_child_list:
+        text = win32gui.GetWindowText(hwnd)
+        if (text == childTitle):
+            className = win32gui.GetClassName(hwnd)
+            return {"hwnd": hwnd, "title": text, "className": className}    
+    return None
+
+def getFakeHwndObjectById(id):
     return {"hwnd": id, "title": "text", "className": "className"}
 
 def randomMethod():

@@ -30,7 +30,7 @@ class UWTask:
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
-        hwndObject = getWindowSubObjectById(hwnd)
+        hwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def runTask(self):        
@@ -226,14 +226,16 @@ class UWTask:
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1470,34), lambda: self.inCityList())        
 
-    def shipBuilding(self):
+    def shipBuilding(self,options=[0], city="faro"):
         self.print("SB 开始")
         sb=Sb(self.simulatorInstance, self)
         timeout=45000      
         while(timeout>0):
             sb.pickup()
             sb.dismantle()
-            sb.build()
+            for option in options:
+                sb.build(option)
+            sb.goBackTown(city)
             timeout-=1500
             self.print("一轮完成，开始等25分")
             time.sleep(1500)

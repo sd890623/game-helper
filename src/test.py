@@ -7,7 +7,7 @@ yBuffer = 36
 
 hwndObject = None
 id = 0
-allWindowsWithTitle = getAllWindowsWithTitle("Chrome Legacy Window")
+allWindowsWithTitle = getAllWindowsWithTitle("Windows 10 x64 - VMware Workstation")
 if (len(allWindowsWithTitle) > id):
     hwndObject = allWindowsWithTitle[id]
 
@@ -17,9 +17,9 @@ print(allWindowsWithTitle)
 # mouse=FrontWindow()
 # mouse.mouseClick(1398,162)
 
-task = UWTask(263816, 0)
+task = UWTask(hwndObject["hwnd"], 0)
 task.bringWindowToFront()
-task.shipBuilding()
+task.shipBuilding(options=[0])
 # # task.targetCity="ceuta"
 # task.playNotification()
 # task.setCurrentCityFromScreen()

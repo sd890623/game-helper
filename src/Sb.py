@@ -17,26 +17,26 @@ class Sb:
         #click build
         doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))
         #click build in tab
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(355,80), 2, 2)
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(355,80), 2, 4)
         #click receive
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(264,322), 2, 2)
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(264,322), 2, 4)
         #click ok
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(637,494), 2,6)
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(637,494), 2,7)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(639,550), 3, 2)
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(639,550), 3, 4)
 
     def dismantle(self):
         self.uwtask.print("dismantle船")
         #click dismantle
         continueWithUntilBy(lambda: self.instance.doubleClickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
         #click 1st ship
-        wait(lambda: self.instance.doubleClickPointV2(218,137))
+        wait(lambda: self.instance.doubleClickPointV2(218,137),4)
         #click dismantle
         wait(lambda: self.instance.doubleClickPointV2(554,602),7)
         #click yes
         wait(lambda: self.instance.doubleClickPointV2(*self.uwtask.inScreenConfirmYesButton),7)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(541,598), 3, 2)
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(541,598), 3, 3)
         
 
     def build(self):
@@ -45,9 +45,9 @@ class Sb:
         doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))    
         #click 1st ship 306,206
         #2nd ship 460,175
-        wait(lambda: self.instance.doubleClickPointV2(460,175))
+        wait(lambda: self.instance.doubleClickPointV2(460,175),4)
         #click build
-        wait(lambda: self.instance.doubleClickPointV2(707,609))
+        wait(lambda: self.instance.doubleClickPointV2(707,609),4)
         #click yes
         doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(*self.uwtask.inScreenConfirmYesButton),2, 7)
         #go town

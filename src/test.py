@@ -22,9 +22,9 @@ task.bringWindowToFront()
 time.sleep(3)
 
 #test
-# task.market()
+# task.shipBuilding()
 
-task.enableSB("faro",options=[1,2])
+task.enableSB("faro",options=[1])
 # task.targetCity="ceuta"
 task.playNotification()
 task.setCurrentCityFromScreen()

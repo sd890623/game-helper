@@ -196,7 +196,7 @@ class UWTask:
     def checkForGiftAndReceive(self):
         if(self.hasImageInScreen("redDot", A=[1106,2,1128,22], greyMode=True)):
             wait(lambda: self.simulatorInstance.clickPointV2(1100,21),2)
-            wait(lambda: self.simulatorInstance.clickPointV2(470,626),2)
+            wait(lambda: self.simulatorInstance.clickPointV2(332,588),2)
 
     ## Not use
     def checkForBottleAndClick(self):

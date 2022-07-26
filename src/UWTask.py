@@ -10,7 +10,7 @@ import cv2
 from playsound import playsound
 
 
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "faro", "lisbon", "ceuta", "algiers", "cagliari","sassari"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "algiers", "cagliari","sassari"]
 
 
 class UWTask:
@@ -124,6 +124,8 @@ class UWTask:
     def bringWindowToFront(self):
         self.simulatorInstance.outputWindowScreenshotV2()
 
+    # def selectCityFromMap(self):
+        
     def findNextCityAndClick(self):
         index=cityNames.index(self.currentCity)
         nextCityName = None

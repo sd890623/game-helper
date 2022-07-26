@@ -18,8 +18,10 @@ class Sb:
         doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))
         #click build in tab
         doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(355,80), 2, 4)
+        #click receive#1 ship
+        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(267,322), 2, 4)        
         #click receive#2 ship
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(465,327), 2, 4)
+        # doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(465,327), 2, 4)
         #click ok
         doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(637,494), 2,7)
         #click a few times to out
@@ -29,8 +31,10 @@ class Sb:
         self.uwtask.print("dismantle船")
         #click dismantle
         continueWithUntilBy(lambda: self.instance.doubleClickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
-        #click 1st ship
-        wait(lambda: self.instance.doubleClickPointV2(218,137),4)
+        # #click 1st ship
+        # wait(lambda: self.instance.doubleClickPointV2(218,137),4)
+        # #click 4th ship
+        wait(lambda: self.instance.doubleClickPointV2(435,140),4)
         #click dismantle
         wait(lambda: self.instance.doubleClickPointV2(554,602),7)
         #click yes

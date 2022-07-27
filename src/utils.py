@@ -26,7 +26,6 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
         wait(lambda: func())
         if(untilFunc()):
             return
-    time.sleep(frequency)
         
 def continueWithUntilBy(func, untilFunc, frequency = 5):
     while(not(untilFunc())):
@@ -36,10 +35,16 @@ def continueWithUntilBy(func, untilFunc, frequency = 5):
 
 def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, backupFunc=lambda: False):
     while(not(untilFunc()) and timeout>0):
+        print("not found title")
+        print("before in journey click")
         func()
+        print("after in journey click")
+        print("wait 6s")
         time.sleep(frequency)
+        print("waited for 6s")
         timeout-=frequency
     if(timeout<=0):
+        print("timed out, backup")
         wait(backupFunc,10)
         if(untilFunc()):
             return

@@ -320,6 +320,7 @@ class win ():#line:35
             xRandom=x
             yRandom=y
         left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
         pydirectinput.moveTo(xRandom+left, yRandom+top)
         time.sleep(0.5)
         pydirectinput.leftClick(xRandom+left, yRandom+top)
@@ -332,6 +333,7 @@ class win ():#line:35
             xRandom=x
             yRandom=y
         left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
         pydirectinput.moveTo(xRandom+left, yRandom+top)
         time.sleep(0.5)
         pydirectinput.doubleClick(xRandom+left, yRandom+top)
@@ -344,6 +346,7 @@ class win ():#line:35
             xRandom=x
             yRandom=y
         left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
         pydirectinput.rightClick(xRandom+left, yRandom+top)
 
     def send_enter (O00000OOOOOOOOOO0 ):#line:231

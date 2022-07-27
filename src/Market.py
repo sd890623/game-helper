@@ -63,7 +63,7 @@ class Market:
         buyList=[]
 
         wait(lambda: self.instance.clickPointV2(54,88),1)
-        doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2)        
+        doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 1,2)        
 
         #Loop through and find what can be bought
         while (index<12 and end==False):
@@ -131,9 +131,9 @@ class Market:
 
     def sellV3(self):
         wait(lambda: self.instance.clickPointV2(44,144),1)
-        doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(44,144), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea), 1)
-    #xDiff 127.8
-    #yDiff 145        
+        doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(44,144), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea), 1,2)
+        #xDiff 127.8
+        #yDiff 145        
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("sell items")
@@ -156,4 +156,4 @@ class Market:
             #click yes
             wait(lambda: self.instance.doubleClickPointV2(962,667),15)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(956,603),3)
+            doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(956,603),3, 2)

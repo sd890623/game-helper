@@ -151,7 +151,12 @@ class Market:
         self.uwtask.print("sell fin")
 
     def bargin(self):
-        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[919,652,1001,689])):
+            #sell area
+            #846,648,1095,690
+            #buy area
+            #825,647,1095,690
+            #try wider
+        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[825,648,1095,690])):
             time.sleep(2)
             #click yes
             wait(lambda: self.instance.doubleClickPointV2(962,667),15)

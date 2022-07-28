@@ -19,7 +19,7 @@ print(allWindowsWithTitle)
 
 task = UWTask(hwndObject["hwnd"], 0)
 # task.bringWindowToFront()
-# task.shipBuilding()
+# task.shipBuilding(options=[1,2],city="ceuta", times=1)
 time.sleep(3)
 
 #test

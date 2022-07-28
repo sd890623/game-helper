@@ -140,10 +140,12 @@ class UWTask:
         #height between 47.4
         firstPosi = (1101,259)
         area=[1088,234,1183,258]
+        timeout=60
         index=0
         found=False
-        while(not(found)):
+        while(not(found) and timeout>0):
             time.sleep(1)
+            timeout-=1
             yDiff=int(index%9*58)
             if(self.hasSingleLineWordsInArea(nextCityName, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
                 found=True
@@ -157,15 +159,16 @@ class UWTask:
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1104,244), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,2)
-    
+        time.sleep(2)
     def restock(self):
         self.print("补给")
-        wait(lambda: self.simulatorInstance.clickPointV2(53,84),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(53,84), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
+        #use emergency stock
+        # wait(lambda: self.simulatorInstance.clickPointV2(53,84),1)
+        # doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(53,84), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
 
-        if(self.hasSingleLineWordsInArea("o", A=[900,408,914,425])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(22,24),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
-            return
+        # if(self.hasSingleLineWordsInArea("o", A=[900,408,914,425])):
+        #     doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(22,24),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+        #     return
         # Destroy excess
         # wait(lambda: self.simulatorInstance.click_point(662,398))
         # wait(lambda: self.simulatorInstance.click_point(1132,750))
@@ -174,7 +177,12 @@ class UWTask:
     def depart(self):
         self.print("出海")
         wait(lambda: self.simulatorInstance.doubleClickPointV2(1131,587),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 10,2)
+
+        wait(lambda: self.simulatorInstance.doubleClickPointV2(693,491),2)
+
+        wait(lambda: self.simulatorInstance.doubleClickPointV2(1131,587),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 15,2)
+        time.sleep(4)
 
     def selectCity(self):
         self.print("选城市")
@@ -232,13 +240,16 @@ class UWTask:
         sb=Sb(self.simulatorInstance, self)
         timeout=times*1400      
         while(timeout>0):
-            sb.pickup()
-            sb.dismantle()
+            sb.gotoShipyard()
+            for option in options:
+                sb.pickup()
+            for index, option in enumerate(options):
+                sb.dismantle(index)
             for option in options:
                 sb.build(option)
             sb.goBackTown(city)
             timeout-=1400
-            if(times is not 1):
+            if(times != 1):
                 time.sleep(1400)
                 self.print("一轮完成，开始等23分")
 
@@ -253,7 +264,7 @@ class UWTask:
 
     def startJourney(self):
         self.goToHarbor()
-        self.restock()
+        # self.restock()
         self.depart()
         self.selectCity()
         self.waitForCity()

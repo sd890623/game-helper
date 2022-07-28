@@ -20,12 +20,14 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
         time.sleep(frequency)
         timeout-=frequency
     if(timeout<=0):
-        wait(lambda: func())
+        print("timed out, do backup function")
+        wait(lambda: func(),seconds)
         if(untilFunc()):
             return
-        wait(lambda: func())
+        wait(lambda: func(), seconds)
         if(untilFunc()):
             return
+    time.sleep(random.randint(0,1))
         
 def continueWithUntilBy(func, untilFunc, frequency = 5):
     while(not(untilFunc())):

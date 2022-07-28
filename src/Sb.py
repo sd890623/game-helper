@@ -28,7 +28,7 @@ class Sb:
         #click ok
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(637,494), 2,7)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(639,550), 3, 4)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(639,550), 2, 2)
         continueWithUntilBy(lambda: self.instance.clickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
 
 
@@ -45,7 +45,7 @@ class Sb:
         #click yes
         wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),7)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(541,598), 3, 3)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(541,598), 2, 1)
         
 
     def build(self, option):
@@ -63,7 +63,7 @@ class Sb:
         #click build
         wait(lambda: self.instance.clickPointV2(707,609),4)
         #click yes
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2, 7)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2, 4)
         continueWithUntilBy(lambda: self.instance.clickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
         
     def goBackTown(self,city):

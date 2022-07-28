@@ -175,13 +175,14 @@ class UWTask:
         doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(987,416), 3)
 
     def depart(self):
+        def clickAndStock():
+            wait(lambda: self.simulatorInstance.clickPointV2(1131,587),2)
+            wait(lambda: self.simulatorInstance.doubleClickPointV2(693,491),2)
         self.print("出海")
-        wait(lambda: self.simulatorInstance.doubleClickPointV2(1131,587),2)
-
-        wait(lambda: self.simulatorInstance.doubleClickPointV2(693,491),2)
+        clickAndStock()
 
         wait(lambda: self.simulatorInstance.doubleClickPointV2(1131,587),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 15,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 15,2, backupFunc=clickAndStock)
         time.sleep(4)
 
     def selectCity(self):

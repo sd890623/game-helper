@@ -13,7 +13,7 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
         time.sleep(seconds+random.uniform(0,1))
         times-=1
 
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
+def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None):
     wait(func, seconds)
     timeout = 60
     while(not(untilFunc()) and timeout >0):
@@ -21,29 +21,28 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4):
         timeout-=frequency
     if(timeout<=0):
         print("timed out, do backup function")
-        wait(lambda: func(),seconds)
-        if(untilFunc()):
-            return
-        wait(lambda: func(), seconds)
-        if(untilFunc()):
-            return
+        for x in [0,1,2]:
+            if(backupFunc):
+                wait(backupFunc, seconds)
+            else:
+                wait(func, seconds)
+            if(untilFunc()):
+                return
     time.sleep(random.randint(0,1))
         
 def continueWithUntilBy(func, untilFunc, frequency = 5):
+    wait(func, 0)
     while(not(untilFunc())):
         func()
         time.sleep(frequency)
-    time.sleep(frequency)
+    time.sleep(random.randint(0,1))
 
 def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, backupFunc=lambda: False):
+    wait(func, 0)
     while(not(untilFunc()) and timeout>0):
-        print("not found title")
-        print("before in journey click")
         func()
-        print("after in journey click")
-        print("wait 6s")
+        print("not found, wait for 6s")
         time.sleep(frequency)
-        print("waited for 6s")
         timeout-=frequency
     if(timeout<=0):
         print("timed out, backup")
@@ -53,7 +52,7 @@ def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, 
         wait(backupFunc,10)
         if(untilFunc()):
             return
-    time.sleep(2+random.uniform(0,1))
+    time.sleep(random.randint(0,1))
 
 def getDateTimeString():
     now = datetime.now()

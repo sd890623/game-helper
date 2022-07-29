@@ -7,7 +7,7 @@ class Sb:
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
-        self.uwtask=uwtask    
+        self.uwtask=uwtask   
 
     def gotoShipyard(self):
         self.uwtask.print("去船chang")
@@ -21,6 +21,12 @@ class Sb:
         continueWithUntilBy(lambda: self.instance.clickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))
         #click build in tab
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(355,80), 2, 4)
+        # receive#1 ship area 212,312,349,338
+        # receive #2 ship area 391,311,528,339
+        if(self.uwtask.hasSingleLineWordsInArea(("quickbuild"), A=[212,312,349,338])):
+            self.uwtask.print("being built, jump over")
+            self.uwtask.shipBeingBuilt=True
+            return
         #click receive#1 ship
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(267,322), 2, 4)        
         #click receive#2 ship
@@ -33,6 +39,8 @@ class Sb:
 
 
     def dismantle(self,index):
+        if(self.uwtask.shipBeingBuilt):
+            return
         self.uwtask.print("dismantle船")
         #click dismantle
         continueWithUntilBy(lambda: self.instance.clickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
@@ -49,6 +57,8 @@ class Sb:
         
 
     def build(self, option):
+        if(self.uwtask.shipBeingBuilt):
+            return 
         self.uwtask.print("造船")
         #click build
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(48,88), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))    

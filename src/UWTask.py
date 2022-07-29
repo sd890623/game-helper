@@ -29,6 +29,7 @@ class UWTask:
     targetCity=None
     sbCity=None
     sbOptions=[]
+    shipBeingBuilt=False
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index

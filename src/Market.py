@@ -95,12 +95,12 @@ class Market:
             xDiff=int(index%6*127.8)
             yDiff=(0 if (index<6) else 1)*145
             self.uwtask.print("buy item "+str(index))
-            wait(lambda: self.instance.doubleClickPointV2(247+xDiff,226+yDiff),0.2)
+            wait(lambda: self.instance.clickPointV2(247+xDiff,226+yDiff),0.2)
         
         wait(lambda: self.instance.clickPointV2(1168,724),1)
-        wait(lambda: self.instance.doubleClickPointV2(710,631),5)
+        wait(lambda: self.instance.clickPointV2(710,631),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(645,626),3,1) 
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1) 
         self.uwtask.print("buy fin")
            
     def sellV2(self):
@@ -143,11 +143,11 @@ class Market:
             index+=1
             if(self.uwtask.hasSingleLineWordsInArea("-", A=[222+xDiff,221+yDiff,288+xDiff,235+yDiff], ocrType=2)):
                 continue
-            wait(lambda: self.instance.doubleClickPointV2(222+xDiff,221+yDiff),0.2)
+            wait(lambda: self.instance.clickPointV2(222+xDiff,221+yDiff),0.2)
         wait(lambda: self.instance.clickPointV2(1168,724),1)
-        wait(lambda: self.instance.doubleClickPointV2(710,631),5)
+        wait(lambda: self.instance.clickPointV2(710,631),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(645,626),3,1) 
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1) 
         self.uwtask.print("sell fin")
 
     def bargin(self):
@@ -159,6 +159,6 @@ class Market:
         if(self.uwtask.hasSingleLineWordsInArea("yes", A=[825,648,1095,690])):
             time.sleep(2)
             #click yes
-            wait(lambda: self.instance.doubleClickPointV2(962,667),15)
+            wait(lambda: self.instance.clickPointV2(962,667),15)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(956,603),3, 2)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(956,603),3, 2)

@@ -11,9 +11,9 @@ class Sb:
 
     def gotoShipyard(self):
         self.uwtask.print("去船chang")
-        doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(*self.uwtask.rightCatePoint2),2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),2)
         #click shipyard
-        doAndWaitUntilBy(lambda: self.instance.doubleClickPointV2(1079,306), lambda: self.uwtask.hasSingleLineWordsInArea("shipyard", A=self.uwtask.titleArea))
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1079,306), lambda: self.uwtask.hasSingleLineWordsInArea("shipyard", A=self.uwtask.titleArea))
     
     def pickup(self):
         self.uwtask.print("去取船")
@@ -24,7 +24,7 @@ class Sb:
         #click receive#1 ship
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(267,322), 2, 4)        
         #click receive#2 ship
-        # doMoreTimesWithWait(lambda: self.instance.doubleClickPointV2(465,327), 2, 4)
+        # doMoreTimesWithWait(lambda: self.instance.clickPointV2(465,327), 2, 4)
         #click ok
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(637,494), 2,7)
         #click a few times to out
@@ -37,7 +37,7 @@ class Sb:
         #click dismantle
         continueWithUntilBy(lambda: self.instance.clickPointV2(72,335), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
         # #click 1st ship
-        # wait(lambda: self.instance.doubleClickPointV2(218,137),4)
+        # wait(lambda: self.instance.clickPointV2(218,137),4)
         # #click 5th ship+index xdiff, no need
         wait(lambda: self.instance.clickPointV2(502,140),4)
         #click dismantle

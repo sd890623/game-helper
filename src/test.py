@@ -19,13 +19,13 @@ print(allWindowsWithTitle)
 
 task = UWTask(hwndObject["hwnd"], 0)
 # task.bringWindowToFront()
-# task.shipBuilding(options=[1,2],city="ceuta", times=1)
+#task.shipBuilding(options=[3,3],city="ceuta", times=1)
 time.sleep(3)
 
 #test
 # task.market()
 
-task.enableSB("ceuta",options=[1,2])
+task.enableSB("ceuta",options=[3,3])
 # task.targetCity="ceuta"
 task.playNotification()
 task.setCurrentCityFromScreen()

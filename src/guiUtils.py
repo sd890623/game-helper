@@ -349,6 +349,9 @@ class win ():#line:35
         win32gui.SetForegroundWindow(self .hwnd)
         pydirectinput.rightClick(xRandom+left, yRandom+top)
 
+    def typewrite(self, words):
+        pydirectinput.typewrite(words)
+
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233

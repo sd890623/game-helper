@@ -190,6 +190,10 @@ class UWTask:
         doMoreTimesWithWait(lambda: self.simulatorInstance.doubleClickPointV2(*self.rightCatePoint2),2,1)
         self.findNextCityAndClick()
 
+    def selectCityFromMapAndMove(self,cityname):
+        self.print("select city from map")
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=self.titleArea), 2,2)
+        
     def inJourneyTask(self):
         self.checkForGiftAndReceive()
         self.simulatorInstance.doubleClickPointV2(1027,703)

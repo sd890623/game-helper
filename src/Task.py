@@ -102,7 +102,7 @@ class Task:
             self.print("有海盗，蹲站")
             return
         self.print("采矿等待中")
-        self.checkSafeForMinutes(13.2+random.randint(0,10)/10)
+        self.checkSafeForMinutes(12.2+random.randint(0,10)/10)
         self.print("回家")
         self.goHome()
         self.print("到家")

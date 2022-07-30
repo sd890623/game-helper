@@ -10,8 +10,9 @@ import cv2
 from playsound import playsound
 
 
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "algiers", "cagliari","sassari"]
-
+# cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "algiers", "cagliari","sassari"]
+# NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
+cityNames=["london","dover","calais","antwerp","amsterda","groningen","hamburg","oslo"]
 
 class UWTask:
     rightCatePoint1=1095,88
@@ -30,6 +31,7 @@ class UWTask:
     sbCity=None
     sbOptions=[]
     shipBeingBuilt=False
+    fastStock=False
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -124,8 +126,6 @@ class UWTask:
 
     def bringWindowToFront(self):
         self.simulatorInstance.outputWindowScreenshotV2()
-
-    # def selectCityFromMap(self):
         
     def findNextCityAndClick(self):
         index=cityNames.index(self.currentCity)
@@ -141,7 +141,7 @@ class UWTask:
         #height between 47.4
         firstPosi = (1101,259)
         area=[1088,234,1183,258]
-        timeout=60
+        timeout=20
         index=0
         found=False
         while(not(found) and timeout>0):
@@ -153,30 +153,37 @@ class UWTask:
                 break
             index+=1
 
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%9*58)), 2)
-    
+        if(timeout<=0):
+            self.selectCityFromMapAndMove(nextCityName)
+            
+        else:
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%9*58)), 2)
+
         
     def goToHarbor(self):
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1104,244), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,2)
         time.sleep(2)
+
     def restock(self):
         self.print("补给")
-        #use emergency stock
-        # wait(lambda: self.simulatorInstance.clickPointV2(53,84),1)
-        # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(53,84), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
+        # use emergency stock
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(53,84), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
 
-        # if(self.hasSingleLineWordsInArea("o", A=[900,408,914,425])):
-        #     doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(22,24),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
-        #     return
+        if(self.hasSingleLineWordsInArea("o", A=[900,408,914,425])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(22,24),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+            return
         # Destroy excess
         # wait(lambda: self.simulatorInstance.click_point(662,398))
         # wait(lambda: self.simulatorInstance.click_point(1132,750))
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(987,416), 3)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(987,416), 2,2)
 
     def depart(self):
         def clickAndStock():
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(915,460),2,1)
+            if(not(self.fastStock)):
+                self.restock()
             wait(lambda: self.simulatorInstance.clickPointV2(1131,587),2)
             wait(lambda: self.simulatorInstance.clickPointV2(693,491),2)
         self.print("出海")
@@ -193,8 +200,14 @@ class UWTask:
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1131,587), lambda: self.hasSingleLineWordsInArea("waters", A=self.titleArea), 2,2)
-        
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1145,154), lambda: self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,2)
+        wait(lambda: self.simulatorInstance.clickPointV2(35,90),2)
+        wait(lambda: self.simulatorInstance.clickPointV2(78,70),2)
+        self.simulatorInstance.typewrite(cityname)
+        wait(lambda: self.simulatorInstance.clickPointV2(130,107),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(627,732), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]),2,2)        
+
+
     def inJourneyTask(self):
         self.checkForGiftAndReceive()
         self.simulatorInstance.clickPointV2(1027,703)

@@ -18,14 +18,15 @@ print(allWindowsWithTitle)
 # mouse.mouseClick(1398,162)
 
 task = UWTask(hwndObject["hwnd"], 0)
-# task.bringWindowToFront()
-#task.shipBuilding(options=[3,3],city="ceuta", times=1)
+task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在内；")
+# task.selectCityFromMapAndMove("london")
+# task.shipBuilding(options=[4,5],city="antwerp", times=1)
 time.sleep(3)
 
 #test
 # task.market()
 
-task.enableSB("ceuta",options=[3,3])
+task.enableSB("antwerp",options=[4,5])
 # task.targetCity="ceuta"
 task.playNotification()
 task.setCurrentCityFromScreen()

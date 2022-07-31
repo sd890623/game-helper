@@ -9,8 +9,7 @@ def wait(func, seconds = 3):
 
 def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
     while(times>0):
-        func()
-        time.sleep(seconds+random.uniform(0,1))
+        wait(func, seconds)
         times-=1
 
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None):

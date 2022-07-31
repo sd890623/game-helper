@@ -349,6 +349,9 @@ class win ():#line:35
         win32gui.SetForegroundWindow(self .hwnd)
         pydirectinput.rightClick(xRandom+left, yRandom+top)
 
+    def bringWindowToFront(self):
+        win32gui.SetForegroundWindow(self .hwnd)
+
     def typewrite(self, words):
         pydirectinput.typewrite(words)
 

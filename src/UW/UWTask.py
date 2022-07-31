@@ -1,3 +1,4 @@
+from FrontTask import FrontTask
 from windows import *
 from images import *
 from utils import *
@@ -6,15 +7,13 @@ from Sb import Sb
 import guiUtils
 import time
 import random
-import cv2
 from playsound import playsound
-
 
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "algiers", "cagliari","sassari"]
 # NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
 cityNames=["london","dover","calais","plymouth","antwerp","amsterda","groningen","hamburg","oslo","bremen"]
 
-class UWTask:
+class UWTask(FrontTask):
     rightCatePoint1=1095,88
     rightCatePoint2=1144,85
     titleArea=[54,8,201,47]
@@ -23,7 +22,6 @@ class UWTask:
     inScreenConfirmYesButton=978,673
     #window size: 1280x768, vmware inside window size
 
-    hwnd = None
     simulatorInstance = None
     syncBetweenUsers = True
     currentCity = "palma"
@@ -32,70 +30,23 @@ class UWTask:
     sbOptions=[]
     shipBeingBuilt=False
     fastStock=False
+
     def __init__(self, hwnd, index):
-        self.hwnd = hwnd
-        self.index = index
+        FrontTask.__init__(self,hwnd,index)
         hwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
-    def runTask(self):        
+    def testTask(self):        
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"redLock"+".bmp")
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         self.saveImageToFile(screenshotBlob)
-
         wait(lambda: self.simulatorInstance.rightClickPointV2(43,51),1)
-
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
-
-    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
-        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
-        try:
-            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            # self.saveImageToFile(screenshotBlob)
-            x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode)
-
-            if(x and y):
-                print(x+A[0],y+A[1])
-                return (x+A[0],y+A[1])
-            else:
-                return False
-        except Exception as e:
-            print(e)    
-            return False  
-
-    def clickWithImage(self, imageName, A=[0,0,0,0]):
-        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
-        targetImage = cv2.imread(imagePath)
-        targetHeigh, targetWidth, channel = targetImage.shape
-        position=self.simulatorInstance.window_capture_v2(imagePath, A)
-        if(position):
-            #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
-            wait(lambda: self.simulatorInstance.clickPointV2(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
-
-    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
-        try:
-            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            #self.saveImageToFile(screenshotBlob)
-            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
-                return False
-            str = "".join(ocrObj[0])
-            
-            self.print(words +" in "+ str)
-            return words in str.lower()
-        except Exception as e:
-            print(e)    
-            return False      
-    
-    def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
-        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        # self.saveImageToFile(screenshotBlob)
-        return getNumberfromImageBlob(screenshotBlob)
 
     def inCityList(self):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A=self.inTownCityNameArea)
-            #self.saveImageToFile(screenshotBlob)
+            # self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob)
             if(len(ocrObj[0]) == 0):
                 return False
@@ -123,9 +74,6 @@ class UWTask:
         #print(soundPath)
         # playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
-
-    def bringWindowToFront(self):
-        self.simulatorInstance.outputWindowScreenshotV2()
         
     def findNextCityAndClick(self):
         index=cityNames.index(self.currentCity)
@@ -157,7 +105,7 @@ class UWTask:
             self.selectCityFromMapAndMove(nextCityName)
             
         else:
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%9*58)), 0.2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%9*58)), 2,0.2)
 
         
     def goToHarbor(self):
@@ -279,8 +227,6 @@ class UWTask:
     def checkSB(self):
         if(self.currentCity==self.sbCity):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
-    def print(self,text):
-        print(getDateTimeString()+"： "+text)
 
     def startJourney(self):
         self.goToHarbor()
@@ -292,7 +238,3 @@ class UWTask:
         self.checkReachingPlace()
         self.checkSB()
         time.sleep(random.randint(3,5))
-
-    def saveImageToFile(self,imageBlob):
-        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")
-        cv2.imwrite(screenshotImgPath, imageBlob)  

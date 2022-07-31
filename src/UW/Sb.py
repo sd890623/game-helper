@@ -1,6 +1,5 @@
 from guiUtils import win
 from utils import *
-import os
 # from UWTask import UWTask
 
 class Sb:

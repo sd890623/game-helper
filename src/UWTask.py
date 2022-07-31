@@ -12,7 +12,7 @@ from playsound import playsound
 
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "algiers", "cagliari","sassari"]
 # NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
-cityNames=["london","dover","calais","antwerp","amsterda","groningen","hamburg","oslo"]
+cityNames=["london","dover","calais","plymouth","antwerp","amsterda","groningen","hamburg","oslo","bremen"]
 
 class UWTask:
     rightCatePoint1=1095,88
@@ -141,7 +141,7 @@ class UWTask:
         #height between 47.4
         firstPosi = (1101,259)
         area=[1088,234,1183,258]
-        timeout=20
+        timeout=18
         index=0
         found=False
         while(not(found) and timeout>0):
@@ -200,7 +200,7 @@ class UWTask:
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1145,154), lambda: self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1247,189), lambda: self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,2)
         wait(lambda: self.simulatorInstance.clickPointV2(35,90),2)
         wait(lambda: self.simulatorInstance.clickPointV2(78,70),2)
         self.simulatorInstance.typewrite(cityname)
@@ -219,7 +219,7 @@ class UWTask:
         def backupFunc():
             wait(self.selectCity, 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1027,703),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 6, timeout=240, backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 6, timeout=420, backupFunc=backupFunc)
         time.sleep(random.randint(1,3))
         print("click twice")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1027,703),2,3)
@@ -252,10 +252,11 @@ class UWTask:
         #buy
         market.buyV2()
 
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCityList(), 3,2)        
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCityList(), 3,2)   
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
+        self.shipBeingBuilt=False
         sb=Sb(self.simulatorInstance, self)
         timeout=times*1400      
         while(timeout>0):
@@ -290,7 +291,7 @@ class UWTask:
         self.market()
         self.checkReachingPlace()
         self.checkSB()
-        time.sleep(random.randint(1,5))
+        time.sleep(random.randint(3,5))
 
     def saveImageToFile(self,imageBlob):
         screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")

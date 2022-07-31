@@ -63,7 +63,7 @@ class Market:
         buyList=[]
 
         wait(lambda: self.instance.clickPointV2(54,88),1)
-        continueWithUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2)        
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)        
 
         #Loop through and find what can be bought
         while (index<12 and end==False):
@@ -102,36 +102,10 @@ class Market:
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1) 
         self.uwtask.print("buy fin")
-           
-    def sellV2(self):
-        wait(lambda: self.instance.clickPointV2(44,144),1)
-        continueWithUntilBy(lambda: self.instance.clickPointV2(44,144), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=[54,17,142,55]), 1)
-
-        moveIndex=0
-        moveEnd=False
-        #Move ocr slot from 0 to 5 if cant sell in slot 0
-        while(moveIndex<6 and moveEnd==False):
-            xDiff=int(moveIndex%9*112.3)
-            moveIndex+=1
-            #in slot index, sell continuesly until all sold/red price
-            while(True):
-                if(self.uwtask.hasSingleLineWordsInArea("noitemtosell", A=[623,444,737,469])):
-                    moveEnd=True
-                    break
-                self.uwtask.print("sell item x")
-                wait(lambda: self.instance.clickPointV2(228+xDiff,218),0.2)
-                if(self.uwtask.hasSingleLineWordsInArea("-", A=[1401,761,1469,782], ocrType=2)):
-                    self.uwtask.clickWithImage("crossInSell", A=[1203,94,1274,131])
-                    break
-                wait(lambda: self.instance.clickPointV2(1398,808),1)
-                wait(lambda: self.instance.clickPointV2(809,658))
-                self.uwtask.bargin()
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(809,658),3,1)    
-        self.uwtask.print("sell fin")
 
     def sellV3(self):
         wait(lambda: self.instance.clickPointV2(44,144),1)
-        continueWithUntilBy(lambda: self.instance.clickPointV2(44,144), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(44,144), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
         #xDiff 127.8
         #yDiff 145        
         index=0

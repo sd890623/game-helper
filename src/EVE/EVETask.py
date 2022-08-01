@@ -85,7 +85,7 @@ class EVETask:
     def startMiningTask(self):
         if (self.syncBetweenUsers):
             self.print("账号差异化，等待x*60s")
-            time.sleep(60*self.index)
+            time.sleep(90*self.index)
             self.syncBetweenUsers = not(self.syncBetweenUsers)
         self.print("新一轮开始了")
         if(not(self.isSafe())):
@@ -108,7 +108,7 @@ class EVETask:
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(30+random.randint(0,25))
+        time.sleep(30+random.randint(30,60))
 
 
 

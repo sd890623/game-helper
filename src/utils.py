@@ -28,7 +28,7 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
             if(untilFunc()):
                 return
     time.sleep(random.randint(0,1))
-        
+
 def continueWithUntilBy(func, untilFunc, frequency = 5):
     wait(func, 0)
     while(not(untilFunc())):

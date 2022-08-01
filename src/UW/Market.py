@@ -3,10 +3,24 @@ from utils import *
 import os
 # from UWTask import UWTask
 
-
+marketBuyData={
+    "kokkola":["amber"],
+    "saint":["chrysoberyl","tourmaline"],
+    "gdansk":["tourmaline","amber"],
+    "copenhagen":["amber","chrysoberyl"],
+    "oslo":["flax","feather"],
+    # "kokkola":[""],
+    "montpel":["garnet"],
+    "marseille":["garnet","etchings","cannon","bronzeStatue","perfume"],
+    "genoa":["glasswork","oilPainting","etchings","cannon"],
+    "pisa":["marbleStatue","cannon"],
+    "sasari":["garnet"],
+}
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
+
+    buySellWholeArea=[187,99,949,395]
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
 
@@ -86,6 +100,31 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1) 
         self.uwtask.print("sell fin")
 
+    def buyProductsInCity(self,products,cityName):
+        wait(lambda: self.instance.clickPointV2(54,88),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)        
+
+        cityBuyList=[]
+        if(marketBuyData[cityName]):
+            cityAllProducts=marketBuyData[cityName]
+        else:
+            cityAllProducts=[]
+        for product in products:
+            if (product in cityAllProducts):
+                cityBuyList.append(product)
+        
+        for product in cityBuyList:
+            wait(lambda: self.uwtask.clickWithImage(product, A=self.buySellWholeArea,imagePrefix="products"),1)
+
+        #check if max, notify buyFin for master class
+        if(self.uwtask.hasSingleLineWordsInArea("max", A=[975,125,1038,138])):
+            self.uwtask.tradeRouteBuyFin=True
+        wait(lambda: self.instance.clickPointV2(1168,724),1)
+        wait(lambda: self.instance.clickPointV2(710,631),5)
+        self.bargin()
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1) 
+        self.uwtask.print("buy fin")        
+
     def bargin(self):
         #sell area
         #846,648,1095,690
@@ -98,3 +137,5 @@ class Market:
             wait(lambda: self.instance.clickPointV2(962,667),15)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(956,603),3, 2)
+
+        

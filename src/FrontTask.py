@@ -33,8 +33,9 @@ class FrontTask(object):
                 print(e)    
                 return False  
 
-    def clickWithImage(self, imageName, A=[0,0,0,0]):
-        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
+    def clickWithImage(self, imageName, A=[0,0,0,0], imagePrefix=""):
+        imagePrefix=(imagePrefix+"\\") if imagePrefix!="" else ""
+        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imagePrefix+imageName+".bmp")
         targetImage = cv2.imread(imagePath)
         targetHeigh, targetWidth, channel = targetImage.shape
         position=self.simulatorInstance.window_capture_v2(imagePath, A)

@@ -184,7 +184,7 @@ class UWTask(FrontTask):
         if(position):
             wait(lambda: self.simulatorInstance.clickPointV2(position[0], position[1]))
 
-    def market(self):
+    def basicMarket(self):
         self.print("去超市")
         #mem overflow?
         market=Market(self.simulatorInstance, self)
@@ -194,11 +194,11 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1112,276), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
-        market.sellV3()
+        market.sellGoodsWithMargin()
         time.sleep(3)
                 
         #buy
-        market.buyV2()
+        market.buyExpensive()
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCityList(), 3,2)   
 
@@ -234,7 +234,7 @@ class UWTask(FrontTask):
         self.depart()
         self.selectCity()
         self.waitForCity()
-        self.market()
+        self.basicMarket()
         self.checkReachingPlace()
         self.checkSB()
         time.sleep(random.randint(3,5))

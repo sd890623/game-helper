@@ -1,11 +1,6 @@
 from windows import *
-from Task import Task
-from datetime import datetime
+from EVE.EVETask import EVETask
 
-
-yBuffer = 36
-
-hwndObject = None
 id = 0
 allWindowsWithTitle = getAllWindowsWithTitle("星战前夜：无烬星河 - MuMu模拟器")
 if (len(allWindowsWithTitle) > id):
@@ -13,19 +8,7 @@ if (len(allWindowsWithTitle) > id):
 
 print(allWindowsWithTitle)    
 
-now = datetime.now()
-dt_string = now.strftime("%d %H:%M:%S")
-print("Time: ", dt_string)
-
-
-
-
-
-task = Task(68780, 0)
+task = EVETask(2099622, 0)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
 task.startMiningTask()
-
-
-
-

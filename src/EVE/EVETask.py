@@ -5,7 +5,7 @@ import guiUtils
 import time
 import random
 
-class Task:
+class EVETask:
     exclamationRedPlayerType = "EXCLAMATIONREDPLAYERTYPE"
     minusRedPlayerType = "MINUSREDPLAYERTYPE"
     whitePlayerType = "WHITEPLAYERTYPE"
@@ -17,12 +17,12 @@ class Task:
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
-        hwndObject = getWindowHwndObjectById(hwnd)
-        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"])
+        childHwndObj=getChildHwndByTitleAndParentHwnd("NemuPlayer",hwnd)
+        self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor= True)
 
-    def runTask(self):
+    def testTask(self):
         count = 1
-        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+self.exclamationRedPlayerType+".bmp")
+        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\"+self.exclamationRedPlayerType+".bmp")
         while(count>0):
             x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
             print(str(count)+" times and x="+str(x))
@@ -41,14 +41,15 @@ class Task:
     def findPlayerCountByType(self,type):
         count = 0
         iconWitdhHeight = 11
-        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\"+type+".bmp")
+        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\"+type+".bmp")
         
         try:
             findPlayerCountLk.acquire()
             x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
             countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
-            ocrCount = getOCRfromImageBlob(countImageBlob)
+            # self.saveImageToFile(countImageBlob)
+            ocrCount = getOCRfromImageBlob(countImageBlob,2)
             findPlayerCountLk.release()
         except Exception as e:
             findPlayerCountLk.release()
@@ -63,12 +64,13 @@ class Task:
                 return 0
             count = int(ocrCount[0][0])
             return count
-        except:
+        except Exception as e:
+            print(e)
             return 1
 
     def isPlayerInSite(self):
-        leaveSiteImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\cloneCenter.bmp")
-        minerImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\miner.bmp")
+        leaveSiteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\cloneCenter.bmp")
+        minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
         cloneCenterX,y = self.simulatorInstance.window_capture(leaveSiteImgPath, A=[910,385,988,477])
         minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[927,525,996,593])
 
@@ -112,7 +114,7 @@ class Task:
 
     def stockOre(self):
         wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
-        wait(lambda: self.simulatorInstance.click_point(86,430,True), 10)
+        wait(lambda: self.simulatorInstance.click_point(86,460,True), 10)
         wait(lambda: self.simulatorInstance.click_keyboard("E"), 5)
         wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
         wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)
@@ -176,7 +178,7 @@ class Task:
     def goHome(self):
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
 
-        homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\homeRoute.bmp")
+        homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
         homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,201,179,556])
         self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+10))
         wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
@@ -238,23 +240,14 @@ class Task:
         time.sleep(10)
 
 
-
-        
-
-
-
-
-
-
-
-        
-
-
+    def saveImageToFile(self,imageBlob):
+        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")
+        cv2.imwrite(screenshotImgPath, imageBlob)  
 
 
     def clickOnTestPic(self):
-        targetImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\greenStars.bmp")
-        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")
+        targetImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\greenStars.bmp")
+        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")
 
         #x,y = self.simulatorInstance.window_capture(targetImgPath, A=[0,325,194,598])
     

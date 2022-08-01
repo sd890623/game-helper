@@ -11,6 +11,7 @@ import base64 #line:10
 import operator #line:11
 import requests #line:12
 import easyocr #line:13
+import pydirectinput
 from PIL import Image #line:23
 
 def base642Str (OOO0OOOOOOOO0000O ):#line:16
@@ -45,6 +46,41 @@ class win ():#line:35
         else :#line:50
             OO00OO0O00O0OOO0O .hwnd =OO0OOO0O0OOOO0O0O #line:51
 
+
+    def outputWindowScreenshotV2(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
+        left, top, right, bot = win32gui.GetWindowRect(self .hwnd )#line:58
+        w = right - left
+        h = bot - top
+        targetWidth =A [2 ]-A [0 ]#line:72
+        targetHeight =A [3 ]-A [1 ]#line:73
+        if(targetHeight == 0 and targetWidth == 0):
+            targetWidth=w
+            targetHeight=h
+        win32gui.SetForegroundWindow(self .hwnd)
+        time.sleep(0.5)
+
+        hdesktop = win32gui.GetDesktopWindow()
+        winDc =win32gui .GetWindowDC (hdesktop)#line:66
+        mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
+        saveDc =mfcDc .CreateCompatibleDC ()#line:68
+        saveBitMap =win32ui .CreateBitmap ()#line:69
+        saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+        saveDc .SelectObject (saveBitMap )#line:71
+
+        saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(left+A[0], top+A[1]),win32con .SRCCOPY )#line:74
+        OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
+        O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
+        OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
+        OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
+
+        mfcDc.DeleteDC()
+        saveDc.DeleteDC()
+        win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
+        win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
+
+        return OOO00OOOOO0OO0O00
+
+
     def output_window_screenshot(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
         OO00O0OO0O0OOO000 =win32gui .GetWindowRect (self .hwnd )#line:58
         OO00O0OO0O0OOO000 =list (OO00O0OO0O0OOO000 )#line:59
@@ -52,6 +88,9 @@ class win ():#line:35
         height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
         targetWidth =A [2 ]-A [0 ]#line:72
         targetHeight =A [3 ]-A [1 ]#line:73
+        if(targetHeight == 0 and targetWidth == 0):
+            targetWidth=width
+            targetHeight=height
         winDc =win32gui .GetWindowDC (self .hwnd )#line:66
         mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
         saveDc =mfcDc .CreateCompatibleDC ()#line:68
@@ -81,6 +120,9 @@ class win ():#line:35
             height =OO00O0OO0O0OOO000 [3 ]-OO00O0OO0O0OOO000 [1 ]#line:62
             targetWidth =A [2 ]-A [0 ]#line:72
             targetHeight =A [3 ]-A [1 ]#line:73
+            if(targetHeight == 0 and targetWidth == 0):
+                targetWidth=width
+                targetHeight=height
             winDc =win32gui .GetWindowDC (self .hwnd )#line:66
             mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
             saveDc =mfcDc .CreateCompatibleDC ()#line:68
@@ -113,7 +155,56 @@ class win ():#line:35
         except Exception as e:
             print("window_capture error")
             raise e
-            
+
+    def window_capture_v2 (self ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self .hwnd )#line:58
+            w = right - left
+            h = bot - top
+
+            targetWidth =A [2 ]-A [0 ]#line:72
+            targetHeight =A [3 ]-A [1 ]#line:73
+            if(targetHeight == 0 and targetWidth == 0):
+                targetWidth=w
+                targetHeight=h
+
+            win32gui.SetForegroundWindow(self .hwnd)
+            time.sleep(0.5)
+
+            hdesktop = win32gui.GetDesktopWindow()
+            winDc =win32gui .GetWindowDC (hdesktop)#line:66
+            mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
+            saveDc =mfcDc .CreateCompatibleDC ()#line:68
+            saveBitMap =win32ui .CreateBitmap ()#line:69
+            saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+            saveDc .SelectObject (saveBitMap )#line:71
+
+            saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(left+A[0], top+A[1]),win32con .SRCCOPY )#line:74
+            OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
+            O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
+            OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
+            OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
+            OOO0O00OO0O00OOOO =OOO00OOOOO0OO0O00 #line:83
+            O00OOO0O000000000 =cv2 .imread (O000OO00O0OO0O00O )#line:87
+            O00O0OOO000O0OOO0 ,O0O0OO000O00O000O =O00OOO0O000000000 .shape [:2 ]#line:89
+            O0000OO00O00OOOOO =cv2 .matchTemplate (OOO0O00OO0O00OOOO ,O00OOO0O000000000 ,cv2 .TM_SQDIFF_NORMED )#line:91
+            cv2 .normalize (O0000OO00O00OOOOO ,O0000OO00O00OOOOO ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93
+            O0000O00O00O0OO0O ,OOO000OO0OOOO0000 ,O00O00O0OO0OOOOOO ,O0OOOO00000OOOO00 =cv2 .minMaxLoc (O0000OO00O00OOOOO )#line:95
+            OOOOO0OOOOOO0OOO0 =str (O0000O00O00O0OO0O )#line:99
+
+            mfcDc.DeleteDC()
+            saveDc.DeleteDC()
+            win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
+            win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
+
+            if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and O00O00O0OO0OOOOOO [0 ]!=0 and O00O00O0OO0OOOOOO [1 ]!=0 :#line:115
+                return O00O00O0OO0OOOOOO [0 ]+A [0 ],O00O00O0OO0OOOOOO [1 ]+A [1 ]#line:117
+            else :#line:118
+                return 0 ,0 #line:120
+        except Exception as e:
+            print("window_capture error")
+            raise e
+
     def window_str (OOO0OOOOOOOOOO0O0 ,A =[0 ,0 ,0 ,0 ],bor =True ):#line:122
         O0O0O0OO000O000OO =win32gui .GetWindowRect (OOO0OOOOOOOOOO0O0 .hwnd )#line:128
         O0O0O0OO000O000OO =list (O0O0O0OO000O000OO )#line:129
@@ -221,6 +312,49 @@ class win ():#line:35
         long_position = win32api.MAKELONG(xRandom, yRandom)
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,win32con.MK_LBUTTON , long_position);#line:229
+    def clickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
+        pydirectinput.moveTo(xRandom+left, yRandom+top)
+        time.sleep(0.5)
+        pydirectinput.leftClick(xRandom+left, yRandom+top)
+
+    def doubleClickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
+        pydirectinput.moveTo(xRandom+left, yRandom+top)
+        time.sleep(0.5)
+        pydirectinput.doubleClick(xRandom+left, yRandom+top)
+
+    def rightClickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+        win32gui.SetForegroundWindow(self .hwnd)
+        pydirectinput.rightClick(xRandom+left, yRandom+top)
+
+    def bringWindowToFront(self):
+        win32gui.SetForegroundWindow(self .hwnd)
+
+    def typewrite(self, words):
+        pydirectinput.typewrite(words)
+
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233

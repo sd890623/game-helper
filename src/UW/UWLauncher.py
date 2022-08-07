@@ -22,7 +22,7 @@ task.enableSB("antwerp",options=[4,5])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗")
+task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗;船拉平最远距离")
 
 try:
     while(True):

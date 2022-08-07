@@ -8,7 +8,8 @@ if (len(allWindowsWithTitle) > id):
 
 print(allWindowsWithTitle)    
 
-task = EVETask(2099622, 0)
+task = EVETask(hwndObject["hwnd"], 0)
 #print(task.clickOnTestPic())
 #print(task.findPlayerCountByType(Task.whitePlayerType))
+task.closeWindow()
 task.startMiningTask()

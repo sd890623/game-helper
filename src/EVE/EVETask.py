@@ -45,7 +45,7 @@ class EVETask:
         
         try:
             findPlayerCountLk.acquire()
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[2,507,175,536])
             countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
             # self.saveImageToFile(countImageBlob)
@@ -71,8 +71,8 @@ class EVETask:
     def isPlayerInSite(self):
         leaveSiteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\cloneCenter.bmp")
         minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
-        cloneCenterX,y = self.simulatorInstance.window_capture(leaveSiteImgPath, A=[910,385,988,477])
-        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[927,525,996,593])
+        cloneCenterX,y = self.simulatorInstance.window_capture(leaveSiteImgPath, A=[841,486,912,549])
+        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[931,520,993,579])
 
         if (cloneCenterX and not(minerX)):
             return "in"
@@ -179,8 +179,8 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
 
         homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
-        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[0,201,179,556])
-        self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+10))
+        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,221,171,531])
+        self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
         wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)
         wait(lambda: self.simulatorInstance.click_point(206,182))

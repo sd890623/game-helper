@@ -59,4 +59,12 @@ def getDateTimeString():
     dt_string = now.strftime("%d %H:%M:%S")
     return("Time: "+dt_string)
 
+def hasStringInArrayInString(string, array):
+    found=False
+    for stringInArray in array:
+        if(stringInArray in string):
+            found=True
+    return found
+
+
 findPlayerCountLk=threading.Lock()

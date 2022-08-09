@@ -101,28 +101,45 @@ class Market:
         self.uwtask.print("sell fin")
 
     def buyProductsInCity(self,products,cityName):
-        wait(lambda: self.instance.clickPointV2(54,88),1)
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(54,88), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
 
-        cityBuyList=[]
-        if(marketBuyData[cityName]):
-            cityAllProducts=marketBuyData[cityName]
-        else:
-            cityAllProducts=[]
-        for product in products:
-            if (product in cityAllProducts):
-                cityBuyList.append(product)
+        # cityBuyList=[]
+        # if(marketBuyData[cityName]):
+        #     cityAllProducts=marketBuyData[cityName]
+        # else:
+        #     cityAllProducts=[]
+        # for product in products:
+        #     if (product in cityAllProducts):
+        #         cityBuyList.append(product)
+        print(products)
 
-        for product in cityBuyList:
-            wait(lambda: self.uwtask.clickWithImage(product, A=self.buySellWholeArea,imagePrefix="products"),1)
+        #xDiff 261
+        #yDiff 131
+        index=0
+        #Loop through and find what can be bought
+        self.uwtask.print("sell items")
+        while (index<9):
+            xDiff=int(index%3*261)
+            yDiff=int(index/3)*130
+            index+=1
+            #print([176+xDiff,200+yDiff,286+xDiff,235+yDiff])
+            #red check area 260,203,346,221
+            if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
+                continue   
+            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,381+xDiff,137+yDiff])
+            if(not(productName)):
+                continue
+            if(hasStringInArrayInString(productName, products)):
+                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2)      
+            #check if max, notify buyFin for master class   
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=[975,125,1038,138])):
+                self.uwtask.tradeRouteBuyFin=True
+                break
 
-        #check if max, notify buyFin for master class
-        if(self.uwtask.hasSingleLineWordsInArea("max", A=[975,125,1038,138])):
-            self.uwtask.tradeRouteBuyFin=True
-        wait(lambda: self.instance.clickPointV2(1168,724),1)
-        wait(lambda: self.instance.clickPointV2(710,631),5)
+        wait(lambda: self.instance.clickPointV2(1212,693),1)
+        wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(645,626),3,1)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
         self.uwtask.print("buy fin")
 
     def bargin(self):

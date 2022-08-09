@@ -14,18 +14,18 @@ from playsound import playsound
 cityNames=["london","dover","calais","plymouth","antwerp","amsterda","groningen","hamburg","oslo","bremen"]
 routeList=[
     {
-        "sellCity":"saint",
+        "sellCity":"gda",
         #add felt later
-        "buyProducts": ["amber", "chrysoberyl","feather","flax","tourmaline"],
+        "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","flax","tourmaline"],
         #add lubeck,riga later
         #gdahsk might suffer
-        "buyCities":["saint","kokkola","gda","copenhagen","oslo"],
+        "buyCities":["gda","riga","saint","kokkola","stockholm","visby","copenhagen","oslo"],
         "supplyCities":["dover","faro"]
     },
     {
-        "sellCity":"marseille",
-        "buyProducts": ["garnet","etchings","cannon","bronzeStatue","perfume","glasswork","marbleStatue"],
-        "buyCities":["marseille","montpel","genoa","pisa","sasari"],
+        "sellCity":"timbuktu",
+        "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue"],
+        "buyCities":["timbuktu","benin","elmina","abidjan","sierra","bathurst","arguin"],
         "supplyCities":["porto","groningen","copenhagen"]
     },
 ]
@@ -268,26 +268,24 @@ class UWTask(FrontTask):
         market=Market(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
-        wait(lambda: self.simulatorInstance.clickPointV2(1112,276),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1112,276), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
         market.sellGoodsWithMargin()
         time.sleep(3)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCity(cityName), 3,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
 
     def buyInCity(self,cityName,products):
         self.print("去超市")
         market=Market(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
-        wait(lambda: self.simulatorInstance.clickPointV2(1112,276),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1112,276), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #buy
         market.buyProductsInCity(products,cityName)
         time.sleep(3)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1255,25), lambda: self.inCity(cityName), 3,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
@@ -350,8 +348,8 @@ class UWTask(FrontTask):
 
         while(True):
             # # goto sell city
-            # self.gotoCity(routeObject["sellCity"],[routeObject["sellCity"]])
-            # self.sellInCity(routeObject["sellCity"])
+            self.gotoCity(routeObject["sellCity"],[routeObject["sellCity"]])
+            self.sellInCity(routeObject["sellCity"])
 
             # goto buy cities
             self.tradeRouteBuyFin=False

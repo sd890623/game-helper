@@ -179,7 +179,12 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
 
         homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
-        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,221,171,531])
+        homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
+
+        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,225,167,526])
+        if(homeRouteImgX==0 or homeRouteImgY==0):
+            homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath2, A=[26,221,171,531])
+        
         self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
         wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)

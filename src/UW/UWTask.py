@@ -20,7 +20,8 @@ class UWTask(FrontTask):
     rightTopTownIcon=1249,26
     inTownCityNameArea=[116,18,222,44]
     inScreenConfirmYesButton=978,673
-    #window size: 1280x768, vmware inside window size
+    #client screen size: 1280x720
+    #remote control setup size:
 
     simulatorInstance = None
     syncBetweenUsers = True
@@ -33,7 +34,9 @@ class UWTask(FrontTask):
 
     def __init__(self, hwnd, index):
         FrontTask.__init__(self,hwnd,index)
-        hwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
+        hwndObject = getChildHwndByTitleAndParentHwnd("Chrome Legacy Window",hwnd)
+        parentWindow = guiUtils.win(hwnd, bor= True)
+        parentWindow.moveWindow(10,10,1327,779)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):        

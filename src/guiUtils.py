@@ -111,6 +111,8 @@ class win ():#line:35
 
         return OOO00OOOOO0OO0O00
 
+    def moveWindow(self,x,y,width,height):
+        win32gui.MoveWindow(self.hwnd,x,y,width,height,True)
         
     def window_capture (self ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
         try:

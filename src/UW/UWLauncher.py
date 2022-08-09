@@ -3,7 +3,7 @@ sys.path.append("src")
 from windows import *
 from UWTask import UWTask
 
-allWindowsWithTitle = getAllWindowsWithTitle("Windows 10 x64 - VMware Workstation")
+allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - MEDIA-PC")
 if (len(allWindowsWithTitle) > 0):
     hwndObject = allWindowsWithTitle[0]
 

@@ -45,7 +45,7 @@ class FrontTask(object):
     def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            #self.saveImageToFile(screenshotBlob)
+            # self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False

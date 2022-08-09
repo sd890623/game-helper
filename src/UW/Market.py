@@ -49,8 +49,8 @@ class Market:
             if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
                 continue
             #244,219,280,237
-            # print([340+xDiff,203+yDiff,391+xDiff,221+yDiff])
-            price = self.uwtask.getNumberFromSingleLineInArea(A=[340+xDiff,203+yDiff,391+xDiff,221+yDiff])
+            # print([338+xDiff,203+yDiff,389+xDiff,221+yDiff])
+            price = self.uwtask.getNumberFromSingleLineInArea(A=[338+xDiff,203+yDiff,389+xDiff,221+yDiff])
             #269,137,326,155
             #logic re food type
             if(self.uwtask.hasSingleLineWordsInArea("food", A=[269+xDiff,137+yDiff,326+xDiff,155+yDiff]) and price>200):

@@ -17,12 +17,12 @@ task.startTradeRoute()
 # task.buyInCity("copenhagen",routeList[0]["buyProducts"])
 
 #Optional
-# task.shipBuilding(options=[7,8],city="genoa", times=1)
+# task.shipBuilding(options=[4,5],city="ceuta", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-task.enableSB("antwerp",options=[4,5])
+task.enableSB("ceuta",options=[4,5])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

@@ -11,7 +11,7 @@ from playsound import playsound
 
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 # NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
-cityNames=["london","dover","calais","plymouth","antwerp","amsterda","groningen","hamburg","oslo","bremen"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 routeList=[
     {
         "sellCity":"gda",
@@ -205,8 +205,9 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]),2,2)
 
     def checkForDisaster(self):
+        #need fix
         #click disaster icon
-        wait(lambda: self.simulatorInstance.clickPointV2(621,382),2)
+        wait(lambda: self.simulatorInstance.clickPointV2(644,366),2)
         if(self.hasSingleLineWordsInArea("miracle",A=[1062,728,1131,754])):
             #click use tool
             wait(lambda: self.simulatorInstance.clickPointV2(1073,591),2)

@@ -110,7 +110,7 @@ class Market:
         #yDiff 131
         index=0
         #Loop through and find what can be bought
-        self.uwtask.print("sell items")
+        self.uwtask.print("buy items")
         while (index<9):
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130

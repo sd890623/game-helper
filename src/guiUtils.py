@@ -48,37 +48,42 @@ class win ():#line:35
 
 
     def outputWindowScreenshotV2(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
-        left, top, right, bot = win32gui.GetWindowRect(self .hwnd )#line:58
-        w = right - left
-        h = bot - top
-        targetWidth =A [2 ]-A [0 ]#line:72
-        targetHeight =A [3 ]-A [1 ]#line:73
-        if(targetHeight == 0 and targetWidth == 0):
-            targetWidth=w
-            targetHeight=h
-        win32gui.SetForegroundWindow(self .hwnd)
-        time.sleep(0.5)
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self .hwnd )#line:58
+            w = right - left
+            h = bot - top
+            targetWidth =A [2 ]-A [0 ]#line:72
+            targetHeight =A [3 ]-A [1 ]#line:73
+            if(targetHeight == 0 and targetWidth == 0):
+                targetWidth=w
+                targetHeight=h
+            win32gui.SetForegroundWindow(self .hwnd)
+            time.sleep(0.5)
 
-        hdesktop = win32gui.GetDesktopWindow()
-        winDc =win32gui .GetWindowDC (hdesktop)#line:66
-        mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
-        saveDc =mfcDc .CreateCompatibleDC ()#line:68
-        saveBitMap =win32ui .CreateBitmap ()#line:69
-        saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
-        saveDc .SelectObject (saveBitMap )#line:71
+            hdesktop = win32gui.GetDesktopWindow()
+            winDc =win32gui .GetWindowDC (hdesktop)#line:66
+            mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
+            saveDc =mfcDc .CreateCompatibleDC ()#line:68
+            saveBitMap =win32ui .CreateBitmap ()#line:69
+            saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+            saveDc .SelectObject (saveBitMap )#line:71
 
-        saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(left+A[0], top+A[1]),win32con .SRCCOPY )#line:74
-        OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
-        O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
-        OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
-        OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
+            saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(left+A[0], top+A[1]),win32con .SRCCOPY )#line:74
+            OOOOO0OOO00OOOOO0 =saveBitMap .GetInfo ()#line:77
+            O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
+            OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
+            OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
 
-        mfcDc.DeleteDC()
-        saveDc.DeleteDC()
-        win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
-        win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
+            mfcDc.DeleteDC()
+            saveDc.DeleteDC()
+            win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
+            win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
 
-        return OOO00OOOOO0OO0O00
+            return OOO00OOOOO0OO0O00
+        except Exception as e:
+            print(e)
+            print("failed to output windows screen")
+            return None
 
 
     def output_window_screenshot(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
@@ -321,11 +326,15 @@ class win ():#line:35
         else:
             xRandom=x
             yRandom=y
-        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-        win32gui.SetForegroundWindow(self .hwnd)
-        pydirectinput.moveTo(xRandom+left, yRandom+top)
-        time.sleep(0.5)
-        pydirectinput.leftClick(xRandom+left, yRandom+top)
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            win32gui.SetForegroundWindow(self .hwnd)
+            pydirectinput.moveTo(xRandom+left, yRandom+top)
+            time.sleep(0.5)
+            pydirectinput.leftClick(xRandom+left, yRandom+top)
+        except Exception as e:
+            print(e)
+            print("failed to click point")
 
     def doubleClickPointV2(self,x,y,random=False):
         if(random):
@@ -334,11 +343,15 @@ class win ():#line:35
         else:
             xRandom=x
             yRandom=y
-        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-        win32gui.SetForegroundWindow(self .hwnd)
-        pydirectinput.moveTo(xRandom+left, yRandom+top)
-        time.sleep(0.5)
-        pydirectinput.doubleClick(xRandom+left, yRandom+top)
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            win32gui.SetForegroundWindow(self .hwnd)
+            pydirectinput.moveTo(xRandom+left, yRandom+top)
+            time.sleep(0.5)
+            pydirectinput.doubleClick(xRandom+left, yRandom+top)
+        except Exception as e:
+            print(e)
+            print("failed to double click point")
 
     def rightClickPointV2(self,x,y,random=False):
         if(random):
@@ -347,9 +360,13 @@ class win ():#line:35
         else:
             xRandom=x
             yRandom=y
-        left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-        win32gui.SetForegroundWindow(self .hwnd)
-        pydirectinput.rightClick(xRandom+left, yRandom+top)
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            win32gui.SetForegroundWindow(self .hwnd)
+            pydirectinput.rightClick(xRandom+left, yRandom+top)
+        except Exception as e:
+            print(e)
+            print("failed to right click point")
 
     def bringWindowToFront(self):
         win32gui.SetForegroundWindow(self .hwnd)

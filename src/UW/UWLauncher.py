@@ -13,7 +13,7 @@ task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在�
 time.sleep(3)
 
 #test
-task.startTradeRoute()
+# task.startTradeRoute()
 # task.buyInCity("copenhagen",routeList[0]["buyProducts"])
 
 #Optional
@@ -22,7 +22,7 @@ task.startTradeRoute()
 # task.fastStock=True disable
 
 #Init option
-task.enableSB("ceuta",options=[4,5])
+# task.enableSB("ceuta",options=[4,5])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

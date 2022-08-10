@@ -218,14 +218,14 @@ class UWTask(FrontTask):
     def inJourneyTask(self):
         self.checkForGiftAndReceive()
         self.checkForDisaster()
-        self.simulatorInstance.clickPointV2(*self.enterCityButton)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),2,1)
         #self.checkForBottleAndClick()
 
     def waitForCity(self,cityList=None):
         self.print("航行中")
         #click on "move immediately continusly"
         def backupFunc():
-            wait(self.selectCity, 15)
+            wait(self.selectNextCity, 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 6, timeout=420, backupFunc=backupFunc)
         time.sleep(random.randint(1,3))
@@ -311,7 +311,7 @@ class UWTask(FrontTask):
         self.sbCity=cityName
         self.sbOptions=options
     def checkSB(self):
-        if(self.currentCity==self.sbCity):
+        if(self.sbCity and self.currentCity==self.sbCity):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
 
     def startJourney(self):

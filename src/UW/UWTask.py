@@ -17,16 +17,16 @@ routeList=[
         "sellCity":"gda",
         #add felt later
         "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","flax","tourmaline"],
-        #add lubeck,riga later
         #gdahsk might suffer
         "buyCities":["gda","riga","saint","kokkola","stockholm","visby","copenhagen","oslo"],
-        "supplyCities":["dover","faro"]
+        "supplyCities":["dover","faro","arguin","elmina"]
     },
     {
         "sellCity":"timbuktu",
-        "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue"],
-        "buyCities":["timbuktu","benin","elmina","abidjan","sierra","bathurst","arguin"],
-        "supplyCities":["porto","groningen","copenhagen"]
+        "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
+        "buyCities":["timbuktu","benin","elmina","abidjan","sierra","bathurst","praia","arguin"],
+        "buySupplyCities":["elmina"],
+        "supplyCities":["arguin","faro","groningen","copenhagen"]
     },
 ]
 
@@ -284,7 +284,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #buy
-        market.buyProductsInCity(products,cityName)
+        market.buyProductsInCity(products)
         time.sleep(3)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
 
@@ -359,10 +359,21 @@ class UWTask(FrontTask):
                     break
                 self.gotoCity(city,routeObject["buyCities"])
                 self.buyInCity(city, products=routeObject["buyProducts"])
+            #go to buy again if not full
+            if(self.tradeRouteBuyFin!=True):
+                for city in routeObject["buySupplyCities"]:
+                    self.gotoCity(city,[city])
+            # time.sleep(1200)
+            for city in routeObject["buyCities"]:
+                if(self.tradeRouteBuyFin==True):
+                    break
+                self.gotoCity(city,routeObject["buyCities"])
+                self.buyInCity(city, products=routeObject["buyProducts"])            
 
             #go to supply cities
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,[city])
+                self.checkSB()
 
             #swap to other route side
             routeObjIndex+=1

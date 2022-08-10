@@ -100,17 +100,10 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
         self.uwtask.print("sell fin")
 
-    def buyProductsInCity(self,products,cityName):
+    def buyProductsInCity(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
 
-        # cityBuyList=[]
-        # if(marketBuyData[cityName]):
-        #     cityAllProducts=marketBuyData[cityName]
-        # else:
-        #     cityAllProducts=[]
-        # for product in products:
-        #     if (product in cityAllProducts):
-        #         cityBuyList.append(product)
+
         print(products)
 
         #xDiff 261

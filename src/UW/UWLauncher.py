@@ -22,7 +22,7 @@ time.sleep(3)
 # task.fastStock=True disable
 
 #Init option
-# task.enableSB("ceuta",options=[4,5])
+task.enableSB("faro",options=[4,5])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

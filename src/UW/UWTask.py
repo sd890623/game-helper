@@ -235,7 +235,7 @@ class UWTask(FrontTask):
 
     #todo
     def checkForGiftAndReceive(self):
-        if(self.hasImageInScreen("redDot", A=[1081,2,1095,20], greyMode=True)):
+        if(self.hasImageInScreen("redDot", A=[1076,2,1099,20], greyMode=True)):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),2)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),2)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),2,1)

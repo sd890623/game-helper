@@ -24,7 +24,7 @@ routeList=[
     {
         "sellCity":"timbuktu",
         "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
-        "buyCities":["timbuktu","benin","elmina","abidjan","sierra","bathurst","praia","arguin"],
+        "buyCities":["timbuktu","benin","elmina","abidjan","sierra","praia","arguin"],
         "buySupplyCities":["elmina"],
         "supplyCities":["arguin","faro","groningen","copenhagen"]
     },
@@ -166,7 +166,7 @@ class UWTask(FrontTask):
         # use emergency stock
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
 
-        if(self.hasSingleLineWordsInArea("o", A=[922,417,938,436])):
+        if(self.hasSingleLineWordsInArea("0", A=[922,417,938,436],ocrType=2) and len(self.getSingleLineWordsInArea(A=[922,417,958,437],ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
             return
         # Destroy excess
@@ -205,14 +205,14 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]),2,2)
 
     def checkForDisaster(self):
-        #need fix
         #click disaster icon
-        wait(lambda: self.simulatorInstance.clickPointV2(634,319),2)
-        if(self.hasSingleLineWordsInArea("miracle",A=[1062,728,1131,754])):
+        wait(lambda: self.simulatorInstance.clickPointV2(649,336),2)
+        if(self.hasSingleLineWordsInArea("miracle",A=[1076,583,1140,602])):
             #click use tool
-            wait(lambda: self.simulatorInstance.clickPointV2(1073,591),2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1103,530),2)
             #click yes
-            wait(lambda: self.simulatorInstance.clickPointV2(1004,665),2)
+            #@todo need fix
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),2)
 
 
     def inJourneyTask(self):
@@ -348,10 +348,12 @@ class UWTask(FrontTask):
             return
 
         while(True):
-            # # goto sell city
+            self.print("出发卖货城市")
+            # goto sell city
             self.gotoCity(routeObject["sellCity"],[routeObject["sellCity"]])
             self.sellInCity(routeObject["sellCity"])
 
+            self.print("出发买东西城市")
             # goto buy cities
             self.tradeRouteBuyFin=False
             for city in routeObject["buyCities"]:
@@ -370,6 +372,7 @@ class UWTask(FrontTask):
                 self.gotoCity(city,routeObject["buyCities"])
                 self.buyInCity(city, products=routeObject["buyProducts"])            
 
+            self.print("出发补给城市")
             #go to supply cities
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,[city])

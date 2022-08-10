@@ -21,6 +21,7 @@ coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBu
 class Market:
     randonPoint=851,618
     buySellWholeArea=[187,99,949,395]
+    maxArea=[1073,126,1137,145]
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
@@ -65,7 +66,7 @@ class Market:
 
         #Click from list and buy
         for buyObj in buyList:
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=[1073,126,1137,145])):
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 break
             index=buyObj[0]
             xDiff=int(index%3*261.5)
@@ -125,7 +126,7 @@ class Market:
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
                 wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2)      
             #check if max, notify buyFin for master class   
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=[975,125,1038,138])):
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 self.uwtask.tradeRouteBuyFin=True
                 break
 

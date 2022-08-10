@@ -51,6 +51,7 @@ class FrontTask(object):
             if(len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
+            self.print("ocr "+ str.lower())
             return str.lower()
         except Exception as e:
             print(e)    

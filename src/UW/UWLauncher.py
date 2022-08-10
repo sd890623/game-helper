@@ -30,7 +30,7 @@ task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在�
 
 try:
     while(True):
-        task.startJourney()
+        task.startTradeRoute()
 except Exception as e:
     print(e)
     

@@ -122,7 +122,7 @@ class Market:
             productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,381+xDiff,137+yDiff])
             if(not(productName)):
                 continue
-            if(hasStringInArrayInString(productName, products)):
+            if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
                 wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2)      
             #check if max, notify buyFin for master class   
             if(self.uwtask.hasSingleLineWordsInArea("max", A=[975,125,1038,138])):

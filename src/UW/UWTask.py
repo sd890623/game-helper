@@ -207,7 +207,7 @@ class UWTask(FrontTask):
     def checkForDisaster(self):
         #need fix
         #click disaster icon
-        wait(lambda: self.simulatorInstance.clickPointV2(644,366),2)
+        wait(lambda: self.simulatorInstance.clickPointV2(634,319),2)
         if(self.hasSingleLineWordsInArea("miracle",A=[1062,728,1131,754])):
             #click use tool
             wait(lambda: self.simulatorInstance.clickPointV2(1073,591),2)
@@ -227,7 +227,7 @@ class UWTask(FrontTask):
         def backupFunc():
             wait(self.selectNextCity, 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(), 6, timeout=420, backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 6, timeout=420, backupFunc=backupFunc)
         time.sleep(random.randint(1,3))
         print("click twice")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),2,1)

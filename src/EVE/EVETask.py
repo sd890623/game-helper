@@ -114,7 +114,7 @@ class EVETask:
 
     def stockOre(self):
         wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
-        wait(lambda: self.simulatorInstance.click_point(86,460,True), 10)
+        wait(lambda: self.simulatorInstance.click_point(89,427,True), 10)
         wait(lambda: self.simulatorInstance.click_keyboard("E"), 5)
         wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
         wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)

@@ -59,4 +59,13 @@ def getDateTimeString():
     dt_string = now.strftime("%d %H:%M:%S")
     return("Time: "+dt_string)
 
+#specia treatment by 
+def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
+    found=False
+    for stringInArray in array:
+        if(stringInArray in string and (len(string)-len(stringInArray))<3):
+            found=True
+    return found
+
+
 findPlayerCountLk=threading.Lock()

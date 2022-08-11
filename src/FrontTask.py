@@ -33,14 +33,29 @@ class FrontTask(object):
                 print(e)    
                 return False  
 
-    def clickWithImage(self, imageName, A=[0,0,0,0]):
-        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
+    def clickWithImage(self, imageName, A=[0,0,0,0], imagePrefix=""):
+        imagePrefix=(imagePrefix+"\\") if imagePrefix!="" else ""
+        imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imagePrefix+imageName+".bmp")
         targetImage = cv2.imread(imagePath)
         targetHeigh, targetWidth, channel = targetImage.shape
         position=self.simulatorInstance.window_capture_v2(imagePath, A)
         if(position):
             #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.clickPointV2(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
+
+    def getSingleLineWordsInArea(self, A=[0,0,0,0], ocrType=1):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            # self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            self.print("ocr "+ str.lower())
+            return str.lower()
+        except Exception as e:
+            print(e)    
+            return False    
 
     def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
         try:

@@ -2,6 +2,7 @@ import sys
 sys.path.append("src")
 from windows import *
 from UWTask import UWTask
+from UWTask import routeList
 
 allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - MEDIA-PC")
 if (len(allWindowsWithTitle) > 0):
@@ -12,23 +13,23 @@ task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在�
 time.sleep(3)
 
 #test
-# task.findNextCityAndClick()
+# task.startTradeRoute()
+# task.buyInCity("copenhagen",routeList[0]["buyProducts"])
 
 #Optional
-# task.shipBuilding(options=[7,8],city="genoa", times=1)
+# task.shipBuilding(options=[4,5],city="ceuta", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-task.enableSB("genoa",options=[7,8])
+task.enableSB("faro",options=[9,9])
+task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()
+task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗;船拉平最远距离")
 
-try:
-    while(True):
-        task.startJourney()
-except Exception as e:
-    print(e)
+while(True):
+    task.startTradeRoute()
     
 
 

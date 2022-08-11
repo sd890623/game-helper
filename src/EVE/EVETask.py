@@ -84,7 +84,7 @@ class EVETask:
             return False      
 
     def isPlayerInSite(self):
-        inCenter=self.hasSingleLineWordsInArea("cha",A=[844,105,888,126])
+        inCenter=self.hasSingleLineWordsInArea("cha",A=[823,104,896,127])
         minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
         minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[917,511,977,572])
 

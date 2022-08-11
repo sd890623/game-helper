@@ -68,17 +68,34 @@ class EVETask:
             print(e)
             return 1
 
-    def isPlayerInSite(self):
-        leaveSiteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\cloneCenter.bmp")
-        minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
-        cloneCenterX,y = self.simulatorInstance.window_capture(leaveSiteImgPath, A=[841,486,912,549])
-        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[931,520,993,579])
+    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
+        try:
+            screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
+            # self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print(words +" in "+ str)
+            return words in str.lower()
+        except Exception as e:
+            print(e)    
+            return False      
 
-        if (cloneCenterX and not(minerX)):
+    def isPlayerInSite(self):
+        inCenter=self.hasSingleLineWordsInArea("cha",A=[931,104,977,124])
+        minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
+        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[917,511,977,572])
+
+        if (inCenter and not(minerX)):
+            self.print("in")
             return "in"
-        elif (minerX and not(cloneCenterX)):
+        elif (minerX and not(inCenter)):
+            self.print("out")
             return "out"
         else:
+            self.print("middle")
             return "middle"
         
 

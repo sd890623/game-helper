@@ -184,8 +184,10 @@ class EVETask:
         #    wait(lambda: self.simulatorInstance.mouseWheel((893,121), "up"),1)
         #    times=times-1
 
-        wait(lambda: self.simulatorInstance.click_point(898,121,True))
-        wait(lambda: self.simulatorInstance.click_point(703,186,True))
+        wait(lambda: self.simulatorInstance.click_point(898,121,True),2)
+        wait(lambda: self.simulatorInstance.click_point(703,186,True),2)
+        wait(lambda: self.simulatorInstance.click_point(700,340,True))
+
         wait(lambda: self.simulatorInstance.click_keyboard("q"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("r"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("t"), 1)

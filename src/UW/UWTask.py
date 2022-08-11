@@ -26,7 +26,7 @@ routeList=[
         "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
         "buyCities":["timbuktu","benin","elmina","abidjan","sierra","praia","arguin"],
         "buySupplyCities":["elmina"],
-        "supplyCities":["arguin","faro","groningen","copenhagen"]
+        "supplyCities":["abidjan","arguin","faro","groningen","copenhagen"]
     },
 ]
 
@@ -140,7 +140,6 @@ class UWTask(FrontTask):
         index=0
         found=False
         while(not(found) and timeout>0):
-            time.sleep(1)
             timeout-=1
             yDiff=int(index%8*58.8)
             if(self.hasSingleLineWordsInArea(nextCityName, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
@@ -159,7 +158,6 @@ class UWTask(FrontTask):
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,2)
-        time.sleep(2)
 
     def restock(self):
         self.print("补给")
@@ -202,22 +200,21 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(86,77),2)
         self.simulatorInstance.typewrite(cityname)
         wait(lambda: self.simulatorInstance.clickPointV2(114,107),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,260,46]),2,2)
 
     def checkForDisaster(self):
         #click disaster icon
         wait(lambda: self.simulatorInstance.clickPointV2(649,336),2)
-        if(self.hasSingleLineWordsInArea("miracle",A=[1076,583,1140,602])):
+        if(self.hasSingleLineWordsInArea("miracle",A=[1076,602,1144,626])):
             #click use tool
-            wait(lambda: self.simulatorInstance.clickPointV2(1103,530),2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1094,547),2)
             #click yes
-            #@todo need fix
             wait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),2)
 
 
     def inJourneyTask(self):
-        self.checkForGiftAndReceive()
         self.checkForDisaster()
+        self.checkForGiftAndReceive()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),2,1)
         #self.checkForBottleAndClick()
 
@@ -228,7 +225,7 @@ class UWTask(FrontTask):
             wait(self.selectNextCity, 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 6, timeout=420, backupFunc=backupFunc)
-        time.sleep(random.randint(1,3))
+        time.sleep(random.uniform(0,1))
         print("click twice")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),2,1)
 

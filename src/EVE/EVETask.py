@@ -95,7 +95,6 @@ class EVETask:
             self.print("out")
             return "out"
         else:
-            self.print("middle")
             return "middle"
         
 

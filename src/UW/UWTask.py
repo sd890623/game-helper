@@ -29,6 +29,8 @@ routeList=[
         "supplyCities":["abidjan","arguin","faro","groningen","copenhagen"]
     },
 ]
+allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]
+
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
@@ -105,7 +107,6 @@ class UWTask(FrontTask):
             return False
 
     def setCurrentCityFromScreen(self):
-        allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]
         self.inCityList(allCityList)
 
     def checkReachingPlace(self):
@@ -347,7 +348,7 @@ class UWTask(FrontTask):
         while(True):
             self.print("出发卖货城市")
             # goto sell city
-            self.gotoCity(routeObject["sellCity"],[routeObject["sellCity"]])
+            self.gotoCity(routeObject["sellCity"],allCityList)
             self.sellInCity(routeObject["sellCity"])
 
             self.print("出发买东西城市")
@@ -356,23 +357,23 @@ class UWTask(FrontTask):
             for city in routeObject["buyCities"]:
                 if(self.tradeRouteBuyFin==True):
                     break
-                self.gotoCity(city,routeObject["buyCities"])
+                self.gotoCity(city,allCityList)
                 self.buyInCity(city, products=routeObject["buyProducts"])
             #go to buy again if not full
             if(self.tradeRouteBuyFin!=True):
                 for city in routeObject["buySupplyCities"]:
-                    self.gotoCity(city,[city])
+                    self.gotoCity(city,allCityList)
             # time.sleep(1200)
             for city in routeObject["buyCities"]:
                 if(self.tradeRouteBuyFin==True):
                     break
-                self.gotoCity(city,routeObject["buyCities"])
+                self.gotoCity(city,allCityList)
                 self.buyInCity(city, products=routeObject["buyProducts"])            
 
             self.print("出发补给城市")
             #go to supply cities
             for city in routeObject["supplyCities"]:
-                self.gotoCity(city,[city])
+                self.gotoCity(city,allCityList)
                 self.checkSB()
 
             #swap to other route side

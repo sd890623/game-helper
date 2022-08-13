@@ -336,8 +336,8 @@ class win ():#line:35
             print(e)
             print("failed to click point")
 
-    def doubleClickPointV2(self,x,y,random=False):
-        if(random):
+    def doubleClickPointV2(self,x,y,useRandom=False):
+        if(useRandom):
             xRandom =x +random .randint (-5 ,5 )
             yRandom =y +random .randint (-5 ,5 )
         else:
@@ -348,10 +348,12 @@ class win ():#line:35
             win32gui.SetForegroundWindow(self .hwnd)
             pydirectinput.moveTo(xRandom+left, yRandom+top)
             time.sleep(0.5)
-            pydirectinput.doubleClick(xRandom+left, yRandom+top)
+            pydirectinput.leftClick(xRandom+left, yRandom+top)
+            time.sleep(random.uniform(0.5,1))
+            pydirectinput.leftClick(xRandom+left, yRandom+top)
         except Exception as e:
             print(e)
-            print("failed to double click point")
+            print("failed to \"double\" click point")
 
     def rightClickPointV2(self,x,y,random=False):
         if(random):

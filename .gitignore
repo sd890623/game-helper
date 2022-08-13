@@ -1,3 +1,5 @@
 .venv
 .idea
 src/__pycache__
+src/UW/__pycache__
+src/EVE/__pycache__

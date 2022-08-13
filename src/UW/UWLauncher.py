@@ -13,7 +13,7 @@ task.print("提示： 切换中文输入法；虚拟机屏幕focus且鼠标在�
 time.sleep(3)
 
 #test
-# task.startTradeRoute()
+task.testTask()
 # task.buyInCity("copenhagen",routeList[0]["buyProducts"])
 
 #Optional

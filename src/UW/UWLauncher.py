@@ -12,8 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 # 11, +16
 #test
-
-task.testTask()
+# task.testTask()
 
 # task.buyInCity("copenhagen",routeList[0]["buyProducts"])
 

@@ -2,6 +2,7 @@ from windows import *
 from images import *
 from utils import *
 import guiUtils
+from Messager import Messager
 
 class FrontTask(object):
     hwnd = None
@@ -13,9 +14,13 @@ class FrontTask(object):
         self.index = index
         hwndObject = getWindowHwndObjectById(hwnd)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
+        self.messager=Messager()
 
     def print(self,text):
         print(getDateTimeString()+"： "+text)
+
+    def sendMessage(self,url,text):
+        self.messager.sendMessage(url,getDateTimeString()+"： "+text)
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
             imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")

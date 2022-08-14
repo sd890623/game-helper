@@ -8,7 +8,6 @@ import guiUtils
 import time
 import random
 from playsound import playsound
-from Messager import Messager
 
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 # NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
@@ -25,7 +24,7 @@ routeList=[
     {
         "sellCity":"timbuktu",
         "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
-        "buyCities":["timbuktu","benin","tom","elmina","abidjan","sierra"],
+        "buyCities":["timbuktu","benin","tom","elmina","abidjan"],
         "buySupplyCities":["benin"],
         "supplyCities":["abidjan","arguin","faro","groningen","copenhagen"]
     },
@@ -62,8 +61,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):        
-        messager=Messager()
-        messager.sendMessage("reached A city")
+        # messager=Messager()
+        # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob)
@@ -84,6 +83,7 @@ class UWTask(FrontTask):
             for city in cityList:
                 if(city in str.lower()):
                     self.currentCity = city
+                    self.sendMessage("UW","reached city of "+city)
                     return True
             return False
         except Exception as e:

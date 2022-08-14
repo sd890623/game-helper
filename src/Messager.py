@@ -12,10 +12,10 @@ mutation{{
 class Messager:
     def __init__(self) -> None:
         self.client = GraphQLClient('http://127.0.0.1:4000')
-    def sendMessage(self,msg):
+    def sendMessage(self,url,msg):
         result = self.client.execute(f'''
         mutation{{
-            post(url:"UW",description:"{msg}"){{
+            post(url:"{url}",description:"{msg}"){{
                 id
             }}
         }}

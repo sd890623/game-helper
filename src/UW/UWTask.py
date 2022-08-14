@@ -7,30 +7,9 @@ from Sb import Sb
 import guiUtils
 import time
 import random
-from playsound import playsound
+from constants import cityNames, routeList
 
-# cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
-# NorthEuropeCitynames=["london","dover","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
-routeList=[
-    {
-        "sellCity":"kokkola",
-        #add felt later
-        "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","flax","tourmaline"],
-        #gdahsk might suffer
-        "buyCities":["kokkola","gda","riga","saint","stockholm","visby","copenhagen","oslo"],
-        "supplyCities":["dover","faro","arguin","elmina"]
-    },
-    {
-        "sellCity":"timbuktu",
-        "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
-        "buyCities":["timbuktu","benin","tom","elmina","abidjan"],
-        "buySupplyCities":["benin"],
-        "supplyCities":["abidjan","arguin","faro","groningen","copenhagen"]
-    },
-]
 allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]
-
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
@@ -238,19 +217,11 @@ class UWTask(FrontTask):
         print("click twice")
         self.clickEnterCityButton()
 
-
-    #todo
     def checkForGiftAndReceive(self):
         if(self.hasImageInScreen("redDot", A=[1084,6,1099,14], greyMode=True)):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             self.clickEnterCityButton()
-
-    ## Not use
-    def checkForBottleAndClick(self):
-        position=self.hasImageInScreen("flowBottle")
-        if(position):
-            wait(lambda: self.simulatorInstance.clickPointV2(position[0], position[1]))
 
     def basicMarket(self):
         self.print("去超市")

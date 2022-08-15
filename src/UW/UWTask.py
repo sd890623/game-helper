@@ -154,6 +154,14 @@ class UWTask(FrontTask):
         # wait(lambda: self.simulatorInstance.click_point(662,398))
         # wait(lambda: self.simulatorInstance.click_point(1132,750))
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
+        #Restore crew
+        if(self.hasSingleLineWordsInArea("notenough",A=[1078,449,1167,471])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+
+
 
     def depart(self):
         def clickAndStock():

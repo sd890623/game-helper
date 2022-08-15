@@ -3,16 +3,27 @@ import sys
 sys.path.append("src")
 from windows import *
 from EVETask import EVETask
+import datetime as dt
 
 # todo 
 # restart app when crash?
 # ocr key words to replace image match
 # Keep time difference by 60s all the time. Done partial
 
+def isWorkHour():
+    hour=dt.datetime.now().hour
+    if(hour>=5 and hour<=8):
+        return False
+    return True
+
 def runTask(hwnd, index):
     task = EVETask(hwnd, index)
     while(True):
         try:
+            if(not(isWorkHour())):
+                print("not working hour,sleep for 30mins")
+                time.sleep(1800)
+                continue
             task.startMiningTask()
         except Exception as e:
             task.closeWindow()

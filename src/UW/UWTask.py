@@ -207,11 +207,11 @@ class UWTask(FrontTask):
         self.checkForGiftAndReceive()
         self.clickEnterCityButton()
 
-    def waitForCity(self,cityList=None):
+    def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         #click on "move immediately continusly"
         def backupFunc():
-            wait(self.selectNextCity, 15)
+            wait(lambda: self.findCityAndClick(targetCity), 15)   
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=420, backupFunc=backupFunc)
         print("click twice")
@@ -308,7 +308,7 @@ class UWTask(FrontTask):
         self.depart()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         self.findCityAndClick(cityname)
-        self.waitForCity(cityList)
+        self.waitForCity(cityList,targetCity=cityname)
 
     def startTradeRoute(self):
         #Long journey, disable fast stock

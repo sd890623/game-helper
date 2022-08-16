@@ -101,10 +101,8 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
         self.uwtask.print("sell fin")
 
-    def buyProductsInCity(self,products):
+    def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
-
-
         print(products)
 
         #xDiff 261
@@ -135,6 +133,20 @@ class Market:
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
         self.uwtask.print("buy fin")
+
+    def buyProductsInCityTwice(self,products):
+        self.buyProductsInMarket(products)
+        if(self.uwtask.tradeRouteBuyFin):
+            return
+        while(True):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[818,76,836,95]))>27):
+                break
+            else:
+                time.sleep(60)
+
+        self.buyProductsInMarket(products)
+
+
 
     def bargin(self):
             #sell area

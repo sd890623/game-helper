@@ -12,9 +12,9 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 # 11, +16
 #test
-# task.restock()
+# task.buyInCity("stockholm",["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline"])
 
-# task.buyInCity("copenhagen",routeList[0]["buyProducts"])
+# task.buyInCity("gan",routeList[0]["buyProducts"])
 
 #Optional
 # task.shipBuilding(options=[4,5],city="ceuta", times=1)
@@ -22,7 +22,7 @@ time.sleep(3)
 # task.fastStock=True disable
 
 #Init option
-# task.enableSB("faro",options=[10,10])
+task.enableSB("seville",options=[12,12])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

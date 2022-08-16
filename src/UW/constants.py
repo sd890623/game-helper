@@ -8,16 +8,22 @@ routeList=[
     {
         "sellCity":"kokkola",
         #add felt later
-        "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","flax","tourmaline"],
+        "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","tourmaline"],
+        #light season
+        # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
+
         #gdahsk might suffer
-        "buyCities":["kokkola","gda","riga","saint","stockholm","visby","copenhagen","oslo"],
-        "supplyCities":["dover","faro","arguin","elmina"]
+        "buyCities":["kokkola","saint","visby","gda","copenhagen"],
+        "buySupplyCities":[],
+        #light season
+        # "buyCities":["kokkola","saint","visby","gda","copenhagen","beck","oslo","saint","visby"],
+        "supplyCities":["dover","seville","arguin","elmina"]
     },
     {
         "sellCity":"timbuktu",
-        "buyProducts": ["diamond","gold","goldwork","golddust","agate","rubellite","marbleStatue","malachite","pearl"],
-        "buyCities":["timbuktu","benin","tom","elmina","abidjan"],
+        "buyProducts": ["diamond","gold","goldwork","golddust","agate","malachite","pearl","rubellite"],
+        "buyCities":["timbuktu","benin","tom","elmina"],
         "buySupplyCities":["benin"],
-        "supplyCities":["abidjan","arguin","faro","groningen","copenhagen"]
+        "supplyCities":["abidjan","arguin","seville","groningen","copenhagen"]
     },
 ]

@@ -41,7 +41,7 @@ def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, 
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()
-        print("not found, wait for 6s")
+        print("not found, wait for 8s")
         time.sleep(frequency)
         timeout-=frequency
     if(timeout<=0):

@@ -19,6 +19,7 @@ class UWTask(FrontTask):
     inTownCityNameArea=[119,18,265,48]
     inScreenConfirmYesButton=977,639
     enterCityButton=1075,671
+    outSeaWaterTitle=[74,15,260,46]
     #client screen size: 1280x720
     #remote control setup size:
 
@@ -176,7 +177,7 @@ class UWTask(FrontTask):
         self.print("出海")
 
         # wait(lambda: self.simulatorInstance.clickPointV2(1183,568),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,256,46]), 15,2, backupFunc=clickAndStock)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.hasSingleLineWordsInArea("waters", A=self.outSeaWaterTitle), 15,2, backupFunc=clickAndStock)
         time.sleep(4)
 
     def selectNextCity(self):
@@ -192,7 +193,7 @@ class UWTask(FrontTask):
         self.simulatorInstance.typewrite(cityname)
         self.simulatorInstance.send_enter()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=[74,15,260,46]),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=self.outSeaWaterTitle),2,2)
 
     def checkForDisaster(self):
         #click disaster icon

@@ -119,7 +119,7 @@ class UWTask(FrontTask):
         #9th city rea in 1088,698,1194,723
         #height between 47.4
         firstPosi = (1138,256)
-        area=[1113,240,1198,266]
+        area=[1113,240,1211,266]
         timeout=16
         index=0
         found=False
@@ -177,7 +177,7 @@ class UWTask(FrontTask):
         self.print("出海")
 
         # wait(lambda: self.simulatorInstance.clickPointV2(1183,568),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.hasSingleLineWordsInArea("waters", A=self.outSeaWaterTitle), 15,2, backupFunc=clickAndStock)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)), 15,2, backupFunc=clickAndStock)
         time.sleep(4)
 
     def selectNextCity(self):
@@ -193,7 +193,7 @@ class UWTask(FrontTask):
         self.simulatorInstance.typewrite(cityname)
         self.simulatorInstance.send_enter()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: self.hasSingleLineWordsInArea("waters", A=self.outSeaWaterTitle),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,2)
 
     def checkForDisaster(self):
         #click disaster icon

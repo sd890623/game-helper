@@ -138,11 +138,14 @@ class Market:
         self.buyProductsInMarket(products)
         if(self.uwtask.tradeRouteBuyFin):
             return
+
         while(True):
             if(int(self.uwtask.getNumberFromSingleLineInArea(A=[818,76,836,95]))>27):
                 break
             else:
                 time.sleep(60)
+                wait(lambda: self.instance.clickPointV2(*self.randonPoint),3)
+
 
         self.buyProductsInMarket(products)
 

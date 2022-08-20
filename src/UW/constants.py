@@ -6,7 +6,7 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 
 routeList=[
     {
-        "sellCity":"visby",
+        "sellCity":"kokkola",
         #add felt later
         "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","tourmaline"],
         #light season
@@ -20,9 +20,9 @@ routeList=[
         "supplyCities":["antwerp","seville","arguin","elmina"]
     },
     {
-        "sellCity":"timbuktu",
-        "buyProducts": ["diamond","gold","goldwork","golddust","agate","malachite","pearl","rubellite"],
-        "buyCities":["timbuktu","benin","tom","elmina"],
+        "sellCity":"timbukt",
+        "buyProducts": ["diamond","gold","goldwork","golddust","agate","malachite","pearl"],
+        "buyCities":["timbukt","benin","tom","elmina"],
         "buySupplyCities":["benin"],
         "supplyCities":["abidjan","arguin","seville","antwerp","copenhagen"]
     },

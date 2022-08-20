@@ -17,12 +17,12 @@ time.sleep(3)
 # task.buyInCity("gan",routeList[0]["buyProducts"])
 
 #Optional
-# task.shipBuilding(options=[4,5],city="ceuta", times=1)
+# task.shipBuilding(options=[9,9],city="tim", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-task.enableSB("seville",options=[12,12])
+#task.enableSB("seville",options=[9,9])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

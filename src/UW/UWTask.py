@@ -197,7 +197,7 @@ class UWTask(FrontTask):
 
     def checkForDisaster(self):
         #click disaster icon
-        wait(lambda: self.simulatorInstance.clickPointV2(637,388),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(637,345),1)
         if(self.hasSingleLineWordsInArea("miracle",A=[1076,602,1144,626])):
             #click use tool
             wait(lambda: self.simulatorInstance.clickPointV2(1094,547),2)
@@ -206,7 +206,7 @@ class UWTask(FrontTask):
 
     def clickEnterCityButton(self):
         for x in range(2):
-            if(self.hasSingleLineWordsInArea("move",A=[1089,660,1159,685])):
+            if(self.hasSingleLineWordsInArea("move",A=[1101,654,1150,672])):
                 wait(lambda: self.simulatorInstance.clickPointV2(970,674),0.5)
             else:
                 wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)

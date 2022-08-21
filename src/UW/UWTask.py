@@ -41,6 +41,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):        
+        self.hasSingleLineWordsInArea("yes", A=[814,609,1173,668])
+
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
@@ -260,7 +262,11 @@ class UWTask(FrontTask):
         #sell
         market.sellGoodsWithMargin()
         time.sleep(3)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
+        def backup():
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
+            time.sleep(5)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
     def buyInCity(self,cityName,products):
         self.print("去超市")
@@ -272,7 +278,11 @@ class UWTask(FrontTask):
         #buy
         market.buyProductsInCityTwice(products)
         time.sleep(3)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
+        def backup():
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
+            time.sleep(5)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")

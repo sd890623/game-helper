@@ -12,9 +12,9 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 # 11, +16
 #test
-# task.buyInCity("stockholm",["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline"])
+# task.testTask()
 
-# task.buyInCity("gan",routeList[0]["buyProducts"])
+# task.buyInCity("tim",routeList[1]["buyProducts"])
 
 #Optional
 # task.shipBuilding(options=[9,9],city="tim", times=1)

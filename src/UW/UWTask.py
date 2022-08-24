@@ -40,7 +40,8 @@ class UWTask(FrontTask):
         parentWindow.moveWindow(10,10,1327,779)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
-    def testTask(self):        
+    def testTask(self):    
+        self.simulatorInstance.send_enter()    
         self.hasSingleLineWordsInArea("yes", A=[814,609,1173,668])
 
         # messager=Messager()
@@ -149,7 +150,6 @@ class UWTask(FrontTask):
         self.print("补给")
         # use emergency stock
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
-
         if(self.hasSingleLineWordsInArea("0", A=[922,417,938,436],ocrType=2) and len(self.getSingleLineWordsInArea(A=[922,417,958,437],ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
             return
@@ -192,8 +192,8 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea), 2,2)
         wait(lambda: self.simulatorInstance.clickPointV2(38,89),2)
         wait(lambda: self.simulatorInstance.clickPointV2(86,77),2)
-        self.simulatorInstance.typewrite(cityname)
-        self.simulatorInstance.send_enter()
+        wait(lambda: self.simulatorInstance.typewrite(cityname),5)
+        wait(lambda: self.simulatorInstance.send_enter(),5)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,2)
 
@@ -214,7 +214,7 @@ class UWTask(FrontTask):
                 wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)
 
     def inJourneyTask(self):
-        self.checkForDisaster()
+        # self.checkForDisaster()
         self.checkForGiftAndReceive()
         self.clickEnterCityButton()
 
@@ -224,7 +224,7 @@ class UWTask(FrontTask):
         def backupFunc():
             wait(lambda: self.findCityAndClick(targetCity), 15)   
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=420, backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=620, backupFunc=backupFunc)
         print("click twice")
         self.clickEnterCityButton()
 

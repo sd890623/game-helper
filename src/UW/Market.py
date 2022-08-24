@@ -87,7 +87,7 @@ class Market:
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("sell items")
-        while (index<9):
+        while (index<7):
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
@@ -99,6 +99,8 @@ class Market:
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[884,7,976,43],ocrType=2)
+        self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
     def buyProductsInMarket(self,products):
@@ -157,9 +159,9 @@ class Market:
             #buy area
             #825,647,1095,690
             #try wider 
-        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[814,609,1173,668])):
+        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[902,615,1100,658],debug=True)):
             time.sleep(2)
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),15)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 2)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 4)

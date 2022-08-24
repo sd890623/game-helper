@@ -29,7 +29,7 @@ class Sb:
             self.uwtask.shipBeingBuilt=True
             return
         #click receive#1 ship
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(289,335), 2, 4)        
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(289,335), 2, 2)        
         #click receive#2 ship
         # doMoreTimesWithWait(lambda: self.instance.clickPointV2(465,327), 2, 4)
         #Enter random strings
@@ -37,9 +37,9 @@ class Sb:
         self.instance.typewrite(str(random.randint(1,99)))
         self.instance.send_enter()
         #click ok
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2,7)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2,5)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2, 2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 1, 2)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
 
 

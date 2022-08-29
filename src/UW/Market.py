@@ -54,10 +54,11 @@ class Market:
             price = self.uwtask.getNumberFromSingleLineInArea(A=[338+xDiff,203+yDiff,389+xDiff,221+yDiff])
             #269,137,326,155
             #logic re food type
-            if(self.uwtask.hasSingleLineWordsInArea("food", A=[269+xDiff,137+yDiff,326+xDiff,155+yDiff]) and price>200):
-                continue
             if(not(price)):
                 continue
+            if(price>300 and self.uwtask.hasSingleLineWordsInArea("food", A=[269+xDiff,137+yDiff,326+xDiff,155+yDiff])):
+                continue
+
             buyList.append((index-1, price))
 
         #sort by price high to low
@@ -87,7 +88,7 @@ class Market:
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("sell items")
-        while (index<9):
+        while (index<7):
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
@@ -99,12 +100,12 @@ class Market:
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[892,16,974,39],ocrType=2)
+        self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
-    def buyProductsInCity(self,products):
+    def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
-
-
         print(products)
 
         #xDiff 261
@@ -136,15 +137,32 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
         self.uwtask.print("buy fin")
 
+    def buyProductsInCityTwice(self,products):
+        self.buyProductsInMarket(products)
+        if(self.uwtask.tradeRouteBuyFin):
+            return
+
+        while(True):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[818,76,836,95]))>27):
+                break
+            else:
+                time.sleep(60)
+                wait(lambda: self.instance.clickPointV2(*self.randonPoint),3)
+
+
+        self.buyProductsInMarket(products)
+
+
+
     def bargin(self):
             #sell area
             #846,648,1095,690
             #buy area
             #825,647,1095,690
-            #try wider
-        if(self.uwtask.hasSingleLineWordsInArea("es", A=[813,616,1149,672])):
-            time.sleep(2)
+            #try wider 
+        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[902,615,1100,658],debug=False)):
+            time.sleep(1)
             #click yes
-            wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),15)
+            wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 2)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),10, 1)

@@ -2,7 +2,7 @@ import cv2
 from cnocr import CnOcr
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-")
-numberOcr=CnOcr(cand_alphabet="1234567890-()")
+numberOcr=CnOcr(cand_alphabet="1234567890-(),")
 def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     targetImage = cv2.imread(imagePath)
     targetHeigh, targetWidth, channel = targetImage.shape
@@ -53,7 +53,10 @@ def getNumberfromImageBlob(imageBlob):
             return False
         str = "".join(res[0])
         print("ocred number: "+ str)
-        return int(str)
+        if("," in str):
+            return int(str.replace(",",""))+1000
+        else:
+            return int(str)
     except Exception as e:
         print(e)    
         return False       

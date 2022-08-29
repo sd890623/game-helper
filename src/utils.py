@@ -14,7 +14,7 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
 
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None):
     wait(func, seconds)
-    timeout = 40
+    timeout = 30
     while(not(untilFunc()) and timeout >0):
         time.sleep(frequency)
         timeout-=frequency
@@ -41,7 +41,7 @@ def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, 
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()
-        print("not found, wait for 6s")
+        print("not found, wait for 8s")
         time.sleep(frequency)
         timeout-=frequency
     if(timeout<=0):

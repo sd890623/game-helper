@@ -29,13 +29,17 @@ class Sb:
             self.uwtask.shipBeingBuilt=True
             return
         #click receive#1 ship
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(289,335), 2, 4)        
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(289,335), 2, 2)        
         #click receive#2 ship
         # doMoreTimesWithWait(lambda: self.instance.clickPointV2(465,327), 2, 4)
+        #Enter random strings
+        wait(lambda: self.instance.clickPointV2(715,366),2)
+        self.instance.typewrite(str(random.randint(1,99)))
+        self.instance.send_enter()
         #click ok
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2,7)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2,5)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2, 2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 1, 2)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
 
 
@@ -63,12 +67,12 @@ class Sb:
         self.uwtask.print("造船")
         #click build
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(51,89), lambda: self.uwtask.hasSingleLineWordsInArea("build", A=self.uwtask.titleArea))    
-        #click 1st ship 284,297
+        #click 1st ship 286,179
         #2nd row last col ship 1199,523
         #xDiff 183
         #yDiff 226
-        buildX=int(284+183.6*(option%6))
-        buildY=int(297+226*int(option/6))
+        buildX=int(287+183.6*(option%6))
+        buildY=int(179+226*int(option/6))
         # print(buildX,buildY)
         wait(lambda: self.instance.clickPointV2(buildX,buildY),4)
         #click build

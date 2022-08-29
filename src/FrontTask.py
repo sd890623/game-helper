@@ -62,10 +62,11 @@ class FrontTask(object):
             print(e)    
             return False    
 
-    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1):
+    def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            # self.saveImageToFile(screenshotBlob)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False
@@ -86,5 +87,5 @@ class FrontTask(object):
         self.simulatorInstance.bringWindowToFront()
 
     def saveImageToFile(self,imageBlob):
-        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\players.bmp")
+        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
         cv2.imwrite(screenshotImgPath, imageBlob)  

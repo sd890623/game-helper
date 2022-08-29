@@ -30,8 +30,8 @@ class EVETask:
             count+=1
     
     def closeWindow(self):
-        wait(lambda: self.simulatorInstance.click_point(76,32))
-        wait(lambda: self.simulatorInstance.click_point(537,488))
+        wait(lambda: self.simulatorInstance.click_point(44,26))
+        wait(lambda: self.simulatorInstance.click_point(531,481))
         wait(lambda: self.simulatorInstance.click_keyboard("t"),30)
 
     def print(self,text):
@@ -45,8 +45,8 @@ class EVETask:
         
         try:
             findPlayerCountLk.acquire()
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[2,507,175,536])
-            countOcrArea = [x+iconWitdhHeight+3, y, x+iconWitdhHeight+1+14+15, y+iconWitdhHeight+5]
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[3,496,171,526])
+            countOcrArea = [x+14, y-1, x+iconWitdhHeight+27, y+iconWitdhHeight+14]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
             # self.saveImageToFile(countImageBlob)
             ocrCount = getOCRfromImageBlob(countImageBlob,2)
@@ -57,7 +57,7 @@ class EVETask:
 
         if(x == 0 and y == 0):
             self.print("没打开人物列表？")
-            return 0
+            return 1
 
         try:
             if(len(ocrCount[0]) == 0):
@@ -196,15 +196,16 @@ class EVETask:
     def goHome(self):
         wait(lambda: self.simulatorInstance.click_keyboard("`"),6)
 
-        homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
-        homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
+        # homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
+        # homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
 
-        homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,225,167,526])
-        if(homeRouteImgX==0 or homeRouteImgY==0):
-            homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath2, A=[26,221,171,531])
+        # homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,225,167,526])
+        # if(homeRouteImgX==0 or homeRouteImgY==0):
+        #     homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath2, A=[26,221,171,531])
         
-        self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
-        wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
+        # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
+        # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
+        wait(lambda: self.simulatorInstance.click_keyboard("1"),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 6)
         wait(lambda: self.simulatorInstance.click_point(206,182))
 

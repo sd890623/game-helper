@@ -377,8 +377,9 @@ class win ():#line:35
         pydirectinput.typewrite(words)
 
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
-        win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
-        win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233
+        pydirectinput.press("enter")
+        # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
+        # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233
     def click_keyboard (O00000OOOOOOOOOO0, keyStroke ):#line:231
         if (getDecimalValueFromKeyStroke(keyStroke)):
             win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232

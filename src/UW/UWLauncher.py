@@ -12,21 +12,22 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 # 11, +16
 #test
+# task.basicMarket()
+
+# task.selectCityFromMapAndMove("groningen")
 # task.testTask()
 
-# task.buyInCity("tim",routeList[1]["buyProducts"])
-
 #Optional
-# task.shipBuilding(options=[9,9],city="tim", times=1)
+#task.shipBuilding(options=[9,9],city="amsterda", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-#task.enableSB("seville",options=[9,9])
+# task.enableSB("ceuta",options=[7,8])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示：虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗;船拉平最远距离;设置免税港;设置水手最少数")
+task.print("提示：虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗;船拉平最远距离;设置免税港;设置水手最少数;")
 
 while(True):
     task.startTradeRoute()

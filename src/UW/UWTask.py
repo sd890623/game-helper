@@ -150,7 +150,8 @@ class UWTask(FrontTask):
         self.print("补给")
         # use emergency stock
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
-        if(self.hasSingleLineWordsInArea("0", A=[922,417,938,436],ocrType=2) and len(self.getSingleLineWordsInArea(A=[922,417,958,437],ocrType=2))==1):
+        zeroCostStockArea=[922,417,958,437]
+        if(self.hasSingleLineWordsInArea("0", A=zeroCostStockArea,ocrType=2,debug=False) and len(self.getSingleLineWordsInArea(A=zeroCostStockArea,ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
             return
         # Destroy excess
@@ -192,8 +193,8 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea), 2,2)
         wait(lambda: self.simulatorInstance.clickPointV2(38,89),2)
         wait(lambda: self.simulatorInstance.clickPointV2(86,77),2)
-        wait(lambda: self.simulatorInstance.typewrite(cityname),5)
-        wait(lambda: self.simulatorInstance.send_enter(),5)
+        wait(lambda: self.simulatorInstance.typewrite(cityname),2)
+        wait(lambda: self.simulatorInstance.send_enter(),2)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,2)
 
@@ -276,7 +277,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #buy
-        market.buyProductsInCityTwice(products)
+        market.buyProductsInMarket(products)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)

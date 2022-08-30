@@ -345,6 +345,10 @@ class UWTask(FrontTask):
             return
 
         while(True):
+            if(not(isWorkHour())):
+                self.print("not working hour,sleep for 30mins")
+                time.sleep(1800)
+                continue
             self.print("出发卖货城市")
             # goto sell city
             self.gotoCity(routeObject["sellCity"],allCityList)

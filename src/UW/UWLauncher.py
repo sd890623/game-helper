@@ -3,6 +3,7 @@ sys.path.append("src")
 from windows import *
 from UWTask import UWTask
 from UWTask import routeList
+from utils import isWorkHour
 
 allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - MEDIA-PC")
 if (len(allWindowsWithTitle) > 0):
@@ -18,18 +19,22 @@ time.sleep(3)
 # task.testTask()
 
 #Optional
-#task.shipBuilding(options=[9,9],city="amsterda", times=1)
+# task.shipBuilding(options=[7,8],city="ceuta", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-# task.enableSB("ceuta",options=[7,8])
+task.enableSB("ceuta",options=[7,8])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()
 task.print("提示：虚拟机屏幕focus且鼠标在内；长距旅行开启蓝旗;船拉平最远距离;设置免税港;设置水手最少数;")
 
 while(True):
+    if(not(isWorkHour())):
+        task.print("not working hour,sleep for 30mins")
+        time.sleep(1800)
+        continue
     task.startTradeRoute()
     
 

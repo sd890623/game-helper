@@ -1,11 +1,12 @@
 import time
 import random
 from datetime import datetime
+import datetime as dt
 import threading
 
 def wait(func, seconds = 3):
     func()
-    time.sleep(seconds+random.uniform(0,1))
+    time.sleep(seconds+random.uniform(0,2))
 
 def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
     while(times>0):
@@ -67,5 +68,10 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
             found=True
     return found
 
+def isWorkHour():
+    hour=dt.datetime.now().hour
+    if(hour>=5 and hour<7):
+        return False
+    return True
 
 findPlayerCountLk=threading.Lock()

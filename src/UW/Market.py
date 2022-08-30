@@ -78,7 +78,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
         self.uwtask.print("buy fin")
 
     def sellGoodsWithMargin(self):
@@ -99,7 +99,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=[892,16,974,39],ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
@@ -134,7 +134,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,1)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
         self.uwtask.print("buy fin")
 
     def buyProductsInCityTwice(self,products):
@@ -165,4 +165,4 @@ class Market:
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),10, 1)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 0.5)

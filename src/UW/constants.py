@@ -4,17 +4,18 @@
 cityNames=["london","dover","calais","amsterda","hamburg","groningen"]
 
 #saint<->east land
-routeList=[
+#light season
+routeList2=[
     {
         "sellCity":"saint",
-        "buyProducts": ["amber","vodka","felt","chrysoberyl","tourmaline","aquavit"],
+        "buyProducts": ["amber","vodka","felt","tourmaline","aquavit","gin","glassbead","brandy","printed"],
         #light season
         # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
-        "buyCities":["saint","visby","gda","beck","copenhagen"],
+        "buyCities":["saint","visby","gda","groningen","helder","amsterda"],
         "buySupplyCities":[],
         #light seaso3n
         # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-        "supplyCities":["helder","ceuta","syracuse"]
+        "supplyCities":["helder","faro","syracuse"]
     },
     {
         "sellCity":"candia",
@@ -24,34 +25,35 @@ routeList=[
         "supplyCities":["syracuse","ceuta","helder"]
     },
 ]
-
-routeList2=[
+#carrabean to north,winter
+#need craft,alcohol,cloth,metal
+routeList=[
     {
         "sellCity":"saint",
         #add felt later
-        "buyProducts": ["amber","vodka","felt","chrysoberyl","tourmaline","aquavit"],
+        "buyProducts": ["amber","vodka","felt","tourmaline","aquavit","gin","glassbead","whisky","flannel","jewelry"],
         #light season
         # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
 
         #gdahsk might suffer
-        "buyCities":["saint","visby","gda","beck","copenhagen"],
+        "buyCities":["saint","visby","gda","hamburg","groningen","amsterda","london"],
         "buySupplyCities":[],
         #light seaso3n
         # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-        "supplyCities":["helder","ceuta","syracuse"]
+        "supplyCities":["london","faro","ponta"]
     },
     # {
     #     "sellCity":"timbukt","
     #     "buyProducts": ["diamond","gold","goldwork","golddust","agate","malachite","pearl"],
     #     "buyCities":["timbukt","benin","tom","elmina"],
     #     "buySupplyCities":["benin"],
-    #     "supplyCities":["abidjan","arguin","seville","antwerp","copenhagen"]
+    #     "sulyCities":["abidjan","arguin","seville","antwerp","copenhagen"]
     # },
     {
-        "sellCity":"candia",
-        "buyProducts": ["civet","perfume","narcissus","oakmoss","marblestat"],
-        "buyCities":["candia","alexandr","cairo","said","jaffa","beirut"],
+        "sellCity":"juan",
+        "buyProducts": ["opal","topaz","obsidianclu","gold","golddust","emerald","silver"],
+        "buyCities":["juan","willemsta","maracaib","cartagen","santiago","santo"],
         "buySupplyCities":[],
-        "supplyCities":["syracuse","ceuta","helder"]
+        "supplyCities":["juan","ponta","helder"]
     },
 ]

@@ -4,9 +4,12 @@ from datetime import datetime
 import datetime as dt
 import threading
 
-def wait(func, seconds = 3):
+def wait(func, seconds = 3,disableWait=False):
     func()
-    time.sleep(seconds+random.uniform(0,2))
+    if(not(disableWait)):
+        time.sleep(seconds+random.uniform(0,1))
+    else:
+        time.sleep(seconds)
 
 def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
     while(times>0):

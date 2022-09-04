@@ -41,8 +41,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        self.simulatorInstance.send_enter()    
-        self.hasSingleLineWordsInArea("yes", A=[814,609,1173,668])
+
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -180,7 +179,7 @@ class UWTask(FrontTask):
         self.print("出海")
 
         # wait(lambda: self.simulatorInstance.clickPointV2(1183,568),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)), 15,2, backupFunc=clickAndStock)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 15,2, backupFunc=clickAndStock)
         time.sleep(4)
 
     def selectNextCity(self):
@@ -191,12 +190,12 @@ class UWTask(FrontTask):
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea), 2,2)
-        wait(lambda: self.simulatorInstance.clickPointV2(38,89),2)
-        wait(lambda: self.simulatorInstance.clickPointV2(86,77),2)
-        wait(lambda: self.simulatorInstance.typewrite(cityname),2)
-        wait(lambda: self.simulatorInstance.send_enter(),2)
+        wait(lambda: self.simulatorInstance.clickPointV2(38,89),0)
+        wait(lambda: self.simulatorInstance.clickPointV2(86,77),0)
+        wait(lambda: self.simulatorInstance.typewrite(cityname),0)
+        wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,1)
 
     def checkForDisaster(self):
         #click disaster icon

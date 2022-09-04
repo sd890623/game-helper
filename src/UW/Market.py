@@ -73,7 +73,7 @@ class Market:
             xDiff=int(index%3*261.5)
             yDiff=int(index/3)*131
             self.uwtask.print("buy item "+str(index))
-            wait(lambda: self.instance.clickPointV2(337+xDiff,206+yDiff),0.2)
+            wait(lambda: self.instance.clickPointV2(337+xDiff,206+yDiff),0.2,disableWait=True)
         
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
@@ -88,14 +88,14 @@ class Market:
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("sell items")
-        while (index<7):
+        while (index<9):
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
             # print([322+xDiff,204+yDiff,382+xDiff,218+yDiff])
             if(self.uwtask.hasSingleLineWordsInArea("-", A=[322+xDiff,204+yDiff,382+xDiff,218+yDiff], ocrType=2)):
                 continue
-            wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2)
+            wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
@@ -125,7 +125,7 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2)      
+                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)      
             #check if max, notify buyFin for master class   
             if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 self.uwtask.tradeRouteBuyFin=True

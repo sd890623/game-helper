@@ -354,23 +354,18 @@ class UWTask(FrontTask):
             self.sellInCity(routeObject["sellCity"])
 
             self.print("出发买东西城市")
-            # goto buy cities
             self.tradeRouteBuyFin=False
-            for city in routeObject["buyCities"]:
-                if(self.tradeRouteBuyFin==True):
-                    break
-                self.gotoCity(city,allCityList)
-                self.buyInCity(city, products=routeObject["buyProducts"])
-            #go to buy again if not full
-            if(self.tradeRouteBuyFin!=True):
-                for city in routeObject["buySupplyCities"]:
+            while(self.tradeRouteBuyFin==False):
+                # goto buy cities
+                for city in routeObject["buyCities"]:
+                    if(self.tradeRouteBuyFin==True):
+                        break
                     self.gotoCity(city,allCityList)
-            # time.sleep(1200)
-            for city in routeObject["buyCities"]:
-                if(self.tradeRouteBuyFin==True):
-                    break
-                self.gotoCity(city,allCityList)
-                self.buyInCity(city, products=routeObject["buyProducts"])            
+                    self.buyInCity(city, products=routeObject["buyProducts"])
+                #go to buy again if not full
+                if(self.tradeRouteBuyFin!=True):
+                    for city in routeObject["buySupplyCities"]:
+                        self.gotoCity(city,allCityList)
 
             self.print("出发补给城市")
             #go to supply cities

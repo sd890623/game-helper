@@ -3,6 +3,7 @@ from images import *
 from utils import *
 import guiUtils
 from Messager import Messager
+import math
 
 class FrontTask(object):
     hwnd = None
@@ -17,10 +18,10 @@ class FrontTask(object):
         self.messager=Messager()
 
     def print(self,text):
-        print(getDateTimeString()+"： "+text)
+        print(getDateTimeString()+": "+text)
 
     def sendMessage(self,url,text):
-        self.messager.sendMessage(url,getDateTimeString()+"： "+text)
+        self.messager.sendMessage(url,getDateTimeString()+": "+text)
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
             imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
@@ -89,3 +90,13 @@ class FrontTask(object):
     def saveImageToFile(self,imageBlob):
         screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
         cv2.imwrite(screenshotImgPath, imageBlob)  
+
+    def isPositionColorSimilarTo(self,x,y,rgb):
+        positionRGB=self.simulatorInstance.getColorRGBByPosition(x,y)
+        if(not(positionRGB)):
+            return False
+        d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 + (positionRGB[1]- rgb[1]) ** 2 + (positionRGB[2]- rgb[2]) ** 2)
+        if(d<13):
+            return True
+        else:
+            return False

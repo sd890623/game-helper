@@ -42,7 +42,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-
+        print(self.isPositionColorSimilarTo(1034,10,(253,62,48)))
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -165,8 +165,6 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
-
-
     def depart(self):
         def clickAndStock():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
@@ -220,6 +218,8 @@ class UWTask(FrontTask):
         self.print("航行中")
         #click on "move immediately continusly"
         def backupFunc():
+            #todo check for logout error
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5) 
             wait(lambda: self.findCityAndClick(targetCity), 15)   
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=620, backupFunc=backupFunc)

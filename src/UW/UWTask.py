@@ -20,6 +20,7 @@ class UWTask(FrontTask):
     inScreenConfirmYesButton=977,639
     enterCityButton=1075,671
     outSeaWaterTitle=[74,15,260,46]
+    randomPoint=532,480
     #client screen size: 1280x720
     #remote control setup size:
 
@@ -142,13 +143,13 @@ class UWTask(FrontTask):
         
     def goToHarbor(self):
         self.print("去码头")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,2)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,1)
 
     def restock(self):
         self.print("补给")
         # use emergency stock
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
         zeroCostStockArea=[922,417,958,437]
         if(self.hasSingleLineWordsInArea("0", A=zeroCostStockArea,ocrType=2,debug=False) and len(self.getSingleLineWordsInArea(A=zeroCostStockArea,ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
@@ -168,7 +169,7 @@ class UWTask(FrontTask):
 
     def depart(self):
         def clickAndStock():
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             if(not(self.fastStock)):
                 self.restock()
             else:
@@ -177,14 +178,11 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-
-        # wait(lambda: self.simulatorInstance.clickPointV2(1183,568),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 15,2, backupFunc=clickAndStock)
-        time.sleep(4)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 8,2, backupFunc=clickAndStock)
 
     def selectNextCity(self):
         self.print("选城市")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
         self.findCityAndClick()
 
     def selectCityFromMapAndMove(self,cityname):
@@ -232,7 +230,8 @@ class UWTask(FrontTask):
         if(self.hasImageInScreen("redDot", A=[1084,6,1099,14], greyMode=True)):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
-            self.clickEnterCityButton()
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(self.randomPoint),2,0.2)
+
 
     def basicMarket(self):
         self.print("去超市")

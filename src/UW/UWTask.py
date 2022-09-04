@@ -20,7 +20,7 @@ class UWTask(FrontTask):
     inScreenConfirmYesButton=977,639
     enterCityButton=1075,671
     outSeaWaterTitle=[74,15,260,46]
-    randomPoint=532,480
+    randomPoint=874,666
     #client screen size: 1280x720
     #remote control setup size:
 
@@ -230,7 +230,7 @@ class UWTask(FrontTask):
         if(self.hasImageInScreen("redDot", A=[1084,6,1099,14], greyMode=True)):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(self.randomPoint),2,0.2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
 
 
     def basicMarket(self):

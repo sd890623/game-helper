@@ -31,16 +31,16 @@ routeList=[
     {
         "sellCity":"saint",
         #add felt later
-        "buyProducts": ["amber","vodka","felt","tourmaline","aquavit","gin","glassbead","whisky","flannel","jewelry"],
+        "buyProducts": ["amber","vodka","felt","tourmaline","aquavit","gin","glassbead","whisky","steel","flannel","jewelry"],
         #light season
         # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
 
         #gdahsk might suffer
-        "buyCities":["saint","visby","gda","hamburg","groningen","amsterda","london"],
+        "buyCities":["visby","gda","copenhag","hamburg","groningen","amsterda","london"],
         "buySupplyCities":[],
         #light seaso3n
         # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-        "supplyCities":["london","faro","ponta"]
+        "supplyCities":["london","faro","ponta","juan"]
     },
     # {
     #     "sellCity":"timbukt","
@@ -50,10 +50,12 @@ routeList=[
     #     "sulyCities":["abidjan","arguin","seville","antwerp","copenhagen"]
     # },
     {
-        "sellCity":"juan",
-        "buyProducts": ["opal","topaz","obsidianclu","gold","golddust","emerald","silver"],
-        "buyCities":["juan","willemsta","maracaib","cartagen","santiago","santo"],
+        "sellCity":"veracruz",
+        # obsidianclu golddust
+        "buyProducts": ["opal","topaz","gold","emerald","silver","vanilla"],
+        # "santiago"
+        "buyCities":["santo","juan","caracas","willemsta","maracaib","cartagen","portobelo"],
         "buySupplyCities":[],
-        "supplyCities":["juan","ponta","helder"]
+        "supplyCities":["juan","ponta","london"]
     },
 ]

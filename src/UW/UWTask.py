@@ -9,7 +9,8 @@ import time
 import random
 from constants import cityNames, routeList
 
-allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]
+allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]+[routeList[0]["sellCity"],routeList[1]["sellCity"]]
+
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
@@ -227,7 +228,7 @@ class UWTask(FrontTask):
         self.clickEnterCityButton()
 
     def checkForGiftAndReceive(self):
-        if(self.hasImageInScreen("redDot", A=[1084,6,1099,14], greyMode=True)):
+        if(self.isPositionColorSimilarTo(1087,10,(253, 59, 53))):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
@@ -335,7 +336,7 @@ class UWTask(FrontTask):
         routeObject=None
         self.setCurrentCityFromScreen()
         for index,obj in enumerate(routeList):
-            if(self.currentCity in obj["buyCities"]):
+            if(self.currentCity in obj["buyCities"] or self.currentCity == obj["sellCity"]):
                 routeObjIndex=index
                 routeObject=obj
         if(routeObject==None):
@@ -351,25 +352,21 @@ class UWTask(FrontTask):
             # goto sell city
             self.gotoCity(routeObject["sellCity"],allCityList)
             self.sellInCity(routeObject["sellCity"])
+            self.buyInCity(routeObject["sellCity"], products=routeObject["buyProducts"])
 
-            self.print("出发买东西城市")
-            # goto buy cities
             self.tradeRouteBuyFin=False
-            for city in routeObject["buyCities"]:
-                if(self.tradeRouteBuyFin==True):
-                    break
-                self.gotoCity(city,allCityList)
-                self.buyInCity(city, products=routeObject["buyProducts"])
-            #go to buy again if not full
-            if(self.tradeRouteBuyFin!=True):
-                for city in routeObject["buySupplyCities"]:
+            self.print("出发买东西城市")
+            while(self.tradeRouteBuyFin==False):
+                # goto buy cities
+                for city in routeObject["buyCities"]:
+                    if(self.tradeRouteBuyFin==True):
+                        break
                     self.gotoCity(city,allCityList)
-            # time.sleep(1200)
-            for city in routeObject["buyCities"]:
-                if(self.tradeRouteBuyFin==True):
-                    break
-                self.gotoCity(city,allCityList)
-                self.buyInCity(city, products=routeObject["buyProducts"])            
+                    self.buyInCity(city, products=routeObject["buyProducts"])
+                #go to buy again if not full
+                if(self.tradeRouteBuyFin!=True):
+                    for city in routeObject["buySupplyCities"]:
+                        self.gotoCity(city,allCityList)        
 
             self.print("出发补给城市")
             #go to supply cities

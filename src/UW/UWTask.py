@@ -220,8 +220,8 @@ class UWTask(FrontTask):
         #click on "move immediately continusly"
         def backupFunc():
             #todo check for logout error
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5) 
-            wait(lambda: self.findCityAndClick(targetCity), 15)   
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
+            wait(lambda: self.findCityAndClick(targetCity), 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=620, backupFunc=backupFunc)
         print("click twice")
@@ -356,6 +356,7 @@ class UWTask(FrontTask):
 
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
+            self.tradeRouteBuyFin=False
             while(self.tradeRouteBuyFin==False):
                 # goto buy cities
                 for city in routeObject["buyCities"]:
@@ -366,7 +367,7 @@ class UWTask(FrontTask):
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:
-                        self.gotoCity(city,allCityList)        
+                        self.gotoCity(city,allCityList)
 
             self.print("出发补给城市")
             #go to supply cities

@@ -44,6 +44,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
+        self.depart()
         self.checkBattle()
 
         # messager=Messager()
@@ -152,13 +153,18 @@ class UWTask(FrontTask):
         self.print("补给")
         # use emergency stock
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
+
+        # Destroy excess
+        if(self.isPositionColorSimilarTo(612,418,(249, 61, 48))):
+            wait(lambda: self.simulatorInstance.click_point(577,427),1)
+            wait(lambda: self.simulatorInstance.click_point(985,640),1)
+
         zeroCostStockArea=[922,417,958,437]
         if(self.hasSingleLineWordsInArea("0", A=zeroCostStockArea,ocrType=2,debug=False) and len(self.getSingleLineWordsInArea(A=zeroCostStockArea,ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
             return
-        # Destroy excess
-        # wait(lambda: self.simulatorInstance.click_point(662,398))
-        # wait(lambda: self.simulatorInstance.click_point(1132,750))
+
+    
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
         #Restore crew
         if(self.hasSingleLineWordsInArea("notenough",A=[1078,449,1167,471])):

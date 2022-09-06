@@ -166,8 +166,15 @@ class UWTask(FrontTask):
 
     
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
+        # Repair ship
+        while(self.hasSingleLineWordsInArea("notenough",A=[1078,486,1165,506])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),3,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
         #Restore crew
-        if(self.hasSingleLineWordsInArea("notenough",A=[1078,449,1167,471])):
+        if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,452,1209,469])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
@@ -236,9 +243,9 @@ class UWTask(FrontTask):
         def backupFunc():
             #todo check for logout error
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
-            wait(lambda: self.findCityAndClick(targetCity), 15)
+            wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=620, backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=820, backupFunc=backupFunc)
         print("click twice")
         self.clickEnterCityButton()
 

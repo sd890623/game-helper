@@ -12,6 +12,7 @@ import operator #line:11
 import requests #line:12
 import easyocr #line:13
 import pydirectinput
+import pyautogui
 from PIL import Image #line:23
 
 def base642Str (OOO0OOOOOOOO0000O ):#line:16
@@ -268,6 +269,17 @@ class win ():#line:35
                 if all (operator .eq (O00000OO0O0OOOOO0 [OOO0O0O0000O0O0O0 ,OO0OO00O0000OO0O0 ],O00OO0O0O0O0OOOO0 )):#line:208
                     return True #line:210
         return False #line:212
+
+    def getColorRGBByPosition(self,x,y):
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            r,g,b = pyautogui.pixel(x+left, y+top)
+            return (r,g,b)
+        except Exception as e:
+            print(e)
+            print("failed to find RGB")
+            return None
+
     def mouse_move (OO00OO0OO00000OOO ,OO0OOO00OO0OOOO0O ,O0OO00O0O00O0OO0O ):#line:216
         if O0OO00O0O00O0OO0O is not None and OO0OOO00OO0OOOO0O is not None :#line:217
             O0O0000OOOO00OO00 =(OO0OOO00OO0OOOO0O ,O0OO00O0O00O0OO0O )#line:218

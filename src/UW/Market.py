@@ -19,7 +19,7 @@ marketBuyData={
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
-    randonPoint=851,618
+    randomPoint=851,618
     buySellWholeArea=[187,99,949,395]
     maxArea=[1073,126,1137,145]
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
@@ -78,7 +78,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
     def sellGoodsWithMargin(self):
@@ -99,7 +99,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=[892,16,974,39],ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
@@ -134,7 +134,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
     def buyProductsInCityTwice(self,products):
@@ -147,7 +147,7 @@ class Market:
                 break
             else:
                 time.sleep(60)
-                wait(lambda: self.instance.clickPointV2(*self.randonPoint),3)
+                wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
 
 
         self.buyProductsInMarket(products)

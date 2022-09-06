@@ -9,7 +9,8 @@ import time
 import random
 from constants import cityNames, routeList
 
-allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]
+allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]+[routeList[0]["sellCity"],routeList[1]["sellCity"]]
+
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
@@ -20,6 +21,7 @@ class UWTask(FrontTask):
     inScreenConfirmYesButton=977,639
     enterCityButton=1075,671
     outSeaWaterTitle=[74,15,260,46]
+    randomPoint=874,666
     #client screen size: 1280x720
     #remote control setup size:
 
@@ -41,7 +43,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-
+        print(self.isPositionColorSimilarTo(1034,10,(253,62,48)))
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -142,13 +144,13 @@ class UWTask(FrontTask):
         
     def goToHarbor(self):
         self.print("去码头")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,2)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,1)
 
     def restock(self):
         self.print("补给")
         # use emergency stock
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
         zeroCostStockArea=[922,417,958,437]
         if(self.hasSingleLineWordsInArea("0", A=zeroCostStockArea,ocrType=2,debug=False) and len(self.getSingleLineWordsInArea(A=zeroCostStockArea,ocrType=2))==1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
@@ -164,11 +166,9 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
-
-
     def depart(self):
         def clickAndStock():
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             if(not(self.fastStock)):
                 self.restock()
             else:
@@ -177,14 +177,11 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-
-        # wait(lambda: self.simulatorInstance.clickPointV2(1183,568),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 15,2, backupFunc=clickAndStock)
-        time.sleep(4)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 8,2, backupFunc=clickAndStock)
 
     def selectNextCity(self):
         self.print("选城市")
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
         self.findCityAndClick()
 
     def selectCityFromMapAndMove(self,cityname):
@@ -222,17 +219,20 @@ class UWTask(FrontTask):
         self.print("航行中")
         #click on "move immediately continusly"
         def backupFunc():
-            wait(lambda: self.findCityAndClick(targetCity), 15)   
+            #todo check for logout error
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
+            wait(lambda: self.findCityAndClick(targetCity), 15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=620, backupFunc=backupFunc)
         print("click twice")
         self.clickEnterCityButton()
 
     def checkForGiftAndReceive(self):
-        if(self.hasImageInScreen("redDot", A=[1084,6,1099,14], greyMode=True)):
+        if(self.isPositionColorSimilarTo(1087,10,(253, 59, 53))):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
-            self.clickEnterCityButton()
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
+
 
     def basicMarket(self):
         self.print("去超市")
@@ -336,7 +336,7 @@ class UWTask(FrontTask):
         routeObject=None
         self.setCurrentCityFromScreen()
         for index,obj in enumerate(routeList):
-            if(self.currentCity in obj["buyCities"]):
+            if(self.currentCity in obj["buyCities"] or self.currentCity == obj["sellCity"]):
                 routeObjIndex=index
                 routeObject=obj
         if(routeObject==None):
@@ -352,7 +352,9 @@ class UWTask(FrontTask):
             # goto sell city
             self.gotoCity(routeObject["sellCity"],allCityList)
             self.sellInCity(routeObject["sellCity"])
+            self.buyInCity(routeObject["sellCity"], products=routeObject["buyProducts"])
 
+            self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
             self.tradeRouteBuyFin=False
             while(self.tradeRouteBuyFin==False):

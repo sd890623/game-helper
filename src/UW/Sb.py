@@ -3,7 +3,7 @@ from utils import *
 # from UWTask import UWTask
 
 class Sb:
-    randonPoint=653,483
+    randomPoint=653,483
     dismantleButton=59,333
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
@@ -37,9 +37,9 @@ class Sb:
         self.instance.typewrite(str(random.randint(1,99)))
         self.instance.send_enter()
         #click ok
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2,5)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint), 2,5)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 1, 2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint), 1, 2)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
 
 
@@ -58,7 +58,7 @@ class Sb:
         #click yes
         wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),7)
         #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randonPoint), 2, 1)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint), 2, 1)
         
 
     def build(self, option):

@@ -16,7 +16,7 @@ time.sleep(3)
 # task.basicMarket()
 
 # task.selectCityFromMapAndMove("groningen")
-# task.testTask()
+task.testTask()
 
 #todo
 

@@ -1,4 +1,5 @@
 from FrontTask import FrontTask
+from UW.Battle import Battle
 from windows import *
 from images import *
 from utils import *
@@ -43,7 +44,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        print(self.isPositionColorSimilarTo(1034,10,(253,62,48)))
+        self.checkBattle()
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -203,6 +204,11 @@ class UWTask(FrontTask):
             #click yes
             wait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),2)
 
+    def checkBattle(self):
+        if(self.hasSingleLineWordsInArea("battle",A=[1101,654,1150,672])):
+            battle=Battle(self.simulatorInstance,self)
+            battle.suppressBattle()
+
     def clickEnterCityButton(self):
         for x in range(2):
             if(self.hasSingleLineWordsInArea("move",A=[1101,654,1150,672])):
@@ -212,6 +218,7 @@ class UWTask(FrontTask):
 
     def inJourneyTask(self):
         # self.checkForDisaster()
+        self.checkBattle()
         self.checkForGiftAndReceive()
         self.clickEnterCityButton()
 

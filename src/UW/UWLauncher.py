@@ -31,7 +31,7 @@ task.testTask()
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示：长距旅行开启蓝旗;船拉平最远距离;设置免税港;设置水手最少数;檢查港口語言")
+task.print("提示：长距旅行开启蓝旗;检查防灾物品；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗")
 
 while(True):
     if(not(isWorkHour())):

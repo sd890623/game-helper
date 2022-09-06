@@ -44,7 +44,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        self.depart()
+        # self.depart()
         self.checkBattle()
 
         # messager=Messager()
@@ -173,6 +173,8 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
+    def inWater(self):
+        return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
     def depart(self):
         def clickAndStock():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
@@ -184,7 +186,7 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)), 8,2, backupFunc=clickAndStock)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 8,2, backupFunc=clickAndStock)
 
     def selectNextCity(self):
         self.print("选城市")
@@ -211,7 +213,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),2)
 
     def checkBattle(self):
-        if(self.hasSingleLineWordsInArea("battle",A=[1101,654,1150,672])):
+        if(self.hasSingleLineWordsInArea("retreat",A=[756,549,848,577])):
             battle=Battle(self.simulatorInstance,self)
             battle.suppressBattle()
 

@@ -16,14 +16,14 @@ routeList=[
         "buySupplyCities":[],
         #light seaso3n
         # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-        "supplyCities":["london","faro","syracuse"]
+        "supplyCities":["london","ceuta","syracuse"]
     },
     {
         "sellCity":"athens",
         "buyProducts": ["narcissu","civet","perfume","marblestatu","oakmos"],
         "buyCities":["alexandr","cairo","said","jaffa","beirut","athens"],
         "buySupplyCities":[],
-        "supplyCities":["syracuse","faro","london"]
+        "supplyCities":["syracuse","ceuta","london"]
     },
 ]
 

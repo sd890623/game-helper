@@ -22,12 +22,12 @@ time.sleep(3)
 
 
 #Optional
-# task.shipBuilding(options=[7,8],city="ceuta", times=1)
+# task.shipBuilding(options=[9,10],city="ceuta", times=1)
 # task.targetCity="ceuta"
 # task.fastStock=True disable
 
 #Init option
-# task.enableSB("ceuta",options=[7,8])
+task.enableSB("ceuta",options=[9,10])
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

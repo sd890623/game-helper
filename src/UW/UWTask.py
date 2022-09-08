@@ -151,7 +151,21 @@ class UWTask(FrontTask):
 
     def restock(self):
         self.print("补给")
-        # use emergency stock
+        # Repair ship
+        while(self.hasSingleLineWordsInArea("notenough",A=[1078,486,1165,506])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),3,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
+        #Restore crew
+        if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,450,1205,470])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+
+
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
 
         # Destroy excess
@@ -166,19 +180,7 @@ class UWTask(FrontTask):
 
     
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
-        # Repair ship
-        while(self.hasSingleLineWordsInArea("notenough",A=[1078,486,1165,506])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),3,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
-        #Restore crew
-        if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,452,1209,469])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+        
 
     def inWater(self):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
@@ -304,7 +306,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
             time.sleep(5)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")

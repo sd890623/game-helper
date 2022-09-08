@@ -16,9 +16,15 @@ class Battle:
             return
 
         print("in battle")
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,1)
         #use fast
-        #self.instance.clickPointV2(95,217)
-        continueWithUntilBy(lambda: self.instance.clickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]),10)
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(673,707),lambda: self.uwtask.inWater(),5,2)
+        self.instance.clickPointV2(95,217)
+        continueWithUntilBy(lambda: self.instance.clickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714]),10)
+        def exitBattle():
+            wait(lambda: self.instance.clickPointV2(673,707),2)
+            if(self.uwtask.hasSingleLineWordsInArea("yes",A=[946,617,1028,656],debug=True)):
+                wait(lambda: self.instance.clickPointV2(976,636),2)
+        doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2)
+
 
 

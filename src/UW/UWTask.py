@@ -45,7 +45,8 @@ class UWTask(FrontTask):
 
     def testTask(self):    
         # self.depart()
-        self.checkBattle()
+        self.buyInCity("kokkola", products=[])
+
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -178,9 +179,7 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
             return
 
-    
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
-        
 
     def inWater(self):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
@@ -303,10 +302,13 @@ class UWTask(FrontTask):
         market.buyProductsInMarket(products)
         time.sleep(3)
         def backup():
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
+            def clickWithCheck():
+                if(self.hasSingleLineWordsInArea("no", A=[948,549,1015,581])):
+                    wait(lambda: self.simulatorInstance.clickPointV2(895,570),2,2)
+            clickWithCheck()
             time.sleep(5)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2)
+            clickWithCheck()
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")

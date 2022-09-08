@@ -45,7 +45,7 @@ class UWTask(FrontTask):
 
     def testTask(self):    
         # self.depart()
-        self.buyInCity("kokkola", products=[])
+        self.restock()
 
 
         # messager=Messager()
@@ -171,7 +171,7 @@ class UWTask(FrontTask):
 
         # Destroy excess
         if(self.isPositionColorSimilarTo(612,418,(249, 61, 48))):
-            wait(lambda: self.simulatorInstance.click_point(577,427),1)
+            wait(lambda: self.simulatorInstance.click_point(577,427),2)
             wait(lambda: self.simulatorInstance.click_point(985,640),1)
 
         zeroCostStockArea=[922,417,958,437]

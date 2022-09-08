@@ -8,10 +8,7 @@ from Sb import Sb
 import guiUtils
 import time
 import random
-from constants import cityNames, routeList
-
-allCityList=cityNames+routeList[0]["buyCities"]+routeList[1]["buyCities"]+routeList[0]["supplyCities"]+routeList[1]["supplyCities"]+[routeList[0]["sellCity"],routeList[1]["sellCity"]]
-
+from constants import cityNames, routeLists
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
@@ -35,6 +32,10 @@ class UWTask(FrontTask):
     shipBeingBuilt=False
     fastStock=False
     tradeRouteBuyFin=False
+    waitForCityTimeOut=820
+    routeOption=0
+    routeList=[]
+    allCityList=[]
 
     def __init__(self, hwnd, index):
         FrontTask.__init__(self,hwnd,index)
@@ -46,8 +47,6 @@ class UWTask(FrontTask):
     def testTask(self):    
         # self.depart()
         self.restock()
-
-
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
@@ -97,7 +96,12 @@ class UWTask(FrontTask):
             return False
 
     def setCurrentCityFromScreen(self):
-        self.inCityList(allCityList)
+        self.inCityList(self.allCityList)
+
+    def setRouteOption(self,routeOption: int):
+        self.routeOption=routeOption
+        self.routeList=routeLists[routeOption]
+        self.allCityList=cityNames+self.routeList[0]["buyCities"]+self.routeList[1]["buyCities"]+self.routeList[0]["supplyCities"]+self.routeList[1]["supplyCities"]+[self.routeList[0]["sellCity"],self.routeList[1]["sellCity"]]
 
     def checkReachingPlace(self):
         if(self.targetCity==self.currentCity):
@@ -246,7 +250,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
             wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=820, backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut, backupFunc=backupFunc)
         print("click twice")
         self.clickEnterCityButton()
 
@@ -361,7 +365,7 @@ class UWTask(FrontTask):
         routeObjIndex=0
         routeObject=None
         self.setCurrentCityFromScreen()
-        for index,obj in enumerate(routeList):
+        for index,obj in enumerate(self.routeList):
             if(self.currentCity in obj["buyCities"] or self.currentCity == obj["sellCity"]):
                 routeObjIndex=index
                 routeObject=obj
@@ -376,7 +380,7 @@ class UWTask(FrontTask):
                 continue
             self.print("出发卖货城市")
             # goto sell city
-            self.gotoCity(routeObject["sellCity"],allCityList)
+            self.gotoCity(routeObject["sellCity"],self.allCityList)
             self.sellInCity(routeObject["sellCity"])
             self.buyInCity(routeObject["sellCity"], products=routeObject["buyProducts"])
 
@@ -388,22 +392,22 @@ class UWTask(FrontTask):
                 for city in routeObject["buyCities"]:
                     if(self.tradeRouteBuyFin==True):
                         break
-                    self.gotoCity(city,allCityList)
+                    self.gotoCity(city,self.allCityList)
                     self.buyInCity(city, products=routeObject["buyProducts"])
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:
-                        self.gotoCity(city,allCityList)
+                        self.gotoCity(city,self.allCityList)
 
             self.print("出发补给城市")
             #go to supply cities
             for city in routeObject["supplyCities"]:
-                self.gotoCity(city,allCityList)
+                self.gotoCity(city,self.allCityList)
                 self.checkSB()
 
             #swap to other route side
             routeObjIndex+=1
-            routeObject=routeList[(routeObjIndex)%2]
+            routeObject=self.routeList[(routeObjIndex)%2]
 
 
 

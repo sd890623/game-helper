@@ -2,7 +2,6 @@ import sys
 sys.path.append("src")
 from windows import *
 from UWTask import UWTask
-from UWTask import routeList
 from utils import isWorkHour
 
 allWindowsWithTitle = getAllWindowsWithTitle("Chrome Remote Desktop - MEDIA-PC")
@@ -27,7 +26,10 @@ time.sleep(3)
 # task.fastStock=True disable
 
 #Init option
+#Route choice: Must-set 0: kokola<->athens perfume route
+task.setRouteOption(0)
 task.enableSB("ceuta",options=[9,10])
+task.waitForCityTimeOut=450
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

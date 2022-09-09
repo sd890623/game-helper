@@ -131,7 +131,7 @@ class UWTask(FrontTask):
         #height between 47.4
         firstPosi = (1138,256)
         area=[1113,240,1211,266]
-        timeout=16
+        timeout=8
         index=0
         found=False
         while(not(found) and timeout>0):
@@ -158,7 +158,7 @@ class UWTask(FrontTask):
         self.print("补给")
         # Repair ship
         while(self.hasSingleLineWordsInArea("notenough",A=[1078,486,1165,506])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,495),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),3,1)
@@ -207,7 +207,7 @@ class UWTask(FrontTask):
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,2)
         wait(lambda: self.simulatorInstance.clickPointV2(38,89),0)
         wait(lambda: self.simulatorInstance.clickPointV2(86,77),0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)

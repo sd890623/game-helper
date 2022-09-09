@@ -29,7 +29,8 @@ time.sleep(3)
 #Route choice: Must-set 0: kokola<->athens perfume route
 task.setRouteOption(0)
 task.enableSB("ceuta",options=[9,10])
-task.waitForCityTimeOut=450
+#450~=10days
+task.waitForCityTimeOut=310
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

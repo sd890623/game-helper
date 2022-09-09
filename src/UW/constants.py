@@ -21,8 +21,9 @@ routeLists=[
         },
         {
             "sellCity":"athens",
-            "buyProducts": ["narcissu","civet","perfume","marblestatu","oakmos"],
-            "buyCities":["alexandr","cairo","said","jaffa","beirut","athens"],
+            #marblestatu
+            "buyProducts": ["narcissu","civet","perfume","oakmos"],
+            "buyCities":["alexandr","cairo","said","jaffa","beirut","athens","candia"],
             "buySupplyCities":[],
             "supplyCities":["syracuse","ceuta","london"]
         },

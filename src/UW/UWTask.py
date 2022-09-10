@@ -46,7 +46,7 @@ class UWTask(FrontTask):
 
     def testTask(self):    
         # self.depart()
-        self.restock()
+        self.inJourneyTask()
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
@@ -146,7 +146,7 @@ class UWTask(FrontTask):
             self.selectCityFromMapAndMove(nextCityName)
             
         else:
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%8*58.8)), 2,0.2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%8*58.8)), 2,0.5)
 
         
     def goToHarbor(self):
@@ -207,9 +207,9 @@ class UWTask(FrontTask):
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,2)
-        wait(lambda: self.simulatorInstance.clickPointV2(38,89),0)
-        wait(lambda: self.simulatorInstance.clickPointV2(86,77),0)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(38,89),2,0)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(86,77),2,0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
@@ -230,17 +230,23 @@ class UWTask(FrontTask):
             battle.suppressBattle()
 
     def clickEnterCityButton(self):
-        for x in range(2):
-            if(self.hasSingleLineWordsInArea("move",A=[1101,654,1150,672])):
-                wait(lambda: self.simulatorInstance.clickPointV2(970,674),0.5)
-            else:
-                wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)
-
+        doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(655,330),2,0.5)
+        # for x in range(2):
+        #     if(self.hasSingleLineWordsInArea("move",A=[1117,668,1195,688])):
+        #         wait(lambda: self.simulatorInstance.clickPointV2(1006,680),0.5)
+        #     else:
+        #         wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)
+    
+    def checkBeforeCity(self):
+        if(self.hasSingleLineWordsInArea("adjacent",A=[1225,264,1297,289]) and self.hasSingleLineWordsInArea("0,0",A=[1051,129,1081,146],ocrType=2)):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1169,258),2,0.5)
+    
     def inJourneyTask(self):
         # self.checkForDisaster()
         self.checkBattle()
         self.checkForGiftAndReceive()
         self.clickEnterCityButton()
+        self.checkBeforeCity()
 
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
@@ -250,8 +256,8 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
             wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
-        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut, backupFunc=backupFunc)
-        print("click twice")
+        continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
+        self.print("click twice")
         self.clickEnterCityButton()
 
     def checkForGiftAndReceive(self):

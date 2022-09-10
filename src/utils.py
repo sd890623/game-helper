@@ -41,11 +41,12 @@ def continueWithUntilBy(func, untilFunc, frequency = 5):
         time.sleep(frequency)
     time.sleep(random.randint(0,1))
 
-def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, backupFunc=lambda: False):
+def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()
-        print("not found, wait for 8s")
+        if(notifyFunc()):
+            notifyFunc()
         time.sleep(frequency)
         timeout-=frequency
     if(timeout<=0):

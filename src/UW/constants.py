@@ -10,7 +10,7 @@ routeLists=[
         {
             "sellCity":"kokkola",
             # "vodka","aquavit","gin","whisky"
-            "buyProducts": ["amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
+            "buyProducts": ["cowhide","amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
             #light season
             # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
             "buyCities":["saint","visby","gda","copenhag","hamburg","groningen","amsterda","london"],
@@ -25,7 +25,7 @@ routeLists=[
             "buyProducts": ["narcissu","civet","perfume","oakmos"],
             "buyCities":["alexandr","cairo","said","jaffa","beirut","athens","candia"],
             "buySupplyCities":[],
-            "supplyCities":["syracuse","ceuta","london"]
+            "supplyCities":["syracuse","ceuta","london","copenhag"]
         },
     ],
 

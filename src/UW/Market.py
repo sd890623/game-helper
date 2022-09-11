@@ -92,15 +92,17 @@ class Market:
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
-            # print([322+xDiff,204+yDiff,382+xDiff,218+yDiff])
-            if(self.uwtask.hasSingleLineWordsInArea("-", A=[322+xDiff,204+yDiff,382+xDiff,218+yDiff], ocrType=2)):
+            # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
+            if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
                 continue
             wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
-        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[833,8,975,41],ocrType=2)
+        gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
+        moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2,debug=True)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 

@@ -46,7 +46,9 @@ class UWTask(FrontTask):
 
     def testTask(self):    
         # self.depart()
-        self.inJourneyTask()
+        object=routeLists[1][0]
+        self.buyInCity("kokk", products=object["buyProducts"],buyStrategy=object.get("buyStrategy"))
+
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")

@@ -33,23 +33,24 @@ routeLists=[
     #light season
     [
         {
-            "sellCity":"saint",
+            "sellCity":"kokkola",
             "buyProducts": ["cowhide","amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
             #light season
             # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
             "buyCities":["saint","visby","gda","copenhag","hamburg","groningen","amsterda","london"],
             "buySupplyCities":[],
+
             #light seaso3n
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
             "supplyCities":["london","faro","bissau","tom","karibi"]
         },
         {
             "sellCity":"cape",
-            "buyProducts": ["diamond","gold","goldwork","golddust","pearl","malachit","geraniu","agate"],
+            "buyProducts": ["diamond","gold","goldwork","golddust","malachit","geraniu","orangeoi","ambergris"],
             "buyCities":["cape","karibi","benguel","luanda","tom","timbukt"],
             "buySupplyCities":["tom","karibi"],
             "buyStrategy":"single",
-            "supplyCities":["tom","bissau","faro","london"]
+            "supplyCities":["tom","bissau","faro","london","copenhag"]
         },
     ],
     #carrabean to north europe

@@ -109,6 +109,7 @@ class Market:
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
         print(products)
+        boughtTick=0
 
         #xDiff 261
         #yDiff 131
@@ -127,7 +128,8 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)      
+                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+                boughtTick+=1   
             #check if max, notify buyFin for master class   
             if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 self.uwtask.tradeRouteBuyFin=True
@@ -138,10 +140,13 @@ class Market:
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
+        return boughtTick
 
     def buyProductsInCityTwice(self,products):
-        self.buyProductsInMarket(products)
+        boughtTick=self.buyProductsInMarket(products)
         if(self.uwtask.tradeRouteBuyFin):
+            return
+        if(boughtTick==0):
             return
 
         while(True):

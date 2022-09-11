@@ -405,7 +405,7 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
-                    self.buyInCity(city, products=routeObject["buyProducts"],buyStrategy=routeObject["buyStrategy"])
+                    self.buyInCity(city, products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

@@ -102,7 +102,7 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
         moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
-        savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2,debug=True)
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 

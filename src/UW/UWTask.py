@@ -302,7 +302,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
-    def buyInCity(self,cityName,products):
+    def buyInCity(self,cityName,products,buyStrategy=False):
         self.print("去超市")
         market=Market(self.simulatorInstance, self)
 
@@ -310,7 +310,10 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #buy
-        market.buyProductsInMarket(products)
+        if(buyStrategy=="twice"):
+            market.buyProductsInCityTwice(products)
+        else:
+            market.buyProductsInMarket(products)
         time.sleep(3)
         def backup():
             def clickWithCheck():
@@ -400,7 +403,7 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
-                    self.buyInCity(city, products=routeObject["buyProducts"])
+                    self.buyInCity(city, products=routeObject["buyProducts"],buyStrategy=routeObject["buyStrategy"])
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

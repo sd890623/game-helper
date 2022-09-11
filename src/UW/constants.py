@@ -41,13 +41,14 @@ routeLists=[
             "buySupplyCities":[],
             #light seaso3n
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-            "supplyCities":["london","faro","bissau"]
+            "supplyCities":["london","faro","bissau","tom","karibi"]
         },
         {
-            "sellCity":"tom",
-            "buyProducts": ["diamond","gold","goldwork","golddust","agate","pearl","malachit","geraniu"],
-            "buyCities":["timbukt","tom","luanda","benguel","karibi"],
-            "buySupplyCities":["tom"],
+            "sellCity":"cape",
+            "buyProducts": ["diamond","gold","goldwork","golddust","pearl","malachit","geraniu","agate"],
+            "buyCities":["cape","karibi","benguel","luanda","tom","timbukt"],
+            "buySupplyCities":["tom","karibi"],
+            "buyStrategy":"single",
             "supplyCities":["tom","bissau","faro","london"]
         },
     ],

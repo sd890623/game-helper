@@ -26,11 +26,12 @@ time.sleep(3)
 # task.fastStock=True disable
 
 #Init option
-#Route choice: Must-set 0: kokola<->athens perfume route
-task.setRouteOption(0)
-task.enableSB("ceuta",options=[9,10])
+#Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->west africa gold route
+task.setRouteOption(1)
+# task.enableSB("ceuta",options=[9,10])
 # each time 6s(not counted)+8s(counted) 6d=12min, limit 9d=18min, 18*(8/14)=10min=600s
-task.waitForCityTimeOut=600
+# africa: 10d=20min, 20*8/14=11min=660
+task.waitForCityTimeOut=660
 task.fastStock=False
 task.playNotification()
 task.setCurrentCityFromScreen()

@@ -253,7 +253,8 @@ class UWTask(FrontTask):
         #click on "move immediately continusly"
         def backupFunc():
             #todo check for logout error
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(700,417),4,5)
+            if(self.hasSingleLineWordsInArea("notice",A=[520,304,564,324])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(655,330),4,10)
             wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)

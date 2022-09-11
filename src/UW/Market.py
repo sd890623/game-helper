@@ -100,7 +100,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
-        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[892,16,974,39],ocrType=2)
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[833,8,975,41],ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 

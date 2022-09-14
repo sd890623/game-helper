@@ -215,7 +215,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: (self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle)),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.doubleClickPointV2(651,699), lambda: self.inWater(),1,1)
 
     def checkForDisaster(self):
         #click disaster icon
@@ -259,6 +259,7 @@ class UWTask(FrontTask):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(655,330),4,10)
             wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
+        
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
         self.print("click twice")
         self.clickEnterCityButton()

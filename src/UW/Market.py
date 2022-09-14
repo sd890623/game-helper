@@ -167,7 +167,7 @@ class Market:
             #buy area
             #825,647,1095,690
             #try wider 
-        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[902,615,1100,658],debug=False)):
+        if(self.uwtask.hasSingleLineWordsInArea("es", A=[902,615,1100,658])):
             time.sleep(1)
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)

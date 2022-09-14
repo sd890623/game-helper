@@ -74,7 +74,7 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour>=5 and hour<7):
+    if(hour===5):
         return False
     return True
 

@@ -4,11 +4,15 @@
 # cityNames=["amsterda","bremen","hamburg","groningen"]
 cityNames=[]
 
+#Liquer+
+# "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
+# "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
+
 routeLists=[
     #saint<->eastland
     [
         {
-            "sellCity":"kokkola",
+            "sellCity":"saint",
             # "vodka","aquavit","gin","whisky"
             "buyProducts": ["cowhide","amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
             #light season
@@ -33,11 +37,12 @@ routeLists=[
     #light season
     [
         {
-            "sellCity":"kokkola",
-            "buyProducts": ["cowhide","amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
+            "sellCity":"saint",
+            # ,"tourmaline"
+            "buyProducts": ["amber","felt","glassbead","steel","jewelry","vodka","aquavit","gin","whisky","cheese"],
             #light season
             # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
-            "buyCities":["saint","visby","gda","copenhag","hamburg","groningen","amsterda","london"],
+            "buyCities":["saint","stockhol","visby","gda","copenhag","hamburg","groningen","amsterda","london","dover","plymouth"],
             "buySupplyCities":[],
 
             #light seaso3n
@@ -46,7 +51,8 @@ routeLists=[
         },
         {
             "sellCity":"cape",
-            "buyProducts": ["diamond","gold","goldwork","golddust","malachit","geraniu","orangeoi","ambergris"],
+            # "pearl","agate"
+            "buyProducts": ["diamond","gold","goldwork","golddust","malachit","geraniu","orangeoi","ambergris","pearl"],
             "buyCities":["cape","karibi","benguel","luanda","tom","timbukt"],
             "buySupplyCities":["tom","karibi"],
             "buyStrategy":"single",
@@ -59,19 +65,14 @@ routeLists=[
         #
         {
             "sellCity":"saint",
-            #add felt later
-            "buyProducts": ["cowhide","amber","felt","tourmaline","glassbead","steel","jewelry","vodka","aquavit","gin","whisky"],
-            #light season
-            # "buyProducts": ["amber", "vodka","felt","chrysoberyl","aquavit","feather","tourmaline","flax"],
-
-            #gdahsk might suffer
-            "buyCities":["saint","visby","gda","copenhag","hamburg","groningen","amsterda","london"],
-            "buySupplyCities":[],
-            #light seaso3n
+            # ,"tourmaline","glassbead"
+            "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
+            # cities
+            "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
+            "buySupplyCities":["copenhag"],
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
             "supplyCities":["london","faro","ponta","juan"]
         },
-        # gold down, jewllery up
         {
             "sellCity":"veracruz",
             # obsidianclu golddust

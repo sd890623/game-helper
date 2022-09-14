@@ -128,15 +128,15 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1   
             #check if max, notify buyFin for master class   
             if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 self.uwtask.tradeRouteBuyFin=True
                 break
 
-        wait(lambda: self.instance.clickPointV2(1212,693),1)
-        wait(lambda: self.instance.clickPointV2(725,617),5)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(725,617),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[636,452,677,469]),3,1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
@@ -172,4 +172,4 @@ class Market:
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 0.5)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)

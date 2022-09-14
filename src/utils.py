@@ -11,9 +11,9 @@ def wait(func, seconds = 3,disableWait=False):
     else:
         time.sleep(seconds)
 
-def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4)):
+def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=False):
     while(times>0):
-        wait(func, seconds)
+        wait(func, seconds, disableWait)
         times-=1
 
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None):
@@ -35,10 +35,18 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
     time.sleep(random.randint(0,1))
 
 def continueWithUntilBy(func, untilFunc, frequency = 5):
+    timeout = 30
     wait(func, 0)
-    while(not(untilFunc())):
+    while(not(untilFunc()) and timeout>0):
         func()
         time.sleep(frequency)
+        timeout-=frequency
+    if(timeout<=0):
+        print("timed out, do backup function")
+        for x in [0,1,2]:
+            wait(func)
+            if(untilFunc()):
+                return
     time.sleep(random.randint(0,1))
 
 def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
@@ -74,7 +82,7 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour===5):
+    if(hour==5):
         return False
     return True
 

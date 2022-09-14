@@ -45,9 +45,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        # self.depart()
         object=routeLists[1][0]
-        self.buyInCity("kokk", products=object["buyProducts"],buyStrategy=object.get("buyStrategy"))
+        self.buyInCity("cartagen", products=["gold"],buyStrategy=object.get("buyStrategy"))
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -252,11 +251,10 @@ class UWTask(FrontTask):
 
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
-        #click on "move immediately continusly"
         def backupFunc():
-            #todo check for logout error
             if(self.hasSingleLineWordsInArea("notice",A=[520,304,564,324])):
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(655,330),4,10)
+                #todo check for better ok position
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(761,412),5,10)
             wait(lambda: self.findCityAndClick(targetCity),15)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
         

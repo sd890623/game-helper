@@ -2,7 +2,7 @@ import cv2
 from cnocr import CnOcr
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-")
-numberOcr=CnOcr(cand_alphabet="1234567890-(),")
+numberOcr=CnOcr(cand_alphabet="1234567890()-,")
 def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     targetImage = cv2.imread(imagePath)
     targetHeigh, targetWidth, channel = targetImage.shape

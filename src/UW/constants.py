@@ -71,7 +71,7 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
             "buySupplyCities":["copenhag"],
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-            "supplyCities":["london","faro","ponta","juan"]
+            "supplyCities":["london","ceuta","ponta","juan"]
         },
         {
             "sellCity":"veracruz",

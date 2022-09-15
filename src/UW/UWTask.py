@@ -20,6 +20,8 @@ class UWTask(FrontTask):
     enterCityButton=1075,671
     outSeaWaterTitle=[74,15,260,46]
     randomPoint=874,666
+    noticeTitleArea=[619,234,688,259]
+    noticeOK=708,482
     #client screen size: 1280x720
     #remote control setup size:
 
@@ -46,7 +48,7 @@ class UWTask(FrontTask):
 
     def testTask(self):    
         object=routeLists[1][0]
-        self.buyInCity("cartagen", products=["gold"],buyStrategy=object.get("buyStrategy"))
+        self.shipBuilding([1], 'marracai', 1)
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -147,7 +149,9 @@ class UWTask(FrontTask):
             self.selectCityFromMapAndMove(nextCityName)
             
         else:
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%8*58.8)), 2,0.5)
+            #click out any message
+            wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%8*58.8)),0.5)
 
         
     def goToHarbor(self):
@@ -255,8 +259,8 @@ class UWTask(FrontTask):
             if(self.hasSingleLineWordsInArea("notice",A=[520,304,564,324])):
                 #todo check for better ok position
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(761,412),5,10)
-            wait(lambda: self.findCityAndClick(targetCity),15)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),3,15)
+            wait(lambda: self.findCityAndClick(targetCity),300)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),4,10)
         
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
         self.print("click twice")

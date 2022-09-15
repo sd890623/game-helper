@@ -136,7 +136,7 @@ class Market:
                 break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1)
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(725,617),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[636,452,677,469]),3,1)
+        wait(lambda: self.instance.clickPointV2(725,617),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")

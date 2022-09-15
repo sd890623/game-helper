@@ -67,8 +67,12 @@ class Sb:
         wait(lambda: self.instance.clickPointV2(buildX,buildY),4)
         #click build
         wait(lambda: self.instance.clickPointV2(747,604),4)
+        if(self.uwtask.hasSingleLineWordsInArea("notice", A=self.uwtask.noticeTitleArea)):
+            wait(lambda: self.instance.clickPointV2(*self.uwtask.noticeOK),2)
+
         #click yes
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2, 4)
+
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea))
         
     def goBackTown(self,city):

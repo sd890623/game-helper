@@ -81,7 +81,7 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
-    def sellGoodsWithMargin(self):
+    def sellGoodsWithMargin(self,simple=False):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(47,149), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
         #xDiff 261
         #yDiff 131
@@ -92,9 +92,10 @@ class Market:
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
-            # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
-            if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
-                continue
+            if(simple==False):
+                # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
+                if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
+                    continue
             wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)

@@ -72,7 +72,6 @@ class UWTask(FrontTask):
             for city in cityList:
                 if(city in str.lower()):
                     self.currentCity = city
-                    self.sendMessage("UW","reached city of "+city)
                     return True
             return False
         except Exception as e:
@@ -291,7 +290,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(), 3,2)
 
     #need to provide a city list
-    def sellInCity(self,cityName):
+    def sellInCity(self,cityName,simple=False):
         self.print("去超市")
         market=Market(self.simulatorInstance, self)
 
@@ -299,7 +298,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
-        market.sellGoodsWithMargin()
+        market.sellGoodsWithMargin(simple)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
@@ -307,7 +306,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
-    def buyInCity(self,cityName,products,buyStrategy=False):
+    def buyInCity(self,cityList,products,buyStrategy=False):
         self.print("去超市")
         market=Market(self.simulatorInstance, self)
 
@@ -327,7 +326,7 @@ class UWTask(FrontTask):
             clickWithCheck()
             time.sleep(5)
             clickWithCheck()
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList), 3,2,backupFunc=backup)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
@@ -371,8 +370,9 @@ class UWTask(FrontTask):
         self.goToHarbor()
         self.depart()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
-        self.findCityAndClick(cityname)
+        wait(lambda: self.findCityAndClick(cityname),2)
         self.waitForCity(cityList,targetCity=cityname)
+        self.sendMessage("UW","reached city of "+cityname)
 
     def startTradeRoute(self):
         #Long journey, disable fast stock
@@ -396,8 +396,8 @@ class UWTask(FrontTask):
             self.print("出发卖货城市")
             # goto sell city
             self.gotoCity(routeObject["sellCity"],self.allCityList)
-            self.sellInCity(routeObject["sellCity"])
-            self.buyInCity(routeObject["sellCity"], products=routeObject["buyProducts"])
+            self.sellInCity(routeObject["sellCity"],simple=True)
+            self.buyInCity([routeObject["sellCity"]], products=routeObject["buyProducts"])
 
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
@@ -408,7 +408,7 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
-                    self.buyInCity(city, products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
+                    self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

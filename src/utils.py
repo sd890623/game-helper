@@ -34,8 +34,7 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
                 return
     time.sleep(random.randint(0,1))
 
-def continueWithUntilBy(func, untilFunc, frequency = 5):
-    timeout = 30
+def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30):
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()
@@ -82,7 +81,7 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour==5):
+    if(hour>=5 and hour<7):
         return False
     return True
 

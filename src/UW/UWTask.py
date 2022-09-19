@@ -258,6 +258,10 @@ class UWTask(FrontTask):
             if(self.hasSingleLineWordsInArea("notice",A=[520,304,564,324])):
                 #todo check for better ok position
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(761,412),5,10)
+            if(self.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.hasSingleLineWordsInArea("close", A=[632,691,680,714])):
+                battle=Battle(self.simulatorInstance,self)
+                battle.suppressBattle()
+            time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),300)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),4,10)
         

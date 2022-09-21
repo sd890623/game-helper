@@ -31,7 +31,7 @@ class UWTask(FrontTask):
     targetCity=None
     sbCity=None
     sbOptions=[]
-    shipBeingBuilt=False
+    pickedUpShip=False
     fastStock=False
     tradeRouteBuyFin=False
     waitForCityTimeOut=820
@@ -171,8 +171,8 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,450,1205,470])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(714,483),2,2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(714,483),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
@@ -334,7 +334,7 @@ class UWTask(FrontTask):
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
-        self.shipBeingBuilt=False
+        self.pickedUpShip=False
         sb=Sb(self.simulatorInstance, self)
         timeout=times*1400      
         while(timeout>0):

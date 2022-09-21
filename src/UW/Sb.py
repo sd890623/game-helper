@@ -18,25 +18,22 @@ class Sb:
     
     def pickup(self):
         self.uwtask.print("去取船")
-        # receive#1 ship area 234,321,329,342
-        # receive #2 ship area 409,319,527,344
-        if(self.uwtask.hasSingleLineWordsInArea(("quickbuild"), A=[1118,294,1231,319])):
-            self.uwtask.print("being built, jump over")
-            self.uwtask.shipBeingBuilt=True
-            return
-        #click receive#1 ship
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(1167,307), 2, 2) 
-        #Enter random strings
-        wait(lambda: self.instance.clickPointV2(715,366),2)
-        self.instance.typewrite(str(random.randint(1,99)))
-        self.instance.send_enter()
-        #click ok
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2,5)
-        #click a few times to out
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2, 2)
+        for i in [0,1]:
+            if(self.uwtask.hasSingleLineWordsInArea(("receive"), A=[1111,293+i*118,1212,314+i*118])):
+                self.uwtask.pickedUpShip=True
+                #click receive#1 ship
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1167,307+i*118), 2, 2) 
+                #Enter random strings
+                wait(lambda: self.instance.clickPointV2(715,366),2)
+                self.instance.typewrite(str(random.randint(1,99)))
+                self.instance.send_enter()
+                #click ok
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2,5)
+                #click a few times to out
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2, 2)
 
     def dismantle(self,index):
-        if(self.uwtask.shipBeingBuilt):
+        if(not self.uwtask.pickedUpShip):
             return
         self.uwtask.print("dismantle船")
         #click dismantle
@@ -52,7 +49,7 @@ class Sb:
         
 
     def build(self, option):
-        if(self.uwtask.shipBeingBuilt):
+        if(not self.uwtask.pickedUpShip):
             return 
         self.uwtask.print("造船")
         #click build

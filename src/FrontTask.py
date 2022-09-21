@@ -31,7 +31,7 @@ class FrontTask(object):
                 x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode)
 
                 if(x and y):
-                    print(x+A[0],y+A[1])
+                    # print(x+A[0],y+A[1])
                     return (x+A[0],y+A[1])
                 else:
                     return False
@@ -49,10 +49,11 @@ class FrontTask(object):
             #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.clickPointV2(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 
-    def getSingleLineWordsInArea(self, A=[0,0,0,0], ocrType=1):
+    def getSingleLineWordsInArea(self, A=[0,0,0,0], ocrType=1,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-            # self.saveImageToFile(screenshotBlob)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False

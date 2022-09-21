@@ -81,32 +81,36 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
-    def sellGoodsWithMargin(self):
+    def sellGoodsWithMargin(self,simple=False):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(47,149), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
         #xDiff 261
         #yDiff 131
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("sell items")
-        while (index<9):
+        while (index<13):
             xDiff=int(index%3*261)
             yDiff=int(index/3)*130
             index+=1
-            # print([322+xDiff,204+yDiff,382+xDiff,218+yDiff])
-            if(self.uwtask.hasSingleLineWordsInArea("-", A=[322+xDiff,204+yDiff,382+xDiff,218+yDiff], ocrType=2)):
-                continue
+            if(simple==False):
+                # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
+                if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
+                    continue
             wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
         wait(lambda: self.instance.clickPointV2(1212,693),1)
         wait(lambda: self.instance.clickPointV2(725,617),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
-        savingOcr=self.uwtask.getSingleLineWordsInArea(A=[892,16,974,39],ocrType=2)
+        gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
+        moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
+        savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
         print(products)
+        boughtTick=0
 
         #xDiff 261
         #yDiff 131
@@ -125,21 +129,25 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)      
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
+                boughtTick+=1   
             #check if max, notify buyFin for master class   
             if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
                 self.uwtask.tradeRouteBuyFin=True
                 break
 
-        wait(lambda: self.instance.clickPointV2(1212,693),1)
-        wait(lambda: self.instance.clickPointV2(725,617),5)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1)
+        wait(lambda: self.instance.clickPointV2(725,617),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
+        return boughtTick
 
     def buyProductsInCityTwice(self,products):
-        self.buyProductsInMarket(products)
+        boughtTick=self.buyProductsInMarket(products)
         if(self.uwtask.tradeRouteBuyFin):
+            return
+        if(boughtTick==0):
             return
 
         while(True):
@@ -160,9 +168,9 @@ class Market:
             #buy area
             #825,647,1095,690
             #try wider 
-        if(self.uwtask.hasSingleLineWordsInArea("yes", A=[902,615,1100,658],debug=False)):
+        if(self.uwtask.hasSingleLineWordsInArea("es", A=[902,615,1100,658])):
             time.sleep(1)
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),3, 0.5)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)

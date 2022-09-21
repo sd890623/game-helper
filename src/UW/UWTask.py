@@ -374,11 +374,26 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(1220,688),1)
         for looper in [0,1,2,3,4]:
             while(True):
-                currentCrew = self.getSingleLineWordsInArea(A=[751,199+looper*80,775,223+looper*80], ocrType=2)
-                if(currentCrew and int(currentCrew) <34):
-                    break
-                wait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),0.2,disableWait=True)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1124,110))
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*80,772,219+looper*80], ocrType=2)
+                try:
+                    if(currentCrew and int(currentCrew) <38):
+                        break
+                except:
+                    print("int conversation failed")
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),3,0,disableWait=True)
+        for looper in [0,1,2,3,4]:
+            while(True):
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*80,772,219+looper*80], ocrType=2)
+                try:
+                    if(currentCrew and int(currentCrew) <34):
+                        break
+                except:
+                    print("int conversation failed")
+                wait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),0,disableWait=True)
+                
+        wait(lambda: self.simulatorInstance.clickPointV2(950,580),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(721,486),1)
+        
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(), 1,30)
 
     #cityList is an array to contain the target city

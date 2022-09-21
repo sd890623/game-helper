@@ -47,8 +47,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        object=routeLists[1][0]
-        self.shipBuilding([1], 'marracai', 1)
+        self.dumpCrew()
 
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -369,12 +368,27 @@ class UWTask(FrontTask):
         self.checkSB()
         time.sleep(random.randint(3,5))
 
+    def dumpCrew(self):
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1274,22), lambda: self.hasSingleLineWordsInArea("company", A=[151,17,290,38]),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1124,110), lambda: self.hasSingleLineWordsInArea("manage", A=self.titleArea),2,1)
+        wait(lambda: self.simulatorInstance.clickPointV2(1220,688),1)
+        for looper in [0,1,2,3,4]:
+            while(True):
+                currentCrew = self.getSingleLineWordsInArea(A=[751,199+looper*80,775,223+looper*80], ocrType=2)
+                if(currentCrew and int(currentCrew) <34):
+                    break
+                wait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),0.2,disableWait=True)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1124,110))
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(), 1,30)
+
     #cityList is an array to contain the target city
-    def gotoCity(self,cityname,cityList):
+    def gotoCity(self,cityname,cityList,dumpCrew=False):
         self.goToHarbor()
         self.depart()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         wait(lambda: self.findCityAndClick(cityname),2)
+        if(dumpCrew):
+            self.dumpCrew()
         self.waitForCity(cityList,targetCity=cityname)
         self.sendMessage("UW","reached city of "+cityname)
 
@@ -421,7 +435,7 @@ class UWTask(FrontTask):
             self.print("出发补给城市")
             #go to supply cities
             for city in routeObject["supplyCities"]:
-                self.gotoCity(city,self.allCityList)
+                self.gotoCity(city,self.allCityList,dumpCrew=(city in routeObject.get('dumpCrewCities')))
                 self.checkSB()
 
             #swap to other route side

@@ -57,6 +57,7 @@ routeLists=[
             "buyCities":["aden","mogadish","zanzibar","mozambiqu","queliman","sofala","natal","mogadish","zanzibar","mozambiqu","queliman","sofala","natal","cape","karibi","benguel","luanda","tom","timbukt","tom","cape","karibi","benguel","luanda"],
             "buySupplyCities":[],
             "buyStrategy":"single",
+            "dumpCrewCities": [],
             "supplyCities":["cape","tom","bissau","ceuta","london","copenhag"]
         },
     ],

@@ -38,8 +38,8 @@ class Sb:
         self.uwtask.print("dismantle船")
         #click dismantle
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea),1)
-        # #click 6th ship
-        wait(lambda: self.instance.clickPointV2(591,137),2)
+        # #click 7th ship
+        wait(lambda: self.instance.clickPointV2(665,137),2)
         #click dismantle
         wait(lambda: self.instance.clickPointV2(665,591),7)
         #click yes

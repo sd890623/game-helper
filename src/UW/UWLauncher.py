@@ -10,12 +10,9 @@ if (len(allWindowsWithTitle) > 0):
 
 task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
-# 11, +16
-#test
-# task.basicMarket()
 
-# task.selectCityFromMapAndMove("groningen")
-# task.testTask()
+#test
+task.testTask()
 
 #todo
 

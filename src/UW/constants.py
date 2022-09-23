@@ -38,11 +38,11 @@ routeLists=[
     [
         {
             "sellCity":"saint",
-            # ,"tourmaline",,"amber"
+            # ,"tourmaline",,"amber", "jewllery"
             "buyProducts": ["glassbead","steel","vodka","aquavit","gin","whisky","felt"],
             #light season
             # ,,"gda"
-            "buyCities":["saint","stockhol","visby","riga","copenhag","hamburg","groningen","amsterda","london","dover","plymouth","copenhag","hamburg","groningen","amsterda","london","dover","plymouth"],
+            "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","plymouth","copenhag","groningen","amsterda","london","dover","plymouth"],
             "buySupplyCities":["copenhag"],
 
             #light seaso3n

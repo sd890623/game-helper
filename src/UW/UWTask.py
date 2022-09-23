@@ -269,7 +269,7 @@ class UWTask(FrontTask):
         self.clickEnterCityButton()
 
     def checkForGiftAndReceive(self):
-        if(self.isPositionColorSimilarTo(1087,10,(253, 59, 53))):
+        if(self.isPositionColorSimilarTo(1078,9,(245, 70, 60))):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
@@ -450,7 +450,7 @@ class UWTask(FrontTask):
             self.print("出发补给城市")
             #go to supply cities
             for city in routeObject["supplyCities"]:
-                self.gotoCity(city,self.allCityList,dumpCrew=(city in routeObject.get('dumpCrewCities')))
+                self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
 
             #swap to other route side

@@ -32,7 +32,6 @@ class UWTask(FrontTask):
     sbCity=None
     sbOptions=[]
     pickedUpShip=False
-    fastStock=False
     tradeRouteBuyFin=False
     waitForCityTimeOut=820
     routeOption=0
@@ -174,30 +173,19 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
 
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(57,85), lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea),1,1)
-
         # Destroy excess
-        if(self.isPositionColorSimilarTo(612,418,(249, 61, 48))):
-            wait(lambda: self.simulatorInstance.click_point(577,427),2)
-            wait(lambda: self.simulatorInstance.click_point(985,640),1)
 
-        zeroCostStockArea=[922,417,958,437]
-        if(self.hasSingleLineWordsInArea("0", A=zeroCostStockArea,ocrType=2,debug=False) and len(self.getSingleLineWordsInArea(A=zeroCostStockArea,ocrType=2))==1):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
-            return
-
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1005,424), 2,2)
+        if(self.hasSingleLineWordsInArea("discard", A=[1138,558,1208,574])):
+            wait(lambda: self.simulatorInstance.clickPointV2(1172,573),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(1183,577),1)
 
     def inWater(self):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
     def depart(self):
         def clickAndStock():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
-            if(not(self.fastStock)):
-                self.restock()
-            else:
-                wait(lambda: self.simulatorInstance.clickPointV2(1183,568),1)
-                wait(lambda: self.simulatorInstance.clickPointV2(716,485),1)
+            self.restock()
 
         clickAndStock()
         self.print("出海")
@@ -408,8 +396,6 @@ class UWTask(FrontTask):
         self.sendMessage("UW","reached city of "+cityname)
 
     def startTradeRoute(self):
-        #Long journey, disable fast stock
-        self.fastStock=False
         routeObjIndex=0
         routeObject=None
         self.setCurrentCityFromScreen()
@@ -442,6 +428,8 @@ class UWTask(FrontTask):
                         break
                     self.gotoCity(city,self.allCityList)
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
+                    #special
+                    self.checkSB()
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

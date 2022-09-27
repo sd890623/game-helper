@@ -115,7 +115,6 @@ routeLists=[
     #4 saint<->hindu
     [
         {
-            "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
             # ,"tourmaline","amber", "jewllery""glassbead"
             "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky"],
             # ,,"gda"
@@ -125,18 +124,19 @@ routeLists=[
             "buySupplyCities":["copenhag"],
             "dumpCrewCities": ["kochi"],
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-            "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"]
+            "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
+            "sellCities":[{"name":"diu","types":None}],
         },
         {
-            "sellCities":[{"name":"diu","types":None}],
             #,"pepper","cashmere"
             "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #,"malindi","manbasa"
-            "buyCities":["goa","kozhikod","kochi","muscat","shiraz","hormuz","diu"],
+            "buyCities":["diu","goa","kozhikod","kochi","muscat","shiraz","hormuz"],
             "buySupplyCities":[],
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london","copenhag"]
+            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london","copenhag"],
+            "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
         },
     ],
         #5 saint<->hindu, double buy

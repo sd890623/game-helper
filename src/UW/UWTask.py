@@ -411,15 +411,6 @@ class UWTask(FrontTask):
                 self.print("not working hour,sleep for 30mins")
                 time.sleep(1800)
                 continue
-            self.print("出发卖货城市")
-            # goto sell city
-            for index,cityObject in enumerate(routeObject["sellCities"]):
-                cityName=cityObject["name"]
-                types=cityObject["types"]
-                self.gotoCity(cityName,self.allCityList)
-                self.sellInCity(cityName,simple=True,types=types)
-                if(index==len(routeObject["sellCities"])-1):
-                    self.buyInCity(cityName, products=routeObject["buyProducts"])
 
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
@@ -443,6 +434,16 @@ class UWTask(FrontTask):
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
+
+            self.print("出发卖货城市")
+            # goto sell cities
+            for index,cityObject in enumerate(routeObject["sellCities"]):
+                cityName=cityObject["name"]
+                types=cityObject["types"]
+                self.gotoCity(cityName,self.allCityList)
+                self.sellInCity(cityName,simple=True,types=types)
+                # if(index==len(routeObject["sellCities"])-1):
+                #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 
             #swap to other route side
             routeObjIndex+=1

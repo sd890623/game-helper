@@ -117,26 +117,56 @@ routeLists=[
         {
             "sellCity":"saint",
             # ,"tourmaline",,"amber", "jewllery""glassbead"
-            "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","felt"],
+            "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky"],
             #light season
             # ,,"gda"
             # Feb alchohol+
             "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
             # "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
             "buySupplyCities":["copenhag"],
-            "dumpCrewCities": [],
+            "dumpCrewCities": ["kochi"],
             # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
-            "supplyCities":["london","ceuta","bissau","tom","cape","mozambiqu","mogadish"]
+            "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"]
         },
         {
             "sellCity":"diu",
-            "buyProducts": ["musk","blackTea","turquoise","ruby","sapphire","aventurin","jasmine","cashmere","taffeta","pepper","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
+            #,"pepper","cashmere"
+            "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #,"malindi","manbasa"
             "buyCities":["goa","kozhikod","kochi","muscat","shiraz","hormuz","diu"],
             "buySupplyCities":[],
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london"]
+            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london","copenhag"]
+        },
+    ],
+        #5 saint<->hindu, double buy
+    [
+        {
+            "sellCity":"saint",
+            # ,"tourmaline",,"amber", "jewllery""glassbead"
+            "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky"],
+            #light season
+            # ,,"gda"
+            # Feb alchohol+
+            "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
+            # Alcohol +-
+            # "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
+            "buySupplyCities":["copenhag"],
+            "dumpCrewCities": ["kochi"],
+            # "buyCities":["kokkola","saint","stockholm","visby","gda","copenhagen","beck","oslo"],
+            "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"]
+        },
+        {
+            "sellCity":"diu",
+            #,"pepper","cashmere","yogurt",
+            "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
+            #,"malindi","manbasa"
+            "buyCities":["diu","goa","kozhikod","kochi"],
+            "buySupplyCities":[],
+            "buyStrategy":"single",
+            "dumpCrewCities": ["mozambiqu"],
+            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london","copenhag"]
         },
     ]
 ]

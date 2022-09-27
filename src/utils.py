@@ -3,6 +3,8 @@ import random
 from datetime import datetime
 import datetime as dt
 import threading
+import collections.abc
+
 
 def wait(func, seconds = 3,disableWait=False):
     func()
@@ -73,6 +75,8 @@ def getDateTimeString():
 
 #specia treatment by 
 def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
+    if(not(string)):
+        return False
     found=False
     for stringInArray in array:
         if(stringInArray in string and (len(string)-len(stringInArray))<3):
@@ -84,5 +88,10 @@ def isWorkHour():
     if(hour>=5 and hour<7):
         return False
     return True
+
+def isArray(items):
+    if(items==None):
+        return False
+    return isinstance(items, collections.abc.Sequence)
 
 findPlayerCountLk=threading.Lock()

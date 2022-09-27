@@ -115,10 +115,9 @@ routeLists=[
     #4 saint<->hindu
     [
         {
-            "sellCity":"saint",
-            # ,"tourmaline",,"amber", "jewllery""glassbead"
+            "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
+            # ,"tourmaline","amber", "jewllery""glassbead"
             "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky"],
-            #light season
             # ,,"gda"
             # Feb alchohol+
             "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
@@ -129,7 +128,7 @@ routeLists=[
             "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"]
         },
         {
-            "sellCity":"diu",
+            "sellCities":[{"name":"diu","types":None}],
             #,"pepper","cashmere"
             "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #,"malindi","manbasa"

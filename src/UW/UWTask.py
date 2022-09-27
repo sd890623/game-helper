@@ -46,8 +46,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        self.dumpCrew()
-
+        self.startTradeRoute()
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
@@ -101,7 +100,7 @@ class UWTask(FrontTask):
     def setRouteOption(self,routeOption: int):
         self.routeOption=routeOption
         self.routeList=routeLists[routeOption]
-        self.allCityList=cityNames+self.routeList[0]["buyCities"]+self.routeList[1]["buyCities"]+self.routeList[0]["supplyCities"]+self.routeList[1]["supplyCities"]+[self.routeList[0]["sellCity"],self.routeList[1]["sellCity"]]
+        self.allCityList=cityNames+self.routeList[0]["buyCities"]+self.routeList[1]["buyCities"]+self.routeList[0]["supplyCities"]+self.routeList[1]["supplyCities"]+list(map(lambda x: x["name"], self.routeList[0]["sellCities"]))+list(map(lambda x: x["name"],self.routeList[1]["sellCities"]))
 
     def checkReachingPlace(self):
         if(self.targetCity==self.currentCity):
@@ -281,7 +280,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(), 3,2)
 
     #need to provide a city list
-    def sellInCity(self,cityName,simple=False):
+    def sellInCity(self,cityName,simple=False,types=None):
         self.print("去超市")
         market=Market(self.simulatorInstance, self)
 
@@ -289,7 +288,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
-        market.sellGoodsWithMargin(simple)
+        market.sellGoodsWithMargin(simple,types)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
@@ -400,7 +399,7 @@ class UWTask(FrontTask):
         routeObject=None
         self.setCurrentCityFromScreen()
         for index,obj in enumerate(self.routeList):
-            if(self.currentCity in obj["buyCities"] or self.currentCity == obj["sellCity"]):
+            if(self.currentCity in obj["buyCities"] or self.currentCity in obj["sellCities"]):
                 routeObjIndex=index
                 routeObject=obj
         if(routeObject==None):
@@ -414,9 +413,13 @@ class UWTask(FrontTask):
                 continue
             self.print("出发卖货城市")
             # goto sell city
-            self.gotoCity(routeObject["sellCity"],self.allCityList)
-            self.sellInCity(routeObject["sellCity"],simple=True)
-            self.buyInCity([routeObject["sellCity"]], products=routeObject["buyProducts"])
+            for index,cityObject in enumerate(routeObject["sellCities"]):
+                cityName=cityObject["name"]
+                types=cityObject["types"]
+                self.gotoCity(cityName,self.allCityList)
+                self.sellInCity(cityName,simple=True,types=types)
+                if(index==len(routeObject["sellCities"])-1):
+                    self.buyInCity(cityName, products=routeObject["buyProducts"])
 
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")

@@ -12,7 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-# task.testTask()
+task.testTask()
 
 #todo
 

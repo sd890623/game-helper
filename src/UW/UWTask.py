@@ -362,22 +362,22 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(1220,688),1)
         for looper in [0,1,2,3,4]:
             while(True):
-                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*80,772,219+looper*80], ocrType=2)
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=279)
                 try:
                     if(currentCrew and int(currentCrew) <38):
                         break
                 except:
                     print("int conversation failed")
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),3,0,disableWait=True)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*79),3,0,disableWait=True)
         for looper in [0,1,2,3,4]:
             while(True):
-                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*80,772,219+looper*80], ocrType=2)
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=279)
                 try:
                     if(currentCrew and int(currentCrew) <34):
                         break
                 except:
                     print("int conversation failed")
-                wait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*80),0,disableWait=True)
+                wait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*79),0,disableWait=True)
                 
         wait(lambda: self.simulatorInstance.clickPointV2(950,580),1)
         wait(lambda: self.simulatorInstance.clickPointV2(721,486),1)

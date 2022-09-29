@@ -37,6 +37,7 @@ class UWTask(FrontTask):
     routeOption=0
     routeList=[]
     allCityList=[]
+    battleMode="run"
 
     def __init__(self, hwnd, index):
         FrontTask.__init__(self,hwnd,index)
@@ -46,7 +47,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        self.startTradeRoute()
+        self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
@@ -217,7 +218,10 @@ class UWTask(FrontTask):
     def checkBattle(self):
         if(self.hasSingleLineWordsInArea("retreat",A=[756,549,848,577])):
             battle=Battle(self.simulatorInstance,self)
-            battle.suppressBattle()
+            if(self.battleMode=="run"):
+                battle.suppressBattle()
+            elif(self.battleMode=="battle"):
+                battle.doBattle()
 
     def clickEnterCityButton(self):
         doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(655,330),2,0.5)
@@ -228,7 +232,7 @@ class UWTask(FrontTask):
         #         wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)
     
     def checkBeforeCity(self):
-        if(self.hasSingleLineWordsInArea("adjacent",A=[1225,264,1297,289]) and self.hasSingleLineWordsInArea("0,0",A=[1051,129,1081,146],ocrType=2)):
+        if(self.hasSingleLineWordsInArea("adjacent",A=[1225,264,1297,289]) and self.getNumberFromSingleLineInArea(A=[1049,132,1085,146])==0):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1169,258),2,0.5)
     
     def inJourneyTask(self):
@@ -261,6 +265,10 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
 
+    def checkForTreasure(self):
+        chestCood=self.hasImageInScreen("chest",A=[173,48,1051,659])
+        if(chestCood):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(chestCood[0]+10,chestCood[1]+18),2,0,disableWait=True)
 
     def basicMarket(self):
         self.print("去超市")
@@ -361,7 +369,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(1220,688),1)
         for looper in [0,1,2,3,4]:
             while(True):
-                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=279)
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=2)
                 try:
                     if(currentCrew and int(currentCrew) <38):
                         break
@@ -370,9 +378,9 @@ class UWTask(FrontTask):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(584,211+looper*79),3,0,disableWait=True)
         for looper in [0,1,2,3,4]:
             while(True):
-                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=279)
+                currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=2)
                 try:
-                    if(currentCrew and int(currentCrew) <34):
+                    if(currentCrew and int(currentCrew) <35):
                         break
                 except:
                     print("int conversation failed")

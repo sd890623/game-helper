@@ -12,7 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-# task.testTask()
+#task.testTask()
 
 #todo
 
@@ -24,14 +24,14 @@ time.sleep(3)
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
 #4 saint<->hindu
-task.setRouteOption(4)
-task.enableSB("ceuta",options=[9,10])
+task.setRouteOption(2)
+task.enableSB("ceuta",options=[12,12])
 # task.enableSB("diu",options=[12,12])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
-# africa: 10d=20min, 20*8/14=11min=660
-task.waitForCityTimeOut=480
-task.fastStock=False
+# kochi: 12d=16min, 16*8/14=9min=540
+task.waitForCityTimeOut=540
+task.battleMode="run"
 task.playNotification()
 task.setCurrentCityFromScreen()
 task.print("提示：长距旅行开启蓝旗;检查防灾物品；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗")

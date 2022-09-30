@@ -22,6 +22,15 @@ northEuropeStd={
     "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
     "sellCities":[{"name":"diu","types":None}],
 }
+northEuropeLightSea={
+    # ,, "jewllery","tourmaline"
+    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","flannel","glassbead","tapestry","amber","chrysoberyl","silverplate","handcanno","westerncann","saffron","almond","matchlockgun","rocksalt"],
+    "buyCities":["saint","riga","visby","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa"],
+    "buySupplyCities":[],
+    "dumpCrewCities": ["kochi"],
+    "supplyCities":["ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
+    "sellCities":[{"name":"diu","types":None}],
+}
 
 routeLists=[
     #0 saint<->eastland
@@ -121,9 +130,8 @@ routeLists=[
     ],
         #5 saint<->hindu, double buy
     [
-        northEuropeStd,
+        northEuropeLightSea,
         {
-            #"pepper","cashmere","yogurt",
             "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #
             "buyCities":["diu","goa","kozhikod","kochi"],

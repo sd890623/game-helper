@@ -12,7 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-#task.testTask()
+# task.testTask()
 
 #todo
 
@@ -24,8 +24,8 @@ time.sleep(3)
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
 #4 saint<->hindu
-task.setRouteOption(2)
-task.enableSB("ceuta",options=[12,12])
+task.setRouteOption(5)
+task.enableSB("ceuta",options=[9,10])
 # task.enableSB("diu",options=[12,12])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

@@ -83,31 +83,35 @@ class Market:
 
     def sellGoodsWithMargin(self,simple=False,types=None):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(47,149), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
-        #xDiff 261
-        #yDiff 131
-        index=0
-        #Loop through and find what can be bought
-        self.uwtask.print("sell items")
-        while (index<13):
-            xDiff=int(index%3*261)
-            yDiff=int(index/3)*130
-            index+=1
-            if(simple==False):
-                # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
-                if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
-                    continue
-            if(isArray(types)):
-                typeOcr=self.uwtask.getSingleLineWordsInArea(A=[269+xDiff,137+yDiff,326+xDiff,155+yDiff])
-                if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
+        def sellItemsInScreen():
+            #Loop through and find what can be bought
+            #xDiff 261
+            #yDiff 131
+            index=0
+            while (index<13):
+                xDiff=int(index%3*261)
+                yDiff=int(index/3)*130
+                index+=1
+                if(simple==False):
+                    # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
+                    if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
+                        continue
+                if(isArray(types)):
+                    typeOcr=self.uwtask.getSingleLineWordsInArea(A=[271+xDiff,137+yDiff,333+xDiff,155+yDiff])
+                    if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
+                        wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+                if(types == None):
                     wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
-            if(types == None):
-                wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+            wait(lambda: self.instance.clickPointV2(1212,693),1)
+            wait(lambda: self.instance.clickPointV2(725,617),5)
+            self.bargin()
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
 
+        self.uwtask.print("sell items")
+        sellItemsInScreen()
+        if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,677,415]))):
+            sellItemsInScreen()
 
-        wait(lambda: self.instance.clickPointV2(1212,693),1)
-        wait(lambda: self.instance.clickPointV2(725,617),5)
-        self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
         moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
@@ -132,7 +136,7 @@ class Market:
             #red check area 260,203,346,221
             if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
                 continue   
-            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,381+xDiff,137+yDiff])
+            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,419+xDiff,137+yDiff])
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):

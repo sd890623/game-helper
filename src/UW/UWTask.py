@@ -47,6 +47,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
+        self.sellInCity("diu",simple=True)
         self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -154,7 +155,7 @@ class UWTask(FrontTask):
     def goToHarbor(self):
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),5,60)
 
     def restock(self):
         self.print("补给")
@@ -380,7 +381,7 @@ class UWTask(FrontTask):
             while(True):
                 currentCrew = self.getSingleLineWordsInArea(A=[753,202+looper*79,772,219+looper*79], ocrType=2)
                 try:
-                    if(currentCrew and int(currentCrew) <35):
+                    if(currentCrew and int(currentCrew) <34):
                         break
                 except:
                     print("int conversation failed")

@@ -23,9 +23,9 @@ northEuropeStd={
     "sellCities":[{"name":"diu","types":None}],
 }
 northEuropeLightSea={
-    # ,, "jewllery","tourmaline"
-    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","flannel","glassbead","tapestry","amber","chrysoberyl","silverplate","handcanno","westerncann","saffron","almond","matchlockgun","rocksalt"],
-    "buyCities":["saint","riga","visby","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa"],
+    # "jewllery","tourmaline" ,"handcanno", "flannel","chrysoberyl"
+    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","glassbead","tapestry","amber","silverplate","westerncann","saffron","almond","matchlockgun"],
+    "buyCities":["saint","beck","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
@@ -139,6 +139,7 @@ routeLists=[
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london"],
+            #
             "sellCities":[{"name":"beck","types":["perfume"]},{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
         },
     ]

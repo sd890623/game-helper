@@ -109,7 +109,7 @@ class Market:
 
         self.uwtask.print("sell items")
         sellItemsInScreen()
-        if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,677,415]))):
+        if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,688,415]))):
             sellItemsInScreen()
 
         gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])

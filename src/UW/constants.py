@@ -9,17 +9,30 @@ cityNames=[]
 # "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
 
 # Shared object
-northEuropeStd={
+northEuropeHot={
     # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky"],
+    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron"],
     # "gda", "hamburg"
     # Feb alchohol+
     # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","copenhag","groningen","amsterda","london","dover","calais","plymouth"],
+    "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth","laga","seville","lisboa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
-    "supplyCities":["london","ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
+    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
+    "sellCities":[{"name":"diu","types":None}],
+}
+northEuropeStd={
+    # ,"tourmaline","amber", "jewllery""glassbead"
+    "buyProducts": ["tapestry","gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron","almond"],
+    # "gda", "hamburg"
+    # Feb alchohol+
+    # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
+    # Feb alchohol+-
+    "buyCities":["kokkola","saint","stockhol","visby","riga","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
+    "buySupplyCities":["copenhag"],
+    "dumpCrewCities": ["kochi"],
+    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
     "sellCities":[{"name":"diu","types":None}],
 }
 northEuropeLightSea={
@@ -28,7 +41,7 @@ northEuropeLightSea={
     "buyCities":["saint","beck","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bissau","tom","karibi","cape","mozambiqu","kochi"],
+    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
     "sellCities":[{"name":"diu","types":None}],
 }
 
@@ -58,7 +71,7 @@ routeLists=[
     #1 saint<->east africa
     [
         {**northEuropeStd,
-        "supplyCities":["london","ceuta","bissau","tom","karibib","cape","mozambiqu","mogadish"],
+        "supplyCities":["london","ceuta","bathurst","tom","karibib","cape","mozambiqu","mogadish"],
         "sellCities":[{"name":"massawa","types":None}],
         "dumpCrewCities": [],
         },
@@ -70,7 +83,7 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"single",
             "dumpCrewCities": [],
-            "supplyCities":["cape","tom","bissau","ceuta","london"],
+            "supplyCities":["cape","tom","bathurst","ceuta","london"],
             "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
         },
     ],
@@ -100,7 +113,7 @@ routeLists=[
             "buyProducts": ["glassbead","steel","vodka","aquavit","gin","whisky","amber","felt"],
             "buyCities":["saint","stockhol","visby","riga","gda","copenhag","hamburg","groningen","amsterda","london","dover","plymouth","copenhag","hamburg","groningen","amsterda","london","dover","plymouth"],
             "buySupplyCities":[],
-            "supplyCities":["london","ceuta","bissau"],
+            "supplyCities":["london","ceuta","bathurst"],
             "sellCities":[{"name":"abidj","types":None}],
         },
         {
@@ -109,13 +122,13 @@ routeLists=[
             "buyCities":["abidj","timbukt","benin","tom","elmina","abidj"],
             "buySupplyCities":[],
             "buyStrategy":"single",
-            "supplyCities":["elmina","bissau","ceuta","london"],
+            "supplyCities":["elmina","bathurst","ceuta","london"],
             "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
         },
     ],
     #4 saint<->hindu
     [
-        northEuropeStd,
+        northEuropeHot,
         {
             #,"pepper","cashmere"
             "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
@@ -124,13 +137,13 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london"],
-            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
+            "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
+            "sellCities":[{"name":"kokkola","types":None}],
         },
     ],
         #5 saint<->hindu, double buy
     [
-        northEuropeLightSea,
+        northEuropeHot,
         {
             "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #
@@ -138,9 +151,9 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["kochi","mozambiqu","cape","tom","bissau","ceuta","london"],
-            #
-            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
+            "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
+            #{"name":"beck","types":["perfume"]},{"name":"riga","types":["jewelry"]}
+            "sellCities":[{"name":"kokkola","types":None}],
         },
     ]
 ]

@@ -47,7 +47,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):    
-        self.sellInCity("diu",simple=True)
+        self.waitForCity(['diu'],'diu')
         self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -246,12 +246,16 @@ class UWTask(FrontTask):
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
-            if(self.hasSingleLineWordsInArea("notice",A=[520,304,564,324])):
-                #todo check for better ok position
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(761,412),5,10)
+            if(self.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+            #More checks
+            if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
             if(self.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.hasSingleLineWordsInArea("close", A=[632,691,680,714])):
                 battle=Battle(self.simulatorInstance,self)
                 battle.suppressBattle()
+            #For everyday login click-out
+            doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),300)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),4,10)
@@ -408,7 +412,7 @@ class UWTask(FrontTask):
         routeObject=None
         self.setCurrentCityFromScreen()
         for index,obj in enumerate(self.routeList):
-            if(self.currentCity in obj["buyCities"] or self.currentCity in obj["sellCities"]):
+            if(self.currentCity in obj["buyCities"] or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
                 routeObjIndex=index
                 routeObject=obj
         if(routeObject==None):

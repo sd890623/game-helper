@@ -13,7 +13,7 @@ from constants import cityNames, routeLists
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
     rightCatePoint2=1171,88
-    titleArea=[49,8,187,45]
+    titleArea=[49,8,220,50]
     rightTopTownIcon=1285,25
     inTownCityNameArea=[119,18,265,48]
     inScreenConfirmYesButton=977,639
@@ -46,14 +46,18 @@ class UWTask(FrontTask):
         parentWindow.moveWindow(10,10,1327,779)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
-    def testTask(self):    
+    def testTask(self):
+        # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
+        # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
+
+        # self.buyBlackMarket('london')
+        self.buyBlackMarket('constantino')
         self.waitForCity(['constantinopl'],'constantinopl')
         self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
         onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
-        # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
-        # self.saveImageToFile(screenshotBlob)
+
         wait(lambda: self.clickWithImage("tourmaline", A=[187,99,949,395],imagePrefix="products"),1)
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
@@ -332,6 +336,29 @@ class UWTask(FrontTask):
             clickWithCheck()
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList), 3,2,backupFunc=backup)
 
+    def clickInMenu(self,menuItem,inTitle):
+        wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  
+
+        area=[1111,242,1195,265]
+        index=0
+        while(index<13):
+            yDiff=int(index*37.8)
+            if(self.hasSingleLineWordsInArea(menuItem, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,252+yDiff), lambda: self.hasSingleLineWordsInArea(inTitle, A=self.titleArea),2,2)
+                break
+            index+=1
+        if(index==13):
+            return False
+        return True
+
+    def buyBlackMarket(self,city):
+        market=Market(self.simulatorInstance, self)
+        if(market.shouldBuyBlackMarket(city)):
+            self.print("去黑店")
+            market.buyBlackMarket(city)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city), 3,2)
+
+
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
         self.pickedUpShip=False
@@ -438,6 +465,7 @@ class UWTask(FrontTask):
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                     #special
                     self.checkSB()
+                    self.buyBlackMarket(city)
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:
@@ -448,6 +476,7 @@ class UWTask(FrontTask):
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
+                self.buyBlackMarket()
 
             self.print("出发卖货城市")
             # goto sell cities
@@ -456,6 +485,7 @@ class UWTask(FrontTask):
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
                 self.sellInCity(cityName,simple=True,types=types)
+                self.buyBlackMarket()
                 # if(index==len(routeObject["sellCities"])-1):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 

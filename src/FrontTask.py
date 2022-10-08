@@ -80,16 +80,55 @@ class FrontTask(object):
             print(e)    
             return False      
 
+    def hasArrayStringInAreaSingleLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print(",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+        except Exception as e:
+            print(e)    
+            return False      
+
     def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
         # self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
 
+    def hasArrayStringInAreaMultiLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print(",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+        except Exception as e:
+            print(e)    
+            return False   
+
     def bringWindowToFront(self):
         self.simulatorInstance.bringWindowToFront()
 
-    def saveImageToFile(self,imageBlob):
-        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
+    def saveImageToFile(self,imageBlob,relaPath=False,filename=False):
+        if(relaPath and filename):
+            absPath=os.path.abspath(__file__ + relaPath)
+            if not os.path.exists(absPath):
+                os.mkdir(absPath)
+                self.print("Directory " +absPath+  " Created ")
+            screenshotImgPath = absPath+"\\"+filename
+        else:
+            screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
         cv2.imwrite(screenshotImgPath, imageBlob)  
 
     def isPositionColorSimilarTo(self,x,y,rgb):

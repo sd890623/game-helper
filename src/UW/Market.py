@@ -24,7 +24,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "bristol","dublin","nantes","bordeau","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
 "zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers",
-"constantino"]
+"candia","thessaloni","constantino"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -212,19 +212,21 @@ class Market:
         #else gem
         def clickBuy(x,y):
             wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
-            wait(lambda: self.instance.clickPointV2(762,516),0.2,disableWait=True)
+            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),1)
             wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
             wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
             #quick purchase
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(737,599),2,0)
+            wait(lambda: self.instance.clickPointV2(737,599),1)
             if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
                 wait(lambda: self.instance.clickPointV2(719,482))
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
+
 
         index=0
         self.uwtask.print("buy BM items")
-        while (index<13):
+        while (index<12):
             xDiff=int(index%3*262)
-            yDiff=int(index/3)*132
+            yDiff=int(int(index/3)*130.5)
             index+=1
             productName=self.uwtask.getSingleLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,136+yDiff])
             if(not(productName)):
@@ -232,14 +234,16 @@ class Market:
             if("rose" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
-            if(self.uwtask.hasImageInScreen("gemInBM",A=[273+xDiff,200+yDiff,368+xDiff,224+yDiff])):
+            if(self.uwtask.hasImageInScreen("gemInBM",A=[285+xDiff,203+yDiff,360+xDiff,228+yDiff])):
                 #Gem case
                 if("enhancedmedium" in productName and "special" not in productName):
                     clickBuy(319+xDiff,184+yDiff)
                 continue
             else:
                 #Ducat case
-                clickBuy(319+xDiff,184+yDiff)
+                price=self.uwtask.getNumberFromSingleLineInArea(A=[326+xDiff,208+yDiff,359+xDiff,225+yDiff])
+                if(price and price>25):
+                    clickBuy(319+xDiff,184+yDiff)
 
     def buyBlackMarket(self,city):
         def getTime():
@@ -255,7 +259,7 @@ class Market:
                     time.sleep(30)
                 if(not self.uwtask.clickInMenu("temshop","temshop")):
                     return
-                if(not self.uwtask.hasSingleLineWordsInArea("blackmar", A=[20,189,173,230])):
+                if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
                     time.sleep(15)
                     recursiveVisitBM()

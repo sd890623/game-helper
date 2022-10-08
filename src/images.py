@@ -10,21 +10,16 @@ def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
         targetImage=get_grayscale(targetImage)
         screenshotBlob=get_grayscale(screenshotBlob)
     result = cv2.matchTemplate(screenshotBlob, targetImage, cv2.TM_SQDIFF_NORMED)
-    # return (cv2.minMaxLoc(result)[2])
-    cv2 .normalize (result ,result ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )#line:93
-    a ,b ,c ,d =cv2 .minMaxLoc (result )#line:95
-    OOOOO0OOOOOO0OOO0 =str (a )#line:99
+    cv2 .normalize (result ,result ,0 ,1 ,cv2 .NORM_MINMAX ,-1 )
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+    top_left = min_loc
 
-    if abs (float (OOOOO0OOOOOO0OOO0 ))<=0.05 and c [0 ]!=0 and c [1 ]!=0 :#line:115
-        return (c [0 ],c [1 ])
-    else :#line:118
-        return 0 ,0 #line:120
-
-    upperLeft = cv2.minMaxLoc(result)[2]
-    lowerRight = (upperLeft[0] + targetWidth, upperLeft[1] + targetHeigh)
-    middlePoint = (int((upperLeft[0]+lowerRight[0])/2), int((upperLeft[1]+lowerRight[1])/2))
-
-    return middlePoint
+    if(min_val<0):
+        min_val=-min_val
+    if min_val<=(1e-8) and min_loc[0 ]!=0 and min_loc[1 ]!=0:
+        return (min_loc[0 ],min_loc[1 ])
+    else :
+        return 0 ,0
 
 
 # get grayscale image

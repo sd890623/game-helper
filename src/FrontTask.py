@@ -23,11 +23,12 @@ class FrontTask(object):
     def sendMessage(self,url,text):
         self.messager.sendMessage(url,getDateTimeString()+": "+text)
 
-    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
+    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False, debug=False):
             imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
             try:
                 screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-                # self.saveImageToFile(screenshotBlob)
+                if(debug):
+                    self.saveImageToFile(screenshotBlob)
                 x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode)
 
                 if(x and y):
@@ -45,7 +46,7 @@ class FrontTask(object):
         targetImage = cv2.imread(imagePath)
         targetHeigh, targetWidth, channel = targetImage.shape
         position=self.simulatorInstance.window_capture_v2(imagePath, A)
-        if(position):
+        if(position and position[0] and position[1]):
             #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.clickPointV2(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 

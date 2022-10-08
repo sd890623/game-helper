@@ -23,8 +23,8 @@ marketBuyData={
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
 "bristol","dublin","nantes","bordeau","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
 "zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
-"algiers",
-"candia","thessaloni","constantino"]
+"algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse",
+"alexandria","cairo","candia","athens","thessaloni","constantino"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -212,7 +212,7 @@ class Market:
         #else gem
         def clickBuy(x,y):
             wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
-            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),1)
+            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),0)
             wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
             wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
             #quick purchase
@@ -234,15 +234,17 @@ class Market:
             if("rose" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
-            if(self.uwtask.hasImageInScreen("gemInBM",A=[285+xDiff,203+yDiff,360+xDiff,228+yDiff])):
+            if(self.uwtask.hasImageInScreen("gemInBM",A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff])):
                 #Gem case
                 if("enhancedmedium" in productName and "special" not in productName):
                     clickBuy(319+xDiff,184+yDiff)
                 continue
             else:
                 #Ducat case
-                price=self.uwtask.getNumberFromSingleLineInArea(A=[326+xDiff,208+yDiff,359+xDiff,225+yDiff])
-                if(price and price>25):
+                price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
+                if("keel" in productName):
+                    continue
+                if(price and price>31):
                     clickBuy(319+xDiff,184+yDiff)
 
     def buyBlackMarket(self,city):

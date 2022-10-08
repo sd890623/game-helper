@@ -23,7 +23,7 @@ marketBuyData={
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
 "bristol","dublin","nantes","bordeau","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
 "zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
-"algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse",
+"algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -231,7 +231,7 @@ class Market:
             productName=self.uwtask.getSingleLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,136+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName):
+            if("rose" in productName or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
             if(self.uwtask.hasImageInScreen("gemInBM",A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff])):
@@ -242,7 +242,7 @@ class Market:
             else:
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                if("keel" in productName):
+                if("keel" in productName or "superior" in productName):
                     continue
                 if(price and price>31):
                     clickBuy(319+xDiff,184+yDiff)

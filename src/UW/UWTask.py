@@ -51,7 +51,7 @@ class UWTask(FrontTask):
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
 
         # self.buyBlackMarket('london')
-        self.buyBlackMarket('constantino')
+        self.buyBlackMarket('saint')
         self.waitForCity(['constantinopl'],'constantinopl')
         self.dumpCrew()
         # messager=Messager()
@@ -466,6 +466,8 @@ class UWTask(FrontTask):
                     #special
                     self.checkSB()
                     self.buyBlackMarket(city)
+                if(routeObject.get("buyStrategy")=="once"):
+                    self.tradeRouteBuyFin=True
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

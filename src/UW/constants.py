@@ -27,7 +27,6 @@ northEuropeStd={
     "buyProducts": ["tapestry","gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron","almond"],
     # "gda", "hamburg"
     # Feb alchohol+
-    # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
     # Feb alchohol+-
     "buyCities":["saint","stockhol","visby","riga","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":["copenhag"],
@@ -42,6 +41,21 @@ northEuropeLightSea={
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
+    "sellCities":[{"name":"diu","types":None}],
+}
+
+northEuropeBM={
+    # ,"tourmaline","amber", "jewllery""glassbead",     "tapestry","aquavit", "almond"
+    "buyProducts": ["gobelin","steel","vodka","gin","whisky","westerncann","saffron"],
+    # "gda", "hamburg"
+    # Feb alchohol+
+    # Feb alchohol+-
+    "buyCities":["saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda",
+    "london","dover","antwerp","calais","plymouth","nantes","bordeaux","porto","laga","seville","lisboa"],
+    "buySupplyCities":[],
+    "dumpCrewCities": ["kochi"],
+    "buyStrategy":"once",
+    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","mozambiqu","zanzibar","manbasa","mozambiqu","kochi"],
     "sellCities":[{"name":"diu","types":None}],
 }
 
@@ -138,7 +152,7 @@ routeLists=[
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
-            "sellCities":[{"name":"kokkola","types":None}],
+            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"kokkola","types":None}],
         },
     ],
         #5 saint<->hindu, double buy
@@ -155,5 +169,20 @@ routeLists=[
             #{"name":"beck","types":["perfume"]},{"name":"riga","types":["jewelry"]}
             "sellCities":[{"name":"kokkola","types":None}],
         },
-    ]
+    ],
+    #6 saint<->hindu BM every day
+    [
+        northEuropeBM,
+        {
+            #,"pepper","cashmere"
+            "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
+            #
+            "buyCities":["diu","goa","kozhikod","kochi","muscat","baghdad","basrah","hormuz"],
+            "buySupplyCities":[],
+            "buyStrategy":"single",
+            "dumpCrewCities": ["mozambiqu"],
+            "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
+            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"kokkola","types":None}],
+        },
+    ],
 ]

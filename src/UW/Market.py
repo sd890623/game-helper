@@ -204,8 +204,6 @@ class Market:
 
     def buyInBlackMarket(self,city):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(94,209), lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
-        screenshotBlob = self.instance.outputWindowScreenshotV2()
-        self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
 
         #must rule  rosewood must,
         #ducat rule  value >400000 no, 
@@ -221,7 +219,6 @@ class Market:
                 wait(lambda: self.instance.clickPointV2(719,482))
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
 
-
         index=0
         self.uwtask.print("buy BM items")
         while (index<12):
@@ -231,10 +228,12 @@ class Market:
             productName=self.uwtask.getSingleLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,136+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName or "intermediatetrade" in productName):
+            if("rose" in productName):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
-            if(self.uwtask.hasImageInScreen("gemInBM",A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff])):
+            gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff])
+            if(self.uwtask.hasImageInScreen("gemInBM2",A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff]) and
+            (not gemAreaOCR or gemAreaOCR==0)):
                 #Gem case
                 if("enhancedmedium" in productName and "special" not in productName):
                     clickBuy(319+xDiff,184+yDiff)
@@ -246,7 +245,9 @@ class Market:
                     continue
                 if(price and price>31):
                     clickBuy(319+xDiff,184+yDiff)
-
+        screenshotBlob = self.instance.outputWindowScreenshotV2()
+        self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
+    
     def buyBlackMarket(self,city):
         def getTime():
             try:
@@ -270,7 +271,7 @@ class Market:
             self.uwtask.clickInMenu("temshop","temshop")
         else:
             recursiveVisitBM()
-        if(True):
+        if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):
             self.buyInBlackMarket(city)
                 
         with open('src/UW/blackMarket.json', 'r') as f:

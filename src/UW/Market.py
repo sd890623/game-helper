@@ -159,7 +159,7 @@ class Market:
                 self.uwtask.tradeRouteBuyFin=True
                 break
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
@@ -231,13 +231,24 @@ class Market:
             if("rose" in productName):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
-            gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff])
-            if(self.uwtask.hasImageInScreen("gemInBM2",A=[302+xDiff,203+yDiff,327+xDiff,228+yDiff]) and
-            (not gemAreaOCR or gemAreaOCR==0)):
-                #Gem case
-                if("enhancedmedium" in productName and "special" not in productName):
-                    clickBuy(319+xDiff,184+yDiff)
-                continue
+
+            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff],debug=True)
+            if(gemLocation):
+                # gemInBM2 pixel: 11x10
+                gemScanArea=[gemLocation[0]-5,gemLocation[1]-5,gemLocation[0]+11+5,gemLocation[1]+10+5]
+                gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=gemScanArea)
+                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea,debug=True) and (not gemAreaOCR or gemAreaOCR==1)):
+                    #Gem case
+                    if("enhancedmedium" in productName and "special" not in productName):
+                        clickBuy(319+xDiff,184+yDiff)
+                    continue
+                else:
+                    #Ducat case
+                    price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
+                    if("keel" in productName or "superior" in productName or "dye" in productName):
+                        continue
+                    if(price and price>31):
+                        clickBuy(319+xDiff,184+yDiff)
             else:
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
@@ -249,16 +260,8 @@ class Market:
         self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     
     def buyBlackMarket(self,city):
-        def getTime():
-            try:
-                timeOCR=self.uwtask.getSingleLineWordsInArea(A=[1255,213,1296,232], ocrType=2)
-                return int(timeOCR[0:2])
-            except Exception as e:
-                print(e)    
-                return 12
-
         def recursiveVisitBM():
-                while(getTime()>5 and getTime()<20):
+                while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
                     time.sleep(30)
                 if(not self.uwtask.clickInMenu("temshop","temshop")):
                     return

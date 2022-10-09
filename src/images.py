@@ -16,7 +16,7 @@ def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
 
     if(min_val<0):
         min_val=-min_val
-    if min_val<=(1e-10) and min_loc[0 ]!=0 and min_loc[1 ]!=0:
+    if min_val<=(1e-8) and min_loc[0 ]!=0 and min_loc[1 ]!=0:
         return (min_loc[0 ],min_loc[1 ])
     else :
         return 0 ,0

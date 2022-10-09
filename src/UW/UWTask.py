@@ -51,7 +51,7 @@ class UWTask(FrontTask):
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
 
         # self.buyBlackMarket('london')
-        self.buyBlackMarket('saint')
+        self.buyBlackMarket('visby')
         self.waitForCity(['constantinopl'],'constantinopl')
         self.dumpCrew()
         # messager=Messager()
@@ -396,6 +396,14 @@ class UWTask(FrontTask):
         self.checkSB()
         time.sleep(random.randint(3,5))
 
+    def getTime(self):
+        try:
+            timeOCR=self.getSingleLineWordsInArea(A=[1255,213,1296,232], ocrType=2)
+            return int(timeOCR[0:2])
+        except Exception as e:
+            print(e)    
+            return 12
+
     def dumpCrew(self):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1274,22), lambda: self.hasSingleLineWordsInArea("company", A=[151,17,290,38]),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1124,110), lambda: self.hasSingleLineWordsInArea("manage", A=self.titleArea),2,1)
@@ -462,6 +470,8 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
+                    if(self.getTime()>=0 and self.getTime()<5):
+                        self.buyBlackMarket()
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                     #special
                     self.checkSB()
@@ -486,6 +496,8 @@ class UWTask(FrontTask):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
+                if(self.getTime()>=0 and self.getTime()<5):
+                    self.buyBlackMarket()
                 self.sellInCity(cityName,simple=True,types=types)
                 self.buyBlackMarket()
                 # if(index==len(routeObject["sellCities"])-1):

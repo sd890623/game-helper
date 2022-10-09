@@ -232,12 +232,12 @@ class Market:
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 
-            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff],debug=True)
+            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff])
             if(gemLocation):
                 # gemInBM2 pixel: 11x10
                 gemScanArea=[gemLocation[0]-5,gemLocation[1]-5,gemLocation[0]+11+5,gemLocation[1]+10+5]
                 gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=gemScanArea)
-                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea,debug=True) and (not gemAreaOCR or gemAreaOCR==1)):
+                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea) and (not gemAreaOCR or gemAreaOCR==1)):
                     #Gem case
                     if("enhancedmedium" in productName and "special" not in productName):
                         clickBuy(319+xDiff,184+yDiff)

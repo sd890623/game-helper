@@ -210,9 +210,10 @@ class Market:
         #else gem
         def clickBuy(x,y):
             wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
-            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),0)
-            wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
-            wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
+            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),0,disableWait=True)
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=[874,482,939,515])):
+                wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
+                wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
             #quick purchase
             wait(lambda: self.instance.clickPointV2(737,599),1)
             if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
@@ -236,16 +237,16 @@ class Market:
             if(gemLocation):
                 # gemInBM2 pixel: 11x10
                 gemScanArea=[gemLocation[0]-5,gemLocation[1]-5,gemLocation[0]+11+5,gemLocation[1]+10+5]
-                gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=gemScanArea)
-                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea) and (not gemAreaOCR or gemAreaOCR==1)):
+                gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=[gemScanArea[0]-3,gemScanArea[1],gemScanArea[2]+5,gemScanArea[3]])
+                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea) and (not gemAreaOCR or gemAreaOCR==1 or gemAreaOCR==3)):
                     #Gem case
-                    if("enhancedmedium" in productName and "special" not in productName):
-                        clickBuy(319+xDiff,184+yDiff)
+                    #if("enhancedmedium" in productName and "special" not in productName):
+                    #    clickBuy(319+xDiff,184+yDiff)
                     continue
                 else:
                     #Ducat case
                     price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                    if("keel" in productName or "superior" in productName or "dye" in productName):
+                    if("keel" in productName or "superior" in productName or "dye" in productName or "emblem" in productName):
                         continue
                     if(price and price>31):
                         clickBuy(319+xDiff,184+yDiff)

@@ -97,9 +97,10 @@ class FrontTask(object):
             print(e)    
             return False      
 
-    def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
+    def getNumberFromSingleLineInArea(self, A=[0,0,0,0],debug=False):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        # self.saveImageToFile(screenshotBlob)
+        if(debug==True):
+            self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
 
     def hasArrayStringInAreaMultiLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):

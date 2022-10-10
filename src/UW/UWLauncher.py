@@ -23,9 +23,9 @@ time.sleep(3)
 
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
-#4 saint<->hindu
-task.setRouteOption(6)
-task.enableSB("ceuta",options=[11,11,10])
+#4 saint<->hindu  #6 everyday BM(india)
+task.setRouteOption(4)
+task.enableSB("ceuta",options=[11,10,10])
 # task.enableSB("diu",options=[4,4,4])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

@@ -50,12 +50,12 @@ northEuropeBM={
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda",
-    "london","dover","antwerp","calais","plymouth","nantes","bordeaux","porto","laga","seville","lisboa"],
+    #
+    "buyCities":["saint","stockhol","visby","beck","oslo","hamburg","bremen","amsterda","london","dover","antwerp","calais","nantes","bordeaux","porto","laga","seville","lisboa"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "buyStrategy":"once",
-    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","mozambiqu","zanzibar","manbasa","mozambiqu","kochi"],
+    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","zanzibar","manbasa","aden","hadiboh","muscat"],
     "sellCities":[{"name":"diu","types":None}],
 }
 
@@ -142,7 +142,7 @@ routeLists=[
     ],
     #4 saint<->hindu
     [
-        northEuropeHot,
+        northEuropeStd,
         {
             #,"pepper","cashmere"
             "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
@@ -152,7 +152,7 @@ routeLists=[
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
-            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"kokkola","types":None}],
+            "sellCities":[{"name":"kokkola","types":None}],
         },
     ],
         #5 saint<->hindu, double buy
@@ -182,7 +182,7 @@ routeLists=[
             "buyStrategy":"single",
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
-            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"kokkola","types":None}],
+            "sellCities":[{"name":"kokkola","types":None}],
         },
     ],
 ]

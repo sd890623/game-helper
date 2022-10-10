@@ -471,7 +471,7 @@ class UWTask(FrontTask):
                         break
                     self.gotoCity(city,self.allCityList)
                     if(self.getTime()>=0 and self.getTime()<5):
-                        self.buyBlackMarket()
+                        self.buyBlackMarket(city)
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                     #special
                     self.checkSB()
@@ -488,7 +488,7 @@ class UWTask(FrontTask):
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
-                self.buyBlackMarket()
+                self.buyBlackMarket(city)
 
             self.print("出发卖货城市")
             # goto sell cities
@@ -497,9 +497,9 @@ class UWTask(FrontTask):
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
                 if(self.getTime()>=0 and self.getTime()<5):
-                    self.buyBlackMarket()
+                    self.buyBlackMarket(cityName)
                 self.sellInCity(cityName,simple=True,types=types)
-                self.buyBlackMarket()
+                self.buyBlackMarket(cityName)
                 # if(index==len(routeObject["sellCities"])-1):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 

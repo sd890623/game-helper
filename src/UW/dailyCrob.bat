@@ -1,0 +1,1 @@
+cd /d E:\Workspaces\Projects\eveHelper2\.venv\Scripts\ & activate & cd /d E:\Workspaces\Projects\eveHelper2\ & python src\UW\resetBlackMarketJson.py

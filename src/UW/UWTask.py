@@ -28,7 +28,6 @@ class UWTask(FrontTask):
     simulatorInstance = None
     syncBetweenUsers = True
     currentCity = "ceuta"
-    targetCity=None
     sbCity=None
     sbOptions=[]
     pickedUpShip=False
@@ -49,6 +48,8 @@ class UWTask(FrontTask):
     def testTask(self):
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
+        self.setCurrentCityFromScreen()
+        self.checkReachCity()
 
         # self.buyBlackMarket('london')
         self.buyBlackMarket('visby')
@@ -108,10 +109,15 @@ class UWTask(FrontTask):
         self.routeList=routeLists[routeOption]
         self.allCityList=cityNames+self.routeList[0]["buyCities"]+self.routeList[1]["buyCities"]+self.routeList[0]["supplyCities"]+self.routeList[1]["supplyCities"]+list(map(lambda x: x["name"], self.routeList[0]["sellCities"]))+list(map(lambda x: x["name"],self.routeList[1]["sellCities"]))
 
-    def checkReachingPlace(self):
-        if(self.targetCity==self.currentCity):
-            self.playNotification()
-            time.sleep(300)
+    def checkReachCity(self):
+        with open('src/UW/reachCity.txt', 'r') as f:
+            reachCity=f.readline()
+        if(reachCity==self.currentCity):
+            self.print("reached city: "+reachCity)
+            # self.playNotification()
+            #Need to add break point here for wait
+            with open('src/UW/reachCity.txt', 'w') as f:
+                f.write('')
 
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
@@ -392,7 +398,7 @@ class UWTask(FrontTask):
         self.selectNextCity()
         self.waitForCity()
         self.basicMarket()
-        self.checkReachingPlace()
+        self.checkReachCity()
         self.checkSB()
         time.sleep(random.randint(3,5))
 
@@ -470,6 +476,7 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
+                    self.checkReachCity()
                     if(self.getTime()>=0 and self.getTime()<5):
                         self.buyBlackMarket(city)
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
@@ -487,6 +494,7 @@ class UWTask(FrontTask):
             #go to supply cities
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
+                self.checkReachCity()
                 self.checkSB()
                 self.buyBlackMarket(city)
 
@@ -496,6 +504,7 @@ class UWTask(FrontTask):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
+                self.checkReachCity()
                 if(self.getTime()>=0 and self.getTime()<5):
                     self.buyBlackMarket(cityName)
                 self.sellInCity(cityName,simple=True,types=types)

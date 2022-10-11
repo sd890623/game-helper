@@ -262,14 +262,14 @@ class Market:
     
     def buyBlackMarket(self,city):
         def recursiveVisitBM():
-                while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
-                    time.sleep(30)
-                if(not self.uwtask.clickInMenu("temshop","temshop")):
-                    return
-                if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
-                    doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
-                    time.sleep(15)
-                    recursiveVisitBM()
+            while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
+                time.sleep(30)
+            if(not self.uwtask.clickInMenu("temshop","temshop")):
+                recursiveVisitBM()
+            if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
+                time.sleep(15)
+                recursiveVisitBM()
 
         if(city in capitals):
             self.uwtask.clickInMenu("temshop","temshop")

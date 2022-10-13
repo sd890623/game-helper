@@ -92,7 +92,7 @@ class FrontTask(object):
             str = "".join(ocrObj[0])
             
             self.print(",".join(wordsArr) +" in "+ str)
-            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower(), wordsArr)
         except Exception as e:
             print(e)    
             return False      

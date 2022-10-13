@@ -32,7 +32,7 @@ class UWTask(FrontTask):
     sbOptions=[]
     pickedUpShip=False
     tradeRouteBuyFin=False
-    waitForCityTimeOut=820
+    waitForCityTimeOut=10
     routeOption=0
     routeList=[]
     allCityList=[]
@@ -46,6 +46,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        self.waitForCity(['constantinopl'],'constantinopl')
+
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
         self.setCurrentCityFromScreen()
@@ -53,7 +55,6 @@ class UWTask(FrontTask):
 
         # self.buyBlackMarket('london')
         self.buyBlackMarket('visby')
-        self.waitForCity(['constantinopl'],'constantinopl')
         self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -257,6 +258,7 @@ class UWTask(FrontTask):
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
+            self.checkForDailyPopup()
             if(self.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
             #More checks
@@ -265,8 +267,6 @@ class UWTask(FrontTask):
             if(self.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.hasSingleLineWordsInArea("close", A=[632,691,680,714])):
                 battle=Battle(self.simulatorInstance,self)
                 battle.suppressBattle()
-            #For everyday login click-out
-            doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),300)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,10)
@@ -280,6 +280,13 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
+
+    def checkForDailyPopup(self):
+        hour=dt.datetime.now().hour
+        if(hour==2):
+            if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[611,164,698,200])):
+                wait(lambda: self.simulatorInstance.clickPointV2(1072,135),2)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
 
     def checkForTreasure(self):
         chestCood=self.hasImageInScreen("chest",A=[173,48,1051,659])

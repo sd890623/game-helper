@@ -3,6 +3,8 @@ import random
 from datetime import datetime
 import datetime as dt
 import threading
+import collections.abc
+
 
 def wait(func, seconds = 3,disableWait=False):
     func()
@@ -16,9 +18,8 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=F
         wait(func, seconds, disableWait)
         times-=1
 
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None):
+def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=30):
     wait(func, seconds)
-    timeout = 30
     while(not(untilFunc()) and timeout >0):
         time.sleep(frequency)
         timeout-=frequency
@@ -27,7 +28,6 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
         for x in [0,1,2]:
             if(backupFunc):
                 wait(backupFunc, seconds)
-                wait(func,seconds)
             else:
                 wait(func, seconds)
             if(untilFunc()):
@@ -73,6 +73,8 @@ def getDateTimeString():
 
 #specia treatment by 
 def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
+    if(not(string)):
+        return False
     found=False
     for stringInArray in array:
         if(stringInArray in string and (len(string)-len(stringInArray))<3):
@@ -81,8 +83,13 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour>=5 and hour<7):
+    if(hour>=5 and hour<6):
         return False
     return True
+
+def isArray(items):
+    if(items==None):
+        return False
+    return isinstance(items, collections.abc.Sequence)
 
 findPlayerCountLk=threading.Lock()

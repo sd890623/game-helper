@@ -23,11 +23,12 @@ class FrontTask(object):
     def sendMessage(self,url,text):
         self.messager.sendMessage(url,getDateTimeString()+": "+text)
 
-    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False):
+    def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False, debug=False):
             imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
             try:
                 screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-                # self.saveImageToFile(screenshotBlob)
+                if(debug):
+                    self.saveImageToFile(screenshotBlob)
                 x,y = getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode)
 
                 if(x and y):
@@ -45,7 +46,7 @@ class FrontTask(object):
         targetImage = cv2.imread(imagePath)
         targetHeigh, targetWidth, channel = targetImage.shape
         position=self.simulatorInstance.window_capture_v2(imagePath, A)
-        if(position):
+        if(position and position[0] and position[1]):
             #self.print(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2))
             wait(lambda: self.simulatorInstance.clickPointV2(position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 
@@ -58,6 +59,21 @@ class FrontTask(object):
             if(len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
+            self.print("ocr "+ str.lower())
+            return str.lower()
+        except Exception as e:
+            print(e)    
+            return False    
+
+    def getMultiLineWordsInArea(self, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))
             self.print("ocr "+ str.lower())
             return str.lower()
         except Exception as e:
@@ -80,16 +96,56 @@ class FrontTask(object):
             print(e)    
             return False      
 
-    def getNumberFromSingleLineInArea(self, A=[0,0,0,0]):
+    def hasArrayStringInAreaSingleLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print(",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower(), wordsArr)
+        except Exception as e:
+            print(e)    
+            return False      
+
+    def getNumberFromSingleLineInArea(self, A=[0,0,0,0],debug=False):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        # self.saveImageToFile(screenshotBlob)
+        if(debug==True):
+            self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
+
+    def hasArrayStringInAreaMultiLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print(",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+        except Exception as e:
+            print(e)    
+            return False   
 
     def bringWindowToFront(self):
         self.simulatorInstance.bringWindowToFront()
 
-    def saveImageToFile(self,imageBlob):
-        screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
+    def saveImageToFile(self,imageBlob,relaPath=False,filename=False):
+        if(relaPath and filename):
+            absPath=os.path.abspath(__file__ + relaPath)
+            if not os.path.exists(absPath):
+                os.mkdir(absPath)
+                self.print("Directory " +absPath+  " Created ")
+            screenshotImgPath = absPath+"\\"+filename
+        else:
+            screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(self.index)+"\\ocr-"+str(random.randint(0,10000))+".bmp")
         cv2.imwrite(screenshotImgPath, imageBlob)  
 
     def isPositionColorSimilarTo(self,x,y,rgb):

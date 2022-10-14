@@ -10,11 +10,8 @@ if (len(allWindowsWithTitle) > 0):
 
 task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
-# 11, +16
-#test
-# task.basicMarket()
 
-# task.selectCityFromMapAndMove("groningen")
+#test
 # task.testTask()
 
 #todo
@@ -23,19 +20,21 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="ceuta"
-# task.fastStock=True disable
 
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
-task.setRouteOption(1)
-task.enableSB("ceuta",options=[12,12])
+#4 saint<->hindu  #6 everyday BM(india)
+task.setRouteOption(6)
+task.enableSB("ceuta",options=[9,10,11])
+# task.enableSB("diu",options=[4,4,4])
+
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
-# africa: 10d=20min, 20*8/14=11min=660
-task.waitForCityTimeOut=480
-task.fastStock=False
+# kochi: 12d=16min, 16*8/14=9min=540
+task.waitForCityTimeOut=540
+task.battleMode="run"
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示：长距旅行开启蓝旗;检查防灾物品；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗")
+task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗;检查市场购买勾")
 
 while(True):
     if(not(isWorkHour())):

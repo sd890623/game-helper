@@ -18,11 +18,12 @@ class Sb:
     
     def pickup(self):
         self.uwtask.print("去取船")
-        for i in [0,1]:
-            if(self.uwtask.hasSingleLineWordsInArea(("receive"), A=[1111,293+i*118,1212,314+i*118])):
+        wait(lambda: self.instance.clickPointV2(1161,558),2)
+        for i in [0,1,2]:
+            if(self.uwtask.hasSingleLineWordsInArea(("receive"), A=[273,276+i*119,391,299+i*119])):
                 self.uwtask.pickedUpShip=True
                 #click receive#1 ship
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1167,307+i*118), 2, 2) 
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(326,290+i*119), 2, 2) 
                 #Enter random strings
                 wait(lambda: self.instance.clickPointV2(715,366),2)
                 self.instance.typewrite(str(random.randint(1,99)))
@@ -30,7 +31,9 @@ class Sb:
                 #click ok
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2,5)
                 #click a few times to out
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 2, 2)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.okButton), 4, 2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(1062,642), 4, 1)
+
 
     def dismantle(self,index):
         if(not self.uwtask.pickedUpShip):
@@ -38,8 +41,8 @@ class Sb:
         self.uwtask.print("dismantle船")
         #click dismantle
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.dismantleButton), lambda: self.uwtask.hasSingleLineWordsInArea("dismantle", A=self.uwtask.titleArea),1)
-        # #click 6th ship
-        wait(lambda: self.instance.clickPointV2(591,137),2)
+        # #click 8th ship
+        wait(lambda: self.instance.clickPointV2(741,138),2)
         #click dismantle
         wait(lambda: self.instance.clickPointV2(665,591),7)
         #click yes

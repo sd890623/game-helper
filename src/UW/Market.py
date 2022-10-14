@@ -1,6 +1,9 @@
 from guiUtils import win
 from utils import *
 import os
+import json
+from datetime import date
+
 # from UWTask import UWTask
 
 marketBuyData={
@@ -16,12 +19,21 @@ marketBuyData={
     "pisa":["marbleStatue","cannon"],
     "sasari":["garnet"],
 }
+
+hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
+"bristol","dublin","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
+"zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
+"algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
+"alexandria","cairo","candia","athens","thessaloni","constantino"]
+capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
     randomPoint=851,618
     buySellWholeArea=[187,99,949,395]
     maxArea=[1073,126,1137,145]
+    today = date.today().strftime("%d-%m-%Y")
+
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
@@ -81,26 +93,37 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
-    def sellGoodsWithMargin(self,simple=False):
+    def sellGoodsWithMargin(self,simple=False,types=None):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(47,149), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
-        #xDiff 261
-        #yDiff 131
-        index=0
-        #Loop through and find what can be bought
+        def sellItemsInScreen():
+            #Loop through and find what can be bought
+            #xDiff 261
+            #yDiff 131
+            index=0
+            while (index<13):
+                xDiff=int(index%3*261)
+                yDiff=int(index/3)*130
+                index+=1
+                if(simple==False):
+                    # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
+                    if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
+                        continue
+                if(isArray(types)):
+                    typeOcr=self.uwtask.getSingleLineWordsInArea(A=[271+xDiff,137+yDiff,333+xDiff,155+yDiff])
+                    if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
+                        wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+                if(types == None):
+                    wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+            wait(lambda: self.instance.clickPointV2(1212,693),1)
+            wait(lambda: self.instance.clickPointV2(725,617),5)
+            self.bargin()
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
+
         self.uwtask.print("sell items")
-        while (index<13):
-            xDiff=int(index%3*261)
-            yDiff=int(index/3)*130
-            index+=1
-            if(simple==False):
-                # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
-                if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
-                    continue
-            wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
-        wait(lambda: self.instance.clickPointV2(1212,693),1)
-        wait(lambda: self.instance.clickPointV2(725,617),5)
-        self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
+        sellItemsInScreen()
+        if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,688,415]))):
+            sellItemsInScreen()
+
         gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
         moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
@@ -125,7 +148,7 @@ class Market:
             #red check area 260,203,346,221
             if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
                 continue   
-            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,381+xDiff,137+yDiff])
+            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,419+xDiff,137+yDiff])
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
@@ -136,7 +159,7 @@ class Market:
                 self.uwtask.tradeRouteBuyFin=True
                 break
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
@@ -160,8 +183,6 @@ class Market:
 
         self.buyProductsInMarket(products)
 
-
-
     def bargin(self):
             #sell area
             #846,648,1095,690
@@ -174,3 +195,98 @@ class Market:
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
+
+    def shouldBuyBlackMarket(self,city):
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        time=self.uwtask.getTime()
+        if((city in hasBMCities) and (city not in boughtCities) and (time<6 or time>12)):
+            return True
+
+    def buyInBlackMarket(self,city):
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(94,209), lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
+
+        #must rule  rosewood must,
+        #ducat rule  value >400000 no, 
+        #else gem
+        def clickBuy(x,y):
+            wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
+            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),0,disableWait=True)
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=[874,482,939,515])):
+                wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
+                wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
+            #quick purchase
+            wait(lambda: self.instance.clickPointV2(737,599),1)
+            if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
+                wait(lambda: self.instance.clickPointV2(719,482))
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
+
+        index=0
+        self.uwtask.print("buy BM items")
+        while (index<12):
+            xDiff=int(index%3*262)
+            yDiff=int(int(index/3)*130.5)
+            index+=1
+            productName=self.uwtask.getMultiLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,155+yDiff])
+            if(not(productName)):
+                continue 
+            if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName)):# or "intermediatetrade" in productName):
+                clickBuy(319+xDiff,184+yDiff)
+                continue
+
+            def ducatCase():
+                #Ducat case
+                price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
+                if("keel" in productName or "superior" in productName or "dye" in productName or "emblem" in productName):
+                    return False
+                itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
+                if("decoration" in itemType):
+                    return False
+                if(price and price>31):
+                    clickBuy(319+xDiff,184+yDiff)
+            
+            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff])
+            if(gemLocation):
+                # gemInBM2 pixel: 11x10
+                gemScanArea=[gemLocation[0]-5,gemLocation[1]-5,gemLocation[0]+11+5,gemLocation[1]+10+5]
+                gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=[gemScanArea[0]-3,gemScanArea[1],gemScanArea[2]+5,gemScanArea[3]])
+                if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea) and (not gemAreaOCR or gemAreaOCR==1 or gemAreaOCR==3)):
+                    #Gem case
+                    #if("enhancedmedium" in productName and "special" not in productName):
+                    #    clickBuy(319+xDiff,184+yDiff)
+                    continue
+                else:
+                    if(not ducatCase()):
+                        continue
+            else:
+                if(not ducatCase()):
+                    continue
+        screenshotBlob = self.instance.outputWindowScreenshotV2()
+        self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
+    
+    def buyBlackMarket(self,city):
+        def recursiveVisitBM():
+            while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
+                time.sleep(30)
+            if(not self.uwtask.clickInMenu("temshop","temshop")):
+                recursiveVisitBM()
+            if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
+                time.sleep(15)
+                recursiveVisitBM()
+
+        if(city in capitals):
+            self.uwtask.clickInMenu("temshop","temshop")
+        else:
+            recursiveVisitBM()
+        if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):
+            self.buyInBlackMarket(city)
+                
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        boughtCities.append(city)
+        with open('src/UW/blackMarket.json', 'w') as json_file:
+            json.dump(boughtCities, json_file)
+        
+
+            

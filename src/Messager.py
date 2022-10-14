@@ -13,12 +13,16 @@ class Messager:
     def __init__(self) -> None:
         self.client = GraphQLClient('http://127.0.0.1:4000')
     def sendMessage(self,url,msg):
-        result = self.client.execute(f'''
-        mutation{{
-            post(url:"{url}",description:"{msg}"){{
-                id
+        try:
+            result = self.client.execute(f'''
+            mutation{{
+                post(url:"{url}",description:"{msg}"){{
+                    id
+                }}
             }}
-        }}
-        ''')
-        print(result)
+            ''')
+            print(result)
+        except Exception as e:
+            print(e)
+
 

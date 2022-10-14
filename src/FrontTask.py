@@ -65,6 +65,21 @@ class FrontTask(object):
             print(e)    
             return False    
 
+    def getMultiLineWordsInArea(self, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))
+            self.print("ocr "+ str.lower())
+            return str.lower()
+        except Exception as e:
+            print(e)    
+            return False    
+
     def hasSingleLineWordsInArea(self, words, A=[0,0,0,0], ocrType=1,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)

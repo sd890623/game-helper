@@ -227,13 +227,24 @@ class Market:
             xDiff=int(index%3*262)
             yDiff=int(int(index/3)*130.5)
             index+=1
-            productName=self.uwtask.getSingleLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,136+yDiff])
+            productName=self.uwtask.getMultiLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,155+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName or "intermediatetrade" in productName):# or "intermediatetrade" in productName):
+            if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName)):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 
+            def ducatCase():
+                #Ducat case
+                price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
+                if("keel" in productName or "superior" in productName or "dye" in productName or "emblem" in productName):
+                    return False
+                itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
+                if("decoration" in itemType):
+                    return False
+                if(price and price>31):
+                    clickBuy(319+xDiff,184+yDiff)
+            
             gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff])
             if(gemLocation):
                 # gemInBM2 pixel: 11x10
@@ -245,19 +256,11 @@ class Market:
                     #    clickBuy(319+xDiff,184+yDiff)
                     continue
                 else:
-                    #Ducat case
-                    price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                    if("keel" in productName or "superior" in productName or "dye" in productName or "emblem" in productName):
+                    if(not ducatCase()):
                         continue
-                    if(price and price>31):
-                        clickBuy(319+xDiff,184+yDiff)
             else:
-                #Ducat case
-                price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                if("keel" in productName or "superior" in productName):
+                if(not ducatCase()):
                     continue
-                if(price and price>31):
-                    clickBuy(319+xDiff,184+yDiff)
         screenshotBlob = self.instance.outputWindowScreenshotV2()
         self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     

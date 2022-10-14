@@ -46,7 +46,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.waitForCity(['constantinopl'],'constantinopl')
+        # self.buyBlackMarket('visby')
+        self.gotoCity('constantinopl',['constantinopl'])
 
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
@@ -54,7 +55,6 @@ class UWTask(FrontTask):
         self.checkReachCity()
 
         # self.buyBlackMarket('london')
-        self.buyBlackMarket('visby')
         self.dumpCrew()
         # messager=Messager()
         # messager.sendMessage("reached A city")
@@ -166,7 +166,7 @@ class UWTask(FrontTask):
     def goToHarbor(self):
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),5,60)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,60)
 
     def restock(self):
         self.print("补给")
@@ -196,13 +196,19 @@ class UWTask(FrontTask):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
     def depart(self):
         def clickAndStock():
-            self.checkForDailyPopup()
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             self.restock()
 
+        def clickAndStockBackup():
+            self.checkForDailyPopup()
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
+            if(self.hasSingleLineWordsInArea("harbor", A=self.titleArea)):
+                self.restock()
+                self.simulatorInstance.clickPointV2(1183,568)            
+
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 8,2, backupFunc=clickAndStock)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 8,2, backupFunc=clickAndStockBackup)
 
     def selectNextCity(self):
         self.print("选城市")
@@ -328,6 +334,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
             time.sleep(5)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
+            self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
     def buyInCity(self,cityList,products,buyStrategy=False):
@@ -350,6 +357,7 @@ class UWTask(FrontTask):
             clickWithCheck()
             time.sleep(5)
             clickWithCheck()
+            self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList), 3,2,backupFunc=backup)
 
     def clickInMenu(self,menuItem,inTitle):
@@ -369,6 +377,7 @@ class UWTask(FrontTask):
 
     def buyBlackMarket(self,city):
         market=Market(self.simulatorInstance, self)
+        market.buyInBlackMarket(city)
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
             market.buyBlackMarket(city)

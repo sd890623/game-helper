@@ -28,7 +28,6 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
         for x in [0,1,2]:
             if(backupFunc):
                 wait(backupFunc, seconds)
-                wait(func,seconds)
             else:
                 wait(func, seconds)
             if(untilFunc()):

@@ -196,6 +196,7 @@ class UWTask(FrontTask):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
     def depart(self):
         def clickAndStock():
+            self.checkForDailyPopup()
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             self.restock()
 
@@ -261,6 +262,8 @@ class UWTask(FrontTask):
             self.checkForDailyPopup()
             if(self.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+            if(self.hasSingleLineWordsInArea("notice",A=[482,299,557,325])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(785,430),5,10)
             #More checks
             if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
@@ -451,8 +454,8 @@ class UWTask(FrontTask):
         self.depart()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         wait(lambda: self.findCityAndClick(cityname),2)
-        if(dumpCrew):
-            self.dumpCrew()
+        #if(dumpCrew):
+            #self.dumpCrew()
         self.waitForCity(cityList,targetCity=cityname)
         self.sendMessage("UW","reached city of "+cityname)
 

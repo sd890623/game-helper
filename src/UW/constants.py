@@ -24,20 +24,20 @@ northEuropeHot={
 }
 northEuropeStd={
     # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["tapestry","gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron","almond"],
+    "buyProducts": ["twohandedswor","tapestry","gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron","almond"],
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
+    "buyCities":["saint","stockhol","visby","riga","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","bordeaux","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
+    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
     "sellCities":[{"name":"diu","types":None}],
 }
 northEuropeLightSea={
     # "jewllery","tourmaline" ,"handcanno", "flannel","chrysoberyl"
-    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","glassbead","tapestry","amber","silverplate","westerncann","saffron","almond","matchlockgun"],
-    "buyCities":["saint","beck","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
+    "buyProducts": ["twohandedswor","gobelin","steel","vodka","aquavit","gin","whisky","glassbead","tapestry","amber","silverplate","westerncann","saffron","almond","azulejo"],
+    "buyCities":["saint","stockhol","visby","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","bordeaux","porto","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
@@ -45,13 +45,13 @@ northEuropeLightSea={
 }
 
 northEuropeBM={
-    # ,"tourmaline","amber", "jewllery""glassbead",     "tapestry","aquavit", "almond"
-    "buyProducts": ["gobelin","steel","vodka","gin","whisky","westerncann","saffron"],
+    # ,"tourmaline","amber", "jewllery""glassbead",     
+    "buyProducts": ["twohandedswor","azulejo","gobelin","steel","vodka","gin","whisky","westerncann","saffron","tapestry","aquavit","almond"],
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
     #
-    "buyCities":["saint","stockhol","visby","beck","oslo","hamburg","bremen","amsterda","london","dover","antwerp","calais","nantes","bordeaux","porto","laga","seville","lisboa"],
+    "buyCities":["saint","stockhol","visby","beck","oslo","hamburg","bremen","amsterda","london","dover","antwerp","calais","nantes","bordeaux","porto","faro","laga","seville","lisboa"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "buyStrategy":"once",
@@ -157,7 +157,7 @@ routeLists=[
     ],
         #5 saint<->hindu, double buy
     [
-        northEuropeHot,
+        northEuropeLightSea,
         {
             "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #

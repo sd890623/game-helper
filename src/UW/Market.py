@@ -21,7 +21,7 @@ marketBuyData={
 }
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
-"bristol","dublin","nantes","bordeau","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
+"bristol","dublin","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
 "zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino"]
@@ -199,7 +199,8 @@ class Market:
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
-        if((city in hasBMCities) and (city not in boughtCities)):
+        time=self.uwtask.getTime()
+        if((city in hasBMCities) and (city not in boughtCities) and (time<6 or time>12)):
             return True
 
     def buyInBlackMarket(self,city):
@@ -229,7 +230,7 @@ class Market:
             productName=self.uwtask.getSingleLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,136+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName):# or "intermediatetrade" in productName):
+            if("rose" in productName or "intermediatetrade" in productName):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 

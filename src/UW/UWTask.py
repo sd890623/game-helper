@@ -377,7 +377,6 @@ class UWTask(FrontTask):
 
     def buyBlackMarket(self,city):
         market=Market(self.simulatorInstance, self)
-        market.buyInBlackMarket(city)
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
             market.buyBlackMarket(city)
@@ -495,13 +494,13 @@ class UWTask(FrontTask):
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
-                    self.checkReachCity()
                     if(self.getTime()>=0 and self.getTime()<5):
                         self.buyBlackMarket(city)
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                     #special
                     self.checkSB()
                     self.buyBlackMarket(city)
+                    self.checkReachCity()
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True
                 #go to buy again if not full
@@ -513,9 +512,9 @@ class UWTask(FrontTask):
             #go to supply cities
             for city in routeObject["supplyCities"]:
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
-                self.checkReachCity()
                 self.checkSB()
                 self.buyBlackMarket(city)
+                self.checkReachCity()
 
             self.print("出发卖货城市")
             # goto sell cities
@@ -523,11 +522,12 @@ class UWTask(FrontTask):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
-                self.checkReachCity()
                 if(self.getTime()>=0 and self.getTime()<5):
                     self.buyBlackMarket(cityName)
                 self.sellInCity(cityName,simple=True,types=types)
                 self.buyBlackMarket(cityName)
+                self.checkReachCity()
+
                 # if(index==len(routeObject["sellCities"])-1):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 

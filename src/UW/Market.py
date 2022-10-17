@@ -265,11 +265,17 @@ class Market:
         self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     
     def buyBlackMarket(self,city):
+        timeout=0
         def recursiveVisitBM():
             while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
                 time.sleep(30)
             if(not self.uwtask.clickInMenu("temshop","temshop")):
+                nonlocal timeout
+                timeout+=1
+                if(timeout>5):
+                    return
                 recursiveVisitBM()
+                
             if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
                 time.sleep(15)

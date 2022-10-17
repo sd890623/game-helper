@@ -157,7 +157,7 @@ routeLists=[
     ],
         #5 saint<->hindu, double buy
     [
-        northEuropeLightSea,
+        northEuropeStd,
         {
             "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
             #

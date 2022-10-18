@@ -20,7 +20,7 @@ northEuropeHot={
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"diu","types":None}],
+    "sellCities":[{"name":"kochi","types":None}],
 }
 northEuropeStd={
     # ,"tourmaline","amber", "jewllery""glassbead"
@@ -32,7 +32,7 @@ northEuropeStd={
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"diu","types":None}],
+    "sellCities":[{"name":"kochi","types":None}],
 }
 northEuropeLightSea={
     # "jewllery","tourmaline" ,"handcanno", "flannel","chrysoberyl"
@@ -41,7 +41,7 @@ northEuropeLightSea={
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"diu","types":None}],
+    "sellCities":[{"name":"kochi","types":None}],
 }
 
 northEuropeBM={
@@ -56,7 +56,7 @@ northEuropeBM={
     "dumpCrewCities": ["kochi"],
     "buyStrategy":"once",
     "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","zanzibar","manbasa","aden","hadiboh","muscat"],
-    "sellCities":[{"name":"diu","types":None}],
+    "sellCities":[{"name":"kochi","types":None}],
 }
 
 routeLists=[
@@ -183,6 +183,28 @@ routeLists=[
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["kochi","mozambiqu","cape","tom","bathurst","ceuta","london"],
             "sellCities":[{"name":"kokkola","types":None}],
+        },
+    ],
+    #7 carrebean<->SEA
+    [
+        {
+            # obsidianclu golddust
+            "buyProducts": ["opal","topaz","tequila","cacao","tobacco","pineapple","logwood"],
+            "buyCities":["havana","southside","santiago","royal","caracas"],
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            #
+            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        },
+        {
+            "buyProducts": ["mangosteen","agarwood","ylang-ylang","benzoin","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine"],
+            "buyCities":["aceh","pasay","malacca"],
+            "buySupplyCities":[],
+            "buyStrategy":"twice",
+            "dumpCrewCities": ["mozambiqu"],
+            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","caracas","trujillo"],
+            "sellCities":[{"name":"veracruz","types":None}],
         },
     ],
 ]

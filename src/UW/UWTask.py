@@ -277,7 +277,7 @@ class UWTask(FrontTask):
                 battle=Battle(self.simulatorInstance,self)
                 battle.suppressBattle()
             time.sleep(10)
-            wait(lambda: self.findCityAndClick(targetCity),300)
+            wait(lambda: self.findCityAndClick(targetCity),60)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,10)
         
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
@@ -418,6 +418,7 @@ class UWTask(FrontTask):
         self.basicMarket()
         self.checkReachCity()
         self.checkSB()
+        self.buyBlackMarket(self.currentCity)
         time.sleep(random.randint(3,5))
 
     def getTime(self):

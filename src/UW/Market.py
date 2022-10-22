@@ -22,9 +22,11 @@ marketBuyData={
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
 "bristol","dublin","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
-"zanzibar","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
+"zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
-"alexandria","cairo","candia","athens","thessaloni","constantino"]
+"alexandria","cairo","candia","athens","thessaloni","constantino",
+"royal","santiago","caracas","trujil","veracruz","santiago",
+"pasay","malacca"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -277,6 +279,9 @@ class Market:
                 recursiveVisitBM()
                 
             if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
+                timeout+=1
+                if(timeout>5):
+                    return
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
                 time.sleep(15)
                 recursiveVisitBM()

@@ -2,7 +2,10 @@
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 # NorthEuropeCitynames=["london","antwerp","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
 # cityNames=["amsterda","bremen","hamburg","groningen"]
-cityNames=[]
+# portgual reputation
+#cityNames=["funchal","faro","lisboa","porto"]
+
+cityNames=["funchal","faro","lisboa","porto"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -10,13 +13,13 @@ cityNames=[]
 
 # Shared object
 northEuropeHot={
-    # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["gobelin","steel","vodka","aquavit","gin","whisky","westerncann","saffron"],
+    # ,"tourmaline","amber", "jewllery""glassbead","aquavit"
+    "buyProducts": ["twohandedswor","gobelin","steel","vodka","gin","whisky","westerncann","saffron"],
     # "gda", "hamburg"
     # Feb alchohol+
     # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
     # Feb alchohol+-
-    "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth","laga","seville","lisboa"],
+    "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth","laga","seville","lisboa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
@@ -172,7 +175,7 @@ routeLists=[
     ],
     #6 saint<->hindu BM every day
     [
-        northEuropeBM,
+        northEuropeHot,
         {
             #,"pepper","cashmere"
             "buyProducts": ["musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
@@ -188,12 +191,12 @@ routeLists=[
     #7 carrebean<->SEA
     [
         {
-            # obsidianclu golddust
-            "buyProducts": ["opal","topaz","tequila","cacao","tobacco","pineapple","logwood"],
+            # obsidianclu golddust cacao
+            "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood"],
             "buyCities":["havana","southside","santiago","royal","caracas"],
             "buySupplyCities":[],
             "dumpCrewCities": [],
-            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
             #
             "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
         },
@@ -203,7 +206,7 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","caracas","trujillo"],
+            "supplyCities":["aceh","toamasina","mozambiqu","cape","tom","bathurst","cayenne","caracas","trujil"],
             "sellCities":[{"name":"veracruz","types":None}],
         },
     ],

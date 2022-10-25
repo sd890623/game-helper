@@ -32,7 +32,7 @@ class UWTask(FrontTask):
     sbOptions=[]
     pickedUpShip=False
     tradeRouteBuyFin=False
-    waitForCityTimeOut=10
+    waitForCityTimeOut=820
     routeOption=0
     routeList=[]
     allCityList=[]
@@ -171,7 +171,7 @@ class UWTask(FrontTask):
     def restock(self):
         self.print("补给")
         # Repair ship
-        while(self.hasSingleLineWordsInArea("notenough",A=[1078,486,1165,506])):
+        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1078,486,1165,506])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,495),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
@@ -333,8 +333,8 @@ class UWTask(FrontTask):
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),3, 2)
             time.sleep(5)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
             self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(895,570),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
     def buyInCity(self,cityList,products,buyStrategy=False):

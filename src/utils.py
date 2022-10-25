@@ -81,6 +81,14 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
             found=True
     return found
 
+def hasOneArrayStringInString(string, array):
+    if(not(string)):
+        return False
+    for stringInArray in array:
+        if(stringInArray in string):
+            return stringInArray
+    return False
+
 def isWorkHour():
     hour=dt.datetime.now().hour
     if(hour>=5 and hour<6):

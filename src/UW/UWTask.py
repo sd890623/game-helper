@@ -8,11 +8,13 @@ from Sb import Sb
 import guiUtils
 import time
 import random
-from constants import cityNames, routeLists
+from constants import cityNames, routeLists, opponentNames,battleCity
 
 class UWTask(FrontTask):
     rightCatePoint1=1119,92
     rightCatePoint2=1171,88
+    rightCatePoint3=1214,88
+
     titleArea=[49,8,220,50]
     rightTopTownIcon=1285,25
     inTownCityNameArea=[119,18,265,48]
@@ -32,7 +34,7 @@ class UWTask(FrontTask):
     sbOptions=[]
     pickedUpShip=False
     tradeRouteBuyFin=False
-    waitForCityTimeOut=820
+    waitForCityTimeOut=800
     routeOption=0
     routeList=[]
     allCityList=[]
@@ -46,6 +48,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        self.battleRoute()
         # self.buyBlackMarket('visby')
         self.gotoCity('constantinopl',['constantinopl'])
 
@@ -208,7 +211,7 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 8,2, backupFunc=clickAndStockBackup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 4,2, backupFunc=clickAndStockBackup)
 
     def selectNextCity(self):
         self.print("选城市")
@@ -536,9 +539,16 @@ class UWTask(FrontTask):
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%2]
 
-
-
-
+    def battleRoute(self):
+        battle=Battle(self.simulatorInstance,self)
+        while(True):
+            battle.leavePort()
+            foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
+            if(not foundOpponent):
+                continue
+            wait(lambda: self.simulatorInstance.clickPointV2(663,664),1)
+            battle.doBattle()
+            print("repeat battle")
 
 
 

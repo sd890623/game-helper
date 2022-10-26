@@ -226,7 +226,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
-        wait(lambda: self.simulatorInstance.rightClickPointV2(651,699),1)
+        wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: (self.inWater() or self.inCityList([cityname])),1,1)
 
     def checkForDisaster(self):

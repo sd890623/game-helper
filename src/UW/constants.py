@@ -39,8 +39,8 @@ northEuropeStd={
 }
 northEuropeLightSea={
     # "jewllery","tourmaline" ,"handcanno", "flannel","chrysoberyl"
-    "buyProducts": ["twohandedswor","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","amber","silverplate","westerncann","saffron","almond","azulejo"],
-    "buyCities":["saint","stockhol","visby","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","bordeaux","porto","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
+    "buyProducts": ["twohandedswor","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","silverplate","westernarmo","westerncann","saffron","almond","azulejo"],
+    "buyCities":["saint","stockhol","visby","copenhag","helder","amsterda","edinburgh","london","dover","antwerp","calais","plymouth","nantes","bordeaux","porto","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
@@ -198,9 +198,8 @@ routeLists=[
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
-            #            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-
-            "sellCities":[{"name":"malacca","types":None}],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"pasay","types":None}],
         },
         {
             "buyProducts": ["mangosteen","agarwood","ylang-ylang","benzoin","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine"],

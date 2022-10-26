@@ -19,7 +19,7 @@ class Battle:
         print("in battle")
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,1)
         #use fast
-        if(self.uwtask.hasSingleLineWordsInArea("free",A=[74,226,112,242])):
+        if(self.uwtask.hasSingleLineWordsInArea("free",A=[73,225,104,242])):
             self.instance.clickPointV2(95,217)
         continueWithUntilBy(lambda: self.instance.rightClickPointV2(655,330),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714]) or self.uwtask.inCityList(self.uwtask.allCityList),10,timeout=240)
         def exitBattle():
@@ -37,9 +37,9 @@ class Battle:
         print("in battle")
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,1)
         #use fast
-        if(self.uwtask.hasSingleLineWordsInArea("free",A=[78,223,108,243])):
+        if(self.uwtask.hasSingleLineWordsInArea("free",A=[73,225,104,242])):
             self.instance.clickPointV2(95,217)
-        continueWithUntilBy(lambda: self.instance.rightClickPointV2(655,330),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714]) or self.uwtask.inCityList(self.uwtask.allCityList),10,timeout=240)
+        continueWithUntilBy(lambda: self.instance.rightClickPointV2(655,330),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=240)
         def exitBattle():
             wait(lambda: self.instance.clickPointV2(673,707),2)
             if(self.uwtask.hasSingleLineWordsInArea("yes",A=[946,617,1028,656])):
@@ -50,11 +50,11 @@ class Battle:
         firstPosi = (1137,257)
         area=[1087,238,1264,264]
         index=0
-        while(index<7):
+        while(index<8):
             yDiff=int(index%5*57.25)
             ocrOpponentName=self.uwtask.hasArrayStringInAreaSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
             if(ocrOpponentName):
-                wait(lambda: self.instance.clickPointV2(firstPosi[0],firstPosi[1]+yDiff),1)
+                wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]+yDiff),0.5,disableWait=True)
                 # if(self.uwtask.hasArrayStringInAreaSingleLineWords(shortOpponents, A=[596,665,735,699],debug=True) or self.uwtask.hasArrayStringInAreaSingleLineWords(shortOpponents, A=[1084,126,1241,155])):
                 return True
                 # return False
@@ -86,6 +86,30 @@ class Battle:
         self.uwtask.print("click twice")
         self.uwtask.clickEnterCityButton()
 
+    def depart(self):
+        def clickAndStock():
+            wait(lambda: self.instance.clickPointV2(979,538),0.2)
+            self.uwtask.restock()
+
+        def clickAndStockBackup():
+            self.uwtask.checkForDailyPopup()
+            wait(lambda: self.instance.clickPointV2(979,538),0.2)
+            if(self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea)):
+                self.uwtask.restock()
+        clickAndStock()
+        if(self.uwtask.hasSingleLineWordsInArea("crewsize",A=[1077,449,1154,473])):
+            actualCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1154,451,1181,471])
+            maxCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1187,451,1213,469])
+            if(actualCrew/maxCrew<0.9):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(1164,464),lambda: self.uwtask.hasSingleLineWordsInArea("recruit", A=self.uwtask.titleArea), 1,2)
+                wait(lambda: self.instance.clickPointV2(1211,399),0)                
+                wait(lambda: self.instance.clickPointV2(1240,509),0)
+                wait(lambda: self.instance.clickPointV2(714,483),1)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(714,483),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2)
+
+        self.uwtask.print("出海")
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1183,568), lambda: self.uwtask.inWater(), 4,2, backupFunc=clickAndStockBackup)
+
     def goBackPort(self, town):
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),2,0)
         wait(lambda: self.uwtask.findCityAndClick(town),0)
@@ -94,11 +118,11 @@ class Battle:
     def leavePort(self):
         if(not self.uwtask.inWater()):
             self.uwtask.goToHarbor()
-            self.uwtask.depart()
+            self.depart()
 
     def findOpponentOrReturn(self,opponents,town):
         firstPosi = (1137,257)
-        wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),1,disableWait=True)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),2,0)
         clickedOpponentInList=self.selectOpponentInList(opponents)
         if(not clickedOpponentInList):
             self.goBackPort(town)
@@ -110,7 +134,7 @@ class Battle:
         while(timeout>0 and not combatScreenOpened):
             speed=self.uwtask.getNumberFromSingleLineInArea(A=[1049,132,1085,146])
             if(speed<60 and self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1087,238,1264,264])):
-                wait(lambda: self.instance.clickPointV2(firstPosi[0],firstPosi[1]),0)
+                wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]),0.5,disableWait=True)
                 if(self.uwtask.hasSingleLineWordsInArea("combat", A=[635,691,697,717])):
                     break
             timeout-=1

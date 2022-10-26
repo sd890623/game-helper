@@ -193,7 +193,6 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("discard", A=[1138,558,1208,574])):
             wait(lambda: self.simulatorInstance.clickPointV2(1172,573),1)
             wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
-        wait(lambda: self.simulatorInstance.clickPointV2(1183,577),1)
 
     def inWater(self):
         return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
@@ -207,7 +206,6 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             if(self.hasSingleLineWordsInArea("harbor", A=self.titleArea)):
                 self.restock()
-                self.simulatorInstance.clickPointV2(1183,568)            
 
         clickAndStock()
         self.print("出海")

@@ -43,7 +43,7 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30):
     if(timeout<=0):
         print("timed out, do backup function")
         for x in [0,1,2]:
-            wait(func)
+            wait(func,frequency)
             if(untilFunc()):
                 return
     time.sleep(random.randint(0,1))

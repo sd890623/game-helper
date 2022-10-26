@@ -331,6 +331,20 @@ class win ():#line:35
         long_position = win32api.MAKELONG(xRandom, yRandom)
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
         win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,win32con.MK_LBUTTON , long_position);#line:229
+    def fastClickPointV2(self,x,y,random=False):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            pydirectinput.leftClick(xRandom+left, yRandom+top)
+        except Exception as e:
+            print(e)
+            print("failed to click point")
+    
     def clickPointV2(self,x,y,random=False):
         if(random):
             xRandom =x +random .randint (-5 ,5 )

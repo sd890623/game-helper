@@ -7,9 +7,9 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="plymouth"
+battleCity="visby"
 #"piratefleet"
-opponentNames=["robbers","assaulter","ilag","illag"]
+opponentNames=["robbers","assau","ilag","illag"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],

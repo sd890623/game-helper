@@ -59,7 +59,7 @@ def getNumberfromImageBlob(imageBlob):
         str = "".join(res[0])
         print("ocred number: "+ str)
         if("," in str):
-            return int(str.replace(",",""))+1000
+            return int(str.replace(",",""))
         else:
             return int(str)
     except Exception as e:

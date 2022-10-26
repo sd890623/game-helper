@@ -7,6 +7,10 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
+battleCity="visby"
+#"piratefleet"
+opponentNames=["robbers","assau","ilag","illag"]
+
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
 # "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],

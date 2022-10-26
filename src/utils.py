@@ -43,7 +43,7 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30):
     if(timeout<=0):
         print("timed out, do backup function")
         for x in [0,1,2]:
-            wait(func)
+            wait(func,frequency)
             if(untilFunc()):
                 return
     time.sleep(random.randint(0,1))
@@ -80,6 +80,14 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
         if(stringInArray in string and (len(string)-len(stringInArray))<3):
             found=True
     return found
+
+def hasOneArrayStringInString(string, array):
+    if(not(string)):
+        return False
+    for stringInArray in array:
+        if(stringInArray in string):
+            return stringInArray
+    return False
 
 def isWorkHour():
     hour=dt.datetime.now().hour

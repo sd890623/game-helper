@@ -12,7 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-task.testTask()
+#task.testTask()
 
 #todo
 
@@ -20,12 +20,13 @@ task.testTask()
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="ceuta"
+# task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
 #4 saint<->hindu  #5 saint<->hindu double  #6 everyday BM(india) #7 SEA-carrebean
-task.setRouteOption(5)
-task.enableSB("ceuta",options=[10,11])
+task.setRouteOption(7)
+#task.enableSB("ceuta",options=[10,11])
 # task.enableSB("diu",options=[4,4,4])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

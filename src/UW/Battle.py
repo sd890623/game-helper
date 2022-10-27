@@ -31,11 +31,13 @@ class Battle:
 
     def doBattle(self):
         #GoBattle #combat area [749,427,858,459]
-        wait(lambda: self.instance.clickPointV2(839,437),10)     
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(980,629),5,2)
         wait(lambda: self.instance.clickPointV2(724,357),3)     
 
         print("in battle")
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,1)
+        if(self.uwtask.inWater()):
+            return
         #use fast
         if(self.uwtask.hasSingleLineWordsInArea("free",A=[73,225,104,242])):
             self.instance.clickPointV2(95,217)

@@ -479,6 +479,8 @@ class UWTask(FrontTask):
                 routeObject=obj
         if(routeObject==None):
             self.print("没有在长途城市列表中，中断")
+            wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint))
+            time.sleep(5)
             return
 
         while(True):

@@ -7,9 +7,9 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="visby"
-#"piratefleet"
-opponentNames=["robbers","assau","ilag","illag"]
+battleCity="havana"
+#"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen
+opponentNames=["robbers","ilag","illag"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -35,7 +35,7 @@ northEuropeStd={
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","copenhag","bremen","groningen","amsterda","london","dover","antwerp","calais","plymouth","nantes","bordeaux","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
+    "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","helder","amsterda","edinburgh","london","dover","antwerp","calais","plymouth","nantes","bordeaux","laga","seville","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga","lisboa","seville","laga"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],

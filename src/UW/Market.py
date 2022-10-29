@@ -25,8 +25,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino",
-"royal","santiago","caracas","trujil","veracruz","santiago",
-"pasay","malacca"]
+"royal","santiago","caracas","trujil","veracruz","rida","santiago",
+"pasay","malacca","palembang"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -232,7 +232,8 @@ class Market:
             productName=self.uwtask.getMultiLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,155+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName)):# or "intermediatetrade" in productName):
+            if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
+                ("beech" in productName) or ("enhanced" in productName and "special" not in productName)):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 

@@ -362,6 +362,26 @@ class win ():#line:35
             print(e)
             print("failed to click point")
 
+    def longerClickPointV2(self,x,y,random=False,dura=0.5):
+        if(random):
+            xRandom =x +random .randint (-5 ,5 )
+            yRandom =y +random .randint (-5 ,5 )
+        else:
+            xRandom=x
+            yRandom=y
+        try:
+            left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
+            win32gui.SetForegroundWindow(self .hwnd)
+            pydirectinput.moveTo(xRandom+left, yRandom+top)
+            time.sleep(0.5)
+            pydirectinput.mouseDown()
+            time.sleep(0.4)
+            pydirectinput.mouseUp()
+
+        except Exception as e:
+            print(e)
+            print("failed to click point")  
+
     def doubleClickPointV2(self,x,y,useRandom=False):
         if(useRandom):
             xRandom =x +random .randint (-5 ,5 )

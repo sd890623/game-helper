@@ -174,7 +174,7 @@ class UWTask(FrontTask):
     def restock(self):
         self.print("补给")
         # Repair ship
-        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1078,486,1165,506])):
+        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1078,486,1205,506])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,495),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
@@ -195,7 +195,8 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
 
     def inWater(self):
-        return self.hasSingleLineWordsInArea("water", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("watar", A=self.outSeaWaterTitle) or self.hasSingleLineWordsInArea("lawle", A=self.outSeaWaterTitle)
+        return self.hasArrayStringInAreaSingleLineWords(["water","watar","law"], A=self.outSeaWaterTitle)
+
     def depart(self):
         def clickAndStock():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
@@ -546,7 +547,7 @@ class UWTask(FrontTask):
             foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
             if(not foundOpponent):
                 continue
-            wait(lambda: self.simulatorInstance.clickPointV2(663,664),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(663,664),2,0.5)
             battle.doBattle()
             print("repeat battle")
 

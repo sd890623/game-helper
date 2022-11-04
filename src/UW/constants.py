@@ -7,9 +7,9 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="havana"
+battleCity="elmina"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen
-opponentNames=["robbers","ilag","illag"]
+opponentNames=["rob","ilag","illag","llag","pil","assa"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -18,12 +18,12 @@ opponentNames=["robbers","ilag","illag"]
 # Shared object
 northEuropeHot={
     # ,"tourmaline","amber", "jewllery""glassbead","aquavit"
-    "buyProducts": ["twohandedswor","gobelin","steel","vodka","gin","whisky","westerncann","saffron"],
+    "buyProducts": ["twohandedswor","gobelin","steel","vodka","gin","whisky","westerncann","saffron","westernarmo"],
     # "gda", "hamburg"
     # Feb alchohol+
     # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth","laga","seville","lisboa"],
+    "buyCities":["saint","stockhol","visby","riga","groningen","amsterda","edinburgh","london","dover","calais","plymouth","bristol","bordeaux","seville","laga","marseil","genoa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
@@ -149,7 +149,7 @@ routeLists=[
     ],
     #4 saint<->hindu
     [
-        northEuropeStd,
+        northEuropeHot,
         {
             #,"pepper","cashmere"
             "buyProducts": ["yogurt","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
@@ -164,7 +164,7 @@ routeLists=[
     ],
         #5 saint<->hindu, double buy
     [
-        northEuropeStd,
+        northEuropeHot,
         {
             #,"blacktea"
             "buyProducts": ["musk","turquoise","ruby","sapphire","aventurin","jasmine","taffeta","lapislazu","frankincens","diamond","gold","geraniu","platinum"],
@@ -195,11 +195,24 @@ routeLists=[
     ],
     #7 carrebean<->SEA
     [
+        # #light
+        # {
+        #     # obsidianclu golddust cacao
+        #     "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice"],
+        #     "buyCities":["havana","southside","royal","porlamar","caracas","willemstad","trujil"],
+        #     "buySupplyCities":[],
+        #     "dumpCrewCities": [],
+        #     "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
+        # },
+        #harvest
         {
-            # obsidianclu golddust cacao
-            "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice"],
-            "buyCities":["havana","southside","royal","porlamar","caracas","willemstad","trujil"],
+            # obsidianclu golddust cacao ,"allspice"]
+            "buyProducts": ["opal","topaz","tequila","pineapple","logwood"],
+            "buyCities":["havana","southside","royal","santiago","porlamar"],
             "buySupplyCities":[],
+            "buyStrategy":"twice",
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
@@ -212,7 +225,7 @@ routeLists=[
             "buyStrategy":"twice",
             "dumpCrewCities": ["mozambiqu"],
             "supplyCities":["aceh","toamasina","mozambiqu","cape","tom","bathurst","cayenne","caracas","trujil"],
-            "sellCities":[{"name":"veracruz","types":None}],
+            "sellCities":[{"name":"rida","types":None}],
         },
     ],
     #8 carrebean<->NorthEu<->SEA
@@ -226,7 +239,7 @@ routeLists=[
             "supplyCities":["juan","ponta","london"],
             "sellCities":[{"name":"saint","types":None}],
         },
-        {**northEuropeStd,
+        {**northEuropeHot,
             "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
             "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
         },

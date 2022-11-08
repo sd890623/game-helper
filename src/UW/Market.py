@@ -233,7 +233,8 @@ class Market:
             if(not(productName)):
                 continue 
             if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
-                ("beech" in productName) or ("enhanced" in productName and "special" not in productName)):# or "intermediatetrade" in productName):
+                ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
+                "improvedmedium" in productName):# or "intermediatetrade" in productName):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 

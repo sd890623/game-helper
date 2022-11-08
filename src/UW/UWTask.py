@@ -48,7 +48,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.battleRoute()
+        self.waitForCity()
         # self.buyBlackMarket('visby')
         self.gotoCity('constantinopl',['constantinopl'])
 
@@ -294,7 +294,7 @@ class UWTask(FrontTask):
 
     def checkForDailyPopup(self):
         hour=dt.datetime.now().hour
-        if(hour==2):
+        if(hour in [2,3]):
             if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[611,164,698,200])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1072,135),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
@@ -547,7 +547,7 @@ class UWTask(FrontTask):
             foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
             if(not foundOpponent):
                 continue
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(663,664),2,0.5)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(663,639),2,0.5)
             battle.doBattle()
             print("repeat battle")
 

@@ -32,8 +32,8 @@ class Battle:
     def doBattle(self):
         x=0
         while(x<5):
-            wait(lambda: self.instance.clickPointV2(980,629),1)
-            wait(lambda: self.instance.clickPointV2(560,511),1)
+            wait(lambda: self.instance.clickPointV2(980,629),0.6)
+            wait(lambda: self.instance.clickPointV2(560,511),0.6)
             x+=1
 
         timeout=30
@@ -49,19 +49,21 @@ class Battle:
             if(timeout==0):
                 break
 
-        print("in battle")
         if(self.uwtask.inWater()):
             return
+        print("in battle")
         #use fast
         if(self.uwtask.hasSingleLineWordsInArea("free",A=[73,225,104,242])):
             self.instance.clickPointV2(95,217)
 
         centralPos=654,369
         openSkillPos=1259,294
-        time.sleep(6)
+        time.sleep(3)
 
-        for x in [0,1,2,3,4]:
-            number=self.uwtask.getNumberFromSingleLineInArea(A=[223,5,239,19],debug=True)
+        for x in range(7):
+            number=self.uwtask.getNumberFromSingleLineInArea(A=[223,5,239,19])
+            if(not self.uwtask.hasSingleLineWordsInArea("skill",A=[1236,303,1279,322])):
+                continue
             match number:
                 case 5:
                     #open skill 
@@ -85,20 +87,27 @@ class Battle:
                 case 1:
                     #open skill #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1042,429),1)
+                    wait(lambda: self.instance.clickPointV2(1113,428),1)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(2)
+                    time.sleep(4)
                 case _:
                     wait(lambda: self.instance.clickPointV2(1257,443),3)
         
-        wait(lambda: self.instance.clickPointV2(160,218),1)
+        wait(lambda: self.instance.clickPointV2(160,218),30)
+        if(self.uwtask.hasSingleLineWordsInArea("skill",A=[1236,303,1279,322])):
+            wait(lambda: self.instance.clickPointV2(160,218),0.5)
+            #Click on "no" for duel
 
         continueWithUntilBy(lambda: self.instance.rightClickPointV2(655,330),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=360)
+        def backupFunc():
+            exitBattle()
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(673,707),5,3)
+
         def exitBattle():
             wait(lambda: self.instance.clickPointV2(673,707),2)
             if(self.uwtask.hasSingleLineWordsInArea("yes",A=[946,617,1028,656])):
                 wait(lambda: self.instance.clickPointV2(976,636),2)
-        doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2)
+        doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2,backupFunc=backupFunc)
 
     def selectOpponentInList(self,opponents):
         firstPosi = (1137,257)
@@ -186,8 +195,8 @@ class Battle:
         if(not combatScreenOpened):
             wait(lambda: False,1)
         while(timeout>0 and not combatScreenOpened):
-            speed=self.uwtask.getNumberFromSingleLineInArea(A=[1049,132,1085,146])
-            if(speed<60 and self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1087,238,1264,264])):
+            if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1087,238,1264,264]) and
+            (self.uwtask.getNumberFromSingleLineInArea(A=[1049,132,1085,146])<60 or self.uwtask.getNumberFromSingleLineInArea(A=[1252,266,1275,285])<19)):
                 wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]),0.5,disableWait=True)
                 if(self.uwtask.hasArrayStringInAreaSingleLineWords(["combat","com","bat"], A=[635,691,697,717])):
                     break

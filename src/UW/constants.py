@@ -7,7 +7,7 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="elmina"
+battleCity="tom"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen
 opponentNames=["rob","ilag","illag","llag","pil","assa"]
 
@@ -196,28 +196,28 @@ routeLists=[
     #7 carrebean<->SEA
     [
         # #light
-        # {
-        #     # obsidianclu golddust cacao
-        #     "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice"],
-        #     "buyCities":["havana","southside","royal","porlamar","caracas","willemstad","trujil"],
-        #     "buySupplyCities":[],
-        #     "dumpCrewCities": [],
-        #     "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
-        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
-        # },
-        #harvest
         {
-            # obsidianclu golddust cacao ,"allspice"]
-            "buyProducts": ["opal","topaz","tequila","pineapple","logwood"],
-            "buyCities":["havana","southside","royal","santiago","porlamar"],
+            # obsidianclu golddust cacao
+            "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice"],
+            "buyCities":["havana","southside","royal","porlamar","caracas","willemstad","trujil"],
             "buySupplyCities":[],
-            "buyStrategy":"twice",
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
             "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
         },
+        #harvest
+        # {
+        #     # obsidianclu golddust cacao ,"allspice"]
+        #     "buyProducts": ["opal","topaz","tequila","pineapple","logwood"],
+        #     "buyCities":["havana","southside","royal","santiago","porlamar"],
+        #     "buySupplyCities":[],
+        #     "buyStrategy":"twice",
+        #     "dumpCrewCities": [],
+        #     "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
+        # },
         {
             "buyProducts": ["mangosteen","agarwood","ylang-ylang","benzoin","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine"],
             "buyCities":["aceh","pasay","malacca"],

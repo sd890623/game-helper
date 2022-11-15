@@ -48,6 +48,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        self.sendNotification(f"You have reached {'mob'}")
         self.waitForCity()
         # self.buyBlackMarket('visby')
         self.gotoCity('constantinopl',['constantinopl'])
@@ -118,6 +119,7 @@ class UWTask(FrontTask):
             reachCity=f.readline()
         if(reachCity==self.currentCity):
             self.print("reached city: "+reachCity)
+            self.sendNotification(f"You have reached {reachCity}")
             # self.playNotification()
             #Need to add break point here for wait
             with open('src/UW/reachCity.txt', 'w') as f:

@@ -1,4 +1,6 @@
 from graphqlclient import GraphQLClient
+import requests
+import json
 
 msg="abc"
 a=f'''
@@ -25,4 +27,15 @@ class Messager:
         except Exception as e:
             print(e)
 
+    def sendNotification(self, words):
+        url="https://maker.ifttt.com/trigger/notice_phone/with/key/2q-O-9v1gxg-Tp_XLwSR"
+        payload={"value1": words}
+        headers={"Content-Type": "application/json"}
 
+        try:
+            response=requests.request("POST",url,data=json.dumps(payload),headers=headers)
+            print(response.text)
+            print("Successfully sent notification")
+        except Exception as e:
+            print("Error: unable to send notification")
+            print(e)

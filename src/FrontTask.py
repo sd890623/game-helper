@@ -22,6 +22,8 @@ class FrontTask(object):
 
     def sendMessage(self,url,text):
         self.messager.sendMessage(url,getDateTimeString()+": "+text)
+    def sendNotification(self,text):
+        self.messager.sendNotification(getDateTimeString()+": "+text)
 
     def hasImageInScreen(self, imageName, A=[0,0,0,0], greyMode=False, debug=False):
             imagePath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")

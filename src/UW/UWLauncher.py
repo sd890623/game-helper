@@ -20,12 +20,12 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="ceuta"
-#task.battleRoute()
+task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
 #4 saint<->hindu  #5 saint<->hindu double  #6 everyday BM(india) #7 SEA-carrebean #8Carrebean-NU-SEA triangle
-task.setRouteOption(8)
+task.setRouteOption(7)
 #task.enableSB("ceuta",options=[10,11])
 # task.enableSB("diu",options=[4,4,4])
 
@@ -35,7 +35,7 @@ task.waitForCityTimeOut=700
 task.battleMode="run"
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗;检查市场购买勾")
+task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;打开auto战斗;检查市场购买勾;抗浪;删除到达城市")
 
 while(True):
     if(not(isWorkHour())):

@@ -28,13 +28,15 @@ class Messager:
             print(e)
 
     def sendNotification(self, words):
-        url="https://maker.ifttt.com/trigger/notice_phone/with/key/2q-O-9v1gxg-Tp_XLwSR"
+        token="0z6Hlfml-OflyhnE2W1Dh"
+        url1=f"https://maker.ifttt.com/trigger/notice_phone/with/key/{token}"
+        url2=f"https://maker.ifttt.com/trigger/notice_mobile_v2/with/key/{token}"
         payload={"value1": words}
         headers={"Content-Type": "application/json"}
 
         try:
-            response=requests.request("POST",url,data=json.dumps(payload),headers=headers)
-            print(response.text)
+            requests.request("POST",url1,data=json.dumps(payload),headers=headers)
+            requests.request("POST",url2,data=json.dumps(payload),headers=headers)
             print("Successfully sent notification")
         except Exception as e:
             print("Error: unable to send notification")

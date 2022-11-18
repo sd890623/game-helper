@@ -118,12 +118,11 @@ class UWTask(FrontTask):
         with open('src/UW/reachCity.txt', 'r') as f:
             reachCity=f.readline()
         if(reachCity==self.currentCity):
-            self.print("reached city: "+reachCity)
             self.sendNotification(f"You have reached {reachCity}")
-            # self.playNotification()
-            #Need to add break point here for wait
             with open('src/UW/reachCity.txt', 'w') as f:
                 f.write('')
+            self.print("reached city: "+reachCity)
+               
 
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
@@ -185,7 +184,7 @@ class UWTask(FrontTask):
         #Restore crew
         if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,450,1205,470])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(1240,509),2)
+            wait(lambda: self.simulatorInstance.longerClickPointV2(1240,509),2)
             wait(lambda: self.simulatorInstance.clickPointV2(714,483),2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
@@ -209,6 +208,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
             if(self.hasSingleLineWordsInArea("harbor", A=self.titleArea)):
                 self.restock()
+                self.simulatorInstance.clickPointV2(1183,568)
 
         clickAndStock()
         self.print("出海")
@@ -549,9 +549,9 @@ class UWTask(FrontTask):
             foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
             if(not foundOpponent):
                 continue
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(663,639),2,0.5)
             battle.doBattle()
             print("repeat battle")
+            time.sleep(5)
 
 
 

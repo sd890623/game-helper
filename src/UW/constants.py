@@ -7,7 +7,7 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="tom"
+battleCity="douala"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen
 opponentNames=["rob","ilag","illag","llag","pil","assa"]
 
@@ -195,11 +195,11 @@ routeLists=[
     ],
     #7 carrebean<->SEA
     [
-        # #light
+        #light
         {
             # obsidianclu golddust cacao
             "buyProducts": ["opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice"],
-            "buyCities":["havana","southside","royal","porlamar","caracas","willemstad","trujil"],
+            "buyCities":["southside","royal","juan","porlamar","caracas","willemstad","trujil"],
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","mozambiqu","toamasina","aceh"],

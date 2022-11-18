@@ -375,7 +375,7 @@ class win ():#line:35
             pydirectinput.moveTo(xRandom+left, yRandom+top)
             time.sleep(0.5)
             pydirectinput.mouseDown()
-            time.sleep(0.4)
+            time.sleep(1)
             pydirectinput.mouseUp()
 
         except Exception as e:

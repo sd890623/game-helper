@@ -551,7 +551,6 @@ class UWTask(FrontTask):
                 continue
             battle.doBattle()
             print("repeat battle")
-            time.sleep(5)
 
 
 

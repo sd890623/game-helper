@@ -154,12 +154,16 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
+                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[255+xDiff,202+yDiff,281+xDiff,220+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
-                boughtTick+=1   
-            #check if max, notify buyFin for master class   
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
-                self.uwtask.tradeRouteBuyFin=True
-                break
+                boughtTick+=1
+                afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[255+xDiff,202+yDiff,281+xDiff,220+yDiff])
+                if(afterBuyQty==beforeBuyQty):
+                    self.uwtask.print("maxed out")
+                    self.uwtask.tradeRouteBuyFin=True
+                    break
+            # #check if max, notify buyFin for master class   
+            # if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)

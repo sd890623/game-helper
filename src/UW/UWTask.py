@@ -48,6 +48,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        self.buyInCity('willemstad', products=['gold',"avocado","sisalhem"])
+
         self.sendNotification(f"You have reached {'mob'}")
         self.waitForCity()
         # self.buyBlackMarket('visby')
@@ -213,6 +215,7 @@ class UWTask(FrontTask):
         clickAndStock()
         self.print("出海")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 4,2, backupFunc=clickAndStockBackup)
+        self.checkForDailyPopup(5)
 
     def selectNextCity(self):
         self.print("选城市")
@@ -294,9 +297,10 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
 
-    def checkForDailyPopup(self):
+    def checkForDailyPopup(self,delay=0):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
+            time.sleep(delay)
             if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[611,164,698,200])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1072,135),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)

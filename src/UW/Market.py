@@ -154,16 +154,16 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff],debug=True)
+                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
-                afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff],debug=True)
-                if(afterBuyQty==beforeBuyQty):
+                afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+                #74->35, 74->74,  
+                #negative 0->0
+                if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
                     self.uwtask.print("maxed out")
                     self.uwtask.tradeRouteBuyFin=True
                     break
-            # #check if max, notify buyFin for master class   
-            # if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)
@@ -180,7 +180,7 @@ class Market:
             return
 
         while(True):
-            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[818,76,836,95]))>25):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>25):
                 break
             else:
                 time.sleep(60)

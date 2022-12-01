@@ -25,8 +25,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino",
-"royal","santiago","caracas","trujil","veracruz","rida","santiago",
-"pasay","malacca","palembang"]
+"royal","santiago","caracas","trujil","veracruz","rida","santo",
+"pasay","malacca","palembang","banjarma","surabaya","jayakarta"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -157,13 +157,14 @@ class Market:
                 beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
-                afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 #74->35, 74->74,  
                 #negative 0->0
-                if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
-                    self.uwtask.print("maxed out")
-                    self.uwtask.tradeRouteBuyFin=True
-                    break
+                if(self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000):
+                    afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+                    if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
+                        self.uwtask.print("maxed out")
+                        self.uwtask.tradeRouteBuyFin=True
+                        break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)
@@ -177,6 +178,8 @@ class Market:
         if(self.uwtask.tradeRouteBuyFin):
             return
         if(boughtTick==0):
+            return
+        if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>20):
             return
 
         while(True):
@@ -236,9 +239,12 @@ class Market:
             productName=self.uwtask.getMultiLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,155+yDiff])
             if(not(productName)):
                 continue 
-            if("rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
-                ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
-                "improvedmedium" in productName or "lightsha" in productName):# or "intermediatetrade" in productName):
+            if(
+                "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
+                # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
+                "improvedmedium" in productName or "lightsha" in productName or
+                ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
+            ):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
 
@@ -260,8 +266,6 @@ class Market:
                 gemAreaOCR=self.uwtask.getNumberFromSingleLineInArea(A=[gemScanArea[0]-3,gemScanArea[1],gemScanArea[2]+5,gemScanArea[3]])
                 if(self.uwtask.hasImageInScreen("gemInBM2",A=gemScanArea) and (not gemAreaOCR or gemAreaOCR==1 or gemAreaOCR==3)):
                     #Gem case
-                    #if("enhancedmedium" in productName and "special" not in productName):
-                    #    clickBuy(319+xDiff,184+yDiff)
                     continue
                 else:
                     if(not ducatCase()):

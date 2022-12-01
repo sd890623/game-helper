@@ -253,4 +253,40 @@ routeLists=[
             "sellCities":[{"name":"rida","types":None}],
         },
     ],
+    #9 carrebean<->SEA 80area
+    [
+        #light
+        {
+            # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
+            "buyStrategy":"twice",
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"davao","types":None}],
+        },
+        #harvest
+        # {
+        #     # obsidianclu golddust cacao ,"allspice"]
+        #     "buyProducts": ["opal","topaz","tequila","pineapple","logwood"],
+        #     "buyCities":["havana","southside","royal","santiago","porlamar"],
+        #     "buySupplyCities":[],
+        #     "buyStrategy":"twice",
+        #     "dumpCrewCities": [],
+        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh","banda"],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
+        # },
+        {
+            "buyProducts": ["ebony","agarwood","ylang-ylang","clove","musk","nutmeg","featurecraft","mace","benzoin","mangosteen","chickenmeat"],
+            "buyCities":["banda","ambon","ternate","jolo","makassar","banjarma","jayakarta","brunei","malacca","pasay","aceh"],
+            "buySupplyCities":[],
+            "buyStrategy":"single",
+            "dumpCrewCities": ["mozambiqu"],
+            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","trujil"],
+            "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"southside","types":None}],
+        },
+    ],
 ]

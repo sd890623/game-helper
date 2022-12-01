@@ -284,8 +284,8 @@ class UWTask(FrontTask):
                 battle=Battle(self.simulatorInstance,self)
                 battle.suppressBattle()
             time.sleep(10)
-            wait(lambda: self.findCityAndClick(targetCity),60)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,10)
+            wait(lambda: self.findCityAndClick(targetCity),20)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
         
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
         self.print("click twice")
@@ -481,7 +481,7 @@ class UWTask(FrontTask):
         routeObject=None
         self.setCurrentCityFromScreen()
         for index,obj in enumerate(self.routeList):
-            if(self.currentCity in obj["buyCities"] or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
+            if(self.currentCity in obj["buyCities"]):  #or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
                 routeObjIndex=index
                 routeObject=obj
         if(routeObject==None):

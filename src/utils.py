@@ -25,7 +25,7 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
         timeout-=frequency
     if(timeout<=0):
         print("timed out, do backup function")
-        for x in [0,1,2]:
+        for x in [0,1,2,3]:
             if(backupFunc):
                 wait(backupFunc, seconds)
             else:
@@ -42,7 +42,7 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30):
         timeout-=frequency
     if(timeout<=0):
         print("timed out, do backup function")
-        for x in [0,1,2]:
+        for x in [0,1,2,3]:
             wait(func,frequency)
             if(untilFunc()):
                 return

@@ -179,8 +179,6 @@ class Market:
             return
         if(boughtTick==0):
             return
-        if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>20):
-            return
 
         while(True):
             if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>25):
@@ -204,7 +202,7 @@ class Market:
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
-            
+
     def deductBMFromCities(cities):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)

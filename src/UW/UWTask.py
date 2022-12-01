@@ -507,11 +507,14 @@ class UWTask(FrontTask):
                         break
                     self.gotoCity(city,self.allCityList)
                     if(self.getTime()>=0 and self.getTime()<5):
-                        self.buyBlackMarket(city)
+                        # no BM in buy if twice strategy
+                        if(routeObject.get("buyStrategy")!= "twice"):
+                            self.buyBlackMarket(city)
                     self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                     #special
                     self.checkSB()
-                    self.buyBlackMarket(city)
+                    if(routeObject.get("buyStrategy")!= "twice"):
+                        self.buyBlackMarket(city)
                     self.checkReachCity()
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True

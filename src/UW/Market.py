@@ -204,6 +204,15 @@ class Market:
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
+            
+    def deductBMFromCities(cities):
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            if(city['types']=="BM" and city['name'] in boughtCities):
+                return False
+            return True
+        return filter(filterCallback, cities)
 
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:

@@ -48,6 +48,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        self.startTradeRoute()
         self.buyInCity('willemstad', products=['gold',"avocado","sisalhem"])
 
         self.sendNotification(f"You have reached {'mob'}")
@@ -529,13 +530,16 @@ class UWTask(FrontTask):
 
             self.print("出发卖货城市")
             # goto sell cities
-            for index,cityObject in enumerate(routeObject["sellCities"]):
+            sellCities=routeObject["sellCities"]
+            deductedBMCities=list(Market.deductBMFromCities(sellCities))
+            for index,cityObject in enumerate(deductedBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
                 if(self.getTime()>=0 and self.getTime()<5):
                     self.buyBlackMarket(cityName)
-                self.sellInCity(cityName,simple=True,types=types)
+                if(types!="BM"):
+                    self.sellInCity(cityName,simple=True,types=types)
                 self.buyBlackMarket(cityName)
                 self.checkReachCity()
 

@@ -7,7 +7,7 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="douala"
+battleCity="luanda"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen
 opponentNames=["rob","ilag","illag","llag","pil","assa"]
 

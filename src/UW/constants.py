@@ -265,7 +265,7 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"davao","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"davao","types":None}],
         },
         #harvest
         # {
@@ -280,13 +280,14 @@ routeLists=[
         #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
         # },
         {
-            "buyProducts": ["ebony","agarwood","ylang-ylang","clove","musk","nutmeg","featurecraft","mace","benzoin","mangosteen","chickenmeat"],
-            "buyCities":["banda","ambon","ternate","jolo","makassar","banjarma","jayakarta","brunei","malacca","pasay","aceh"],
+            #,"clove" ,"benzoin"  ,"feathercrafts"
+            "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","nutmeg","mangosteen"],
+            "buyCities":["banda","ambon","ternate","jolo","brunei","jayakarta","pasay","aceh"],
             "buySupplyCities":[],
-            "buyStrategy":"single",
-            "dumpCrewCities": ["mozambiqu"],
-            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","trujil"],
-            "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"southside","types":None}],
+            "buyStrategy":"twice",
+            "dumpCrewCities": [],
+            "supplyCities":["aceh","toamasina","cape","tom","bathurst","seville","cayenne","caracas","trujil"],
+            "sellCities":[{"name":"portobelo","types":"BM"},{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None},{"name":"santiago","types":"BM"},{"name":"santo","types":"BM"}],
         },
     ],
 ]

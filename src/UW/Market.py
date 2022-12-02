@@ -25,8 +25,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino",
-"royal","santiago","caracas","trujil","veracruz","rida","santo",
-"pasay","malacca","palembang","banjarma","surabaya","jayakarta"]
+"royal","santiago","caracas","trujil","veracruz","rida","santo","portobelo"
+"pasay","malacca","palembang","banjarmasin","surabaya","jayakarta"]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -179,8 +179,6 @@ class Market:
             return
         if(boughtTick==0):
             return
-        if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>20):
-            return
 
         while(True):
             if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>25):
@@ -204,6 +202,15 @@ class Market:
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
+
+    def deductBMFromCities(cities):
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            if(city['types']=="BM" and city['name'] in boughtCities):
+                return False
+            return True
+        return filter(filterCallback, cities)
 
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:
@@ -242,7 +249,7 @@ class Market:
             if(
                 "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
                 # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
-                "improvedmedium" in productName or "lightsha" in productName or
+                "improvedmedium" in productName or #"lightsha" in productName or
                 ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
                 clickBuy(319+xDiff,184+yDiff)
@@ -251,7 +258,8 @@ class Market:
             def ducatCase():
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                if("keel" in productName or "superior" in productName or "dye" in productName or "emblem" in productName):
+                if("dye" in productName or "emblem" in productName or
+                "novice" in productName or "golden" in productName or "pine" in productName or "wooden" in productName):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
                 if("decoration" in itemType or "cape" in itemType):

@@ -286,7 +286,7 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
-            "supplyCities":["aceh","toamasina","cape","tom","bathurst","seville","cayenne","caracas","trujil"],
+            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","caracas","trujil"],
             "sellCities":[{"name":"portobelo","types":"BM"},{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None},{"name":"santiago","types":"BM"},{"name":"santo","types":"BM"}],
         },
     ],

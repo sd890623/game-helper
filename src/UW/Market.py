@@ -233,8 +233,8 @@ class Market:
                 wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
             #quick purchase
             wait(lambda: self.instance.clickPointV2(737,599),1)
-            if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
-                wait(lambda: self.instance.clickPointV2(719,482))
+            # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
+            #     wait(lambda: self.instance.clickPointV2(719,482))
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
 
         index=0

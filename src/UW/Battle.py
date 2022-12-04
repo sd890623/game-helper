@@ -186,7 +186,7 @@ class Battle:
         if(self.uwtask.hasSingleLineWordsInArea("crewsize",A=[1077,449,1154,473])):
             actualCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1154,451,1181,471])
             maxCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1187,451,1213,469])
-            if(actualCrew/maxCrew<0.95):
+            if(actualCrew/maxCrew<0.97):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1164,464),lambda: self.uwtask.hasSingleLineWordsInArea("recruit", A=self.uwtask.titleArea), 1,2)
                 wait(lambda: self.instance.clickPointV2(1211,399),0)                
                 wait(lambda: self.instance.clickPointV2(1240,509),0)
@@ -236,6 +236,7 @@ class Battle:
                 self.findOpponentOrReturn(opponents,town)
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(663,639),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[600,12,699,49]),1,1,backupFunc=backup)
             return True
+        continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
         self.goBackPort(town)
         return False  
 

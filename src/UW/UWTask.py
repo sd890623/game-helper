@@ -48,7 +48,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.startTradeRoute()
+        self.depart()
         self.buyInCity('willemstad', products=['gold',"avocado","sisalhem"])
 
         self.sendNotification(f"You have reached {'mob'}")
@@ -180,9 +180,9 @@ class UWTask(FrontTask):
         # Repair ship
         while(self.hasSingleLineWordsInArea("notenoughdura",A=[1078,486,1205,506])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,495),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(399,130),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1232,703),1)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.inScreenConfirmYesButton),3,1)
+            wait(lambda: self.simulatorInstance.clickPointV2(986,692),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1149,701),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(715,480),3,1)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
         #Restore crew
         if(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,450,1205,470])):
@@ -190,8 +190,13 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.longerClickPointV2(1240,509),2)
             wait(lambda: self.simulatorInstance.clickPointV2(714,483),2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
-
-
+        #Remove extra crew
+        if(self.hasSingleLineWordsInArea("maxcrew",A=[1078,450,1205,470])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(259,697),2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(940,578),2,1)
+            wait(lambda: self.simulatorInstance.clickPointV2(712,485),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(24,21),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
         # Destroy excess
 
         if(self.hasSingleLineWordsInArea("discard", A=[1138,558,1208,574])):

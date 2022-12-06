@@ -7,7 +7,7 @@
 
 cityNames=["funchal","faro","lisboa","porto"]
 
-battleCity="natal"
+battleCity="kotte"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",
 opponentNames=["ilag","illag","llag","pil","assa"]
 
@@ -280,13 +280,13 @@ routeLists=[
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"davao","types":None}],
         },
         {
-            #,"clove" ,"benzoin"  ,"feathercrafts"
-            "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","nutmeg","mangosteen"],
+            #,"clove" ,"benzoin"  ,"feathercrafts"  "nutmeg"
+            "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
             "buyCities":["banda","ambon","ternate","jolo","brunei","jayakarta","pasay","aceh"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
-            "supplyCities":["aceh","toamasina","cape","tom","bathurst","cayenne","caracas","trujil"],
+            "supplyCities":["aceh","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
             "sellCities":[{"name":"portobelo","types":"BM"},{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None},{"name":"santiago","types":"BM"},{"name":"santo","types":"BM"}],
         },
     ],

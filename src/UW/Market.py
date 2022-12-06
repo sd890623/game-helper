@@ -248,6 +248,7 @@ class Market:
                 continue 
             if(
                 "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
+                "teak" in productName or
                 # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
                 "improvedmedium" in productName or #"lightsha" in productName or
                 ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)

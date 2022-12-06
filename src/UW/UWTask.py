@@ -204,7 +204,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
 
     def inWater(self):
-        return self.hasArrayStringInAreaSingleLineWords(["water","watar","law"], A=self.outSeaWaterTitle)
+        return self.hasArrayStringInAreaSingleLineWords(["water","watar","law","wate"], A=self.outSeaWaterTitle)
 
     def depart(self):
         def clickAndStock():
@@ -230,14 +230,14 @@ class UWTask(FrontTask):
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(38,89),2,0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(86,77),2,0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: (self.inWater() or self.inCityList([cityname])),1,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15)
 
     def checkForDisaster(self):
         #click disaster icon
@@ -258,11 +258,6 @@ class UWTask(FrontTask):
 
     def clickEnterCityButton(self):
         doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(655,330),2,0.5)
-        # for x in range(2):
-        #     if(self.hasSingleLineWordsInArea("move",A=[1117,668,1195,688])):
-        #         wait(lambda: self.simulatorInstance.clickPointV2(1006,680),0.5)
-        #     else:
-        #         wait(lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),0.5)
     
     def checkBeforeCity(self):
         if(self.hasSingleLineWordsInArea("adjacent",A=[1225,264,1297,289]) and self.getNumberFromSingleLineInArea(A=[1049,132,1085,146])==0):
@@ -290,7 +285,7 @@ class UWTask(FrontTask):
                 battle=Battle(self.simulatorInstance,self)
                 battle.suppressBattle()
             time.sleep(10)
-            wait(lambda: self.findCityAndClick(targetCity),20)
+            wait(lambda: self.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
         
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)

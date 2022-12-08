@@ -1,13 +1,16 @@
 from guiUtils import win
+from datetime import datetime
 from utils import *
 # from UWTask import UWTask
 
 class Battle:
     randomPoint=874,666
+    lastCallTime=0
 
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
         self.uwtask=uwtask
+        self.lastCallTime=datetime(2021, 1, 1, 1, 1, 1)
 
     def suppressBattle(self):
         #runAway
@@ -125,6 +128,14 @@ class Battle:
             return False
         return True
 
+    def checkInPort(self,town):
+        now=datetime.now()
+        if(getTimeDiffInSeconds(self.lastCallTime,now)>1800):
+            if(now.minute>=30):
+                self.uwtask.healInjury(town)
+            self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"])
+            self.lastCallTime=now
+
     def selectOpponentInList(self,opponents):
         firstPosi = (1137,257)
         area=[1087,238,1264,264]
@@ -197,9 +208,8 @@ class Battle:
 
     def leavePort(self):
         doMoreTimesWithWait(lambda: self.instance.rightClickPointV2(*self.randomPoint),2,1)
-        if(not self.uwtask.inWater()):
-            self.uwtask.goToHarbor()
-            self.depart()
+        self.uwtask.goToHarbor()
+        self.depart()
 
     def findOpponentOrReturn(self,opponents,town):
         firstPosi = (1137,257)

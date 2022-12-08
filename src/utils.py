@@ -71,6 +71,9 @@ def getDateTimeString():
     dt_string = now.strftime("%d %H:%M:%S")
     return("Time: "+dt_string)
 
+def getTimeDiffInSeconds(earlier,later):
+    return (later-earlier).total_seconds()
+
 #specia treatment by 
 def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
     if(not(string)):

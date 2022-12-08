@@ -372,19 +372,19 @@ class UWTask(FrontTask):
             self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList), 3,2,backupFunc=backup)
 
-    def clickInMenu(self,menuItem,inTitle):
+    def clickInMenu(self,menuItem,inTitle,infinite=False):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  
 
         area=[1111,242,1195,265]
         index=0
-        while(index<13):
-            yDiff=int(index*37.8)
+        while(index<150):
+            yDiff=int(index%13*37.8)
             if(self.hasSingleLineWordsInArea(menuItem, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,252+yDiff), lambda: self.hasSingleLineWordsInArea(inTitle, A=self.titleArea),2,2)
                 break
             index+=1
-        if(index==13):
-            return False
+            if(not infinite and index==14):
+                return False
         return True
 
     def buyBlackMarket(self,city):
@@ -440,6 +440,16 @@ class UWTask(FrontTask):
         except Exception as e:
             print(e)    
             return 12
+
+    def healInjury(self,city):
+        self.clickInMenu("tavern","tavern",infinite=True)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(91,276), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        if(self.isPositionColorSimilarTo(437,66,(252,77,61))):
+            wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1176,499),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(711,482),1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,30)
 
     def dumpCrew(self):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1274,22), lambda: self.hasSingleLineWordsInArea("company", A=[151,17,290,38]),2,1)
@@ -568,7 +578,9 @@ class UWTask(FrontTask):
     def battleRoute(self):
         battle=Battle(self.simulatorInstance,self)
         while(True):
-            battle.leavePort()
+            if(not self.inWater()):
+                battle.checkInPort(battleCity)
+                battle.leavePort()
             foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
             if(not foundOpponent):
                 continue

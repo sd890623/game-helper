@@ -573,6 +573,8 @@ class UWTask(FrontTask):
             if(not foundOpponent):
                 continue
             battle.doBattle()
+            if(not battle.checkStats(battleCity)):
+                continue
             print("repeat battle")
 
 

@@ -119,6 +119,11 @@ class Battle:
         doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2,backupFunc=backupFunc)
         self.uwtask.checkForDailyPopup(5)
 
+    def checkStats(self,town):
+        if(self.uwtask.isPositionColorSimilarTo(139,66,(255,240,58))):
+            self.goBackPort(town)
+            return False
+        return True
 
     def selectOpponentInList(self,opponents):
         firstPosi = (1137,257)

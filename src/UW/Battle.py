@@ -133,7 +133,8 @@ class Battle:
         if(getTimeDiffInSeconds(self.lastCallTime,now)>1800):
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
-            self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"])
+            if(self.uwtask.tradeRouteBuyFin==False):
+                self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"])
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):

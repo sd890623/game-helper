@@ -48,7 +48,10 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.depart()
+        self.setRouteOption(9)
+        self.currentCity = "banda"
+
+        self.startTradeRoute()
         self.buyInCity('willemstad', products=['gold',"avocado","sisalhem"])
 
         self.sendNotification(f"You have reached {'mob'}")
@@ -467,15 +470,23 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(), 1,30)
 
     #cityList is an array to contain the target city
-    def gotoCity(self,cityname,cityList,dumpCrew=False):
+    def gotoCity(self,cityname,cityList,dumpCrew=False,useExtra=lambda: False):
         self.goToHarbor()
         self.depart()
+        useExtra()
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,1)
         wait(lambda: self.findCityAndClick(cityname),2)
         #if(dumpCrew):
             #self.dumpCrew()
         self.waitForCity(cityList,targetCity=cityname)
         self.sendMessage("UW","reached city of "+cityname)
+    
+    def useTradeSkill(self):
+        wait(lambda: self.simulatorInstance.clickPointV2(105,511),1)
+        if("talker" in self.getSingleLineWordsInArea(A=[710,218,833,246])):
+            wait(lambda: self.simulatorInstance.clickPointV2(782,385),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(717,479),1)
+
 
     def startTradeRoute(self):
         routeObjIndex=0
@@ -525,8 +536,9 @@ class UWTask(FrontTask):
 
             self.print("出发补给城市")
             #go to supply cities
-            for city in routeObject["supplyCities"]:
-                self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
+            for index,city in enumerate(routeObject["supplyCities"]):
+                useSkill=self.useTradeSkill if (city==routeObject.get("useSkillCity")) else lambda:False
+                self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])),useExtra=useSkill)
                 self.checkSB()
                 self.buyBlackMarket(city)
                 self.checkReachCity()

@@ -248,9 +248,9 @@ class Market:
                 continue 
             if(
                 "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
-                "teak" in productName or
+                "teak" in productName or "largegunport" in productName or
                 # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
-                "improvedmedium" in productName or #"lightsha" in productName or
+                "improvedmedium" in productName or "lightsha" in productName or
                 ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
                 clickBuy(319+xDiff,184+yDiff)
@@ -260,7 +260,7 @@ class Market:
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
                 if("dye" in productName or "emblem" in productName or
-                "novice" in productName or "golden" in productName or "pine" in productName or "wooden" in productName):
+                "golden" in productName or "pine" in productName):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
                 if("decoration" in itemType or "cape" in itemType):

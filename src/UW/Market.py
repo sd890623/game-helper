@@ -37,9 +37,10 @@ class Market:
     today = date.today().strftime("%d-%m-%Y")
 
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
-    def __init__(self, instance: win, uwtask) -> None:
+    def __init__(self, instance: win, uwtask,marketMode=0) -> None:
         self.instance=instance
         self.uwtask=uwtask
+        self.marketMode=marketMode
 
     #             x   y    x   y
     #priceAreaSlot1: [337,203,388,221]
@@ -132,6 +133,18 @@ class Market:
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
+    def checkMaxBought(self,xDiff,yDiff,mode=0):
+        beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+        def commerceCheck():
+            return self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000
+        def battleCheck():
+            return self.uwtask.isPositionColorSimilarTo(372,167,(225,215,204))
+        if(commerceCheck() if mode==0 else battleCheck()):
+            afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+            if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
+                return True
+        return False
+    
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
         print(products)
@@ -154,17 +167,14 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
                 #74->35, 74->74,  
                 #negative 0->0
-                if(self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000):
-                    afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
-                    if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
-                        self.uwtask.print("maxed out")
-                        self.uwtask.tradeRouteBuyFin=True
-                        break
+                if(self.checkMaxBought(xDiff,yDiff,self.marketMode)):
+                    self.uwtask.print("maxed out")
+                    self.uwtask.tradeRouteBuyFin=True
+                    break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)

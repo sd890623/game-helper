@@ -73,8 +73,8 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    #No3 ram buff #8
-                    wait(lambda: self.instance.clickPointV2(1253,430),0.5)
+                    #No3 ram buff #7
+                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -120,10 +120,13 @@ class Battle:
             if(self.uwtask.hasSingleLineWordsInArea("yes",A=[946,617,1028,656])):
                 wait(lambda: self.instance.clickPointV2(976,636),2)
         doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2,backupFunc=backupFunc)
-        self.uwtask.checkForDailyPopup(5)
+        time.sleep(3)
+        self.uwtask.checkForDailyPopup(2)
+        if(not self.uwtask.inWater()):
+            doAndWaitUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.inWater(),1,1)
 
     def checkStats(self,town):
-        if(self.uwtask.isPositionColorSimilarTo(139,66,(255,240,58))):
+        if(self.uwtask.isPositionColorSimilarTo(139,66,(255,240,58)) or self.uwtask.isPositionColorSimilarTo(140,64,(232,202,44))):
             self.goBackPort(town)
             return False
         return True
@@ -134,15 +137,15 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-                self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"])
+                self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):
         firstPosi = (1137,257)
         area=[1087,238,1264,264]
         index=0
-        while(index<8):
-            yDiff=int(index%7*57.25)
+        while(index<13):
+            yDiff=int(index%8*57.25)
             ocrOpponentName=self.uwtask.hasArrayStringInAreaSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
             if(ocrOpponentName):
                 wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]+yDiff),0.5,disableWait=True)
@@ -156,7 +159,7 @@ class Battle:
             self.uwtask.clickEnterCityButton()
 
         def backupFunc():
-            self.uwtask.checkForDailyPopup()
+            self.uwtask.checkForDailyPopup(5)
             if(self.uwtask.hasSingleLineWordsInArea("lih", A=[63,125,102,151])):
                 continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
@@ -195,12 +198,15 @@ class Battle:
             if(actualCrew/maxCrew<0.97):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1164,464),lambda: self.uwtask.hasSingleLineWordsInArea("recruit", A=self.uwtask.titleArea), 1,2)
                 wait(lambda: self.instance.clickPointV2(1211,399),0)                
-                wait(lambda: self.instance.longerClickPointV2(1240,509),0)
+                wait(lambda: self.instance.longerClickPointV2(1240,509),2)
                 wait(lambda: self.instance.clickPointV2(714,483),1)
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(714,483),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(714,483),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2,backupFunc=lambda: self.instance.clickPointV2(*self.uwtask.leftTopBackBtn))
 
         self.uwtask.print("出海")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1183,568), lambda: self.uwtask.inWater(), 4,2, backupFunc=clickAndStockBackup)
+        time.sleep(2)
+        self.uwtask.checkForDailyPopup(3)
+
 
     def goBackPort(self, town):
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),2,0)

@@ -9,7 +9,7 @@ cityNames=["funchal","faro","lisboa","porto"]
 
 battleCity="pasay"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",
-opponentNames=["ilag","illag","llag","pil","assa"]
+opponentNames=["assa","lag","illag","llag","pil"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -255,30 +255,30 @@ routeLists=[
     ],
     #9 carrebean<->SEA 80area
     [
-        # #light
-        # {
-        #     # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
-        #     "buyProducts": ["opal","tequila","pineapple","logwood"],
-        #     "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
-        #     "buyStrategy":"twice",
-        #     "buySupplyCities":[],
-        #     "dumpCrewCities": [],
-        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
-        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"davao","types":None}],
-        # },
-        #harvest
+        #light
         {
-            # obsidianclu golddust cacao ,"allspice"]
+            # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
             "buyProducts": ["opal","tequila","pineapple","logwood"],
-            "buyCities":["havana","southside","royal","santiago","porlamar"],
-            "buySupplyCities":[],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
             "buyStrategy":"twice",
+            "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"davao","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
         },
+        # #harvest
+        # {
+        #     # obsidianclu golddust cacao ,"allspice"]
+        #     "buyProducts": ["opal","tequila","pineapple","logwood"],
+        #     "buyCities":["havana","southside","royal","santiago"],
+        #     "buySupplyCities":[],
+        #     "buyStrategy":"twice",
+        #     "dumpCrewCities": [],
+        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
+        # },
         {
             #,"clove" ,"benzoin"  ,"feathercrafts"  
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","nutmeg","mangosteen"],
@@ -288,7 +288,7 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["aceh","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
             "useSkillCity":"trujil",
-            "sellCities":[{"name":"portobelo","types":"BM"},{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None},{"name":"santiago","types":"BM"},{"name":"santo","types":"BM"}],
+            "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None},{"name":"santiago","types":"BM"},{"name":"santo","types":"BM"}],
         },
     ],
 ]

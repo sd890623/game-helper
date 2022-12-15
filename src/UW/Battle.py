@@ -65,31 +65,31 @@ class Battle:
                     time.sleep(5)
                 case 2:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
-                    #open skill #No 6 eva Buff
+                    #open skill #No 7 eva Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1113,425),0.5)
+                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 3:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    #No3 ram buff #7
-                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
+                    #No3 ram buff #9
+                    wait(lambda: self.instance.clickPointV2(1042,495),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
-                    #open skill #No 6 atk Buff
-                    wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1113,425),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
-                    # wait(lambda: self.instance.clickPointV2(1257,443),3)
-                case 5:
                     wait(lambda: self.instance.clickPointV2(1257,443),3)
                     # #open skill #ram atk
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(1119,433),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     # time.sleep(4)
+                case 5:
+                    #open skill #No 7 atk Buff
+                    wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
+                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+                    # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(1257,443),3)
                     # #open skill 
@@ -219,7 +219,6 @@ class Battle:
         self.depart()
 
     def findOpponentOrReturn(self,opponents,town):
-        firstPosi = (1137,257)
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),2,0)
         clickedOpponentInList=self.selectOpponentInList(opponents)
         if(not clickedOpponentInList):
@@ -236,8 +235,8 @@ class Battle:
             wait(lambda: False,1)
         if(timeout==0):
             wait(lambda: self.instance.clickPointV2(652,695),2)
-            self.goBackPort(town)
-            return False  
+            return self.findOpponentOrReturn(opponents,town)
+            
 
         if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1085,129,1265,156])):
             self.uwtask.print("opened")

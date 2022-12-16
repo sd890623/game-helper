@@ -60,7 +60,7 @@ class Battle:
                 case 1:
                     #open skill #No 1 Pao Buff, #5
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1044,430),1)
+                    wait(lambda: self.instance.clickPointV2(1044,430),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -68,7 +68,7 @@ class Battle:
                     #open skill #No 7 eva Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     wait(lambda: self.instance.clickPointV2(1184,432),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),2)
                 case 3:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
@@ -78,7 +78,7 @@ class Battle:
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
-                    wait(lambda: self.instance.clickPointV2(1257,443),3)
+                    wait(lambda: self.instance.clickPointV2(1257,443),2)
                     # #open skill #ram atk
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(1119,433),0.5)
@@ -88,20 +88,20 @@ class Battle:
                     #open skill #No 7 atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     wait(lambda: self.instance.clickPointV2(1184,432),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),2)
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:
-                    wait(lambda: self.instance.clickPointV2(1257,443),3)
+                    wait(lambda: self.instance.clickPointV2(1257,443),2)
                     # #open skill 
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # #No5 atk buff
                     # wait(lambda: self.instance.clickPointV2(1113,425),0.5)
                     # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 7:
-                    wait(lambda: self.instance.clickPointV2(1257,443),3)
+                    wait(lambda: self.instance.clickPointV2(1257,443),2)
 
                 case _:
-                    wait(lambda: self.instance.clickPointV2(1257,443),3)
+                    wait(lambda: self.instance.clickPointV2(1257,443),2)
         
         continueWithUntilBy(lambda: self.instance.longerClickPointV2(160,218), lambda: self.uwtask.isPositionColorSimilarTo(181,209,(248, 255, 255)),1,20)
         time.sleep(15)
@@ -200,7 +200,7 @@ class Battle:
                 wait(lambda: self.instance.clickPointV2(1211,399),0)                
                 wait(lambda: self.instance.longerClickPointV2(1240,509),2)
                 wait(lambda: self.instance.clickPointV2(714,483),1)
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(714,483),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2,backupFunc=lambda: self.instance.clickPointV2(*self.uwtask.leftTopBackBtn))
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(714,483),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2,backupFunc=lambda: self.instance.clickPointV2(*self.uwtask.leftTopBackBtn),timeout=10)
 
         self.uwtask.print("出海")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1183,568), lambda: self.uwtask.inWater(), 4,2, backupFunc=clickAndStockBackup)
@@ -236,14 +236,11 @@ class Battle:
         if(timeout==0):
             wait(lambda: self.instance.clickPointV2(652,695),2)
             return self.findOpponentOrReturn(opponents,town)
-            
 
         if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1085,129,1265,156])):
             self.uwtask.print("opened")
-            def backup():
-                self.findOpponentOrReturn(opponents,town)
-            doAndWaitUntilBy(lambda: self.instance.clickPointV2(663,639),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[600,12,699,49]),1,1,backupFunc=backup)
-            return True
+            return doAndWaitUntilBy(lambda: self.instance.clickPointV2(663,639),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[600,12,699,49]),1,1,timeout=15)
+
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
         return self.findOpponentOrReturn(opponents,town)
         

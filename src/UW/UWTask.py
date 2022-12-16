@@ -193,7 +193,7 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.longerClickPointV2(1240,509),2)
             wait(lambda: self.simulatorInstance.clickPointV2(714,483),2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2,backupFunc=lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn))
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2,backupFunc=lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),timeout=10)
         #Remove extra crew
         if(self.hasSingleLineWordsInArea("maxcrew",A=[1078,450,1205,470])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)

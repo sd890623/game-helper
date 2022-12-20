@@ -34,13 +34,14 @@ class Market:
     randomPoint=851,618
     buySellWholeArea=[187,99,949,395]
     maxArea=[1073,126,1137,145]
-    today = date.today().strftime("%d-%m-%Y")
+    today=None
 
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask,marketMode=0) -> None:
         self.instance=instance
         self.uwtask=uwtask
         self.marketMode=marketMode
+        self.today=date.today().strftime("%d-%m-%Y")
 
     #             x   y    x   y
     #priceAreaSlot1: [337,203,388,221]
@@ -257,11 +258,12 @@ class Market:
             if(not(productName)):
                 continue 
             if(
-                "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
+                 ("intermediatetrade" in productName and "appointment" not in productName) or
                 "teak" in productName or "largegunport" in productName or
-                # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
+                "specialenhanced" in productName or
+                # ("beech" in productName) e and "special" not in productName) or "rose" in productName or
                 "improvedmedium" in productName or "lightsha" in productName or
-                ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
+                ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
                 clickBuy(319+xDiff,184+yDiff)
                 continue

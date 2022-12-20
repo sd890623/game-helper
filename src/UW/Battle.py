@@ -1,6 +1,7 @@
 from guiUtils import win
 from datetime import datetime
 from utils import *
+from images import *
 # from UWTask import UWTask
 
 class Battle:
@@ -65,10 +66,10 @@ class Battle:
                     time.sleep(5)
                 case 2:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
-                    #open skill #No 7 eva Buff
+                    #open skill #No 8 eva Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),2)
+                    wait(lambda: self.instance.clickPointV2(1249,430),0.5)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),4)
                 case 3:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
@@ -88,7 +89,7 @@ class Battle:
                     #open skill #No 7 atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     wait(lambda: self.instance.clickPointV2(1184,432),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),2)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(1257,443),2)
@@ -137,7 +138,7 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-                self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang"],marketMode=1)
+               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","guqin","chinesetea"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):
@@ -193,8 +194,10 @@ class Battle:
                 self.instance.clickPointV2(1183,568)
         clickAndStock()
         if(self.uwtask.hasSingleLineWordsInArea("crewsize",A=[1077,449,1154,473])):
-            actualCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1154,451,1181,471])
-            maxCrew=self.uwtask.getNumberFromSingleLineInArea(A=[1187,451,1213,469])
+            crewWords=self.uwtask.getSingleLineWordsInArea(A=[1153,449,1250,471],ocrType=2)
+
+            actualCrew=getNumberFromString(crewWords.split("/")[0])
+            maxCrew=getNumberFromString(crewWords.split("/")[1])
             if(actualCrew/maxCrew<0.97):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1164,464),lambda: self.uwtask.hasSingleLineWordsInArea("recruit", A=self.uwtask.titleArea), 1,2)
                 wait(lambda: self.instance.clickPointV2(1211,399),0)                

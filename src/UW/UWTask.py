@@ -450,7 +450,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1176,499),1)
             wait(lambda: self.simulatorInstance.clickPointV2(711,482),1)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,30)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,16)
 
     def dumpCrew(self):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1274,22), lambda: self.hasSingleLineWordsInArea("company", A=[151,17,290,38]),2,1)

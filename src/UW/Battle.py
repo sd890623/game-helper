@@ -40,8 +40,13 @@ class Battle:
             wait(lambda: self.instance.clickPointV2(980,629),0.6)
             wait(lambda: self.instance.clickPointV2(560,511),0.6)
             x+=1
+        
+        def backup():
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[73,225,104,242])):
+                self.uwtask.sendNotification(f"Battle finished")
+                wait(lambda: self.instance.clickPointV2(95,217),10)
 
-        doAndWaitUntilBy(lambda: False, lambda: self.uwtask.hasSingleLineWordsInArea("auto",A=[136,202,186,219]),1,1,timeout=20)
+        doAndWaitUntilBy(lambda: False, lambda: self.uwtask.hasSingleLineWordsInArea("auto",A=[136,202,186,219]),1,1,timeout=10,backupFunc=backup)
 
         if(self.uwtask.inWater()):
             return
@@ -54,7 +59,7 @@ class Battle:
         openSkillPos=1259,294
 
 
-        for x in range(8):
+        for x in range(8): 
             number=self.uwtask.getNumberFromSingleLineInArea(A=[223,5,239,19])
             match number:
                 #3 1184,368 # 6: 1113,425 #7 1185,434 #4 1249,370
@@ -86,9 +91,9 @@ class Battle:
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     # time.sleep(4)
                 case 5:
-                    #open skill #No 7 atk Buff
+                    #open skill #No 8 atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1184,432),0.5)
+                    wait(lambda: self.instance.clickPointV2(1249,430),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:
@@ -210,9 +215,12 @@ class Battle:
         time.sleep(2)
         self.uwtask.checkForDailyPopup(3)
 
+    def backupFromDashboardToSea(self):
+        wait(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon),1)
 
     def goBackPort(self, town):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),2,0)
+        wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),0)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
         wait(lambda: self.uwtask.findCityAndClick(town),0)
         self.quickWaitForCity([town],targetCity=town)
 
@@ -222,7 +230,8 @@ class Battle:
         self.depart()
 
     def findOpponentOrReturn(self,opponents,town):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),2,0)
+        wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),0)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
         clickedOpponentInList=self.selectOpponentInList(opponents)
         if(not clickedOpponentInList):
             self.goBackPort(town)

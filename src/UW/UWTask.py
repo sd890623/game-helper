@@ -444,7 +444,8 @@ class UWTask(FrontTask):
 
     def healInjury(self,city):
         self.clickInMenu("tavern","tavern",infinite=True)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(91,276), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        # 4th button: 91,276
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(60,332), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(437,66,(252,77,61))):
             wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
             wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
@@ -521,7 +522,6 @@ class UWTask(FrontTask):
 
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
-            self.tradeRouteBuyFin=False
             while(self.tradeRouteBuyFin==False):
                 # goto buy cities
                 for city in routeObject["buyCities"]:

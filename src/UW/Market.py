@@ -192,7 +192,7 @@ class Market:
             return
 
         while(True):
-            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>25):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[775,78,793,94]))>25):
                 break
             else:
                 time.sleep(60)

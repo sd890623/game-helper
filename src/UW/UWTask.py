@@ -45,7 +45,7 @@ class UWTask(FrontTask):
         FrontTask.__init__(self,hwnd,index)
         hwndObject = getChildHwndByTitleAndParentHwnd("Chrome Legacy Window",hwnd)
         parentWindow = guiUtils.win(hwnd, bor= True)
-        parentWindow.moveWindow(10,10,1327,779)
+        parentWindow.moveWindow(10,10,1327,858)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):

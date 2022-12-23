@@ -128,8 +128,8 @@ class Market:
         if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,688,415]))):
             sellItemsInScreen()
 
-        gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
-        moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
+        gemLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[794,6,971,44])
+        moneyScanArea=[gemLocation[0]+20,gemLocation[1]-1,gemLocation[0]+120,gemLocation[1]+19] if gemLocation else [844,10,955,40]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")

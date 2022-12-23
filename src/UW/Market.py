@@ -227,7 +227,7 @@ class Market:
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
         time=self.uwtask.getTime()
-        if((city in hasBMCities) and (city not in boughtCities) and (time<6 or time>12)):
+        if((city in hasBMCities) and (city not in boughtCities)): #and (time<6 or time>12)):
             return True
 
     def buyInBlackMarket(self,city):
@@ -260,7 +260,7 @@ class Market:
             if(
                  ("intermediatetrade" in productName and "appointment" not in productName) or
                 "teak" in productName or "largegunport" in productName or
-                "specialenhanced" in productName or
+                "specialenhanced" in productName or "silverastrolabe" in productName or
                 # ("beech" in productName) e and "special" not in productName) or "rose" in productName or
                 "improvedmedium" in productName or "lightsha" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)

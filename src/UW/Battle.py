@@ -42,9 +42,9 @@ class Battle:
             x+=1
         
         def backup():
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[73,225,104,242])):
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[628,236,682,259])):
                 self.uwtask.sendNotification(f"Battle finished")
-                wait(lambda: self.instance.clickPointV2(95,217),10)
+                wait(lambda: self.instance.clickPointV2(710,484,10))
 
         doAndWaitUntilBy(lambda: False, lambda: self.uwtask.hasSingleLineWordsInArea("auto",A=[138,80,186,98]),1,1,timeout=10,backupFunc=backup)
 
@@ -66,7 +66,7 @@ class Battle:
                 case 1:
                     #open skill #No 1 Pao Buff, #5 1044,430 #6 1115,425
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1115,425),0.5)
+                    wait(lambda: self.instance.clickPointV2(1044,430),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -80,7 +80,7 @@ class Battle:
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     #No3 ram buff #9:1042,495 #7 1186,421
-                    wait(lambda: self.instance.clickPointV2(1186,421),0.5)
+                    wait(lambda: self.instance.clickPointV2(1042,495),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:

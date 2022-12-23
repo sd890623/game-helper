@@ -49,7 +49,7 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.setRouteOption(9)
+        self.checkForDailyPopup(5)
         self.currentCity = "banda"
 
         self.startTradeRoute()
@@ -306,8 +306,8 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
             time.sleep(delay)
-            if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[620,101,690,129])):
-                wait(lambda: self.simulatorInstance.clickPointV2(1072,135),2)
+            if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[614,167,698,199])):
+                wait(lambda: self.simulatorInstance.clickPointV2(1068,137),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
 
     def checkForTreasure(self):
@@ -436,7 +436,7 @@ class UWTask(FrontTask):
 
     def getTime(self):
         try:
-            timeOCR=self.getSingleLineWordsInArea(A=[1255,213,1296,232], ocrType=2)
+            timeOCR=self.getSingleLineWordsInArea(A=[1253,214,1297,230], ocrType=2)
             return int(timeOCR[0:2])
         except Exception as e:
             print(e)    
@@ -444,8 +444,8 @@ class UWTask(FrontTask):
 
     def healInjury(self,city):
         self.clickInMenu("tavern","tavern",infinite=True)
-        # 4th button: 91,276
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(60,332), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        # 4th button: 91,276 5th 60,332
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(91,276), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(437,66,(252,77,61))):
             wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
             wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
@@ -494,7 +494,7 @@ class UWTask(FrontTask):
         self.sendMessage("UW","reached city of "+cityname)
     
     def useTradeSkill(self):
-        wait(lambda: self.simulatorInstance.clickPointV2(105,511),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(37,480),1)
         if("talker" in self.getSingleLineWordsInArea(A=[710,218,833,246])):
             wait(lambda: self.simulatorInstance.clickPointV2(782,385),1)
             wait(lambda: self.simulatorInstance.clickPointV2(717,479),1)

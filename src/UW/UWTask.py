@@ -306,7 +306,7 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
             time.sleep(delay)
-            if(self.hasArrayStringInAreaSingleLineWords(['main', 'event'],A=[614,167,698,199])):
+            if(self.hasArrayStringInAreaSingleLineWords(['event'],A=[381,101,452,130])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1068,137),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
 

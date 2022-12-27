@@ -7,6 +7,7 @@ from images import *
 class Battle:
     randomPoint=874,666
     lastCallTime=0
+    haveSentBattleFinNotification=False
 
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
@@ -43,8 +44,10 @@ class Battle:
         
         def backup():
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[628,236,682,259])):
-                self.uwtask.sendNotification(f"Battle finished")
-                wait(lambda: self.instance.clickPointV2(710,484,10))
+                wait(lambda: self.instance.clickPointV2(716,478),10)
+                if(self.haveSentBattleFinNotification==False):
+                    self.uwtask.sendNotification(f"Battle finished")
+                    self.haveSentBattleFinNotification=True
 
         doAndWaitUntilBy(lambda: False, lambda: self.uwtask.hasSingleLineWordsInArea("auto",A=[138,80,186,98]),1,1,timeout=10,backupFunc=backup)
 
@@ -66,7 +69,7 @@ class Battle:
                 case 1:
                     #open skill #No 1 Pao Buff, #5 1044,430 #6 1115,425
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1044,430),0.5)
+                    wait(lambda: self.instance.clickPointV2(1115,425),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -79,8 +82,8 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    #No3 ram buff #9:1042,495 #7 1186,421
-                    wait(lambda: self.instance.clickPointV2(1042,495),0.5)
+                    #No3 ram buff #9:1042,495 #7 1186,421 #8 1251,428
+                    wait(lambda: self.instance.clickPointV2(1186,421),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -126,8 +129,8 @@ class Battle:
             if(self.uwtask.hasSingleLineWordsInArea("yes",A=[946,617,1028,656])):
                 wait(lambda: self.instance.clickPointV2(976,636),2)
         doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2,backupFunc=backupFunc)
-        time.sleep(3)
-        self.uwtask.checkForDailyPopup(2)
+        time.sleep(1)
+        self.uwtask.checkForDailyPopup(4)
         if(not self.uwtask.inWater()):
             doAndWaitUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.inWater(),1,1)
 
@@ -247,6 +250,8 @@ class Battle:
             wait(lambda: False,1)
         if(timeout==0):
             wait(lambda: self.instance.clickPointV2(652,695),2)
+            if(self.uwtask.hasSingleLineWordsInArea("lih", A=[63,125,102,151])):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
             return self.findOpponentOrReturn(opponents,town)
 
         if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1085,129,1265,156])):

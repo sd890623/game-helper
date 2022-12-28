@@ -20,12 +20,12 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="ceuta"
-# task.battleRoute()banda
+# task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
 #4 saint<->hindu  #5 saint<->hindu double  #6 everyday BM(india) #7 SEA-carrebean #8Carrebean-NU-SEA triangle
-task.setRouteOption(9)
+task.setRouteOption(8)
 #task.enableSB("ceuta",options=[10,11])
 # task.enableSB("diu",options=[4,4,4])
 

@@ -69,7 +69,7 @@ class Battle:
                 case 1:
                     #open skill #No 1 Pao Buff, #5 1044,430 #6 1115,425
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1115,425),0.5)
+                    wait(lambda: self.instance.clickPointV2(1044,430),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -83,7 +83,7 @@ class Battle:
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     #No3 ram buff #9:1042,495 #7 1186,421 #8 1251,428
-                    wait(lambda: self.instance.clickPointV2(1186,421),0.5)
+                    wait(lambda: self.instance.clickPointV2(1251,428),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -146,7 +146,7 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","guqin","chinesetea"],marketMode=1)
+               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","chinesetea"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):

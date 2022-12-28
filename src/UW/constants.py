@@ -8,8 +8,8 @@
 cityNames=["funchal","faro","lisboa","porto"]
 
 battleCity="ternate"
-#"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",
-opponentNames=["assa","lag","illag","llag","pil","rob"]
+#"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  "lag","illag","llag","pil",
+opponentNames=["lag","illag","llag","pil","assa","rob"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -47,6 +47,15 @@ northEuropeLightSea={
     "buyCities":["saint","stockhol","visby","copenhag","helder","edinburgh","london","dover","antwerp","calais","plymouth","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
+    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
+    "sellCities":[{"name":"kochi","types":None}],
+}
+northEuropeQuick={
+    # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
+    "buyProducts": ["amber","twohandedswor","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
+    "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","plymouth","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
+    "buySupplyCities":[],
+    "dumpCrewCities": [""],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
     "sellCities":[{"name":"kochi","types":None}],
 }
@@ -230,18 +239,34 @@ routeLists=[
     ],
     #8 carrebean<->NorthEu<->SEA
     [
+        #light
         {
-            # obsidianclu golddust cacao
-            "buyProducts": ["gold","opal","topaz","tequila","obsidianclu","tobacco","pineapple","logwood","allspice","gold","emerald","silver","vanilla"],
-            "buyCities":["havana","southside","royal","santiago","porlamar","caracas","willemstad"],
+            # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
+            "buyStrategy":"twice",
             "buySupplyCities":[],
             "dumpCrewCities": [],
-            "supplyCities":["juan","ponta","london"],
-            "sellCities":[{"name":"saint","types":None}],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
         },
-        {**northEuropeHot,
-            "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","toamasina","aceh"],
-            "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
+        # #harvest
+        # {
+        #     # obsidianclu golddust cacao ,"allspice"]
+        #     "buyProducts": ["opal","tequila","pineapple","logwood"],
+        #     "buyCities":["havana","southside","royal","santiago"],
+        #     "buySupplyCities":[],
+        #     "buyStrategy":"twice",
+        #     "dumpCrewCities": [],
+        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["BM"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"hanoi","types":None}],
+        # },
+        {**northEuropeQuick,
+            "supplyCities":["ponta","juan"],
+            "sellCities":[{"name":"southside","types":None}],
+            "buyShip":2,
+            "sellShip":1
         },
         {
             "buyProducts": ["mangosteen","agarwood","ylang-ylang","benzoin","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine"],

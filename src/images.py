@@ -1,7 +1,7 @@
 import cv2
 from cnocr import CnOcr
 
-ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
+ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-'",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
 numberOcr=CnOcr(cand_alphabet="1234567890()-/,",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
 def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     targetImage = cv2.imread(imagePath)

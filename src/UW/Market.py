@@ -136,18 +136,8 @@ class Market:
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
-    def checkMaxBought(self,xDiff,yDiff,beforeBuyQty,mode=0):
-        def commerceCheck():
-            return self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000
-        def battleCheck():
-            return self.uwtask.isPositionColorSimilarTo(372,167,(225,215,204))
-        #74->35, 74->74,  
-        #negative 0->0
-        if(commerceCheck() if mode==0 else battleCheck()):
-            afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
-            if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
-                return True
-        return False
+    def checkMaxBought(self,xDiff,yDiff):
+        return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(372+xDiff,167+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
@@ -171,10 +161,10 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+                # beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
-                if(self.checkMaxBought(xDiff,yDiff,beforeBuyQty,self.marketMode)):
+                if(self.checkMaxBought(xDiff,yDiff)):
                     self.uwtask.print("maxed out")
                     self.uwtask.tradeRouteBuyFin=True
                     break

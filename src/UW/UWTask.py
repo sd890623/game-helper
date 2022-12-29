@@ -595,7 +595,7 @@ class UWTask(FrontTask):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)
-                if(self.getTime()>=0 and self.getTime()<5):
+                if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)
                 if(types!="BM"):
                     self.sellInCity(cityName,simple=True,types=types)

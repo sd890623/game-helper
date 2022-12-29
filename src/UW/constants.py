@@ -35,7 +35,7 @@ northEuropeStd={
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","groningen","amsterda","edinburgh","london","dover","calais","plymouth","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
+    "buyCities":["saint","stockhol","visby","riga","bergen","edinburgh","groningen","amsterda","london","dover","calais","plymouth","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
@@ -239,9 +239,10 @@ routeLists=[
     ],
     #8 NorthEu<->EA
     [
-        {**northEuropeQuick,
+        {**northEuropeStd,
             "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","aceh"],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["BM"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":"None"}], #{"name":"hanoi","types":None}
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["BM"]},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"hanoi","types":"None"}]
         },
         {
             "buyFleet":4,
@@ -286,7 +287,7 @@ routeLists=[
             "sellFleet":2,
             "supplyCities":["macau","aceh","toamasina","cape","bathurst","lisboa","london"],
             "useSkillCity":"london",
-            "sellCities":[{"name":"beck","types":None}],
+            "sellCities":[{"name":"beck","types":["perfume"]},{"name":"gdansk","types":None}],
         },
     ],
     #9 carrebean<->SEA 80area

@@ -460,7 +460,7 @@ class UWTask(FrontTask):
     def changeFleet(self, fleetNo):
         if(not fleetNo):
             return
-        for x in range(0,2):
+        for x in range(0,1):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
             wait(lambda: self.simulatorInstance.clickPointV2(1046,103),1)#ship
             wait(lambda: self.simulatorInstance.clickPointV2(950,86),1)#assign
@@ -469,6 +469,16 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(295,y),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1039,579),1)#apply
             wait(lambda: self.simulatorInstance.clickPointV2(725,459),1)#ok
+            if(self.hasSingleLineWordsInArea("assign", A=[682,569,747,593])):
+                wait(lambda: self.simulatorInstance.clickPointV2(718,584),1)#injury confirm
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
+            
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1124,110), lambda: self.hasSingleLineWordsInArea("manage", A=self.titleArea),2,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1264,683), lambda: self.hasSingleLineWordsInArea("redistribute", A=[575,137,685,158]),1,15)#redistributeCrew
+            wait(lambda: self.simulatorInstance.clickPointV2(402,578),1)#distributeMin
+            wait(lambda: self.simulatorInstance.clickPointV2(958,578),1)#apply
+            wait(lambda: self.simulatorInstance.clickPointV2(721,486),1)#ok
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
 
     def dumpCrew(self):
@@ -516,6 +526,7 @@ class UWTask(FrontTask):
         if("talker" in self.getSingleLineWordsInArea(A=[710,218,833,246])):
             wait(lambda: self.simulatorInstance.clickPointV2(782,385),1)
             wait(lambda: self.simulatorInstance.clickPointV2(717,479),1)
+        
 
 
     def startTradeRoute(self):
@@ -541,7 +552,7 @@ class UWTask(FrontTask):
             self.changeFleet(routeObject.get('buyFleet'))
             self.tradeRouteBuyFin=False
             self.print("出发买东西城市")
-            while(self.tradeRouteBuyFin==False):
+            while(self.tradeRouteBuyFin==False and len(routeObject["buyCities"])>1):
                 # goto buy cities
                 for city in routeObject["buyCities"]:
                     if(self.tradeRouteBuyFin==True):
@@ -564,7 +575,6 @@ class UWTask(FrontTask):
                     for city in routeObject["buySupplyCities"]:
                         self.gotoCity(city,self.allCityList)
 
-            self.changeFleet(routeObject.get('sellFleet'))
             self.print("出发补给城市")
             #go to supply cities
             for index,city in enumerate(routeObject["supplyCities"]):
@@ -572,7 +582,8 @@ class UWTask(FrontTask):
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])),useExtra=useSkill)
                 self.checkSB()
                 if(index==0):
-                    self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
+                    self.changeFleet(routeObject.get('sellFleet'))
+                    self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)
                 self.checkReachCity()
 

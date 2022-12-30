@@ -530,8 +530,6 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(782,385),1)
             wait(lambda: self.simulatorInstance.clickPointV2(717,479),1)
         
-
-
     def startTradeRoute(self):
         routeObjIndex=0
         routeObject=None
@@ -582,8 +580,7 @@ class UWTask(FrontTask):
             self.print("出发补给城市")
             #go to supply cities
             for index,city in enumerate(routeObject["supplyCities"]):
-                useSkill=self.useTradeSkill if (city==routeObject.get("useSkillCity")) else lambda:False
-                self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])),useExtra=useSkill)
+                self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
                 if(index==0):
                     self.changeFleet(routeObject.get('sellFleet'))
@@ -597,7 +594,8 @@ class UWTask(FrontTask):
             for index,cityObject in enumerate(deductedSellBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
-                self.gotoCity(cityName,self.allCityList)
+                useSkill=self.useTradeSkill if (city==routeObject.get("useSkillCity")) else lambda:False
+                self.gotoCity(cityName,self.allCityList,useExtra=useSkill)
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)
                 if(types!="BM"):

@@ -246,13 +246,13 @@ routeLists=[
         },
         {
             "buyFleet":4,
-            "buyProducts": [],
-            "buyCities":["macau"],
+            "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea","chinesepainting","shaoxingwine","easterncannon","goryeoceladon"],
+            "buyCities":["macau","quanzhou","hobe","hangzhou","xi'an","peking","hanyang","jeju"],
+            "deductBuyBM":True,
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":[],
-            "sellCities":[{"name":"quanzhou","types":"BM"},{"name":"hobe","types":"BM"},{"name":"hangzhou","types":"BM"},
-            {"name":"peking","types":"BM"},{"name":"hanyang","types":"BM"},{"name":"jeju","types":"BM"}],
+            "sellCities":[],
         },
         {
             "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea","chinesepainting","shaoxingwine","easterncannon","goryeoceladon"],

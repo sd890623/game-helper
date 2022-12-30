@@ -49,16 +49,13 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
-        self.checkForDailyPopup(5)
+        self.gotoCity('constantinopl',['constantinopl'])
+
         self.currentCity = "banda"
-
-        self.startTradeRoute()
-        self.buyInCity('willemstad', products=['gold',"avocado","sisalhem"])
-
+        self.buyInCity('banda', products=["nutmeg"])
         self.sendNotification(f"You have reached {'mob'}")
         self.waitForCity()
         # self.buyBlackMarket('visby')
-        self.gotoCity('constantinopl',['constantinopl'])
 
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
@@ -206,10 +203,16 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(712,485),2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(24,21),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
         # Destroy excess
-
         if(self.hasSingleLineWordsInArea("discard", A=[1138,558,1208,574])):
             wait(lambda: self.simulatorInstance.clickPointV2(1172,573),1)
             wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
+        #solve overload
+        if(self.hasSingleLineWordsInArea("overload", A=[1076,307,1160,334])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1272,324),lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea), 1,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(460,427),lambda: self.hasSingleLineWordsInArea("managehold", A=[591,137,718,161]), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(890,577),1)#redistribute
+            wait(lambda: self.simulatorInstance.clickPointV2(657,582),1)#ok
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
     def inWater(self):
         return self.hasArrayStringInAreaSingleLineWords(["water","watar","law","wate"], A=self.outSeaWaterTitle)
@@ -554,7 +557,8 @@ class UWTask(FrontTask):
             self.print("出发买东西城市")
             while(self.tradeRouteBuyFin==False and len(routeObject["buyCities"])>1):
                 # goto buy cities
-                for city in routeObject["buyCities"]:
+                deductedBuyBMCities=Market.deductBuyBMFromCities(routeObject["buyCities"])
+                for city in deductedBuyBMCities:
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
@@ -589,9 +593,8 @@ class UWTask(FrontTask):
 
             self.print("出发卖货城市")
             # goto sell cities
-            sellCities=routeObject["sellCities"]
-            deductedBMCities=list(Market.deductBMFromCities(sellCities))
-            for index,cityObject in enumerate(deductedBMCities):
+            deductedSellBMCities=Market.deductSellBMFromCities(routeObject["sellCities"])
+            for index,cityObject in enumerate(deductedSellBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
                 self.gotoCity(cityName,self.allCityList)

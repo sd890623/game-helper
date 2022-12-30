@@ -206,14 +206,24 @@ class Market:
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
 
-    def deductBMFromCities(cities):
+    def deductBuyBMFromCities(routeObject):
+        cities=routeObject["buyCities"]
+        if(not routeObject.get("deductBuyBM")):
+            return cities
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            return (city not in boughtCities)
+        return list(filter(filterCallback, cities))
+
+    def deductSellBMFromCities(cities):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
         def filterCallback(city):
             if(city['types']=="BM" and city['name'] in boughtCities):
                 return False
             return True
-        return filter(filterCallback, cities)
+        return list(filter(filterCallback, cities))
 
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:

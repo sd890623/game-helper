@@ -31,8 +31,10 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
             else:
                 wait(func, seconds)
             if(untilFunc()):
-                return
+                return True
+        return False
     time.sleep(random.randint(0,1))
+    return True
 
 def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30):
     wait(func, 0)
@@ -70,6 +72,9 @@ def getDateTimeString():
     now = datetime.now()
     dt_string = now.strftime("%d %H:%M:%S")
     return("Time: "+dt_string)
+
+def getTimeDiffInSeconds(earlier,later):
+    return (later-earlier).total_seconds()
 
 #specia treatment by 
 def hasOneArrayStringInStringAndNotVeryDifferent(string, array):

@@ -9,7 +9,7 @@ from datetime import date
 marketBuyData={
     "kokkola":["amber"],
     "saint":["chrysoberyl","tourmaline"],
-    "gdansk":["tourmaline","amber"],
+    "gda":["tourmaline","amber"],
     "copenhagen":["amber","chrysoberyl"],
     "oslo":["flax","feather"],
     # "kokkola":[""],
@@ -26,7 +26,9 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "royal","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-"pasay","malacca","palembang","banjarmasin","surabaya","jayakarta"]
+"pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju"
+]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -34,12 +36,14 @@ class Market:
     randomPoint=851,618
     buySellWholeArea=[187,99,949,395]
     maxArea=[1073,126,1137,145]
-    today = date.today().strftime("%d-%m-%Y")
+    today=None
 
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
-    def __init__(self, instance: win, uwtask) -> None:
+    def __init__(self, instance: win, uwtask,marketMode=0) -> None:
         self.instance=instance
         self.uwtask=uwtask
+        self.marketMode=marketMode
+        self.today=date.today().strftime("%d-%m-%Y")
 
     #             x   y    x   y
     #priceAreaSlot1: [337,203,388,221]
@@ -126,12 +130,15 @@ class Market:
         if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,688,415]))):
             sellItemsInScreen()
 
-        gemLocation= self.uwtask.hasImageInScreen("gemBeforeMoney", A=[941,7,1095,41])
-        moneyScanArea=[gemLocation[0]-159,gemLocation[1],gemLocation[0]-5,gemLocation[1]+30] if gemLocation else [833,8,1000,41]
+        gemLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[794,6,971,44])
+        moneyScanArea=[gemLocation[0]+20,gemLocation[1]-1,gemLocation[0]+120,gemLocation[1]+19] if gemLocation else [844,10,955,40]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
+    def checkMaxBought(self,xDiff,yDiff):
+        return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(372+xDiff,167+yDiff,(225,215,204)))
+    
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
         print(products)
@@ -154,17 +161,13 @@ class Market:
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
-                beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
+                # beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
-                #74->35, 74->74,  
-                #negative 0->0
-                if(self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000):
-                    afterBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
-                    if((afterBuyQty==beforeBuyQty and beforeBuyQty!=0) or (afterBuyQty!=beforeBuyQty and afterBuyQty!=0)):
-                        self.uwtask.print("maxed out")
-                        self.uwtask.tradeRouteBuyFin=True
-                        break
+                if(self.checkMaxBought(xDiff,yDiff)):
+                    self.uwtask.print("maxed out")
+                    self.uwtask.tradeRouteBuyFin=True
+                    break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
         wait(lambda: self.instance.clickPointV2(725,617),1)
@@ -181,7 +184,7 @@ class Market:
             return
 
         while(True):
-            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[776,69,791,89]))>25):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[775,78,793,94]))>25):
                 break
             else:
                 time.sleep(60)
@@ -203,20 +206,30 @@ class Market:
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
 
-    def deductBMFromCities(cities):
+    def deductBuyBMFromCities(routeObject):
+        cities=routeObject["buyCities"]
+        if(not routeObject.get("deductBuyBM")):
+            return cities
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            return (city not in boughtCities)
+        return list(filter(filterCallback, cities))
+
+    def deductSellBMFromCities(cities):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
         def filterCallback(city):
             if(city['types']=="BM" and city['name'] in boughtCities):
                 return False
             return True
-        return filter(filterCallback, cities)
+        return list(filter(filterCallback, cities))
 
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
         time=self.uwtask.getTime()
-        if((city in hasBMCities) and (city not in boughtCities) and (time<6 or time>12)):
+        if((city in hasBMCities) and (city not in boughtCities)): #and (time<6 or time>12)):
             return True
 
     def buyInBlackMarket(self,city):
@@ -233,8 +246,8 @@ class Market:
                 wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
             #quick purchase
             wait(lambda: self.instance.clickPointV2(737,599),1)
-            if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
-                wait(lambda: self.instance.clickPointV2(719,482))
+            # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
+            #     wait(lambda: self.instance.clickPointV2(719,482))
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
 
         index=0
@@ -247,10 +260,13 @@ class Market:
             if(not(productName)):
                 continue 
             if(
-                "rose" in productName or ("intermediatetrade" in productName and "appointment" not in productName) or
-                # ("beech" in productName) or ("enhanced" in productName and "special" not in productName) or
-                "improvedmedium" in productName or #"lightsha" in productName or
-                ("gradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
+                 ("intermediatetrade" in productName and "appointment" not in productName) or
+                "teak" in productName or "largegunport" in productName or
+                "specialenhanced" in productName or "silverastrolabe" in productName or
+                "rosewoodmast" in productName or #"beech" in productName
+                "improvedmedium" in productName or "lightsha" in productName or
+                "lareale" in productName or "heavycarrack" in productName or "largeschoo" in productName or
+                ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
                 clickBuy(319+xDiff,184+yDiff)
                 continue
@@ -258,11 +274,11 @@ class Market:
             def ducatCase():
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
-                if("dye" in productName or "emblem" in productName or
-                "novice" in productName or "golden" in productName or "pine" in productName or "wooden" in productName):
+                if("dye" in productName or "emblem" in productName or "lowest" in productName or
+                "golden" in productName or "pine" in productName or "mediumgun" in productName):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
-                if("decoration" in itemType or "cape" in itemType):
+                if("decoration" in itemType or "design" in itemType):
                     return False
                 if(price and price>31):
                     clickBuy(319+xDiff,184+yDiff)

@@ -254,32 +254,8 @@ routeLists=[
             "sellCities":[{"name":"quanzhou","types":"BM"},{"name":"hobe","types":"BM"},{"name":"hangzhou","types":"BM"},
             {"name":"peking","types":"BM"},{"name":"hanyang","types":"BM"},{"name":"jeju","types":"BM"}],
         },
-        # 2: harvest/liquor  3: Light/Dye
-        # #light
-        # {
-        #     "buyFleet":3,
-        #     # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
-        #     "buyProducts": ["opal","tequila","pineapple","logwood"],
-        #     "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
-        #     "buyStrategy":"twice",
-        #     "buySupplyCities":[],
-        #     "dumpCrewCities": [],
-        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
-        # },
-        # #harvest
-        # {
-        #     # obsidianclu golddust cacao ,"allspice"]
-        #     "buyProducts": ["opal","tequila","pineapple"],
-        #     "buyCities":["havana","southside","royal","santiago"],
-        #     "buySupplyCities":[],
-        #     "buyStrategy":"twice",
-        #     "dumpCrewCities": [],
-        #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["BM"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"hanoi","types":None}],
-        # },
         {
-            "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea"],
+            "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea","chinesepainting","shaoxingwine","easterncannon","goryeoceladon"],
             "buyCities":["shuri","hobe","hangzhou","xi'an","hanyang","jeju"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
@@ -291,31 +267,32 @@ routeLists=[
         },
     ],
     #9 carrebean<->SEA 80area
+    # 2: harvest/liquor Nov-May(inclu)  3: Light/Dye
     [
-        #light
-        {
-            # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
-            "buyProducts": ["opal","tequila","pineapple","logwood"],
-            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
-            "buyStrategy":"twice",
-            "buySupplyCities":[],
-            "dumpCrewCities": [],
-            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
-            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
-        },
-        # #harvest
+        # #light
         # {
-        #     # obsidianclu golddust cacao ,"allspice"]
+        #     # obsidianclu golddust cacao "obsidianclu" "topaz" vanilla,"allspice" "tobacco"
         #     "buyProducts": ["opal","tequila","pineapple","logwood"],
-        #     "buyCities":["havana","southside","royal","santiago"],
-        #     "buySupplyCities":[],
+        #     "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
         #     "buyStrategy":"twice",
+        #     "buySupplyCities":[],
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
         #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"hanoi","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
         # },
+        #harvest
+        {
+            # obsidianclu golddust cacao ,"allspice"]
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["havana","southside","royal","santiago"],
+            "buySupplyCities":[],
+            "buyStrategy":"twice",
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+        },
         {
             #,"clove" ,"benzoin"  ,"feathercrafts"  ,"nutmeg"
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],

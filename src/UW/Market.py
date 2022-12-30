@@ -253,7 +253,7 @@ class Market:
                  ("intermediatetrade" in productName and "appointment" not in productName) or
                 "teak" in productName or "largegunport" in productName or
                 "specialenhanced" in productName or "silverastrolabe" in productName or
-                "rose" in productName or #"beech" in productName
+                "rosewoodmast" in productName or #"beech" in productName
                 "improvedmedium" in productName or "lightsha" in productName or
                 "lareale" in productName or "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)

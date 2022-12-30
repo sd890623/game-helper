@@ -606,7 +606,8 @@ class UWTask(FrontTask):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 
             #swap to other route side
-            routeObject=self.routeList[(routeObjIndex+1)%len(self.routeList)]
+            routeObjIndex+=1
+            routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
 
     def battleRoute(self):
         battle=Battle(self.simulatorInstance,self)

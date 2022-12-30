@@ -9,7 +9,7 @@ from datetime import date
 marketBuyData={
     "kokkola":["amber"],
     "saint":["chrysoberyl","tourmaline"],
-    "gdansk":["tourmaline","amber"],
+    "gda":["tourmaline","amber"],
     "copenhagen":["amber","chrysoberyl"],
     "oslo":["flax","feather"],
     # "kokkola":[""],

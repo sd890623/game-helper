@@ -275,7 +275,7 @@ class Market:
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
                 if("dye" in productName or "emblem" in productName or "lowest" in productName or
-                "golden" in productName or "pine" in productName or "mediumgun" in productName):
+                "golden" in productName or "pine" in productName or ("mediumgun" in productName and "enhance" not in productName)):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
                 if("decoration" in itemType or "design" in itemType):

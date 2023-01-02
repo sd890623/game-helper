@@ -199,12 +199,12 @@ class Market:
             #buy area
             #825,647,1095,690
             #try wider 
-        if(self.uwtask.hasSingleLineWordsInArea("es", A=[902,615,1100,658])):
+        if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             #click yes
             wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 
     def deductBuyBMFromRouteObj(routeObject):
         cities=routeObject["buyCities"]

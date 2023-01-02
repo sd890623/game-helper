@@ -5,6 +5,8 @@ from utils import *
 class Sb:
     okButton=653,483
     dismantleButton=59,333
+    noticeTitleArea=[619,234,688,259]
+    noticeOK=708,482
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask) -> None:
         self.instance=instance
@@ -67,8 +69,8 @@ class Sb:
         wait(lambda: self.instance.clickPointV2(buildX,buildY),4)
         #click build
         wait(lambda: self.instance.clickPointV2(747,604),4)
-        if(self.uwtask.hasSingleLineWordsInArea("notice", A=self.uwtask.noticeTitleArea)):
-            wait(lambda: self.instance.clickPointV2(*self.uwtask.noticeOK),2)
+        if(self.uwtask.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea)):
+            wait(lambda: self.instance.clickPointV2(*self.noticeOK),2)
 
         #click yes
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2, 4)

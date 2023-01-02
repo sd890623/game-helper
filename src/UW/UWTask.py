@@ -11,20 +11,18 @@ import random
 from constants import cityNames, routeLists, opponentNames,battleCity
 
 class UWTask(FrontTask):
-    rightCatePoint1=1119,92
-    rightCatePoint2=1171,88
-    rightCatePoint3=1214,88
+    rightCatePoint1=1238,94
+    rightCatePoint2=1290,90
+    rightCatePoint3=1342,88
 
-    titleArea=[49,8,220,50]
-    rightTopTownIcon=1285,25
-    leftTopBackBtn=27,23
-    inTownCityNameArea=[119,18,265,48]
-    inScreenConfirmYesButton=977,639
-    enterCityButton=1075,671
-    outSeaWaterTitle=[74,15,260,46]
-    randomPoint=874,666
-    noticeTitleArea=[619,234,688,259]
-    noticeOK=708,482
+    titleArea=[46,8,238,49]
+    rightTopTownIcon=1402,25
+    leftTopBackBtn=23,26
+    inTownCityNameArea=[121,19,279,48]
+    inScreenConfirmYesButton=1083,794
+    enterCityButton=1202,837
+    outSeaWaterTitle=[79,17,268,47]
+    randomPoint=1084,628
     #VM screen size: 1440x900
 
     simulatorInstance = None
@@ -47,10 +45,14 @@ class UWTask(FrontTask):
         parentWindow.moveWindow(10,10)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
+
     def testTask(self):
+        self.gotoCity('helder',['helder'])
+        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
+        self.saveImageToFile(screenshotBlob)
+        self.restock()
         battle=Battle(self.simulatorInstance,self)
         battle.quickWaitForCity()
-        self.gotoCity('constantinopl',['constantinopl'])
 
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
@@ -151,88 +153,89 @@ class UWTask(FrontTask):
             nextCityName=cityName
         self.print(nextCityName)
 
-        #firstCityarea in list 1088,234,1183,258
-        #9th city rea in 1088,698,1194,723
-        #height between 47.4
-        firstPosi = (1138,256)
-        area=[1113,240,1211,266]
-        timeout=8
+        #firstCityarea in list 1231,245,1333,270
+        #7th city rea in 1231,595,1333,621
+        #height between 58.33
+        firstPosi = (1259,260)
+        area=[1231,245,1333,270]
         index=0
         found=False
-        while(not(found) and timeout>0):
-            timeout-=1
-            yDiff=int(index%8*58.8)
+        while(not(found) and index<8):
+            yDiff=int(index*58.3)
             if(self.hasSingleLineWordsInArea(nextCityName, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
                 found=True
                 break
             index+=1
 
-        if(timeout<=0):
+        if(index==8):
             self.selectCityFromMapAndMove(nextCityName)
-            
         else:
             #click out any message
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index%8*58.8)),0.5)
+            wait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),0.5)
 
         
     def goToHarbor(self):
         self.print("去码头")
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1143,251), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,60)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1245,257), lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),2,60)
 
     def restock(self):
         self.print("补给")
+        okBtn=778,568
+        firstLineArea=[1200,528,1362,552]
+        firstLineArrowBtn=1401,540
         # Repair ship
-        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1078,486,1205,506])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,495),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(986,692),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1149,701),1)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(715,480),3,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(26,25),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
+        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1202,560,1362,589])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1405,574),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1110,857),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1297,859),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),3,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
         #Restore crew
-        while(self.hasSingleLineWordsInArea("notenoughcrew",A=[1078,450,1205,470])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.longerClickPointV2(1240,509),2)
-            wait(lambda: self.simulatorInstance.clickPointV2(714,483),2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,483),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2,backupFunc=lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),timeout=10)
+        while(self.hasSingleLineWordsInArea("notenoughcrew",A=firstLineArea)):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.longerClickPointV2(1350,526),2)
+            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*okBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2,backupFunc=lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),timeout=10)
         #Remove extra crew
-        if(self.hasSingleLineWordsInArea("maxcrew",A=[1078,450,1205,470])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1164,464),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(259,697),2)
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(940,578),2,1)
-            wait(lambda: self.simulatorInstance.clickPointV2(712,485),2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(24,21),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
+        if(self.hasSingleLineWordsInArea("maxcrew",A=firstLineArea)):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(252,861),2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1020,671),2,1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
         # Destroy excess
-        if(self.hasSingleLineWordsInArea("discard", A=[1138,558,1208,574])):
-            wait(lambda: self.simulatorInstance.clickPointV2(1172,573),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
+        if(self.hasSingleLineWordsInArea("discard", A=[1235,652,1306,670])):
+            wait(lambda: self.simulatorInstance.clickPointV2(1258,657),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),1)
         #solve overload
-        while(self.hasSingleLineWordsInArea("overload", A=[1076,307,1160,334])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1272,324),lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea), 1,2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(460,427),lambda: self.hasSingleLineWordsInArea("managehold", A=[591,137,718,161]), 1,2)
-            wait(lambda: self.simulatorInstance.clickPointV2(890,577),1)#redistribute
-            wait(lambda: self.simulatorInstance.clickPointV2(657,582),1)#ok
+        while(self.hasSingleLineWordsInArea("overload", A=[1201,393,1284,413])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1402,403),lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea), 1,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(517,435),lambda: self.hasSingleLineWordsInArea("managehold", A=[654,214,787,237]), 1,2)
+            wait(lambda: self.simulatorInstance.clickPointV2(964,664),1)#redistribute
+            wait(lambda: self.simulatorInstance.clickPointV2(725,672),1)#ok
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
     def inWater(self):
         return self.hasArrayStringInAreaSingleLineWords(["water","watar","law","wate"], A=self.outSeaWaterTitle)
 
     def depart(self):
+        departBtn=1287,655
         def clickAndStock():
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
             self.restock()
 
         def clickAndStockBackup():
             self.checkForDailyPopup()
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(979,538),2,0.2)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
             if(self.hasSingleLineWordsInArea("harbor", A=self.titleArea)):
                 self.restock()
-                self.simulatorInstance.clickPointV2(1183,568)
+                self.simulatorInstance.clickPointV2(*departBtn)
 
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1183,568), lambda: self.inWater(), 4,2, backupFunc=clickAndStockBackup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,2, backupFunc=clickAndStockBackup)
         self.checkForDailyPopup(5)
 
     def selectNextCity(self):
@@ -242,14 +245,14 @@ class UWTask(FrontTask):
 
     def selectCityFromMapAndMove(self,cityname):
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1277,193), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(38,89),2,0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(86,77),2,0)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,97),2,0)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),2,0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,107),2,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(651,699), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15)
 
     def checkForDisaster(self):
         #click disaster icon
@@ -269,11 +272,11 @@ class UWTask(FrontTask):
                 battle.doBattle()
 
     def clickEnterCityButton(self):
-        doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(655,330),2,0.5)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),2,0.5)
     
     def checkBeforeCity(self):
-        if(self.hasSingleLineWordsInArea("adjacent",A=[1225,264,1297,289]) and self.getNumberFromSingleLineInArea(A=[1049,132,1085,146])==0):
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1169,258),2,0.5)
+        if(self.hasSingleLineWordsInArea("adjacent",A=[1360,273,1430,293]) and self.getNumberFromSingleLineInArea(A=[1174,133,1197,150])==0):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1243,259),2,0.5)
     
     def inJourneyTask(self):
         # self.checkForDisaster()
@@ -305,9 +308,9 @@ class UWTask(FrontTask):
         self.clickEnterCityButton()
 
     def checkForGiftAndReceive(self):
-        if(self.isPositionColorSimilarTo(1078,9,(245, 70, 60))):
-            wait(lambda: self.simulatorInstance.clickPointV2(1068,25),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(346,572),1)
+        if(self.isPositionColorSimilarTo(1201,10,(251,61,52))):
+            wait(lambda: self.simulatorInstance.clickPointV2(1183,25),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(398,661),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
 
     def checkForDailyPopup(self,delay=0):

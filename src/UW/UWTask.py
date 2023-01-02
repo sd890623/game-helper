@@ -49,6 +49,8 @@ class UWTask(FrontTask):
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):
+        battle=Battle(self.simulatorInstance,self)
+        battle.quickWaitForCity()
         self.gotoCity('constantinopl',['constantinopl'])
 
         self.currentCity = "banda"
@@ -207,7 +209,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(1172,573),1)
             wait(lambda: self.simulatorInstance.clickPointV2(722,516),1)
         #solve overload
-        if(self.hasSingleLineWordsInArea("overload", A=[1076,307,1160,334])):
+        while(self.hasSingleLineWordsInArea("overload", A=[1076,307,1160,334])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1272,324),lambda: self.hasSingleLineWordsInArea("supply", A=self.titleArea), 1,2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(460,427),lambda: self.hasSingleLineWordsInArea("managehold", A=[591,137,718,161]), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(890,577),1)#redistribute
@@ -452,7 +454,7 @@ class UWTask(FrontTask):
     def healInjury(self,city):
         self.clickInMenu("tavern","tavern",infinite=True)
         # 4th button: 91,276 5th 60,332
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(91,276), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(60,332), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(437,66,(252,77,61))):
             wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
             wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
@@ -538,6 +540,7 @@ class UWTask(FrontTask):
             if(self.currentCity in obj["buyCities"]):  #or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
                 routeObjIndex=index
                 routeObject=obj
+                break
         if(routeObject==None):
             self.print("没有在长途城市列表中，中断")
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint))
@@ -555,12 +558,12 @@ class UWTask(FrontTask):
             self.print("出发买东西城市")
             while(self.tradeRouteBuyFin==False and len(routeObject["buyCities"])>1):
                 # goto buy cities
-                deductedBuyBMCities=Market.deductBuyBMFromCities(routeObject["buyCities"])
+                deductedBuyBMCities=Market.deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
                     if(self.tradeRouteBuyFin==True):
                         break
                     self.gotoCity(city,self.allCityList)
-                    if(self.getTime()>=0 and self.getTime()<5):
+                    if(self.getTime()>=0 and self.getTime()<6):
                         # no BM in buy if twice strategy
                         if(routeObject.get("buyStrategy")!= "twice"):
                             self.buyBlackMarket(city)
@@ -584,6 +587,7 @@ class UWTask(FrontTask):
                 self.checkSB()
                 if(index==0):
                     self.changeFleet(routeObject.get('sellFleet'))
+                if(index in [0,1]):
                     self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)
                 self.checkReachCity()
@@ -594,7 +598,7 @@ class UWTask(FrontTask):
             for index,cityObject in enumerate(deductedSellBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
-                useSkill=self.useTradeSkill if (city==routeObject.get("useSkillCity")) else lambda:False
+                useSkill=self.useTradeSkill if (cityName==routeObject.get("useSkillCity")) else lambda:False
                 self.gotoCity(cityName,self.allCityList,useExtra=useSkill)
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)

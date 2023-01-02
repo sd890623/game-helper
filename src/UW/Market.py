@@ -27,7 +27,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "royal","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","xi'an"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -206,7 +206,7 @@ class Market:
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(895,570),6, 0.5)
 
-    def deductBuyBMFromCities(routeObject):
+    def deductBuyBMFromRouteObj(routeObject):
         cities=routeObject["buyCities"]
         if(not routeObject.get("deductBuyBM")):
             return cities

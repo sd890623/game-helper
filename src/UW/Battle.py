@@ -74,16 +74,16 @@ class Battle:
                     time.sleep(5)
                 case 2:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
-                    #open skill eva Buff #No 8 1249,430 #9 1042,495
+                    #open skill eva Buff #No 8 1249,430 #9 1042,495 #10 1116,501
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1042,495),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),4)
+                    wait(lambda: self.instance.clickPointV2(1116,501),0.5)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 3:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     #No3 ram buff #9:1042,495 #7 1186,421 #8 1251,428
-                    wait(lambda: self.instance.clickPointV2(1251,428),0.5)
+                    wait(lambda: self.instance.clickPointV2(1186,421),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -94,9 +94,9 @@ class Battle:
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     # time.sleep(4)
                 case 5:
-                    #open skill #No 8 atk Buff
+                    #open skill  atk Buff #No 8 1249,430 #9 1042,498 #7 1185,434
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1249,430),0.5)
+                    wait(lambda: self.instance.clickPointV2(1185,434),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:
@@ -146,7 +146,7 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","chinesetea"],marketMode=1)
+               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begoniaflower","sweetolive","azalea"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):
@@ -178,14 +178,13 @@ class Battle:
             #More checks
             if(self.uwtask.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(813,436),5,10)
-            if(self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714])):
-                battle=Battle(self.instance,self)
-                battle.suppressBattle()
+            if(self.uwtask.hasSingleLineWordsInArea("auto",A=[138,80,186,98]) or self.uwtask.hasSingleLineWordsInArea("ok", A=[632,691,680,714]) or self.uwtask.hasSingleLineWordsInArea("close", A=[632,691,680,714])):
+                self.suppressBattle()
             time.sleep(10)
             wait(lambda: self.uwtask.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.instance.rightClickPointV2(*self.randomPoint),4,10)
         
-        continueWithUntilByWithBackup(lambda: inJourneyTask(), lambda: self.uwtask.inCityList(cityList), 1, timeout=90,notifyFunc=lambda: self.uwtask.print("not found, wait for 4s"),backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: inJourneyTask(), lambda: self.uwtask.inCityList(cityList), 1, timeout=20,notifyFunc=lambda: self.uwtask.print("not found, wait for 4s"),backupFunc=backupFunc)
         self.uwtask.print("click twice")
         self.uwtask.clickEnterCityButton()
 

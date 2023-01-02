@@ -29,13 +29,32 @@ def getWindowHwndObjectById(id):
             className = win32gui.GetClassName(hwnd)
             return {"hwnd": hwnd, "title": text, "className": className}
     return None
-
+def getChildHwndByIdAndParentHwnd(childId,parentHwnd):
+    hWnd_child_list = []
+    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
+    for hwnd in hWnd_child_list:
+        if (childId == hwnd):
+            className = win32gui.GetClassName(hwnd)
+            text=win32gui.GetWindowText(hwnd)
+            dimen=win32gui
+            return {"hwnd": hwnd, "title": text, "className": className}    
+    return None
 def getChildHwndByTitleAndParentHwnd(childTitle,parentHwnd):
     hWnd_child_list = []
     win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
     for hwnd in hWnd_child_list:
         text = win32gui.GetWindowText(hwnd)
         if (text == childTitle):
+            className = win32gui.GetClassName(hwnd)
+            return {"hwnd": hwnd, "title": text, "className": className}    
+    return None
+
+def getChildHwndByClassAndParentHwnd(childClass,parentHwnd):
+    hWnd_child_list = []
+    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
+    for hwnd in hWnd_child_list:
+        text = win32gui.GetClassName(hwnd)
+        if (text == childClass):
             className = win32gui.GetClassName(hwnd)
             return {"hwnd": hwnd, "title": text, "className": className}    
     return None

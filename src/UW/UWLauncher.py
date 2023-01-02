@@ -4,7 +4,7 @@ from windows import *
 from UWTask import UWTask
 from utils import isWorkHour
 
-allWindowsWithTitle = getAllWindowsWithTitle("MEDIA-PC - Google Chrome")
+allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
 if (len(allWindowsWithTitle) > 0):
     hwndObject = allWindowsWithTitle[0]
 
@@ -12,7 +12,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-#task.testTask()
+task.testTask()
 
 #todo
 

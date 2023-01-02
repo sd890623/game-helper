@@ -117,7 +117,11 @@ class win ():#line:35
 
         return OOO00OOOOO0OO0O00
 
-    def moveWindow(self,x,y,width,height):
+    def moveWindow(self,x,y,width=0,height=0):
+        l,t,r,b = win32gui.GetWindowRect(self.hwnd)
+        if(width==0 and height==0):
+            width=r-l
+            height=b-t
         win32gui.MoveWindow(self.hwnd,x,y,width,height,True)
         
     def window_capture (self ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54

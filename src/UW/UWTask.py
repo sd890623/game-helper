@@ -25,8 +25,7 @@ class UWTask(FrontTask):
     randomPoint=874,666
     noticeTitleArea=[619,234,688,259]
     noticeOK=708,482
-    #client screen size: 1280x720
-    #remote control setup size:
+    #VM screen size: 1440x900
 
     simulatorInstance = None
     syncBetweenUsers = True
@@ -43,9 +42,9 @@ class UWTask(FrontTask):
 
     def __init__(self, hwnd, index):
         FrontTask.__init__(self,hwnd,index)
-        hwndObject = getChildHwndByTitleAndParentHwnd("Chrome Legacy Window",hwnd)
+        hwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
         parentWindow = guiUtils.win(hwnd, bor= True)
-        parentWindow.moveWindow(10,10,1327,858)
+        parentWindow.moveWindow(10,10)
         self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
 
     def testTask(self):

@@ -284,7 +284,7 @@ routeLists=[
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
         #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"banda","types":None}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"ambon","types":None}],
         # },
         #harvest
         {

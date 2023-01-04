@@ -35,8 +35,10 @@ coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBu
 class Market:
     randomPoint=851,618
     buySellWholeArea=[187,99,949,395]
-    maxArea=[1073,126,1137,145]
     today=None
+    transactClick=307,177
+    transactOKBtn=781,700
+    purchaseBtn=55,90
 
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask,marketMode=0) -> None:
@@ -56,25 +58,28 @@ class Market:
         end=False
         buyList=[]
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
 
         #Loop through and find what can be bought
         while (index<12 and end==False):
-            xDiff=int(index%3*261.5)
-            yDiff=int(index/3)*131
+            xDiff=int(index%4*225.5)
+            yDiff=int(index/4)*134
             index+=1
             #print([176+xDiff,200+yDiff,286+xDiff,235+yDiff])
             #red check area 260,203,346,221
-            if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
-                continue
-            #244,219,280,237
+            # if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[286+xDiff,211+yDiff,392+xDiff,232+yDiff])):
+            #     continue   
             # print([338+xDiff,203+yDiff,389+xDiff,221+yDiff])
-            price = self.uwtask.getNumberFromSingleLineInArea(A=[338+xDiff,203+yDiff,389+xDiff,221+yDiff])
+            ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarketBuy", A=[299+xDiff,215+yDiff,370+xDiff,230+yDiff])
+            moneyScanArea=[ducatIconLocation[0]+13,ducatIconLocation[1],ducatIconLocation[0]+63,ducatIconLocation[1]+15] if ducatIconLocation else [299+xDiff,215+yDiff,370+xDiff,230+yDiff]
+            price=self.uwtask.getNumberFromSingleLineInArea(A=moneyScanArea)
             #269,137,326,155
             #logic re food type
+            #typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
+
             if(not(price)):
                 continue
-            if(price>300 and self.uwtask.hasSingleLineWordsInArea("food", A=[269+xDiff,137+yDiff,326+xDiff,155+yDiff])):
+            if(price>300 and self.uwtask.hasSingleLineWordsInArea("food", A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])):
                 continue
 
             buyList.append((index-1, price))
@@ -85,62 +90,62 @@ class Market:
 
         #Click from list and buy
         for buyObj in buyList:
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=self.maxArea)):
-                break
             index=buyObj[0]
-            xDiff=int(index%3*261.5)
-            yDiff=int(index/3)*131
+            if(self.checkMaxBought(xDiff,yDiff)):
+                break
+            xDiff=int(index%4*225.5)
+            yDiff=int(index/4)*134
             self.uwtask.print("buy item "+str(index))
-            wait(lambda: self.instance.clickPointV2(337+xDiff,206+yDiff),0.2,disableWait=True)
+            wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
         
-        wait(lambda: self.instance.clickPointV2(1212,693),1)
-        wait(lambda: self.instance.clickPointV2(725,617),5)
+        wait(lambda: self.instance.clickPointV2(1306,845),1)
+        wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
 
     def sellGoodsWithMargin(self,simple=False,types=None):
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(47,149), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(46,153), lambda: self.uwtask.hasSingleLineWordsInArea("sel", A=self.uwtask.titleArea),2,2)
         def sellItemsInScreen():
             #Loop through and find what can be bought
-            #xDiff 261
-            #yDiff 131
+            #xDiff 225.5
+            #yDiff 134
             index=0
             while (index<13):
-                xDiff=int(index%3*261)
-                yDiff=int(index/3)*130
+                xDiff=int(index%4*225.5)
+                yDiff=int(index/4)*134
                 index+=1
                 if(simple==False):
-                    # print([318+xDiff,206+yDiff,398+xDiff,226+yDiff]])
-                    if(self.uwtask.hasSingleLineWordsInArea("-", A=[318+xDiff,206+yDiff,398+xDiff,226+yDiff], ocrType=2)):
+                    # print([310+xDiff,214+yDiff,397+xDiff,230+yDiff])
+                    if(self.uwtask.hasSingleLineWordsInArea("-", A=[310+xDiff,214+yDiff,397+xDiff,230+yDiff], ocrType=2)):
                         continue
                 if(isArray(types)):
-                    typeOcr=self.uwtask.getSingleLineWordsInArea(A=[271+xDiff,137+yDiff,333+xDiff,155+yDiff])
+                    typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
                     if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
-                        wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
+                        wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
                 if(types == None):
-                    wait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),0.2,disableWait=True)
-            wait(lambda: self.instance.clickPointV2(1212,693),1)
-            wait(lambda: self.instance.clickPointV2(725,617),5)
+                    wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
+            wait(lambda: self.instance.clickPointV2(1306,845),1)
+            wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),5)
             self.bargin()
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
 
         self.uwtask.print("sell items")
         sellItemsInScreen()
-        if(not(self.uwtask.hasSingleLineWordsInArea("noitemstosell", A=[491,387,688,415]))):
-            sellItemsInScreen()
+        # if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
+        #     sellItemsInScreen()
 
-        gemLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[794,6,971,44])
-        moneyScanArea=[gemLocation[0]+20,gemLocation[1]-1,gemLocation[0]+120,gemLocation[1]+19] if gemLocation else [844,10,955,40]
+        ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[941,7,1089,50])
+        moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+118,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")
 
     def checkMaxBought(self,xDiff,yDiff):
-        return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(372+xDiff,167+yDiff,(225,215,204)))
+        return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(62,89), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
         print(products)
         boughtTick=0
 
@@ -150,27 +155,26 @@ class Market:
         #Loop through and find what can be bought
         self.uwtask.print("buy items")
         while (index<9):
-            xDiff=int(index%3*261)
-            yDiff=int(index/3)*130
+            xDiff=int(index%4*225.5)
+            yDiff=int(index/4)*134
             index+=1
-            #print([176+xDiff,200+yDiff,286+xDiff,235+yDiff])
             #red check area 260,203,346,221
-            if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[260+xDiff,203+yDiff,346+xDiff,221+yDiff])):
-                continue   
-            productName=self.uwtask.getSingleLineWordsInArea(A=[267+xDiff,114+yDiff,419+xDiff,137+yDiff])
+            # if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[286+xDiff,211+yDiff,392+xDiff,232+yDiff])):
+            #     continue   
+            productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,414+xDiff,139+yDiff])
             if(not(productName)):
                 continue
             if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
                 # beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(330+xDiff,210+yDiff),2,0.2,disableWait=True)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
                 if(self.checkMaxBought(xDiff,yDiff)):
                     self.uwtask.print("maxed out")
                     self.uwtask.tradeRouteBuyFin=True
                     break
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1212,693),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[698,607,737,624]),1,1,timeout=5)
-        wait(lambda: self.instance.clickPointV2(725,617),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1306,845),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
+        wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
@@ -184,7 +188,7 @@ class Market:
             return
 
         while(True):
-            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[775,78,793,94]))>25):
+            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96]))>25):
                 break
             else:
                 time.sleep(60)

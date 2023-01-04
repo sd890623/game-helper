@@ -6,15 +6,15 @@ from Messager import Messager
 import math
 
 class FrontTask(object):
-    hwnd = None
     simulatorInstance = None
     index = None
     syncBetweenUsers = True
     def __init__(self, hwnd, index):
-        self.hwnd = hwnd
+        childHwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
+        parentWindow = guiUtils.win(hwnd, bor= True)
+        parentWindow.moveWindow(10,10)
+        self.simulatorInstance = guiUtils.win(childHwndObject["hwnd"],parentHwnd=hwnd, bor= True)
         self.index = index
-        hwndObject = getWindowHwndObjectById(hwnd)
-        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
         self.messager=Messager()
 
     def print(self,text):

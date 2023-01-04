@@ -5,7 +5,6 @@ from images import *
 from utils import *
 from Market import Market
 from Sb import Sb
-import guiUtils
 import time
 import random
 from constants import cityNames, routeLists, opponentNames,battleCity
@@ -18,7 +17,7 @@ class UWTask(FrontTask):
     titleArea=[46,8,238,49]
     rightTopTownIcon=1402,25
     leftTopBackBtn=23,26
-    inTownCityNameArea=[121,19,279,48]
+    inTownCityNameArea=[121,20,262,46]
     inScreenConfirmYesButton=1083,794
     enterCityButton=1202,837
     outSeaWaterTitle=[79,17,268,47]
@@ -35,18 +34,11 @@ class UWTask(FrontTask):
     waitForCityTimeOut=800
     routeOption=0
     routeList=[]
-    allCityList=[]
+    allCityList=cityNames
     battleMode="run"
 
-    def __init__(self, hwnd, index):
-        FrontTask.__init__(self,hwnd,index)
-        hwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
-        parentWindow = guiUtils.win(hwnd, bor= True)
-        parentWindow.moveWindow(10,10)
-        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
-
-
     def testTask(self):
+        self.basicMarket()
         self.gotoCity('helder',['helder'])
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         self.saveImageToFile(screenshotBlob)
@@ -317,8 +309,8 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
             time.sleep(delay)
-            if(self.hasArrayStringInAreaSingleLineWords(['event'],A=[381,101,452,130])):
-                wait(lambda: self.simulatorInstance.clickPointV2(1068,137),2)
+            if(self.hasArrayStringInAreaSingleLineWords(['event'],A=[440,176,512,207])):
+                wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
 
     def checkForTreasure(self):
@@ -332,7 +324,7 @@ class UWTask(FrontTask):
         market=Market(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)  
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1283,295), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
         market.sellGoodsWithMargin()
@@ -349,7 +341,7 @@ class UWTask(FrontTask):
         market=Market(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1249,295), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #sell
         market.sellGoodsWithMargin(simple,types)
@@ -366,7 +358,7 @@ class UWTask(FrontTask):
         market=Market(self.simulatorInstance, self,marketMode=marketMode)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1140,281), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1253,294), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
 
         #buy
         if(buyStrategy=="twice"):
@@ -434,15 +426,14 @@ class UWTask(FrontTask):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
 
     def startJourney(self):
+        self.checkSB()
         self.goToHarbor()
-        # self.restock()
         self.depart()
         self.selectNextCity()
         self.waitForCity()
         self.basicMarket()
         self.checkReachCity()
-        self.checkSB()
-        self.buyBlackMarket(self.currentCity)
+        #self.buyBlackMarket(self.currentCity)
         time.sleep(random.randint(3,5))
 
     def getTime(self):

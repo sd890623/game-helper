@@ -73,17 +73,17 @@ class Battle:
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
-                    # wait(lambda: self.instance.clickPointV2(1257,443),3)
-                    #open skill eva Buff #No 8 1249,430 #9 1042,495 #10 1116,501
-                    wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1116,501),0.5)
-                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+                    wait(lambda: self.instance.clickPointV2(1257,443),3)
+                    # #open skill eva Buff #No 8 1249,430 #9 1042,495 #10 1116,501
+                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
+                    # wait(lambda: self.instance.clickPointV2(1116,501),0.5)
+                    # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 3:
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                     #open skill 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     #No3 ram buff #9:1042,495 #7 1186,421 #8 1251,428
-                    wait(lambda: self.instance.clickPointV2(1186,421),0.5)
+                    wait(lambda: self.instance.clickPointV2(1251,428),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -96,7 +96,7 @@ class Battle:
                 case 5:
                     #open skill  atk Buff #No 8 1249,430 #9 1042,498 #7 1185,434
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1185,434),0.5)
+                    wait(lambda: self.instance.clickPointV2(1249,430),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                     # wait(lambda: self.instance.clickPointV2(1257,443),3)
                 case 6:

@@ -111,7 +111,7 @@ class Market:
             #xDiff 225.5
             #yDiff 134
             index=0
-            while (index<13):
+            while (index<12):
                 xDiff=int(index%4*225.5)
                 yDiff=int(index/4)*134
                 index+=1
@@ -194,15 +194,9 @@ class Market:
                 time.sleep(60)
                 wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
 
-
         self.buyProductsInMarket(products)
 
     def bargin(self):
-            #sell area
-            #846,648,1095,690
-            #buy area
-            #825,647,1095,690
-            #try wider 
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             #click yes
@@ -232,36 +226,36 @@ class Market:
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
-        time=self.uwtask.getTime()
+        # time=self.uwtask.getTime()
         if((city in hasBMCities) and (city not in boughtCities)): #and (time<6 or time>12)):
             return True
 
     def buyInBlackMarket(self,city):
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(94,209), lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(74,210), lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
 
         #must rule  rosewood must,
         #ducat rule  value >400000 no, 
         #else gem
         def clickBuy(x,y):
             wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
-            wait(lambda: self.uwtask.clickWithImage("calculator", A=[732,454,793,530]),0,disableWait=True)
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=[874,482,939,515])):
-                wait(lambda: self.instance.clickPointV2(907,502),0.2,disableWait=True)
-                wait(lambda: self.instance.clickPointV2(1006,470),0.2,disableWait=True)
+            wait(lambda: self.uwtask.clickWithImage("calculator", A=[801,547,860,663]),0,disableWait=True)
+            if(self.uwtask.hasSingleLineWordsInArea("max", A=[941,567,1022,602])):
+                wait(lambda: self.instance.clickPointV2(972,584),0.2,disableWait=True)
+                wait(lambda: self.instance.clickPointV2(1078,564),0.2,disableWait=True)
             #quick purchase
-            wait(lambda: self.instance.clickPointV2(737,599),1)
+            wait(lambda: self.instance.clickPointV2(765,689),1)
             # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
             #     wait(lambda: self.instance.clickPointV2(719,482))
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(94,209),2,0.2,disableWait=True)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(74,210),2,0.2,disableWait=True)
 
         index=0
         self.uwtask.print("buy BM items")
-        while (index<12):
-            xDiff=int(index%3*262)
-            yDiff=int(int(index/3)*130.5)
+        while (index<20):
+            xDiff=int(index%4*225.3)
+            yDiff=int(int(index/4)*134)
             index+=1
-            productName=self.uwtask.getMultiLineWordsInArea(A=[268+xDiff,113+yDiff,449+xDiff,155+yDiff])
-            if(not(productName)):
+            productName=self.uwtask.getMultiLineWordsInArea(A=[274+xDiff,119+yDiff,417+xDiff,161+yDiff])
+            if(not(productName) or productName==''):
                 continue 
             if(
                  ("intermediatetrade" in productName and "appointment" not in productName) or
@@ -269,25 +263,25 @@ class Market:
                 "specialenhanced" in productName or "silverastrolabe" in productName or
                 "rosewoodmast" in productName or #"beech" in productName
                 "improvedmedium" in productName or "lightsha" in productName or
-                "lareale" in productName or "heavycarrack" in productName or "largeschoo" in productName or
+                "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
-                clickBuy(319+xDiff,184+yDiff)
+                clickBuy(267+xDiff,165+yDiff)
                 continue
 
             def ducatCase():
                 #Ducat case
-                price=self.uwtask.getNumberFromSingleLineInArea(A=[275+xDiff,208+yDiff,384+xDiff,225+yDiff])
+                price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
                 if("dye" in productName or "emblem" in productName or "lowest" in productName or
                 "golden" in productName or "pine" in productName or ("mediumgun" in productName and "enhance" not in productName)):
                     return False
-                itemType=self.uwtask.getSingleLineWordsInArea(A=[266+xDiff,134+yDiff,396+xDiff,159+yDiff])
+                itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
                 if("decoration" in itemType or "design" in itemType):
                     return False
                 if(price and price>31):
-                    clickBuy(319+xDiff,184+yDiff)
+                    clickBuy(267+xDiff,165+yDiff)
             
-            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[281+xDiff,203+yDiff,364+xDiff,228+yDiff])
+            gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[274+xDiff,213+yDiff,351+xDiff,231+yDiff])
             if(gemLocation):
                 # gemInBM2 pixel: 11x10
                 gemScanArea=[gemLocation[0]-5,gemLocation[1]-5,gemLocation[0]+11+5,gemLocation[1]+10+5]
@@ -316,7 +310,7 @@ class Market:
                     return
                 recursiveVisitBM()
                 
-            if(not self.uwtask.hasSingleLineWordsInArea("black", A=[23,193,141,225])):
+            if(not self.uwtask.hasSingleLineWordsInArea("black", A=[19,198,82,231])):
                 timeout+=1
                 if(timeout>5):
                     return

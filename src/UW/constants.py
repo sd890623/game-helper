@@ -5,9 +5,9 @@
 # portgual reputation
 #cityNames=["funchal","faro","lisboa","porto"]
 
-cityNames=["funchal","faro","lisboa","porto"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="hanyang"
+battleCity="naples"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  
 opponentNames=["lag","illag","llag","pil","assa","rob"]
 

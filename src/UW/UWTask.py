@@ -9,11 +9,6 @@ import time
 import random
 from constants import cityNames, routeLists, opponentNames,battleCity
 
-#todo-list
-#      healInjury   if(self.isPositionColorSimilarTo(447,68,(252,77,61))):
-# change fleet             if(self.hasSingleLineWordsInArea("assign", A=[682,569,747,593])):
-# useSkill         if("talker" in self.getSingleLineWordsInArea(A=[710,218,833,246])):
-
 class UWTask(FrontTask):
     rightCatePoint1=1238,94
     rightCatePoint2=1290,90
@@ -44,7 +39,7 @@ class UWTask(FrontTask):
 
     def testTask(self):
         # self.simulatorInstance.bringWindowToFront()
-        self.gotoCity('banda',["banda"])
+        self.buyInCity(["hobe"],["gardenia","begonia","sweetolive","azalea"])
         self.restock()
         battle=Battle(self.simulatorInstance,self)
         battle.quickWaitForCity()
@@ -448,7 +443,7 @@ class UWTask(FrontTask):
         self.clickInMenu("tavern","tavern",infinite=True)
         # 4th button: 58,279 5th 60,342
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(60,342), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
-        if(self.isPositionColorSimilarTo(447,68,(252,77,61))):
+        if(self.isPositionColorSimilarTo(448,68,(253,74,54))):
             # wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
             wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1176,499),1)
@@ -467,8 +462,8 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(343,y),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1127,667),1)#apply
             wait(lambda: self.simulatorInstance.clickPointV2(769,534),1)#ok
-            if(self.hasSingleLineWordsInArea("assign", A=[682,569,747,593])):
-                wait(lambda: self.simulatorInstance.clickPointV2(718,584),1)#injury confirm
+            if(self.hasSingleLineWordsInArea("assign", A=[748,655,813,678])):
+                wait(lambda: self.simulatorInstance.clickPointV2(785,666),1)#injury confirm
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
             
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
@@ -521,9 +516,9 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if("talker" in self.getSingleLineWordsInArea(A=[710,218,833,246])):
-            wait(lambda: self.simulatorInstance.clickPointV2(782,385),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(717,479),1)
+        if("talker" in self.getSingleLineWordsInArea(A=[838,298,895,319])):
+            wait(lambda: self.simulatorInstance.clickPointV2(843,453),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
         
     def startTradeRoute(self):
         routeObjIndex=0
@@ -580,6 +575,8 @@ class UWTask(FrontTask):
                 self.checkSB()
                 if(index==0):
                     self.changeFleet(routeObject.get('sellFleet'))
+                if(self.getTime()>=0 and self.getTime()<6):
+                    self.buyBlackMarket(cityName)
                 if(index in [0,1]):
                     self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)

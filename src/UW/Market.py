@@ -144,7 +144,7 @@ class Market:
     def checkMaxBought(self,xDiff,yDiff):
         if(self.marketMode==1):
             return self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204))
-        return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
+        return (self.uwtask.getNumberFromSingleLineInArea(A=[1300,105,1353,126])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
@@ -166,7 +166,7 @@ class Market:
             productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,414+xDiff,139+yDiff])
             if(not(productName)):
                 continue
-            if(hasOneArrayStringInStringAndNotVeryDifferent(productName, products)):
+            if(stringhasStartsWithOneArrayString(productName, products)):
                 # beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),2,0.2,disableWait=True)
                 boughtTick+=1
@@ -256,11 +256,12 @@ class Market:
             xDiff=int(index%4*225.3)
             yDiff=int(int(index/4)*134)
             index+=1
-            productName=self.uwtask.getMultiLineWordsInArea(A=[274+xDiff,119+yDiff,417+xDiff,161+yDiff])
+            productName=self.uwtask.getMultiLineWordsInArea(A=[275+xDiff,119+yDiff,415+xDiff,183+yDiff])
             if(not(productName) or productName==''):
                 continue 
             if(
                  ("intermediatetrade" in productName and "appointment" not in productName) or
+                 productName.startswith("intermediatecombatappointment") or
                 "teak" in productName or "largegunport" in productName or
                 "specialenhanced" in productName or "silverastrolabe" in productName or
                 "rosewoodmast" in productName or #"beech" in productName

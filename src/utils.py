@@ -86,6 +86,15 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
             found=True
     return found
 
+def stringhasStartsWithOneArrayString(string, array):
+    if(not(string)):
+        return False
+    found=False
+    for stringInArray in array:
+        if(string.startswith(stringInArray)):
+            found=True
+    return found
+
 def hasOneArrayStringInString(string, array):
     if(not(string)):
         return False

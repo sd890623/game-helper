@@ -142,6 +142,8 @@ class Market:
         self.uwtask.print("sell fin")
 
     def checkMaxBought(self,xDiff,yDiff):
+        if(self.marketMode==1):
+            return self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204))
         return (self.uwtask.getNumberFromSingleLineInArea(A=[1185,104,1228,120])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
@@ -262,7 +264,7 @@ class Market:
                 "teak" in productName or "largegunport" in productName or
                 "specialenhanced" in productName or "silverastrolabe" in productName or
                 "rosewoodmast" in productName or #"beech" in productName
-                "improvedmedium" in productName or "lightsha" in productName or
+                 "lightsha" in productName or #"improvedmedium" in productName
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
@@ -272,8 +274,10 @@ class Market:
             def ducatCase():
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
-                if("dye" in productName or "emblem" in productName or "lowest" in productName or
-                "golden" in productName or "pine" in productName or ("mediumgun" in productName and "enhance" not in productName)):
+                if(
+                    "dye" in productName or "emblem" in productName or "lowest" in productName or
+                    "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
+                ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
                 if("decoration" in itemType or "design" in itemType):

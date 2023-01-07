@@ -54,7 +54,7 @@ class Battle:
         
         def backup():
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[628,236,682,259])):
-                wait(lambda: self.instance.clickPointV2(716,478),10)
+                #wait(lambda: self.instance.clickPointV2(716,478),10)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification=True

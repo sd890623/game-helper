@@ -44,7 +44,7 @@ class Battle:
         
         def backup():
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[628,236,682,259])):
-                wait(lambda: self.instance.clickPointV2(716,478),10)
+                #wait(lambda: self.instance.clickPointV2(716,478),10)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification=True
@@ -65,11 +65,11 @@ class Battle:
         for x in range(8): 
             number=self.uwtask.getNumberFromSingleLineInArea(A=[215,5,227,18])
             match number:
-                #3 1184,368 # 6: 1113,425 #7 1185,434 #4 1249,370
+                #3 1184,368; #4 1249,370; #5 1044,430; # 6 1113,425; #7 1185,434; #8 1249,430; #9 1042,495; #10 1116,501;
                 case 1:
-                    #open skill #No 1 Pao Buff, #5 1044,430 #6 1115,425
+                    #open skill #No 1 Pao Buff, #5 1044,430 #6 1115,425 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(1044,430),0.5)
+                    wait(lambda: self.instance.clickPointV2(1185,434),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:

@@ -576,7 +576,7 @@ class UWTask(FrontTask):
                 if(index==0):
                     self.changeFleet(routeObject.get('sellFleet'))
                 if(self.getTime()>=0 and self.getTime()<6):
-                    self.buyBlackMarket(cityName)
+                    self.buyBlackMarket(city)
                 if(index in [0,1]):
                     self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)

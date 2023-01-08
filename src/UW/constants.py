@@ -9,7 +9,7 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 
 battleCity="xi"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
-opponentNames=["lag","illag","llag","pil","rob","assa"]
+opponentNames=["lag","illag","llag","pil","assa"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],

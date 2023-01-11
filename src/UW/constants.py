@@ -7,9 +7,9 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="xi"
+battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
-opponentNames=["lag","illag","llag","pil","assa"]
+opponentNames=["lag","illag","llag","pil","assa","asau"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -90,7 +90,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["hobe","hanyang","jeju"],#,"quanzhou","hobe","hangzhou","xi'an","peking","hanyang","jeju","macau",],
+    "buyCities":["hobe","peking","hanyang","jeju"],#,"quanzhou","hobe","hangzhou","xi'an","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -107,7 +107,7 @@ routeLists=[
     [
         #harvest
         {
-            "buyFleet":2,
+            # "buyFleet":2 + manually set up spice yin
             "buyProducts": ["opal","tequila","pineapple","logwood"],
             "buyCities":["havana","southside","royal","santiago"],
             "buySupplyCities":[],
@@ -115,7 +115,7 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
         },
         {
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
@@ -148,7 +148,7 @@ routeLists=[
             **NEEASupplySell,
             "buyFleet":4,
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo"],
             "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","seville","laga"],
             "sellFleet":2,
         },
@@ -165,6 +165,7 @@ routeLists=[
     [
         {
             **NEEASupplySell,
+            "buyFleet":4,
             "buyStrategy":"twice",
             "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
             "buyCities":["saint","stockhol","visby","riga","groningen","amsterda","london","dover"],

@@ -100,7 +100,7 @@ def hasOneArrayStringInString(string, array):
         return False
     for stringInArray in array:
         if(stringInArray in string):
-            return stringInArray
+            return True
     return False
 
 def isWorkHour():

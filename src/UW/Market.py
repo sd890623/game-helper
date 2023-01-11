@@ -29,7 +29,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
 "macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","xi'an"
 ]
-capitals=["london","amsterda","lisboa","seville","constantino"]
+capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
@@ -305,9 +305,14 @@ class Market:
     
     def buyBlackMarket(self,city):
         timeout=0
+        timeout2=0
         def recursiveVisitBM():
+            nonlocal timeout2
             while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
-                time.sleep(30)
+                time.sleep(2)
+                timeout2+=1
+                if(timeout2>24):
+                    return
             if(not self.uwtask.clickInMenu("temshop","temshop")):
                 nonlocal timeout
                 timeout+=1

@@ -39,7 +39,7 @@ class UWTask(FrontTask):
 
     def testTask(self):
         # self.simulatorInstance.bringWindowToFront()
-        self.buyInCity(["hobe"],["gardenia","begonia","sweetolive","azalea"])
+        self.buyBlackMarket("hanyang")
         self.restock()
         battle=Battle(self.simulatorInstance,self)
         battle.quickWaitForCity()
@@ -160,7 +160,7 @@ class UWTask(FrontTask):
             self.selectCityFromMapAndMove(nextCityName)
         else:
             #click out any message
-            wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
+            wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),0)
             wait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),0.5)
 
         
@@ -441,13 +441,13 @@ class UWTask(FrontTask):
 
     def healInjury(self,city):
         self.clickInMenu("tavern","tavern",infinite=True)
-        # 4th button: 58,279 5th 60,342
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(60,342), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        # 4th button: 58,279 5th 84,341
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(84,341), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(448,68,(253,74,54))):
-            # wait(lambda: self.simulatorInstance.clickPointV2(389,80),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(915,697),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1176,499),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(711,482),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(394,84),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1039,861),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1294,522),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(778,564),1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,16)
     
     def changeFleet(self, fleetNo):
@@ -516,7 +516,7 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if("talker" in self.getSingleLineWordsInArea(A=[838,298,895,319])):
+        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker"],A=[776,298,905,319])):
             wait(lambda: self.simulatorInstance.clickPointV2(843,453),1)
             wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
         

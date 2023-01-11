@@ -128,10 +128,9 @@ class FrontTask(object):
             ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False
-            str = "".join(ocrObj[0])
-            
+            str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))            
             self.print(",".join(wordsArr) +" in "+ str)
-            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+            return hasOneArrayStringInString(str.lower(), wordsArr)
         except Exception as e:
             print(e)    
             return False   

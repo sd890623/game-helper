@@ -190,7 +190,8 @@ class Market:
             return
 
         while(True):
-            if(int(self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96]))>25):
+            number=self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96])
+            if(number and int(number)>=25):
                 break
             else:
                 time.sleep(60)
@@ -308,10 +309,11 @@ class Market:
         timeout2=0
         def recursiveVisitBM():
             nonlocal timeout2
-            while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
+            timeInScreen=self.uwtask.getTime()
+            while(timeInScreen>5 and timeInScreen<20):
                 time.sleep(2)
                 timeout2+=1
-                if(timeout2>24):
+                if(timeout2>360):
                     return
             if(not self.uwtask.clickInMenu("temshop","temshop")):
                 nonlocal timeout
@@ -325,7 +327,7 @@ class Market:
                 if(timeout>5):
                     return
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
-                time.sleep(15)
+                timeInScreen.sleep(15)
                 recursiveVisitBM()
 
         if(city in capitals):

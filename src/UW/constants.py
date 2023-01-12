@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="hangzhou"
+battleCity="jeju"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 opponentNames=["lag","illag","llag","pil","assa","asau"]
 
@@ -167,8 +167,8 @@ routeLists=[
             **NEEASupplySell,
             "buyFleet":4,
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","groningen","amsterda","london","dover"],
+            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
         EABuyBM,

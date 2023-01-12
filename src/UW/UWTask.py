@@ -38,12 +38,8 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        # self.simulatorInstance.bringWindowToFront()
-        self.buyBlackMarket("hanyang")
-        self.restock()
-        battle=Battle(self.simulatorInstance,self)
-        battle.quickWaitForCity()
-
+        market=Market(self.simulatorInstance,self)
+        market.buyProductsInCityTwice([])
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
         self.sendNotification(f"You have reached {'mob'}")
@@ -305,7 +301,7 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
             time.sleep(delay)
-            if(self.hasArrayStringInAreaSingleLineWords(['event'],A=[440,176,512,207])):
+            if(self.hasArrayStringInAreaSingleLineWords(['attendance'],A=[242,172,359,208])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
 

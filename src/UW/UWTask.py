@@ -38,6 +38,8 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
+        battle=Battle(self.simulatorInstance,self)
+        battle.leavePort()
         market=Market(self.simulatorInstance,self)
         # market.buyProductsInCityTwice([])
         self.checkForDailyPopup(5)
@@ -513,7 +515,7 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker"],A=[776,298,905,319])):
+        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker","expertise"],A=[776,298,905,319])):
             wait(lambda: self.simulatorInstance.clickPointV2(843,453),1)
             wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
         
@@ -600,7 +602,7 @@ class UWTask(FrontTask):
             #swap to other route side
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
-
+	
     def battleRoute(self):
         battle=Battle(self.simulatorInstance,self)
         while(True):

@@ -7,7 +7,6 @@ from images import *
 # todo list
 # checkStats
 # global backup if(self.uwtask.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
-
 class Battle:
     randomPoint=1029,698
     lastCallTime=0
@@ -16,8 +15,9 @@ class Battle:
         "okBtn":[695,857,745,875],
         "closeBtn":[695,857,745,875]
     }
+    opentimeout=0
 
-    def __init__(self, instance: win, uwtask) -> None:
+    def __init__(self, instance:win, uwtask) -> None:
         self.instance=instance
         self.uwtask=uwtask
         self.lastCallTime=datetime(2021, 1, 1, 1, 1, 1)
@@ -225,11 +225,14 @@ class Battle:
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
         wait(lambda: self.uwtask.findCityAndClick(town),0)
         self.quickWaitForCity([town],targetCity=town)
+        self.opentimeout=0
 
     def leavePort(self):
         doMoreTimesWithWait(lambda: self.instance.rightClickPointV2(*self.randomPoint),2,1)
         self.uwtask.goToHarbor()
         self.depart()
+        if(getHour() in [21,22,23,24,0,1,2]):
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(39,695),2,4)
 
     def checkStopped(self):
         return self.uwtask.getNumberFromSingleLineInArea(A=[1174,133,1197,150])==0
@@ -259,10 +262,13 @@ class Battle:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
             return self.findOpponentOrReturn(opponents,town)
 
-        if(self.uwtask.hasArrayStringInAreaMultiLineWords(opponents, A=[1185,131,1388,183])):
+        if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1187,129,1396,159])):
             self.uwtask.print("opened")
             return doAndWaitUntilBy(lambda: self.instance.clickPointV2(720,825),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
-
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
+        self.opentimeout+=1
+        if(self.opentimeout>2):
+            self.goBackPort(town)
+            return False
         return self.findOpponentOrReturn(opponents,town)
         

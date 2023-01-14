@@ -109,6 +109,9 @@ def isWorkHour():
         return False
     return True
 
+def getHour():
+    return dt.datetime.now().hour
+
 def isArray(items):
     if(items==None):
         return False

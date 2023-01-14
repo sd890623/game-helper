@@ -1,14 +1,24 @@
 from FrontTask import FrontTask
-from UW.Battle import Battle
+
 from windows import *
 from images import *
 from utils import *
-from Market import Market
-from Sb import Sb
+
 import time
+import datetime as dt
 import random
+import os
 from constants import cityNames, routeLists, opponentNames,battleCity
 
+def importBattle():
+    from Battle import Battle
+    return Battle
+def importMarket():
+    from Market import Market
+    return Market
+def importSB():
+    from Sb import Sb
+    return Sb
 class UWTask(FrontTask):
     rightCatePoint1=1238,94
     rightCatePoint2=1290,90
@@ -38,10 +48,10 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        battle=Battle(self.simulatorInstance,self)
+        battle=importBattle()(self.simulatorInstance,self)
         battle.leavePort()
-        market=Market(self.simulatorInstance,self)
-        # market.buyProductsInCityTwice([])
+        market=importMarket()(self.simulatorInstance,self)
+        market.buyProductsInCityTwice([])
         self.checkForDailyPopup(5)
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
@@ -253,7 +263,7 @@ class UWTask(FrontTask):
 
     def checkBattle(self):
         if(self.hasSingleLineWordsInArea("retreat",A=[756,549,848,577])):
-            battle=Battle(self.simulatorInstance,self)
+            battle=importBattle()(self.simulatorInstance,self)
             if(self.battleMode=="run"):
                 battle.suppressBattle()
             elif(self.battleMode=="battle"):
@@ -283,8 +293,8 @@ class UWTask(FrontTask):
             # #More checks
             # if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
             #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
-            if(self.hasSingleLineWordsInArea("ok", A=Battle.battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=Battle.battleEnd["okBtn"])):
-                battle=Battle(self.simulatorInstance,self)
+            if(self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
+                battle=importBattle()(self.simulatorInstance,self)
                 battle.suppressBattle()
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),40)
@@ -315,7 +325,7 @@ class UWTask(FrontTask):
 
     def basicMarket(self):
         self.print("去超市")
-        market=Market(self.simulatorInstance, self)
+        market=importMarket()(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)  
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1283,295), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
@@ -332,7 +342,7 @@ class UWTask(FrontTask):
     #need to provide a city list
     def sellInCity(self,cityName,simple=False,types=None):
         self.print("去超市")
-        market=Market(self.simulatorInstance, self)
+        market=importMarket()(self.simulatorInstance, self)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1249,295), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
@@ -349,7 +359,7 @@ class UWTask(FrontTask):
 
     def buyInCity(self,cityList,products,buyStrategy=False,marketMode=0):
         self.print("去超市")
-        market=Market(self.simulatorInstance, self,marketMode=marketMode)
+        market=importMarket()(self.simulatorInstance, self,marketMode=marketMode)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1253,294), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),2,2)
@@ -386,7 +396,7 @@ class UWTask(FrontTask):
         return True
 
     def buyBlackMarket(self,city):
-        market=Market(self.simulatorInstance, self)
+        market=importMarket()(self.simulatorInstance, self)
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
             market.buyBlackMarket(city)
@@ -396,7 +406,7 @@ class UWTask(FrontTask):
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
         self.pickedUpShip=False
-        sb=Sb(self.simulatorInstance, self)
+        sb=importSB()(self.simulatorInstance, self)
         timeout=times*1400      
         while(timeout>0):
             sb.gotoShipyard()
@@ -545,7 +555,7 @@ class UWTask(FrontTask):
             self.print("出发买东西城市")
             while(self.tradeRouteBuyFin==False and len(routeObject["buyCities"])>1):
                 # goto buy cities
-                deductedBuyBMCities=Market.deductBuyBMFromRouteObj(routeObject)
+                deductedBuyBMCities=importMarket().deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
                     if(self.tradeRouteBuyFin==True):
                         break
@@ -583,7 +593,7 @@ class UWTask(FrontTask):
 
             self.print("出发卖货城市")
             # goto sell cities
-            deductedSellBMCities=Market.deductSellBMFromCities(routeObject["sellCities"])
+            deductedSellBMCities=importMarket().deductSellBMFromCities(routeObject["sellCities"])
             for index,cityObject in enumerate(deductedSellBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
@@ -604,7 +614,7 @@ class UWTask(FrontTask):
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
 	
     def battleRoute(self):
-        battle=Battle(self.simulatorInstance,self)
+        battle=importBattle()(self.simulatorInstance,self)
         while(True):
             if(not self.inWater()):
                 battle.checkInPort(battleCity)

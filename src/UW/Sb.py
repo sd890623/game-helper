@@ -1,6 +1,6 @@
 from guiUtils import win
 from utils import *
-# from UWTask import UWTask
+from UWTask import UWTask
 
 class Sb:
     okButton=716,564
@@ -9,7 +9,7 @@ class Sb:
     noticeTitleArea=[619,234,688,259]
     noticeOK=708,482
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
-    def __init__(self, instance: win, uwtask) -> None:
+    def __init__(self, instance: win, uwtask:UWTask) -> None:
         self.instance=instance
         self.uwtask=uwtask
 

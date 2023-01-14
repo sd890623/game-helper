@@ -3,8 +3,7 @@ from utils import *
 import os
 import json
 from datetime import date
-
-# from UWTask import UWTask
+from UWTask import UWTask
 
 marketBuyData={
     "kokkola":["amber"],
@@ -41,7 +40,7 @@ class Market:
     purchaseBtn=55,90
 
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
-    def __init__(self, instance: win, uwtask,marketMode=0) -> None:
+    def __init__(self, instance: win, uwtask:UWTask,marketMode=0) -> None:
         self.instance=instance
         self.uwtask=uwtask
         self.marketMode=marketMode
@@ -61,7 +60,7 @@ class Market:
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
 
         #Loop through and find what can be bought
-        while (index<12 and end==False):
+        while (index<12 and end is False):
             xDiff=int(index%4*225.5)
             yDiff=int(index/4)*134
             index+=1
@@ -77,7 +76,7 @@ class Market:
             #logic re food type
             #typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
 
-            if(not(price)):
+            if not price:
                 continue
             if(price>300 and self.uwtask.hasSingleLineWordsInArea("food", A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])):
                 continue
@@ -115,7 +114,7 @@ class Market:
                 xDiff=int(index%4*225.5)
                 yDiff=int(index/4)*134
                 index+=1
-                if(simple==False):
+                if(simple is False):
                     # print([310+xDiff,214+yDiff,397+xDiff,230+yDiff])
                     if(self.uwtask.hasSingleLineWordsInArea("-", A=[310+xDiff,214+yDiff,397+xDiff,230+yDiff], ocrType=2)):
                         continue
@@ -123,7 +122,7 @@ class Market:
                     typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
                     if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
                         wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
-                if(types == None):
+                if(types is None):
                     wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
             wait(lambda: self.instance.clickPointV2(1306,845),1)
             wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),5)
@@ -134,7 +133,6 @@ class Market:
         sellItemsInScreen()
         # if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
         #     sellItemsInScreen()
-
         ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[941,7,1089,50])
         moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+118,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
@@ -207,7 +205,7 @@ class Market:
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 
-    def deductBuyBMFromRouteObj(routeObject):
+    def deductBuyBMFromRouteObj(self,routeObject):
         cities=routeObject["buyCities"]
         if(not routeObject.get("deductBuyBM")):
             return cities
@@ -217,7 +215,7 @@ class Market:
             return (city not in boughtCities)
         return list(filter(filterCallback, cities))
 
-    def deductSellBMFromCities(cities):
+    def deductSellBMFromCities(self,cities):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
         def filterCallback(city):

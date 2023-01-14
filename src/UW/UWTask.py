@@ -39,7 +39,8 @@ class UWTask(FrontTask):
 
     def testTask(self):
         market=Market(self.simulatorInstance,self)
-        market.buyProductsInCityTwice([])
+        # market.buyProductsInCityTwice([])
+        self.checkForDailyPopup(5)
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
         self.sendNotification(f"You have reached {'mob'}")
@@ -303,7 +304,7 @@ class UWTask(FrontTask):
             time.sleep(delay)
             if(self.hasArrayStringInAreaSingleLineWords(['attendance'],A=[242,172,359,208])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
-                doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
 
     # def checkForTreasure(self):
     #     chestCood=self.hasImageInScreen("chest",A=[173,48,1051,659])
@@ -573,7 +574,7 @@ class UWTask(FrontTask):
                     self.changeFleet(routeObject.get('sellFleet'))
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(city)
-                if(index in [0,1]):
+                if(index in [0]):
                     self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)
                 self.checkReachCity()

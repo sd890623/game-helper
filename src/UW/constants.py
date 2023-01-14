@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="jeju"
+battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 opponentNames=["lag","illag","llag","pil","assa","asau"]
 
@@ -107,7 +107,7 @@ routeLists=[
     [
         #harvest
         {
-            # "buyFleet":2 + manually set up spice yin
+            "buyFleet":4,
             "buyProducts": ["opal","tequila","pineapple","logwood"],
             "buyCities":["havana","southside","royal","santiago"],
             "buySupplyCities":[],
@@ -115,17 +115,21 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":["placeholder"]}],
+            "sellFleet":2,
         },
-        {
+        {	
+            #blueprint 1 perfume to spice
+            "buyFleet":4,
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
             "buyCities":["banda","ambon","ternate","jolo","makassar","banjarmasin","jayakarta","pasay","aceh"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
-            "supplyCities":["aceh","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
+            "supplyCities":["pasay","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
             "useSkillCity":"rida",
             "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None}],
+            "sellFleet":2,
         },
     ],
     #1 Summer Jun-Aug, NorthE-EA, 

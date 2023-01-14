@@ -284,7 +284,7 @@ class Market:
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
                 if("decoration" in itemType or "design" in itemType):
                     return False
-                if(price and price>31):
+                if(price and price>938):
                     clickBuy(267+xDiff,165+yDiff)
             
             gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[274+xDiff,213+yDiff,351+xDiff,231+yDiff])
@@ -309,8 +309,7 @@ class Market:
         timeout2=0
         def recursiveVisitBM():
             nonlocal timeout2
-            timeInScreen=self.uwtask.getTime()
-            while(timeInScreen>5 and timeInScreen<20):
+            while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
                 time.sleep(2)
                 timeout2+=1
                 if(timeout2>360):
@@ -327,7 +326,7 @@ class Market:
                 if(timeout>5):
                     return
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inCityList([city]), 3,2)
-                timeInScreen.sleep(15)
+                time.sleep(15)
                 recursiveVisitBM()
 
         if(city in capitals):

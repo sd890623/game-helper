@@ -23,9 +23,8 @@ time.sleep(3)
 # task.battleRoute()
 
 #Init option
-#Route choice: Must-set 0: kokola<->athens perfume route, 1: saint<->east africa nb route, 2: saint<->carribean
-#4 saint<->hindu  #5 saint<->hindu double  #6 everyday BM(india) #7 SEA-carrebean #8Carrebean-EA-EA BM
-task.setRouteOption(2)
+#Route choice: Must-set 0: spring
+task.setRouteOption(0)
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

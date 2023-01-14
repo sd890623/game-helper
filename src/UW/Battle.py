@@ -80,7 +80,7 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:

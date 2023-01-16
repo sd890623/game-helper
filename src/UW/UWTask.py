@@ -34,7 +34,6 @@ class UWTask(FrontTask):
     randomPoint=1084,628
     #VM screen size: 1440x900
 
-    simulatorInstance = None
     syncBetweenUsers = True
     currentCity = "ceuta"
     sbCity=None
@@ -286,10 +285,8 @@ class UWTask(FrontTask):
         self.print("航行中")
         def backupFunc():
             self.checkForDailyPopup()
-            # if(self.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
-            #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
-            # if(self.hasSingleLineWordsInArea("notice",A=[482,299,557,325])):
-            #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(785,430),5,10)
+            if(self.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(881,516),5,10)
             # #More checks
             # if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
             #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
@@ -378,7 +375,7 @@ class UWTask(FrontTask):
             time.sleep(5)
             clickWithCheck()
             self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList), 3,2,backupFunc=backup)
+        continueWithUntilByWithBackup(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList),3,30,backupFunc=backup)
 
     def clickInMenu(self,menuItem,inTitle,infinite=False):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  

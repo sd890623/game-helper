@@ -39,6 +39,25 @@ class Market:
     transactOKBtn=781,700
     purchaseBtn=55,90
 
+    def deductBuyBMFromRouteObj(routeObject):
+        cities=routeObject["buyCities"]
+        if(not routeObject.get("deductBuyBM")):
+            return cities
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            return (city not in boughtCities)
+        return list(filter(filterCallback, cities))
+
+    def deductSellBMFromCities(cities):
+        with open('src/UW/blackMarket.json', 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            if(city['types']=="BM" and city['name'] in boughtCities):
+                return False
+            return True
+        return list(filter(filterCallback, cities))
+
     # def __init__(self, instance: win, uwtask:UWTask) -> None:
     def __init__(self, instance: win, uwtask:UWTask,marketMode=0) -> None:
         self.instance=instance
@@ -205,25 +224,6 @@ class Market:
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 
-    def deductBuyBMFromRouteObj(self,routeObject):
-        cities=routeObject["buyCities"]
-        if(not routeObject.get("deductBuyBM")):
-            return cities
-        with open('src/UW/blackMarket.json', 'r') as f:
-            boughtCities = json.load(f)
-        def filterCallback(city):
-            return (city not in boughtCities)
-        return list(filter(filterCallback, cities))
-
-    def deductSellBMFromCities(self,cities):
-        with open('src/UW/blackMarket.json', 'r') as f:
-            boughtCities = json.load(f)
-        def filterCallback(city):
-            if(city['types']=="BM" and city['name'] in boughtCities):
-                return False
-            return True
-        return list(filter(filterCallback, cities))
-
     def shouldBuyBlackMarket(self,city):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)
@@ -264,7 +264,7 @@ class Market:
                 "teak" in productName or "largegunport" in productName or
                 "specialenhanced" in productName or "silverastrolabe" in productName or
                 "rosewoodmast" in productName or #"beech" in productName
-                 "lightsha" in productName or #"improvedmedium" in productName
+                 "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):

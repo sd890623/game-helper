@@ -3,11 +3,10 @@ from datetime import datetime
 from utils import *
 from images import *
 import time
-# from UWTask import UWTask
+from UWTask import UWTask
 
 # todo list
 # checkStats
-# global backup if(self.uwtask.hasSingleLineWordsInArea("notice",A=[452,292,546,316])):
 class Battle:
     randomPoint=1029,698
     lastCallTime=0
@@ -18,7 +17,7 @@ class Battle:
     }
     opentimeout=0
 
-    def __init__(self, instance:win, uwtask) -> None:
+    def __init__(self, instance:win, uwtask:UWTask) -> None:
         self.instance=instance
         self.uwtask=uwtask
         self.lastCallTime=datetime(2021, 1, 1, 1, 1, 1)
@@ -52,8 +51,8 @@ class Battle:
             x+=1
         
         def backup():
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[683,313,755,337])):
-                wait(lambda: self.instance.clickPointV2(773,563),10)
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(881,516),5,10)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification=True
@@ -64,7 +63,7 @@ class Battle:
             return
         print("in battle")
         #use fast
-        if(self.uwtask.hasSingleLineWordsInArea("free",A=[77,110,106,125])):
+        if(self.uwtask.hasSingleLineWordsInArea("fre",A=[77,110,106,125])):
             self.instance.clickPointV2(101,98)
 
         centralPos=718,452
@@ -171,8 +170,8 @@ class Battle:
             self.uwtask.checkForDailyPopup(5)
             if(self.uwtask.hasSingleLineWordsInArea("huamei", A=[62,132,165,158])):
                 continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[684,283,758,302])):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(722,602),5,10)
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(881,516),5,10)
             #More checks
             if(self.uwtask.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(813,436),5,10)

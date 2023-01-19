@@ -244,6 +244,7 @@ class UWTask(FrontTask):
     def selectCityFromMapAndMove(self,cityname):
         def backup():
             self.print("cant move, map again")
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList([cityname])),2)#leave map
             self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
@@ -255,7 +256,7 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("notice",A=[683,285,759,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15,backupFunc=backup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
 
     # def checkForDisaster(self):
     #     #click disaster icon

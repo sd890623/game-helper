@@ -76,7 +76,7 @@ NEEASupplySell={
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-    "buyCities":["shuri","hobe","hangzhou","xi'an","hanyang","jeju"],
+    "buyCities":["naha","hobe","hangzhou","chang'an","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
@@ -90,7 +90,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["hobe","peking","hanyang","jeju"],#,"quanzhou","hobe","hangzhou","xi'an","hanyang","jeju","macau",],
+    "buyCities":["hanyang","jeju","peking","hobe"],#,"quanzhou","hobe","hangzhou","chang'an","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -135,15 +135,32 @@ routeLists=[
     #1 Summer Jun-Aug, NorthE-EA, 
     [
         {
-            **NEEASupplySell,
-            "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
-            "sellFleet":2,
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
+        # {
+        #     **NEEASupplySell,
+        #     "buyFleet":4,
+        #     "buyStrategy":"twice",
+        #     "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+        #     "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
+        #     "sellFleet":2,
+        # },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+        }
     ],
 
     #2 Autumn Sep-Nov, NorthE-EA, EA-perfume+, NE-perfume+
@@ -161,7 +178,7 @@ routeLists=[
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["shuri","hangzhou","xi'an","hanyang"]
+            "buyCities":["naha","hangzhou","chang'an","hanyang"]
         },
     ],
 

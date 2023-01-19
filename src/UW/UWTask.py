@@ -241,15 +241,19 @@ class UWTask(FrontTask):
         self.findCityAndClick()
 
     def selectCityFromMapAndMove(self,cityname):
+        def backup():
+            self.print("cant move, map again")
         self.print("select city from map")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,97),2,0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),2,0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
+        wait(lambda: self.simulatorInstance.clickPointV2(114,109),1)
+        if(self.hasSingleLineWordsInArea("notice",A=[683,285,759,304])):
+            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=15,backupFunc=backup)
 
     # def checkForDisaster(self):
     #     #click disaster icon
@@ -460,6 +464,7 @@ class UWTask(FrontTask):
         if(not fleetNo):
             return
         for x in range(0,1):
+            #more expect
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),1,1)
             wait(lambda: self.simulatorInstance.clickPointV2(1165,111),1)#ship
             wait(lambda: self.simulatorInstance.clickPointV2(1069,90),1)#assign
@@ -522,8 +527,8 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker","expertise"],A=[776,298,905,319])):
-            wait(lambda: self.simulatorInstance.clickPointV2(843,453),1)
+        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
+            wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
             wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
         
     def startTradeRoute(self):

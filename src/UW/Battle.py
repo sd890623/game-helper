@@ -145,7 +145,7 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity(town, products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea"],marketMode=1)
+               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):

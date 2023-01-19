@@ -26,7 +26,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "royal","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","xi'an"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","changan'an"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -276,6 +276,7 @@ class Market:
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
                 if(
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
+                    "mediumkeel" in productName or
                     "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False
@@ -308,7 +309,7 @@ class Market:
         def recursiveVisitBM():
             nonlocal timeout2
             while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
-                time.sleep(2)
+                time.sleep(30)
                 timeout2+=1
                 if(timeout2>360):
                     return

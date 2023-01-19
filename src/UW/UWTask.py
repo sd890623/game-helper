@@ -40,6 +40,7 @@ class UWTask(FrontTask):
     sbOptions=[]
     pickedUpShip=False
     tradeRouteBuyFin=False
+    hasStartedExtraBuy=False
     waitForCityTimeOut=800
     routeOption=0
     routeList=[]
@@ -533,7 +534,20 @@ class UWTask(FrontTask):
         if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
             wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
             wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
-        
+    def shouldFinishTrade(self,routeObject):
+        if(routeObject.get("sellFleet")):
+            if(self.tradeRouteBuyFin and not self.hasStartedExtraBuy):
+                self.changeFleet(routeObject.get('sellFleet'))
+                self.tradeRouteBuyFin=False
+                self.hasStartedExtraBuy=True
+            elif(self.tradeRouteBuyFin and self.hasStartedExtraBuy):
+                return True
+            else:
+                return False
+        else:
+            if(self.tradeRouteBuyFin):
+                return True
+
     def startTradeRoute(self):
         routeObjIndex=0
         routeObject=None
@@ -543,7 +557,7 @@ class UWTask(FrontTask):
                 routeObjIndex=index
                 routeObject=obj
                 break
-        if(routeObject==None):
+        if(routeObject is None):
             self.print("没有在长途城市列表中，中断")
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint))
             time.sleep(5)
@@ -557,12 +571,13 @@ class UWTask(FrontTask):
 
             self.changeFleet(routeObject.get('buyFleet'))
             self.tradeRouteBuyFin=False
+            self.hasStartedExtraBuy=False
             self.print("出发买东西城市")
-            while(self.tradeRouteBuyFin==False and len(routeObject["buyCities"])>1):
+            while(self.tradeRouteBuyFin is False and len(routeObject["buyCities"])>1):
                 # goto buy cities
                 deductedBuyBMCities=importMarket().deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
-                    if(self.tradeRouteBuyFin==True):
+                    if(self.shouldFinishTrade(routeObject)):
                         break
                     self.gotoCity(city,self.allCityList)
                     if(self.getTime()>=0 and self.getTime()<6):
@@ -587,12 +602,8 @@ class UWTask(FrontTask):
             for index,city in enumerate(routeObject["supplyCities"]):
                 self.gotoCity(city,self.allCityList,dumpCrew=(city in (routeObject.get('dumpCrewCities') if routeObject.get('dumpCrewCities') else [])))
                 self.checkSB()
-                if(index==0):
-                    self.changeFleet(routeObject.get('sellFleet'))
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(city)
-                if(index in [0]):
-                    self.buyInCity(routeObject["supplyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 self.buyBlackMarket(city)
                 self.checkReachCity()
 

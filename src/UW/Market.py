@@ -1,7 +1,8 @@
 from guiUtils import win
-from utils import *
+from utils import wait,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString
 import os
 import json
+import time
 from datetime import date
 from UWTask import UWTask
 
@@ -38,7 +39,7 @@ class Market:
     transactClick=307,177
     transactOKBtn=781,700
     purchaseBtn=55,90
-
+    @staticmethod
     def deductBuyBMFromRouteObj(routeObject):
         cities=routeObject["buyCities"]
         if(not routeObject.get("deductBuyBM")):
@@ -49,6 +50,7 @@ class Market:
             return (city not in boughtCities)
         return list(filter(filterCallback, cities))
 
+    @staticmethod
     def deductSellBMFromCities(cities):
         with open('src/UW/blackMarket.json', 'r') as f:
             boughtCities = json.load(f)

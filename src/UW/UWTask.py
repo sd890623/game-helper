@@ -1,8 +1,8 @@
 from FrontTask import FrontTask
 
 from windows import *
-from images import *
-from utils import *
+from images import getOCRfromImageBlob
+from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour
 
 import time
 import datetime as dt
@@ -47,6 +47,7 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
+        self.selectCityFromMapAndMove("london")
         battle=importBattle()(self.simulatorInstance,self)
         battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
@@ -243,6 +244,7 @@ class UWTask(FrontTask):
     def selectCityFromMapAndMove(self,cityname):
         def backup():
             self.print("cant move, map again")
+            self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,97),2,0)

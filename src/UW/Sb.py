@@ -1,5 +1,5 @@
 from guiUtils import win
-from utils import *
+from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,random
 from UWTask import UWTask
 
 class Sb:

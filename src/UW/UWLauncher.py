@@ -1,8 +1,9 @@
 import sys
 sys.path.append("src")
-from windows import *
+from windows import getAllWindowsWithTitle
 from UWTask import UWTask
 from utils import isWorkHour
+import time
 
 allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
 if (len(allWindowsWithTitle) > 0):
@@ -20,11 +21,11 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="naples"
-# task.battleRoute()
+#task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: spring
-task.setRouteOption(0)
+task.setRouteOption(3)
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

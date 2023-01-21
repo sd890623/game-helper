@@ -94,35 +94,35 @@ def getImages():
     image =cv2.imread(path)
     print(image.shape)
 
-def getWholeScreenshot():
-    hdesktop = win32gui.GetDesktopWindow()
-    hwndDC = win32gui.GetWindowDC(hdesktop)
-    mfcDC  = win32gui.CreateDCFromHandle(hwndDC)
-    saveDC = mfcDC.CreateCompatibleDC()
+# def getWholeScreenshot():
+#     hdesktop = win32gui.GetDesktopWindow()
+#     hwndDC = win32gui.GetWindowDC(hdesktop)
+#     mfcDC  = win32gui.CreateDCFromHandle(hwndDC)
+#     saveDC = mfcDC.CreateCompatibleDC()
 
-    saveBitMap = win32gui.CreateBitmap()
-    saveBitMap.CreateCompatibleBitmap(mfcDC, w, h)
+#     saveBitMap = win32gui.CreateBitmap()
+#     saveBitMap.CreateCompatibleBitmap(mfcDC, w, h)
 
-    saveDC.SelectObject(saveBitMap)
+#     saveDC.SelectObject(saveBitMap)
 
-    result = saveDC.BitBlt((0, 0), (w, h), mfcDC, (left, top), win32con.SRCCOPY)
+#     result = saveDC.BitBlt((0, 0), (w, h), mfcDC, (left, top), win32con.SRCCOPY)
 
-    bmpinfo = saveBitMap.GetInfo()
-    bmpstr = saveBitMap.GetBitmapBits(True)
+#     bmpinfo = saveBitMap.GetInfo()
+#     bmpstr = saveBitMap.GetBitmapBits(True)
 
-    im = Image.frombuffer(
-        'RGB',
-        (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
-        bmpstr, 'raw', 'BGRX', 0, 1)
+#     im = Image.frombuffer(
+#         'RGB',
+#         (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
+#         bmpstr, 'raw', 'BGRX', 0, 1)
 
-    win32gui.DeleteObject(saveBitMap.GetHandle())
-    saveDC.DeleteDC()
-    mfcDC.DeleteDC()
-    win32gui.ReleaseDC(hdesktop, hwndDC)
+#     win32gui.DeleteObject(saveBitMap.GetHandle())
+#     saveDC.DeleteDC()
+#     mfcDC.DeleteDC()
+#     win32gui.ReleaseDC(hdesktop, hwndDC)
 
-    if result == None:
-        #PrintWindow Succeeded
-        im.save("test.png")
+#     if result == None:
+#         #PrintWindow Succeeded
+#         im.save("test.png")
 
 
 class FrontWindow():

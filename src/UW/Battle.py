@@ -100,7 +100,7 @@ class Battle:
                 case 5:
                     #5  atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
@@ -149,12 +149,12 @@ class Battle:
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):
-        firstPosi=(1221,256)
-        area=[1211,249,1375,267]
+        firstPosi=(1227,257)
+        area=[1211,246,1382,269]
         index=0
-        while(index<15):
-            yDiff=int(index%10*56)
-            ocrOpponentName=self.uwtask.hasArrayStringInAreaSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
+        while(index<35):
+            yDiff=int(index%22*27)
+            ocrOpponentName=self.uwtask.hasArrayStringInSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
             if(ocrOpponentName):
                 wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]+yDiff),0.5,disableWait=True)
                 return True
@@ -262,7 +262,7 @@ class Battle:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
             return self.findOpponentOrReturn(opponents,town)
 
-        if(self.uwtask.hasArrayStringInAreaSingleLineWords(opponents, A=[1187,129,1396,159])):
+        if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159])):
             self.uwtask.print("opened")
             return doAndWaitUntilBy(lambda: self.instance.clickPointV2(720,825),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)

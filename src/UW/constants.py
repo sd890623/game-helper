@@ -9,7 +9,7 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 
 battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
-opponentNames=["lag","illag","llag","pil","assa","asau","rob"]
+opponentNames=["lag","illag","llag","pil","assa","asau"]
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -100,8 +100,8 @@ EABuyBM={
 
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
-    # EA: Perfume: Dec-Jan(Winter),STD, Feb-May(Spring)-, Jun-(Summer)STD,
-    # Carrebean: Dec-May: Liquor,Lux+    Jun-Nov: Dye,Gem+
+    # EA: Perfume: Dec-Jan(Winter),STD, Feb-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
+    # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
 
     #0 SEA-Carrebean  mar-May-spring, 
     [
@@ -166,34 +166,51 @@ routeLists=[
     #2 Autumn Sep-Nov, NorthE-EA, EA-perfume+, NE-perfume+
     [
         {
-            **NEEASupplySell,
-            "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","seville","laga"],
-            "sellFleet":2,
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
         EABuyBM,
         {
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["naha","hangzhou","chang'an","hanyang"]
+            "buyCities":["naha","hangzhou","chang'an","hanyang"],
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
         },
     ],
 
-    #3 Winter Dec-Feb, NorthE-EA, NE-liquor+
+    #3 Winter Dec-Feb, NorthE-EA, NE-liquor+ (include specially Nov for Carrebean)
     [
         {
-            **NEEASupplySell,
             "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["havana","southside","royal","santiago"],
+            "buySupplyCities":[],
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
-            "sellFleet":2,
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"rida","types":["placeholder"]},{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+        }
     ],
 
     #4 Summer Dec-Feb, NorthE-EA, NE-liquor-, temp for Korea

@@ -2,7 +2,7 @@ from FrontTask import FrontTask
 
 from windows import *
 from images import getOCRfromImageBlob
-from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour
+from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour,isStringSameOrSimilar
 
 import time
 import datetime as dt
@@ -48,7 +48,7 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        self.selectCityFromMapAndMove("london")
+        self.selectCityFromMapAndMove("royal")
         battle=importBattle()(self.simulatorInstance,self)
         battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
@@ -86,7 +86,7 @@ class UWTask(FrontTask):
             if(cityList==None):
                 cityList=cityNames
             for city in cityList:
-                if(city in str.lower()):
+                if(isStringSameOrSimilar(city,str.lower())):
                     self.currentCity = city
                     return True
             return False
@@ -104,7 +104,7 @@ class UWTask(FrontTask):
             str = "".join(ocrObj[0])
             self.print(" ocred city: "+ str)
 
-            if(cityName in str.lower()):
+            if(isStringSameOrSimilar(cityName,str.lower())):
                 self.currentCity = cityName
                 return True
             else:
@@ -185,7 +185,7 @@ class UWTask(FrontTask):
         firstLineArea=[1200,528,1362,552]
         firstLineArrowBtn=1401,540
         # Repair ship
-        while(self.hasSingleLineWordsInArea("notenoughdura",A=[1202,560,1362,589])):
+        while(self.hasSingleLineWordsInArea("notenoughdurability",A=[1202,560,1362,589])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1405,574),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(1110,857),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1297,859),1)
@@ -193,13 +193,13 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)            
         #Restore crew
         while(self.hasSingleLineWordsInArea("notenoughcrew",A=firstLineArea)):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruitcrew", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.longerClickPointV2(1350,526),2)
             wait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*okBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2,backupFunc=lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),timeout=10)
         #Remove extra crew
         if(self.hasSingleLineWordsInArea("maxcrew",A=firstLineArea)):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruit", A=self.titleArea), 1,2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),lambda: self.hasSingleLineWordsInArea("recruitcrew", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(252,861),2)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1020,671),2,1)
             wait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
@@ -217,7 +217,7 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
     def inWater(self):
-        return self.hasArrayStringInAreaSingleLineWords(["water","watar","law","wate"], A=self.outSeaWaterTitle)
+        return self.hasArrayStringEqualSingleLineWords(["lawlesswaters","dangerouswaters","safewaters"], A=self.outSeaWaterTitle)
 
     def depart(self):
         departBtn=1287,655
@@ -248,16 +248,17 @@ class UWTask(FrontTask):
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList([cityname])),2)#leave map
             self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("world", A=self.titleArea) or self.hasSingleLineWordsInArea("map", A=self.titleArea), 2,1,timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,97),2,0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),2,0)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
-        wait(lambda: self.simulatorInstance.clickPointV2(114,109),1)
-        if(self.hasSingleLineWordsInArea("notice",A=[683,285,759,304])):
-            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860), lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
+        wait(lambda: self.simulatorInstance.clickPointV2(717,860),1)
+        if(self.hasSingleLineWordsInArea("notice",A=[671,270,765,310])):
+            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
+        doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
 
     # def checkForDisaster(self):
     #     #click disaster icon
@@ -319,7 +320,7 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [2,3]):
             time.sleep(delay)
-            if(self.hasArrayStringInAreaSingleLineWords(['attendance'],A=[242,172,359,208])):
+            if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[242,172,359,208])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
 
@@ -482,7 +483,7 @@ class UWTask(FrontTask):
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
             
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1244,107), lambda: self.hasSingleLineWordsInArea("manage", A=self.titleArea),2,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1244,107), lambda: self.hasSingleLineWordsInArea("managefleet", A=self.titleArea),2,1)
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1395,849), lambda: self.hasSingleLineWordsInArea("redistribute", A=[637,214,751,236]),1,15)#redistributeCrew
             wait(lambda: self.simulatorInstance.clickPointV2(456,663),1)#distributeMin
             wait(lambda: self.simulatorInstance.clickPointV2(1026,672),1)#apply
@@ -531,15 +532,17 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if(self.hasArrayStringInAreaSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
+        if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
             wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
             wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
+    
     def shouldFinishTrade(self,routeObject):
         if(routeObject.get("sellFleet")):
             if(self.tradeRouteBuyFin and not self.hasStartedExtraBuy):
                 self.changeFleet(routeObject.get('sellFleet'))
                 self.tradeRouteBuyFin=False
                 self.hasStartedExtraBuy=True
+                return False
             elif(self.tradeRouteBuyFin and self.hasStartedExtraBuy):
                 return True
             else:

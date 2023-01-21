@@ -78,7 +78,7 @@ class Market:
         end=False
         buyList=[]
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purchase", A=self.uwtask.titleArea), 2,2)
 
         #Loop through and find what can be bought
         while (index<12 and end is False):
@@ -166,7 +166,7 @@ class Market:
         return (self.uwtask.getNumberFromSingleLineInArea(A=[1300,105,1353,126])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purch", A=self.uwtask.titleArea), 2,2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purchase", A=self.uwtask.titleArea), 2,2)
         print(products)
         boughtTick=0
 
@@ -322,7 +322,7 @@ class Market:
                     return
                 recursiveVisitBM()
                 
-            if(not self.uwtask.hasSingleLineWordsInArea("black", A=[19,198,82,231])):
+            if(not self.uwtask.hasSingleLineWordsInArea("blackmarket", A=[19,198,161,231])):
                 timeout+=1
                 if(timeout>5):
                     return

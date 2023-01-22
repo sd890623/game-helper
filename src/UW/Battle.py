@@ -51,8 +51,8 @@ class Battle:
             x+=1
         
         def backup():
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(881,516),5,10)
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[684,314,754,337])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(782,571),5,10)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification=True
@@ -80,7 +80,7 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -92,7 +92,7 @@ class Battle:
                 case 3:
                     #open skill #No3 ram buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -150,10 +150,10 @@ class Battle:
 
     def selectOpponentInList(self,opponents):
         firstPosi=(1227,257)
-        area=[1211,246,1382,269]
+        area=[1210,248,1347,270]
         index=0
-        while(index<35):
-            yDiff=int(index%22*27)
+        while(index<16):
+            yDiff=int(index%10*56.5)
             ocrOpponentName=self.uwtask.hasArrayStringInSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
             if(ocrOpponentName):
                 wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]+yDiff),0.5,disableWait=True)

@@ -9,7 +9,10 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 
 battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
-opponentNames=["lag","illag","llag","pil","assa","asau"]
+#opponentNames=["lag","illag","llag","pil","assa","asau"]
+opponentNames=["rob","pil","ass","zubuike","chenzuyi","chowta","shiyang","nani"]
+#hanyang chowta ass, chenziyu pirate fleet, shiyang ass
+#hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -198,10 +201,11 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
+            "sellFleet":2,
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            {"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
             ]
         },
         EABuyBM,

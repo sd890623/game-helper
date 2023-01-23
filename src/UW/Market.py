@@ -33,7 +33,7 @@ capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
-    randomPoint=851,618
+    randomPoint=851,678
     buySellWholeArea=[187,99,949,395]
     today=None
     transactClick=307,177
@@ -154,8 +154,8 @@ class Market:
         sellItemsInScreen()
         # if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
         #     sellItemsInScreen()
-        ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[941,7,1089,50])
-        moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+118,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
+        ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[891,5,985,50])
+        moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+123,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
         self.uwtask.sendMessage("UW","current saving is: "+(savingOcr if savingOcr else "undefined"))
         self.uwtask.print("sell fin")

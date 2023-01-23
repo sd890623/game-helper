@@ -213,7 +213,7 @@ routeLists=[
             **EADoubleBuy,
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
             "useSkillCity":"cartagena",
-            "sellCities":[{"name":"rida","types":["placeholder"]},{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
         }
     ],
 

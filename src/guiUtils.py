@@ -33,8 +33,9 @@ def getPointOnLine (O0O000000000OO000 ,OOOOOOOO0O0O00O0O ,O0O0OOOOOO000O000 ,O00
     O0OOOO00OOO0OOOOO =((O00000O000O00000O -OOOOOOOO0O0O00O0O )*O0OO0000OOO000OOO )+OOOOOOOO0O0O00O0O #line:31
     return int (round (OOO0OO0000000OOO0 )),int (round (O0OOOO00OOO0OOOOO ))#line:32
 class win ():#line:35
-    def __init__ (OO00OO0O00O0OOO0O ,OO0OOO0O0OOOO0O0O ,bor =False ):#line:37
-        OO00OO0O00O0OOO0O .reader =easyocr .Reader (['ch_sim','en'])#line:38
+    def __init__ (self ,OO0OOO0O0OOOO0O0O ,parentHwnd=0,bor =False):#line:37
+        self.parentHwnd=parentHwnd
+        self .reader =easyocr .Reader (['ch_sim','en'])#line:38
         if not bor :#line:39
             O00OO00OOO0O00OOO =[]#line:40
             def O0O00OO00OOOO0OO0 (OOO000OOO0OO00O00 ,O0OOOO00000O0O0O0 ):#line:42
@@ -43,9 +44,9 @@ class win ():#line:35
             win32gui .EnumChildWindows (OO0OOO0O0OOOO0O0O ,O0O00OO00OOOO0OO0 ,'')#line:46
             global hwn #line:47
             hwn =O00OO00OOO0O00OOO [0 ]#line:48
-            OO00OO0O00O0OOO0O .hwnd =hwn #line:49
+            self .hwnd =hwn #line:49
         else :#line:50
-            OO00OO0O00O0OOO0O .hwnd =OO0OOO0O0OOOO0O0O #line:51
+            self .hwnd =OO0OOO0O0OOOO0O0O #line:51
 
 
     def outputWindowScreenshotV2(self ,A =[0 ,0 ,0 ,0 ],value =0.95 ):
@@ -58,7 +59,7 @@ class win ():#line:35
             if(targetHeight == 0 and targetWidth == 0):
                 targetWidth=w
                 targetHeight=h
-            win32gui.SetForegroundWindow(self .hwnd)
+            win32gui.SetForegroundWindow(self .parentHwnd)
             time.sleep(0.5)
 
             hdesktop = win32gui.GetDesktopWindow()
@@ -117,7 +118,11 @@ class win ():#line:35
 
         return OOO00OOOOO0OO0O00
 
-    def moveWindow(self,x,y,width,height):
+    def moveWindow(self,x,y,width=0,height=0):
+        l,t,r,b = win32gui.GetWindowRect(self.hwnd)
+        if(width==0 and height==0):
+            width=r-l
+            height=b-t
         win32gui.MoveWindow(self.hwnd,x,y,width,height,True)
         
     def window_capture (self ,O000OO00O0OO0O00O ,A =[0 ,0 ,0 ,0 ],value =0.95 ):#line:54
@@ -354,7 +359,7 @@ class win ():#line:35
             yRandom=y
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-            win32gui.SetForegroundWindow(self .hwnd)
+            win32gui.SetForegroundWindow(self .parentHwnd)
             pydirectinput.moveTo(xRandom+left, yRandom+top)
             time.sleep(0.5)
             pydirectinput.leftClick(xRandom+left, yRandom+top)
@@ -371,7 +376,7 @@ class win ():#line:35
             yRandom=y
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-            win32gui.SetForegroundWindow(self .hwnd)
+            win32gui.SetForegroundWindow(self .parentHwnd)
             pydirectinput.moveTo(xRandom+left, yRandom+top)
             time.sleep(0.5)
             pydirectinput.mouseDown()
@@ -391,7 +396,7 @@ class win ():#line:35
             yRandom=y
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-            win32gui.SetForegroundWindow(self .hwnd)
+            win32gui.SetForegroundWindow(self .parentHwnd)
             pydirectinput.moveTo(xRandom+left, yRandom+top)
             time.sleep(0.5)
             pydirectinput.leftClick(xRandom+left, yRandom+top)
@@ -410,14 +415,14 @@ class win ():#line:35
             yRandom=y
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
-            win32gui.SetForegroundWindow(self .hwnd)
+            win32gui.SetForegroundWindow(self .parentHwnd)
             pydirectinput.rightClick(xRandom+left, yRandom+top)
         except Exception as e:
             print(e)
             print("failed to right click point")
 
     def bringWindowToFront(self):
-        win32gui.SetForegroundWindow(self .hwnd)
+        win32gui.SetForegroundWindow(self .parentHwnd)
 
     def typewrite(self, words):
         pydirectinput.typewrite(words)

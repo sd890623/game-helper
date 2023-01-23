@@ -1,1 +1,1 @@
-cd /d D:\Projects\eveHelper2\.venv\Scripts\ & activate & cd /d D:\Projects\eveHelper2\ & python src\UW\resetBlackMarketJson.py
+cd /d E:\Workspaces\game-helper\.venv\Scripts\ & activate & cd /d E:\Workspaces\game-helper\ & python src\UW\resetBlackMarketJson.py

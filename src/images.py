@@ -61,10 +61,10 @@ def getNumberfromImageBlob(imageBlob):
     try:
         res = numberOcr.ocr_for_single_line(imageBlob)
         if(len(res[0]) == 0):
-            return False
+            return None
         str = "".join(res[0])
         print("ocred number: "+ str)
         return getNumberFromString(str)
     except Exception as e:
         print(e)    
-        return False       
+        return None       

@@ -5,11 +5,14 @@
 # portgual reputation
 #cityNames=["funchal","faro","lisboa","porto"]
 
-cityNames=["funchal","faro","lisboa","porto"]
+cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="xi"
+battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
-opponentNames=["lag","illag","llag","pil","rob"]
+#opponentNames=["lag","illag","llag","pil","assa","asau"]
+opponentNames=["rob","pil","ass","zubuike","chenzuyi","chowta","shiyang","nani"]
+#hanyang chowta ass, chenziyu pirate fleet, shiyang ass
+#hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
 
 #Liquer+
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
@@ -18,7 +21,7 @@ opponentNames=["lag","illag","llag","pil","rob"]
 # Shared object
 northEuropeHot={
     # ,"tourmaline","amber", "jewllery""glassbead","aquavit"
-    "buyProducts": ["twohandedswor","gobelin","steel","vodka","gin","whisky","westerncann","saffron","westernarmo"],
+    "buyProducts": ["twohand","gobelin","steel","vodka","gin","whisky","westerncann","saffron","western"],
     # "gda", "hamburg"
     # Feb alchohol+
     # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
@@ -31,7 +34,7 @@ northEuropeHot={
 }
 northEuropeStd={
     # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["twohandedswor","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westerncann","westernarmo","saffron","azulejo","almond"],
+    "buyProducts": ["twohand","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westerncann","western","saffron","azulejo","almond"],
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
@@ -43,7 +46,7 @@ northEuropeStd={
 }
 northEuropeLightSea={
     # "jewllery", ,"handcanno", "flannel",
-    "buyProducts": ["amber","chrysoberyl","tourmaline","twohandedswor","felt","feather","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","silverplate","westernarmo","westerncann","saffron","azulejo","almond"],
+    "buyProducts": ["amber","chrysoberyl","tourmaline","twohand","felt","feather","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","silverplate","western","westerncann","saffron","azulejo","almond"],
     "buyCities":["saint","stockhol","visby","copenhag","london"],
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
@@ -52,7 +55,7 @@ northEuropeLightSea={
 }
 northEuropeQuick={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
-    "buyProducts": ["amber","twohandedswor","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
+    "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "buyStrategy":"once",
@@ -63,11 +66,11 @@ northEuropeQuick={
 
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
-    "buyProducts": ["amber","twohandedswor","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
+    "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": [""],
-    "supplyCities":["laga","lisboa","bathurst","luanda","cape","toamasina","aceh"],
+    "supplyCities":["laga","seville","bathurst","luanda","cape","toamasina","aceh"],
     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
     "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
     {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
@@ -75,8 +78,8 @@ NEEASupplySell={
 }
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
-    "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-    "buyCities":["shuri","hobe","hangzhou","xi'an","hanyang","jeju"],
+    "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
+    "buyCities":["naha","hobe","hangzhou","chang'an","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
@@ -89,8 +92,8 @@ EABuyBM={
     "buyFleet":4,
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
-    "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["hobe","hanyang","jeju"],#,"quanzhou","hobe","hangzhou","xi'an","peking","hanyang","jeju","macau",],
+    "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
+    "buyCities":["hanyang","jeju","peking","hobe"],#,"quanzhou","hobe","hangzhou","chang'an","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -100,14 +103,14 @@ EABuyBM={
 
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
-    # EA: Perfume: Dec-Jan(Winter),STD, Feb-May(Spring)-, Jun-(Summer)STD,
-    # Carrebean: Dec-May: Liquor,Lux+    Jun-Nov: Dye,Gem+
+    # EA: Perfume: Dec-Jan(Winter),STD, Feb-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
+    # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
 
     #0 SEA-Carrebean  mar-May-spring, 
     [
         #harvest
         {
-            "buyFleet":2,
+            "buyFleet":4,
             "buyProducts": ["opal","tequila","pineapple","logwood"],
             "buyCities":["havana","southside","royal","santiago"],
             "buySupplyCities":[],
@@ -115,63 +118,103 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"hanyang","types":None},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":["placeholder"]}],
+            "sellFleet":2,
         },
-        {
+        {	
+            #blueprint 1 perfume to spice
+            "buyFleet":4,
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
             "buyCities":["banda","ambon","ternate","jolo","makassar","banjarmasin","jayakarta","pasay","aceh"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
-            "supplyCities":["aceh","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
+            "supplyCities":["pasay","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
             "useSkillCity":"rida",
             "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None}],
+            "sellFleet":2,
         },
     ],
     #1 Summer Jun-Aug, NorthE-EA, 
     [
         {
-            **NEEASupplySell,
-            "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
             "buyStrategy":"twice",
-            "buyProducts": ["twohandedswor","lilyofthevalley","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
-            "sellFleet":2,
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
+        # {
+        #     **NEEASupplySell,
+        #     "buyFleet":4,
+        #     "buyStrategy":"twice",
+        #     "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+        #     "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
+        #     "sellFleet":2,
+        # },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+        }
     ],
 
     #2 Autumn Sep-Nov, NorthE-EA, EA-perfume+, NE-perfume+
     [
         {
-            **NEEASupplySell,
-            "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["southside","royal","willemstad","porlamar","caracas","juan"],
             "buyStrategy":"twice",
-            "buyProducts": ["twohandedswor","lilyofthevalley","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
-            "buyCities":["hamburg","bremen","london","dover","hamburg","bremen","london","dover","laga","seville"],
-            "sellFleet":2,
+            "buySupplyCities":[],
+            "dumpCrewCities": [],
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
         EABuyBM,
         {
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
-            "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["shuri","hobe","hangzhou","xi'an","hanyang"]
+            "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
+            "buyCities":["naha","hangzhou","chang'an","hanyang"],
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
         },
     ],
 
-    #3 Winter Dec-Feb, NorthE-EA, NE-liquor+
+    #3 Winter Dec-Feb, NorthE-EA, NE-liquor+ (include specially Nov for Carrebean)
     [
         {
-            **NEEASupplySell,
+            "buyFleet":4,
+            "buyProducts": ["opal","tequila","pineapple","logwood"],
+            "buyCities":["havana","southside","royal","santiago"],
+            "buySupplyCities":[],
             "buyStrategy":"twice",
-            "buyProducts": ["twohandedswor","lilyofthevalley","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","groningen","amsterda","london","dover"],
+            "dumpCrewCities": [],
             "sellFleet":2,
+            "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            ]
         },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
+            "useSkillCity":"cartagena",
+            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+        }
     ],
 
     #4 Summer Dec-Feb, NorthE-EA, NE-liquor-, temp for Korea
@@ -179,7 +222,7 @@ routeLists=[
         {
             **NEEASupplySell,
             "buyFleet":4,
-            "buyProducts": ["twohandedswor","lilyofthevalley","gobelin","steel","vodka","felt","aquavit","gin","whisky","tapestry","westernarmo","westerncann","saffron","azulejo","almond"],
+            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","felt","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
             "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
             "sellFleet":2,
         },

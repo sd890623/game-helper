@@ -4,7 +4,9 @@ from datetime import datetime
 import datetime as dt
 import threading
 import collections.abc
+from strsimpy.damerau import Damerau
 
+stringDist = Damerau().distance
 
 def wait(func, seconds = 3,disableWait=False):
     func()
@@ -82,7 +84,16 @@ def hasOneArrayStringInStringAndNotVeryDifferent(string, array):
         return False
     found=False
     for stringInArray in array:
-        if(stringInArray in string and (len(string)-len(stringInArray))<3):
+        if(isStringSameOrSimilar(stringInArray,string)):
+            found=True
+    return found
+
+def stringhasStartsWithOneArrayString(string, array):
+    if(not(string)):
+        return False
+    found=False
+    for stringInArray in array:
+        if(string.startswith(stringInArray)):
             found=True
     return found
 
@@ -91,7 +102,15 @@ def hasOneArrayStringInString(string, array):
         return False
     for stringInArray in array:
         if(stringInArray in string):
-            return stringInArray
+            return True
+    return False
+
+def hasOneArrayStringSimilarToString(string, array):
+    if(not(string)):
+        return False
+    for stringInArray in array:
+        if(isStringSameOrSimilar(stringInArray,string)):
+            return True
     return False
 
 def isWorkHour():
@@ -100,9 +119,22 @@ def isWorkHour():
         return False
     return True
 
+def getHour():
+    return dt.datetime.now().hour
+
 def isArray(items):
-    if(items==None):
+    if(items is None):
         return False
     return isinstance(items, collections.abc.Sequence)
+
+def isStringSameOrSimilar(stringA, stringB):        
+    if stringA==stringB:
+        return True
+    elif stringA in stringB: #len(stringA)<7 and 
+        return True
+    elif stringDist(stringA,stringB)/len(stringA)<0.2:
+        return True
+    else:
+        return False
 
 findPlayerCountLk=threading.Lock()

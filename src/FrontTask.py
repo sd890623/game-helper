@@ -1,20 +1,20 @@
 from windows import *
 from images import *
-from utils import *
+from utils import wait,getDateTimeString,random,hasOneArrayStringInString,isStringSameOrSimilar,hasOneArrayStringSimilarToString
 import guiUtils
 from Messager import Messager
 import math
 
 class FrontTask(object):
-    hwnd = None
     simulatorInstance = None
     index = None
     syncBetweenUsers = True
     def __init__(self, hwnd, index):
-        self.hwnd = hwnd
+        childHwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0",hwnd)
+        parentWindow = guiUtils.win(hwnd, bor= True)
+        parentWindow.moveWindow(10,10)
+        self.simulatorInstance = guiUtils.win(childHwndObject["hwnd"],parentHwnd=hwnd, bor= True)
         self.index = index
-        hwndObject = getWindowHwndObjectById(hwnd)
-        self.simulatorInstance = guiUtils.win(hwndObject["hwnd"], bor= True)
         self.messager=Messager()
 
     def print(self,text):
@@ -92,13 +92,13 @@ class FrontTask(object):
                 return False
             str = "".join(ocrObj[0])
             
-            self.print(words +" in "+ str)
-            return words in str.lower()
+            self.print(words +"=="+ str)
+            return isStringSameOrSimilar(words, str.lower())
         except Exception as e:
             print(e)    
             return False      
 
-    def hasArrayStringInAreaSingleLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+    def hasArrayStringEqualSingleLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if(debug==True):
@@ -108,11 +108,27 @@ class FrontTask(object):
                 return False
             str = "".join(ocrObj[0])
             
-            self.print(",".join(wordsArr) +" in "+ str)
+            self.print("one of "+",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringSimilarToString(str.lower(), wordsArr)
+        except Exception as e:
+            print(e)    
+            return False     
+
+    def hasArrayStringInSingleLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if(debug==True):
+                self.saveImageToFile(screenshotBlob)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if(len(ocrObj[0]) == 0):
+                return False
+            str = "".join(ocrObj[0])
+            
+            self.print("one of "+",".join(wordsArr) +" in "+ str)
             return hasOneArrayStringInString(str.lower(), wordsArr)
         except Exception as e:
             print(e)    
-            return False      
+            return False  
 
     def getNumberFromSingleLineInArea(self, A=[0,0,0,0],debug=False):
         screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
@@ -120,7 +136,7 @@ class FrontTask(object):
             self.saveImageToFile(screenshotBlob)
         return getNumberfromImageBlob(screenshotBlob)
 
-    def hasArrayStringInAreaMultiLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
+    def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0,0,0,0], ocrType=1,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if(debug==True):
@@ -128,13 +144,12 @@ class FrontTask(object):
             ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
             if(len(ocrObj[0]) == 0):
                 return False
-            str = "".join(ocrObj[0])
-            
-            self.print(",".join(wordsArr) +" in "+ str)
-            return hasOneArrayStringInStringAndNotVeryDifferent(str.lower, wordsArr)
+            str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))            
+            self.print("one of "+",".join(wordsArr) +" in "+ str)
+            return hasOneArrayStringSimilarToString(str.lower(), wordsArr)
         except Exception as e:
             print(e)    
-            return False   
+            return False
 
     def bringWindowToFront(self):
         self.simulatorInstance.bringWindowToFront()

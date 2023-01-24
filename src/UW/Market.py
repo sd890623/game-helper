@@ -36,8 +36,9 @@ class Market:
     randomPoint=851,678
     buySellWholeArea=[187,99,949,395]
     today=None
+    transactPurchaseBtn=1306,845
     transactClick=307,177
-    transactOKBtn=781,700
+    marketTransactOKBtn=781,700
     purchaseBtn=55,90
     @staticmethod
     def deductBuyBMFromRouteObj(routeObject):
@@ -118,8 +119,8 @@ class Market:
             self.uwtask.print("buy item "+str(index))
             wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
         
-        wait(lambda: self.instance.clickPointV2(1306,845),1)
-        wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),5)
+        wait(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),1)
+        wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),5)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
@@ -145,8 +146,8 @@ class Market:
                         wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
                 if(types is None):
                     wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
-            wait(lambda: self.instance.clickPointV2(1306,845),1)
-            wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),5)
+            wait(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),1)
+            wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),5)
             self.bargin()
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
 
@@ -194,8 +195,8 @@ class Market:
                     self.uwtask.tradeRouteBuyFin=True
                     break
 
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1306,845),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
-        wait(lambda: self.instance.clickPointV2(*self.transactOKBtn),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
+        wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),1)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
@@ -234,23 +235,11 @@ class Market:
             return True
 
     def buyInBlackMarket(self,city):
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(74,210), lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
-
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(74,210), 
+        lambda: self.uwtask.hasSingleLineWordsInArea("blackmarket", A=self.uwtask.titleArea),2,1)
         #must rule  rosewood must,
-        #ducat rule  value >400000 no, 
+        #ducat rule  value >400000 no
         #else gem
-        def clickBuy(x,y):
-            wait(lambda: self.instance.clickPointV2(x,y),0.2,disableWait=True)
-            wait(lambda: self.uwtask.clickWithImage("calculator", A=[801,547,860,663]),0,disableWait=True)
-            if(self.uwtask.hasSingleLineWordsInArea("max", A=[941,567,1022,602])):
-                wait(lambda: self.instance.clickPointV2(972,584),0.2,disableWait=True)
-                wait(lambda: self.instance.clickPointV2(1078,564),0.2,disableWait=True)
-            #quick purchase
-            wait(lambda: self.instance.clickPointV2(765,689),1)
-            # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
-            #     wait(lambda: self.instance.clickPointV2(719,482))
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(74,210),2,0.2,disableWait=True)
-
         index=0
         self.uwtask.print("buy BM items")
         while (index<20):
@@ -270,7 +259,7 @@ class Market:
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
             ):
-                clickBuy(267+xDiff,165+yDiff)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
                 continue
 
             def ducatCase():
@@ -286,7 +275,7 @@ class Market:
                 if("decoration" in itemType or "design" in itemType):
                     return False
                 if(price and price>938):
-                    clickBuy(267+xDiff,165+yDiff)
+                    doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
             
             gemLocation= self.uwtask.hasImageInScreen("gemInBM2", A=[274+xDiff,213+yDiff,351+xDiff,231+yDiff])
             if(gemLocation):
@@ -302,6 +291,12 @@ class Market:
             else:
                 if(not ducatCase()):
                     continue
+        #quick purchase
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[755,653,815,677]),1,1,timeout=5)
+        wait(lambda: self.instance.clickPointV2(780,671),1)
+        # use red gem to buy
+        # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
+        #     wait(lambda: self.instance.clickPointV2(719,482))
         screenshotBlob = self.instance.outputWindowScreenshotV2()
         self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     

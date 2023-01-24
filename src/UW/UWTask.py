@@ -48,11 +48,11 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        self.selectCityFromMapAndMove("royal")
-        battle=importBattle()(self.simulatorInstance,self)
-        battle.leavePort()
+        # self.selectCityFromMapAndMove("royal")
+        # battle=importBattle()(self.simulatorInstance,self)
+        # battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
-        market.buyProductsInCityTwice([])
+        market.buyInBlackMarket("laga")
         self.checkForDailyPopup(5)
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])

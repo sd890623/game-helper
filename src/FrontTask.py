@@ -58,7 +58,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return ""
             str = "".join(ocrObj[0])
             self.print("ocr "+ str.lower())
@@ -73,7 +73,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return ""
             str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))
             self.print("ocr "+ str.lower())
@@ -88,7 +88,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
             
@@ -104,7 +104,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
             
@@ -120,7 +120,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
             
@@ -142,7 +142,7 @@ class FrontTask(object):
             if(debug==True):
                 self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlobMultiLine(screenshotBlob, ocrType)
-            if(len(ocrObj[0]) == 0):
+            if(len(ocrObj)==0 or len(ocrObj[0]) == 0):
                 return False
             str = "".join(map(lambda lineObj: "".join(lineObj[0]), ocrObj))            
             self.print("one of "+",".join(wordsArr) +" in "+ str)

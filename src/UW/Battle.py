@@ -74,7 +74,7 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(8): 
+        for x in range(9): 
             number=self.uwtask.getNumberFromSingleLineInArea(A=[219,6,233,20])
             match number:
                 case 1:
@@ -92,7 +92,7 @@ class Battle:
                 case 3:
                     #open skill #No3 ram buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -100,7 +100,7 @@ class Battle:
                 case 5:
                     #5  atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(10)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
@@ -154,7 +154,7 @@ class Battle:
         index=0
         while(index<16):
             yDiff=int(index%10*56.5)
-            ocrOpponentName=self.uwtask.hasArrayStringInSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
+            ocrOpponentName=self.uwtask.hasArrayStringEqualSingleLineWords(opponents,A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
             if(ocrOpponentName):
                 wait(lambda: self.instance.fastClickPointV2(firstPosi[0],firstPosi[1]+yDiff),0.5,disableWait=True)
                 return True

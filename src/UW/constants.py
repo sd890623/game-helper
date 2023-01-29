@@ -10,7 +10,8 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 battleCity="hangzhou"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentNames=["rob","pil","ass","zubuike","chenzuyi","chowta","shiyang","nani"]
+opponentNames=["rob","pil","ass","asa",
+"golitsynro","golitsynas","azubuikero","azubuikeas","chenzuyiro","chenzuyias","kaikar","kaikaa"]
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
 
@@ -103,7 +104,7 @@ EABuyBM={
 
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
-    # EA: Perfume: Dec-Jan(Winter),STD, Feb-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
+    # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
     # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
 
     #0 SEA-Carrebean  mar-May-spring, 
@@ -129,9 +130,9 @@ routeLists=[
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
-            "supplyCities":["pasay","toamasina","cape","pernambuco","cayenne","caracas","trujil"],
+            "supplyCities":["pasay","toamasina","cape","pernambuco","cayenne","caracas"],
             "useSkillCity":"rida",
-            "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"southside","types":None}],
+            "sellCities":[{"name":"rida","types":["perfume","dye"]},{"name":"veracruz","types":"BM"},{"name":"cartagena","types":None}],
             "sellFleet":2,
         },
     ],
@@ -230,6 +231,19 @@ routeLists=[
         EADoubleBuy
     ],
         
+    #5 Summer Jun-Aug, NorthE-EA, 
+    [
+        {
+            **NEEASupplySell,
+            "buyFleet":4,
+            "buyStrategy":"twice",
+            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
+            "sellFleet":2,
+        },
+        EABuyBM,
+        EADoubleBuy,
+    ],
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen
     #liquor bad route: hamburg,bremen,helder,antwerp,calais,
 ]

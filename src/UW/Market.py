@@ -153,8 +153,8 @@ class Market:
 
         self.uwtask.print("sell items")
         sellItemsInScreen()
-        # if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
-        #     sellItemsInScreen()
+        if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
+            sellItemsInScreen()
         ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[891,5,985,50])
         moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+123,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
         savingOcr=self.uwtask.getSingleLineWordsInArea(A=moneyScanArea,ocrType=2)
@@ -253,8 +253,9 @@ class Market:
                  ("intermediatetrade" in productName and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
                 "teak" in productName or "largegunport" in productName or
+                "largekeel" in productName or
                 "specialenhanced" in productName or "silverastrolabe" in productName or
-                "rosewoodmast" in productName or #"beech" in productName
+                #"rosewoodmast" in productName or #"beech" in productName
                  "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
@@ -272,7 +273,7 @@ class Market:
                 ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
-                if("decoration" in itemType or "design" in itemType):
+                if("decoration" in itemType or "design" in itemType or "cape" in itemType):
                     return False
                 if(price and price>938):
                     doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -293,10 +294,15 @@ class Market:
                     continue
         #quick purchase
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[755,653,815,677]),1,1,timeout=5)
-        wait(lambda: self.instance.clickPointV2(780,671),1)
+        if(self.uwtask.hasSingleLineWordsInArea("ok",A=[755,653,815,677])):
+            wait(lambda: self.instance.clickPointV2(780,671),1)
+        else:
+            wait(lambda: self.instance.clickPointV2(1304,606),1)
+
         # use red gem to buy
         # if(self.uwtask.hasSingleLineWordsInArea("purchase", A=[613,236,699,258])):
         #     wait(lambda: self.instance.clickPointV2(719,482))
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(74,210),2,1)
         screenshotBlob = self.instance.outputWindowScreenshotV2()
         self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     

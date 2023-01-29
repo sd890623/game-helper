@@ -48,7 +48,7 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        # self.selectCityFromMapAndMove("royal")
+        self.selectCityFromMapAndMove("amsterdam")
         # battle=importBattle()(self.simulatorInstance,self)
         # battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
@@ -249,17 +249,19 @@ class UWTask(FrontTask):
             self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,97),2,0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),2,0)
+        wait(lambda: self.simulatorInstance.clickPointV2(39,97),1)
+        wait(lambda: self.simulatorInstance.clickPointV2(141,78),1)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
+        wait(lambda: self.simulatorInstance.clickPointV2(114,109),1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
         wait(lambda: self.simulatorInstance.clickPointV2(717,860),1)
         if(self.hasSingleLineWordsInArea("notice",A=[671,270,765,310])):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
-
+        if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[672,824,781,844])):
+            self.selectCityFromMapAndMove(cityname)
+    
     # def checkForDisaster(self):
     #     #click disaster icon
     #     wait(lambda: self.simulatorInstance.clickPointV2(637,345),1)
@@ -355,6 +357,7 @@ class UWTask(FrontTask):
 
         #sell
         market.sellGoodsWithMargin(simple,types)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(166,625),6,1)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1076,715),3, 2)
@@ -406,8 +409,7 @@ class UWTask(FrontTask):
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
             market.buyBlackMarket(city)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city), 3,2)
-
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,15)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")
@@ -470,7 +472,7 @@ class UWTask(FrontTask):
             return
         for x in range(0,1):
             #more expect
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),1,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15)
             wait(lambda: self.simulatorInstance.clickPointV2(1165,111),1)#ship
             wait(lambda: self.simulatorInstance.clickPointV2(1069,90),1)#assign
             wait(lambda: self.simulatorInstance.clickPointV2(1022,138),1)#settings

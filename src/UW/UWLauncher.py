@@ -21,16 +21,16 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="naples"
-#task.battleRoute()
+# task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: spring
-task.setRouteOption(3)
+task.setRouteOption(5)
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
 # kochi: 12d=18min, 18*8/14=10min=600
-task.waitForCityTimeOut=700
+task.waitForCityTimeOut=650
 task.battleMode="run"
 task.playNotification()
 task.setCurrentCityFromScreen()

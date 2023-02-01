@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="hangzhou"
+battleCity="jeju"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
 opponentNames=["rob","pil","ass","asa",
@@ -71,7 +71,7 @@ NEEASupplySell={
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": [""],
-    "supplyCities":["laga","seville","bathurst","luanda","cape","toamasina","aceh"],
+    "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","aceh"],
     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
     "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
     {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
@@ -94,7 +94,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["hanyang","jeju","peking","hobe"],#,"quanzhou","hobe","hangzhou","chang'an","hanyang","jeju","macau",],
+    "buyCities":["peking","hanyang","jeju","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang'an","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -147,7 +147,7 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
         },
         # {
@@ -162,8 +162,8 @@ routeLists=[
         {
             **EADoubleBuy,
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
-            "useSkillCity":"cartagena",
-            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+            "useSkillCity":"maracaibo",
+            "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
         }
     ],
 
@@ -178,7 +178,7 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            {"name":"davao","types":["dye","jewelry"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
         },
         EABuyBM,
@@ -188,8 +188,8 @@ routeLists=[
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
             "buyCities":["naha","hangzhou","chang'an","hanyang"],
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
-            "useSkillCity":"cartagena",
-            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+            "useSkillCity":"maracaibo",
+            "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
         },
     ],
 
@@ -206,15 +206,15 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"hobe","types":["placeholder"]},{"name":"hanyang","types":None}
+            {"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
         },
         EABuyBM,
         {
             **EADoubleBuy,
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
-            "useSkillCity":"cartagena",
-            "sellCities":[{"name":"cartagena","types":None},{"name":"veracruz","types":"BM"}],
+            "useSkillCity":"maracaibo",
+            "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
         }
     ],
 

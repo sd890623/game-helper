@@ -48,7 +48,8 @@ class UWTask(FrontTask):
     battleMode="run"
 
     def testTask(self):
-        self.selectCityFromMapAndMove("amsterdam")
+        self.changeFleet(2)
+        self.selectCityFromMapAndMove("chang'an")
         # battle=importBattle()(self.simulatorInstance,self)
         # battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
@@ -256,7 +257,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(114,109),1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
         wait(lambda: self.simulatorInstance.clickPointV2(717,860),1)
-        if(self.hasSingleLineWordsInArea("notice",A=[671,270,765,310])):
+        if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
         if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[672,824,781,844])):
@@ -473,8 +474,8 @@ class UWTask(FrontTask):
         for x in range(0,1):
             #more expect
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15)
-            wait(lambda: self.simulatorInstance.clickPointV2(1165,111),1)#ship
-            wait(lambda: self.simulatorInstance.clickPointV2(1069,90),1)#assign
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1165,111),lambda: self.hasSingleLineWordsInArea("ship", A=[48,12,113,42]),1,1,10)#ship
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,10)#assign
             wait(lambda: self.simulatorInstance.clickPointV2(1022,138),1)#settings
             y=int(282+int(62*(fleetNo-1)))
             wait(lambda: self.simulatorInstance.clickPointV2(343,y),1)

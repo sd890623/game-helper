@@ -13,7 +13,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-# task.testTask()
+#task.testTask()
 
 #todo
 
@@ -25,7 +25,7 @@ time.sleep(3)
 
 #Init option
 #Route choice: Must-set 0: spring
-task.setRouteOption(5)
+task.setRouteOption(2)
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
@@ -34,8 +34,8 @@ task.waitForCityTimeOut=650
 task.battleMode="run"
 task.playNotification()
 task.setCurrentCityFromScreen()
-task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;检查市场购买勾;抗浪;删除到达城市;调最大仓")
-
+task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;检查市场购买勾")
+task.print("抗浪;删除到达城市;调最大仓;检查道具少,检查黑市可买")
 while(True):
     if(not(isWorkHour())):
         task.print("not working hour,sleep for 30mins")

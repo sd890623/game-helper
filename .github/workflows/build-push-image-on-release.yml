@@ -1,0 +1,29 @@
+name: Image on release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-x86:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Build and push Docker image with ref as tag
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/game-helper:${{github.ref_name}}
+      - name: Set the tag as latest
+        run: |
+          docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/game-helper:${{github.ref_name}} ${{ secrets.DOCKER_HUB_USERNAME }}/game-helper:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/game-helper:latest
+
+

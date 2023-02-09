@@ -47,8 +47,10 @@ class UWTask(FrontTask):
     allCityList=cityNames
     battleMode="run"
 
+# todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
+
     def testTask(self):
-        self.changeFleet(2)
+        self.changeFleet(4)
         self.selectCityFromMapAndMove("chang'an")
         # battle=importBattle()(self.simulatorInstance,self)
         # battle.leavePort()
@@ -68,10 +70,6 @@ class UWTask(FrontTask):
 
         # self.buyBlackMarket('london')
         self.dumpCrew()
-        # messager=Messager()
-        # messager.sendMessage("reached A city")
-        onionPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\products\\"+"onion"+".bmp")
-
         wait(lambda: self.clickWithImage("tourmaline", A=[187,99,949,395],imagePrefix="products"),1)
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
@@ -476,13 +474,13 @@ class UWTask(FrontTask):
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1165,111),lambda: self.hasSingleLineWordsInArea("ship", A=[48,12,113,42]),1,1,10)#ship
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,10)#assign
-            wait(lambda: self.simulatorInstance.clickPointV2(1022,138),1)#settings
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,10)#settings
             y=int(282+int(62*(fleetNo-1)))
-            wait(lambda: self.simulatorInstance.clickPointV2(343,y),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1127,667),1)#apply
-            wait(lambda: self.simulatorInstance.clickPointV2(769,534),1)#ok
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(343,y),3,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#apply
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#ok
             if(self.hasSingleLineWordsInArea("assign", A=[748,655,813,678])):
-                wait(lambda: self.simulatorInstance.clickPointV2(785,666),1)#injury confirm
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
             
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
@@ -553,7 +551,17 @@ class UWTask(FrontTask):
         else:
             if(self.tradeRouteBuyFin):
                 return True
-
+    def shouldFinishTradeSimple(self,routeObject):
+        if(routeObject.get("sellFleet")):
+            if(self.tradeRouteBuyFin and not self.hasStartedExtraBuy):
+                return False
+            elif(self.tradeRouteBuyFin and self.hasStartedExtraBuy):
+                return True
+            else:
+                return False
+        else:
+            if(self.tradeRouteBuyFin):
+                return True
     def startTradeRoute(self):
         routeObjIndex=0
         routeObject=None
@@ -579,10 +587,14 @@ class UWTask(FrontTask):
             self.tradeRouteBuyFin=False
             self.hasStartedExtraBuy=False
             self.print("出发买东西城市")
-            while(self.tradeRouteBuyFin is False and len(routeObject["buyCities"])>1):
+            while(not self.shouldFinishTradeSimple(routeObject) and len(routeObject["buyCities"])>1):
                 # goto buy cities
                 deductedBuyBMCities=importMarket().deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
+                    self.print("tradeRouteBuyFin:"+str(self.tradeRouteBuyFin))
+                    self.print("hasStartedExtraBuy:"+str(self.hasStartedExtraBuy))
+                    self.print("sellFleet no:"+str(routeObject.get("sellFleet")))
+
                     if(self.shouldFinishTrade(routeObject)):
                         break
                     self.gotoCity(city,self.allCityList)

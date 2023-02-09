@@ -25,7 +25,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 "alexandria","cairo","candia","athens","thessaloni","constantino",
-"royal","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
+"roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
 "macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang'an"
 ]
@@ -196,7 +196,7 @@ class Market:
                     break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
-        wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),lambda: not self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=10)
         self.bargin()
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         self.uwtask.print("buy fin")
@@ -258,7 +258,8 @@ class Market:
                 #"rosewoodmast" in productName or #"beech" in productName
                  "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                ("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName)
+                #("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName) or
+                ()
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
                 continue

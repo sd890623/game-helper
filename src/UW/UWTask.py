@@ -50,6 +50,7 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        self.buyBlackMarket("ceuta")
         self.changeFleet(4)
         self.selectCityFromMapAndMove("chang'an")
         # battle=importBattle()(self.simulatorInstance,self)
@@ -408,7 +409,11 @@ class UWTask(FrontTask):
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
             market.buyBlackMarket(city)
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,15)
+            def backup():
+                self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
+                if(self.hasSingleLineWordsInArea("notice",[685,281,755,305])):
+                    self.simulatorInstance.clickPointV2(784,595)
+            continueWithUntilByWithBackup(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,15,backupFunc=backup)
 
     def shipBuilding(self,options=[0], city="faro", times=30):
         self.print("SB 开始")

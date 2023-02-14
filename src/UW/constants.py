@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="jayakarta"
+battleCity="havana"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
 opponentNames=["rob","pil","ass","asa",
@@ -144,7 +144,7 @@ routeLists=[
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
             {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
@@ -175,7 +175,7 @@ routeLists=[
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
             {"name":"davao","types":["dye","jewelry"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
@@ -203,7 +203,7 @@ routeLists=[
             "dumpCrewCities": [],
             "sellFleet":2,
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
             {"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
             ]
@@ -241,6 +241,22 @@ routeLists=[
         },
         EABuyBM,
         EADoubleBuy,
+    ],
+    #6 Autumn Sep-Nov, NE-EA, EA-perfume+>, 
+    [
+        {
+            **NEEASupplySell,
+            "buyFleet":4,
+            "buyStrategy":"twice",
+            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo"],
+            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","seville","laga"],
+            "sellFleet":2,
+        },
+        EABuyBM,
+        {**EADoubleBuy,
+            "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
+            "buyCities":["naha","hangzhou","chang'an","hanyang"],
+        }
     ],
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen
     #liquor bad route: hamburg,bremen,helder,antwerp,calais,

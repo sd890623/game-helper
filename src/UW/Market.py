@@ -258,7 +258,7 @@ class Market:
                 #"rosewoodmast" in productName or #"beech" in productName
                  "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                #("bgradeprocessed" in productName and "lumber" not in productName and "metal" not in productName) or
+                ("agradeprocessed" in productName) or # and "lumber" not in productName and "metal" not in productName) or
                 ()
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -315,7 +315,7 @@ class Market:
             while(self.uwtask.getTime()>5 and self.uwtask.getTime()<20):
                 time.sleep(30)
                 timeout2+=1
-                if(timeout2>360):
+                if(timeout2>30):
                     return
             if(not self.uwtask.clickInMenu("temshop","temshop")):
                 nonlocal timeout

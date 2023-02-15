@@ -27,7 +27,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang'an"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")

@@ -236,7 +236,10 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,2, backupFunc=clickAndStockBackup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,1, backupFunc=clickAndStockBackup)
+        # Stop the ship on rare case it goes back town
+        time.sleep(1)
+        wait(lambda: self.simulatorInstance.clickPointV2(717,840),1)
         self.checkForDailyPopup(5)
 
     def selectNextCity(self):
@@ -263,7 +266,7 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=10,backupFunc=backup)
-        if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[672,824,781,844])):
+        if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845])):
             if(self.hasSelectedMap<20):
                 self.hasSelectedMap+=1
                 self.selectCityFromMapAndMove(cityname)
@@ -488,8 +491,8 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,10)#settings
             y=int(282+int(62*(fleetNo-1)))
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(343,y),3,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("target", A=[714,337,786,360]),1,1,10)#apply
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("target", A=[714,337,786,360]),1,1,10)#ok
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,10)#apply
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,10)#ok
             if(self.hasSingleLineWordsInArea("assign", A=[748,655,813,678])):
                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)

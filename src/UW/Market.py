@@ -206,8 +206,8 @@ class Market:
         boughtTick=self.buyProductsInMarket(products)
         if(self.uwtask.tradeRouteBuyFin):
             return
-        if(boughtTick==0):
-            return
+        # if(boughtTick==0):
+        #     return
 
         while(True):
             number=self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96])

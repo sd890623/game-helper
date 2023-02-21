@@ -81,7 +81,7 @@ class Battle:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # Alan: 5, Otto:6 , Ernst: 6
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -101,7 +101,7 @@ class Battle:
                 case 5:
                     #5  atk Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(10)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)

@@ -24,8 +24,9 @@ time.sleep(3)
 # task.battleRoute()
 
 #Init option
-#Route choice: Must-set 0: spring
-task.setRouteOption(2)
+#Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct, Carrebean-EA,3: Nov-Feb, Carrebean-EA
+#4
+task.setRouteOption(4)
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

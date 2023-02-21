@@ -74,12 +74,12 @@ NEEASupplySell={
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-    {"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}]
+    {"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}]
 }
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-    "buyCities":["naha","hobe","hangzhou","chang'an","hanyang","jeju"],
+    "buyCities":["naha","hobe","hangzhou","chang","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
@@ -93,7 +93,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["peking","hanyang","jeju","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang'an","hanyang","jeju","macau",],
+    "buyCities":["peking","hanyang","jeju","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -118,7 +118,7 @@ routeLists=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"pasay","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"chang'an","types":None},{"name":"hanyang","types":"BM"},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":["placeholder"]}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"macau","types":["placeholder"]},{"name":"chang","types":None},{"name":"hanyang","types":"BM"},{"name":"jeju","types":"BM"},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":["placeholder"]}],
             "sellFleet":2,
         },
         {	
@@ -146,7 +146,7 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
+            {"name":"davao","types":["dye"]},{"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}
             ]
         },
         # {
@@ -177,7 +177,7 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"davao","types":["dye","jewelry"]},{"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
+            {"name":"davao","types":["dye","jewelry"]},{"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}
             ]
         },
         EABuyBM,
@@ -185,7 +185,7 @@ routeLists=[
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["naha","hangzhou","chang'an","hanyang"],
+            "buyCities":["naha","hangzhou","chang","hanyang"],
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
             "useSkillCity":"maracaibo",
             "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
@@ -205,7 +205,7 @@ routeLists=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","pasay"],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-            {"name":"hobe","types":["placeholder"]},{"name":"chang'an","types":None}
+            {"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}
             ]
         },
         EABuyBM,
@@ -255,7 +255,7 @@ routeLists=[
         EABuyBM,
         {**EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["naha","hangzhou","chang'an","hanyang"],
+            "buyCities":["naha","hangzhou","chang","hanyang"],
         }
     ],
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen

@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="havana"
+battleCity="yeongil"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
 opponentNames=["rob","pil","ass","asa",
@@ -27,7 +27,7 @@ northEuropeHot={
     # Feb alchohol+
     # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","bergen","edinburgh","groningen","amsterda","london","dover","bristol","bordeaux","seville","laga","marseil","genoa"],
+    "buyCities":["saint","stockhol","visby","riga","bergen","edinburgh","groningen","amsterda","london","dover","bristol","bristol","bordeaux","seville","laga","marseil","genoa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
@@ -39,7 +39,7 @@ northEuropeStd={
     # "gda", "hamburg"
     # Feb alchohol+
     # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","calais","plymouth","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
+    "buyCities":["saint","stockhol","visby","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","calais","plymouth","bristol","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":["copenhag"],
     "dumpCrewCities": ["kochi"],
     "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
@@ -79,7 +79,7 @@ NEEASupplySell={
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-    "buyCities":["naha","hobe","hangzhou","chang","hanyang","jeju"],
+    "buyCities":["shuri","hobe","hangzhou","chang","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
@@ -93,7 +93,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["peking","hanyang","jeju","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
+    "buyCities":["peking","hanyang","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -124,7 +124,7 @@ routeLists=[
         {	
             #blueprint 1 perfume to spice
             "buyFleet":4,
-            "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
+            "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","kris","mangosteen"],
             "buyCities":["banda","ambon","ternate","jolo","makassar","banjarmasin","jayakarta","pasay","aceh"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
@@ -154,7 +154,7 @@ routeLists=[
         #     "buyFleet":4,
         #     "buyStrategy":"twice",
         #     "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-        #     "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
+        #     "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
         #     "sellFleet":2,
         # },
         EABuyBM,
@@ -185,7 +185,7 @@ routeLists=[
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["naha","hangzhou","chang","hanyang"],
+            "buyCities":["shuri","hangzhou","chang","hanyang"],
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
             "useSkillCity":"maracaibo",
             "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
@@ -223,7 +223,7 @@ routeLists=[
             "buyFleet":4,
             "buyStrategy":"twice",
             "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","laga","seville"],
+            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
         EABuyBM,
@@ -249,13 +249,13 @@ routeLists=[
             "buyFleet":4,
             "buyStrategy":"twice",
             "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bordeaux","seville","laga"],
+            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
         EABuyBM,
         {**EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["naha","hangzhou","chang","hanyang"],
+            "buyCities":["shuri","hangzhou","chang","hanyang"],
         }
     ],
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen

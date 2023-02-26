@@ -238,8 +238,7 @@ class UWTask(FrontTask):
         self.print("出海")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,1, backupFunc=clickAndStockBackup)
         # Stop the ship on rare case it goes back town
-        time.sleep(1)
-        wait(lambda: self.simulatorInstance.clickPointV2(717,840),1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,695),2,0)
         self.checkForDailyPopup(5)
 
     def selectNextCity(self):
@@ -470,9 +469,9 @@ class UWTask(FrontTask):
             return 12
 
     def healInjury(self,city):
-        self.clickInMenu("tavern","tavern",infinite=True)
+        self.clickInMenu("inn","lnn",infinite=True)
         # 4th button: 58,279 5th 84,341
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(84,341), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(448,68,(253,74,54))):
             wait(lambda: self.simulatorInstance.clickPointV2(394,84),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1039,861),1)

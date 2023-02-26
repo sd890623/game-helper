@@ -74,14 +74,17 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(9): 
+        for x in range(8): 
+            isFoeTurn=self.uwtask.isPositionColorSimilarTo(221,16,(165, 32, 28))
+            if(isFoeTurn):
+                time.sleep(4)
             number=self.uwtask.getNumberFromSingleLineInArea(A=[219,6,233,20])
             match number:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 5, Otto:6 , Ernst: 6
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    # Alan: 6, Otto:6 , Ernst: 6
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -93,7 +96,7 @@ class Battle:
                 case 3:
                     #open skill #No3 ram buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(4)
                 case 4:
@@ -146,7 +149,7 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea"],marketMode=1)
+               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponents):

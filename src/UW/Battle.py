@@ -183,11 +183,7 @@ class Battle:
             self.uwtask.checkForDailyPopup(5)
             if(self.uwtask.hasSingleLineWordsInArea("huamei", A=[62,132,165,158])):
                 continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(881,516),5,10)
-            #More checks
-            if(self.uwtask.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(813,436),5,10)
+            self.uwtask.checkForBasicStuck()
             if(self.uwtask.hasSingleLineWordsInArea("auto",A=[138,80,186,98]) or self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"])):
                 self.suppressBattle()
             time.sleep(10)

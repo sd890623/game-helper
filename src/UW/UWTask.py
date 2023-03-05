@@ -301,15 +301,19 @@ class UWTask(FrontTask):
         self.clickEnterCityButton()
         self.checkBeforeCity()
 
+    def checkForBasicStuck(self):
+        self.checkForDailyPopup()
+        if(self.hasSingleLineWordsInArea("notice",A=[555,379,600,401])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(859,507),5,10)
+        if(self.hasSingleLineWordsInArea("notice",A=[684,282,755,305])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(713,595),5,10)
+        if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
-            self.checkForDailyPopup()
-            if(self.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(881,516),5,10)
-            # #More checks
-            # if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
-            #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+            self.checkForBasicStuck()
             if(self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
                 battle=importBattle()(self.simulatorInstance,self)
                 battle.suppressBattle()

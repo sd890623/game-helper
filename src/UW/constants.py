@@ -7,11 +7,13 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="yeongil"
+battleCity="kakatuwah"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentNames=["rob","pil","ass","asa",
-"golitsynro","golitsynas","azubuikero","azubuikeas","chenzuyiro","chenzuyias","kaikar","kaikaa"]
+opponentsInList=["pil","ass","asa", "pi",
+"golitsynpi","golitsynas","azubuikepi","azubuikeas","chenzuyipi","chenzuyias","kaikap","kaikaa"]
+opponentNames=["pill","pil","ass","asa"]
+# rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
 

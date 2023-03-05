@@ -269,7 +269,7 @@ class Market:
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
                 if(
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
-                    "mediumkeel" in productName or "decoration" in productName or
+                    "decoration" in productName or#"mediumkeel" in productName or 
                     "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False

@@ -121,7 +121,7 @@ class UWTask(FrontTask):
         self.routeOption=routeOption
         self.routeList=routeLists[routeOption]
         self.allCityList=cityNames
-        self.allCityList+=battleCity
+        self.allCityList+=[battleCity]
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
@@ -251,7 +251,9 @@ class UWTask(FrontTask):
         def backup():
             self.print("cant move, map again")
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(self.allCityList)),2)#leave map
-            if(self.hasSelectedMap<20):
+            
+            self.checkForBasicStuck()
+            if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
                 self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
@@ -267,7 +269,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=10,backupFunc=backup)
         if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845])):
-            if(self.hasSelectedMap<20):
+            if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
                 self.selectCityFromMapAndMove(cityname)
     
@@ -309,14 +311,14 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(713,595),5,10)
         if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+        if(self.hasSingleLineWordsInArea("auto",A=[139,82,192,102]) or self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
+            battle=importBattle()(self.simulatorInstance,self)
+            battle.suppressBattle()
 
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
             self.checkForBasicStuck()
-            if(self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
-                battle=importBattle()(self.simulatorInstance,self)
-                battle.suppressBattle()
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
@@ -476,7 +478,7 @@ class UWTask(FrontTask):
     def healInjury(self,city):
         self.clickInMenu("inn","lnn",infinite=True)
         # 4th button: 58,279 5th 84,341
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(84,341), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(449,67,(253,53,51))):
             wait(lambda: self.simulatorInstance.clickPointV2(394,84),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1039,861),1)

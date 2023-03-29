@@ -51,6 +51,9 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        self.useTradeSkill()
+        self.checkForDailyPopup(5)
+
         self.buyBlackMarket("ceuta")
         self.changeFleet(4)
         self.selectCityFromMapAndMove("chang'an")
@@ -58,7 +61,6 @@ class UWTask(FrontTask):
         # battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
         market.buyInBlackMarket("laga")
-        self.checkForDailyPopup(5)
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
         self.sendNotification(f"You have reached {'mob'}")
@@ -184,7 +186,7 @@ class UWTask(FrontTask):
 
     def restock(self):
         self.print("补给")
-        okBtn=778,568
+        okBtn=752,607
         firstLineArea=[1200,528,1362,552]
         firstLineArrowBtn=1401,540
         # Repair ship
@@ -340,6 +342,7 @@ class UWTask(FrontTask):
             if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[242,172,359,208])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
+            wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
 
     # def checkForTreasure(self):
     #     chestCood=self.hasImageInScreen("chest",A=[173,48,1051,659])
@@ -483,7 +486,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(394,84),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1039,861),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1294,522),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(778,564),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(746,610),1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,16)
     
     def changeFleet(self, fleetNo, simple=False):
@@ -552,9 +555,9 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
+        if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[787,317,888,340])):
             wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
     
     def shouldFinishTrade(self,routeObject):
         if(routeObject.get("sellFleet")):

@@ -13,7 +13,7 @@ task = UWTask(hwndObject["hwnd"], "uw")
 time.sleep(3)
 
 #test
-#task.testTask()
+# task.testTask()
 
 #todo
 
@@ -21,12 +21,12 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="naples"
-# task.battleRoute()
+task.setRouteOption(4)
+task.battleRoute()
 
 #Init option
-#Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct, Carrebean-EA,3: Nov-Feb, Carrebean-EA
-#4
-task.setRouteOption(4)
+#Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
+#4 summer, 5autumn, 6winter
 # task.enableSB("amsterda",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss

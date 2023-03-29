@@ -9,7 +9,7 @@ from constants import blackListForBattle
 # todo list
 # checkStats
 class Battle:
-    randomPoint=1029,698
+    randomPoint=750,530
     lastCallTime=0
     haveSentBattleFinNotification=False
     battleEnd={
@@ -76,17 +76,18 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(7): 
+        for x in range(8): 
             isFoeTurn=self.uwtask.isPositionColorSimilarTo(221,16,(165, 32, 28))
             if(isFoeTurn):
+                print("foe's turn, wait for 4s")
                 time.sleep(4)
             number=self.uwtask.getNumberFromSingleLineInArea(A=[219,6,233,20])
             match number:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 6, Otto:7 , Ernst: 6
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
+                    # Alan: 5, Otto:6 , Ernst: 6
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -100,13 +101,16 @@ class Battle:
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(4)
+                    time.sleep(5)
                 case 4:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case 5:
                     #5  atk Buff
+                    # wait(lambda: self.instance.clickPointV2(294,28),0.5)
+                    # wait(lambda: self.instance.clickPointV2(242,25),0.5)
+
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(4)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 6:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
@@ -121,9 +125,13 @@ class Battle:
             wait(lambda: self.instance.clickPointV2(170,87),0.5)
             #Click on "no" for duel
 
-        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=360)
+        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=480)
         def backupFunc():
             exitBattle()
+            if(self.uwtask.hasSingleLineWordsInArea("defeat",A=[1078,781,1162,807])):
+                wait(lambda: self.instance.clickPointV2(1097,798),10)
+                wait(lambda: self.instance.clickPointV2(859,497),2)
+                wait(lambda: self.instance.clickPointV2(781,663),60)
             self.uwtask.checkForDailyPopup()
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,3)
 
@@ -198,7 +206,7 @@ class Battle:
 
     def depart(self):
         firstLineArrowBtn=1401,540
-        okBtn=778,568
+        okBtn=752,607
         departBtn=1287,655
         def clickAndStock():
             wait(lambda: self.instance.clickPointV2(*self.uwtask.randomPoint),0.2)

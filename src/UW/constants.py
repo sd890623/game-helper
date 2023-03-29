@@ -10,8 +10,11 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 battleCity="yeongil"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentNames=["rob","pil","ass","asa",
-"golitsynro","golitsynas","azubuikero","azubuikeas","chenzuyiro","chenzuyias","kaikar","kaikaa"]
+opponentsInList=["pil","ass","asa", "pi",
+"golitsynpi","golitsynas","azubuikepi","azubuikeas","chenzuyipi","chenzuyias","kaikap","kaikaa"]
+opponentNames=["pill","pil","ass","asa","duchunyong"] #add ducunyong as it's double lines, so quick hack,only checked in board
+blackListForBattle=['piz','zpi']
+# rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
 
@@ -79,7 +82,7 @@ NEEASupplySell={
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-    "buyCities":["shuri","hobe","hangzhou","chang","hanyang","jeju"],
+    "buyCities":["naha","hobe","hangzhou","chang","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
@@ -185,7 +188,7 @@ routeLists=[
             **EADoubleBuy,
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["shuri","hangzhou","chang","hanyang"],
+            "buyCities":["naha","hangzhou","chang","hanyang"],
             "supplyCities":["macau","pasay","toamasina","cape","pernambuco","cayenne","caracas"],
             "useSkillCity":"maracaibo",
             "sellCities":[{"name":"maracaibo","types":None},{"name":"veracruz","types":"BM"}],
@@ -229,20 +232,7 @@ routeLists=[
         EABuyBM,
         EADoubleBuy,
     ],
-    #5 Winter Dec-Feb, NE-EA, EA-perfume->, liquor+
-    [
-        {
-            **NEEASupplySell,
-            "buyFleet":4,
-            "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
-            "sellFleet":2,
-        },
-        EABuyBM,
-        EADoubleBuy,
-    ],
-    #6 Autumn Sep-Nov, NE-EA, EA-perfume+>, 
+    #5 Autumn Sep-Nov, NE-EA, EA-perfume+>, 
     [
         {
             **NEEASupplySell,
@@ -255,9 +245,23 @@ routeLists=[
         EABuyBM,
         {**EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["shuri","hangzhou","chang","hanyang"],
+            "buyCities":["naha","hangzhou","chang","hanyang"],
         }
     ],
+    #6 Winter Dec-Feb, NE-EA, EA-perfume->, liquor+
+    [
+        {
+            **NEEASupplySell,
+            "buyFleet":4,
+            "buyStrategy":"twice",
+            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
+            "sellFleet":2,
+        },
+        EABuyBM,
+        EADoubleBuy,
+    ]
+
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen
     #liquor bad route: hamburg,bremen,helder,antwerp,calais,
 ]

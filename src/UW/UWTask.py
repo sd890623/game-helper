@@ -8,7 +8,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import cityNames, routeLists, opponentNames,battleCity
+from constants import cityNames, routeLists, opponentNames,battleCity,opponentsInList
 
 def importBattle():
     from Battle import Battle
@@ -51,6 +51,9 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        self.useTradeSkill()
+        self.checkForDailyPopup(5)
+
         self.buyBlackMarket("ceuta")
         self.changeFleet(4)
         self.selectCityFromMapAndMove("chang'an")
@@ -58,7 +61,6 @@ class UWTask(FrontTask):
         # battle.leavePort()
         market=importMarket()(self.simulatorInstance,self)
         market.buyInBlackMarket("laga")
-        self.checkForDailyPopup(5)
         self.currentCity = "banda"
         self.buyInCity('banda', products=["nutmeg"])
         self.sendNotification(f"You have reached {'mob'}")
@@ -121,6 +123,7 @@ class UWTask(FrontTask):
         self.routeOption=routeOption
         self.routeList=routeLists[routeOption]
         self.allCityList=cityNames
+        self.allCityList+=[battleCity]
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
@@ -183,7 +186,7 @@ class UWTask(FrontTask):
 
     def restock(self):
         self.print("补给")
-        okBtn=778,568
+        okBtn=752,607
         firstLineArea=[1200,528,1362,552]
         firstLineArrowBtn=1401,540
         # Repair ship
@@ -250,7 +253,9 @@ class UWTask(FrontTask):
         def backup():
             self.print("cant move, map again")
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(self.allCityList)),2)#leave map
-            if(self.hasSelectedMap<20):
+            
+            self.checkForBasicStuck()
+            if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
                 self.selectCityFromMapAndMove(cityname)
         self.print("select city from map")
@@ -266,7 +271,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
         doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=10,backupFunc=backup)
         if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845])):
-            if(self.hasSelectedMap<20):
+            if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
                 self.selectCityFromMapAndMove(cityname)
     
@@ -300,18 +305,22 @@ class UWTask(FrontTask):
         self.clickEnterCityButton()
         self.checkBeforeCity()
 
+    def checkForBasicStuck(self):
+        self.checkForDailyPopup()
+        if(self.hasSingleLineWordsInArea("notice",A=[555,379,600,401])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(859,507),5,10)
+        if(self.hasSingleLineWordsInArea("notice",A=[684,282,755,305])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(713,595),5,10)
+        if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
+        if(self.hasSingleLineWordsInArea("auto",A=[139,82,192,102]) or self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
+            battle=importBattle()(self.simulatorInstance,self)
+            battle.suppressBattle()
+
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
-            self.checkForDailyPopup()
-            if(self.hasSingleLineWordsInArea("notice",A=[531,373,579,394])):
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(881,516),5,10)
-            # #More checks
-            # if(self.hasSingleLineWordsInArea("info",A=[452,292,546,316])):
-            #     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(813,436),5,10)
-            if(self.hasSingleLineWordsInArea("ok", A=importBattle().battleEnd["okBtn"]) or self.hasSingleLineWordsInArea("close", A=importBattle().battleEnd["okBtn"])):
-                battle=importBattle()(self.simulatorInstance,self)
-                battle.suppressBattle()
+            self.checkForBasicStuck()
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
@@ -333,6 +342,7 @@ class UWTask(FrontTask):
             if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[242,172,359,208])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
+            wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
 
     # def checkForTreasure(self):
     #     chestCood=self.hasImageInScreen("chest",A=[173,48,1051,659])
@@ -472,37 +482,36 @@ class UWTask(FrontTask):
         self.clickInMenu("inn","lnn",infinite=True)
         # 4th button: 58,279 5th 84,341
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
-        if(self.isPositionColorSimilarTo(448,68,(253,74,54))):
+        if(self.isPositionColorSimilarTo(449,67,(253,53,51))):
             wait(lambda: self.simulatorInstance.clickPointV2(394,84),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1039,861),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1294,522),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(778,564),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(746,610),1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(city),2,16)
     
-    def changeFleet(self, fleetNo):
+    def changeFleet(self, fleetNo, simple=False):
         if(not fleetNo):
             return
         for x in range(0,1):
-            #more expect
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1165,111),lambda: self.hasSingleLineWordsInArea("ship", A=[48,12,113,42]),1,1,10)#ship
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,10)#assign
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,10)#settings
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1165,111),lambda: self.hasSingleLineWordsInArea("ship", A=[48,12,113,42]),1,1,timeout=10)#ship
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,timeout=10)#assign
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,timeout=10)#settings
             y=int(282+int(62*(fleetNo-1)))
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(343,y),3,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,10)#apply
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,10)#ok
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,timeout=10)#apply
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,timeout=10)#ok
             if(self.hasSingleLineWordsInArea("assign", A=[748,655,813,678])):
-                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,timeout=10)#injury confirm
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
-            
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1244,107), lambda: self.hasSingleLineWordsInArea("managefleet", A=self.titleArea),2,1)
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1395,849), lambda: self.hasSingleLineWordsInArea("redistribute", A=[637,214,751,236]),1,15)#redistributeCrew
-            wait(lambda: self.simulatorInstance.clickPointV2(456,663),1)#distributeMin
-            wait(lambda: self.simulatorInstance.clickPointV2(1026,672),1)#apply
-            wait(lambda: self.simulatorInstance.clickPointV2(780,566),1)#ok
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
+            if(not simple):
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),1,1)
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1244,107), lambda: self.hasSingleLineWordsInArea("managefleet", A=self.titleArea),2,1)
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1395,849), lambda: self.hasSingleLineWordsInArea("redistribute", A=[637,214,751,236]),1,15)#redistributeCrew
+                wait(lambda: self.simulatorInstance.clickPointV2(456,663),1)#distributeMin
+                wait(lambda: self.simulatorInstance.clickPointV2(1026,672),1)#apply
+                wait(lambda: self.simulatorInstance.clickPointV2(780,566),1)#ok
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
 
     def dumpCrew(self):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1274,22), lambda: self.hasSingleLineWordsInArea("company", A=[151,17,290,38]),2,1)
@@ -546,9 +555,9 @@ class UWTask(FrontTask):
     
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
-        if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[764,314,923,340])):
+        if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[787,317,888,340])):
             wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(777,561),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
     
     def shouldFinishTrade(self,routeObject):
         if(routeObject.get("sellFleet")):
@@ -649,14 +658,17 @@ class UWTask(FrontTask):
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)
                 if(types!="BM"):
+                    self.changeFleet(6,simple=True)
                     self.sellInCity(cityName,simple=True,types=types)
+                    self.changeFleet(2,simple=True)
                 self.buyBlackMarket(cityName)
                 self.checkReachCity()
-
+        
                 # if(index==len(routeObject["sellCities"])-1):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
 
             #swap to other route side
+            time.sleep(10+random.randint(1,10))
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
 	
@@ -667,7 +679,7 @@ class UWTask(FrontTask):
                 battle.checkInPort(battleCity)
                 battle.leavePort()
             self.checkForGiftAndReceive()
-            foundOpponent=battle.findOpponentOrReturn(opponentNames,battleCity)
+            foundOpponent=battle.findOpponentOrReturn(opponentsInList,opponentNames,battleCity)
             if(not foundOpponent):
                 continue
             battle.doBattle()

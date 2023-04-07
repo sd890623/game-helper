@@ -252,12 +252,13 @@ class Market:
             if(
                  ("intermediatetrade" in productName and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
+                 ("high" in productName and "highest" not in productName) or
                 "teak" in productName or "largegunport" in productName or
                 "largekeel" in productName or
-                "specialenhanced" in productName or "silverastrolabe" in productName or
+                "silverastrolabe" in productName or #"specialenhanced" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
-                 "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
-                "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
+                "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
+                # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("agradeprocessed" in productName) or # and "lumber" not in productName and "metal" not in productName) or
                 ()
             ):
@@ -270,6 +271,7 @@ class Market:
                 if(
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
                     "decoration" in productName or#"mediumkeel" in productName or 
+                    "redseal" in productName or
                     "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False

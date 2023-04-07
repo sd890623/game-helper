@@ -34,7 +34,7 @@ class Battle:
         print("in battle")
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,1)
         #use fast
-        if(self.uwtask.hasSingleLineWordsInArea("fre",A=[77,110,106,125])):
+        if(self.uwtask.hasSingleLineWordsInArea("free",A=[77,110,106,125])):
             self.instance.clickPointV2(101,98)
         continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),10,timeout=240)
         def exitBattle():
@@ -86,8 +86,8 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 5, Otto:6 , Ernst: 6
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    # Alan: 4, Otto:6 , Ernst: 6
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(4)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -99,7 +99,7 @@ class Battle:
                 case 3:
                     #open skill #No3 ram buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 4:

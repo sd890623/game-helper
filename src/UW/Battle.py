@@ -53,8 +53,8 @@ class Battle:
             x+=1
         
         def backup():
-            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[684,314,754,337])):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(782,571),5,10)
+            if(self.uwtask.hasSingleLineWordsInArea("notice",A=[682,268,755,294])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(780,600),4,5)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification=True
@@ -64,9 +64,18 @@ class Battle:
         if(self.uwtask.inWater()):
             return
         print("in battle")
+        
         #use fast
+
         if(self.uwtask.hasSingleLineWordsInArea("fre",A=[77,110,106,125])):
             self.instance.clickPointV2(101,98)
+        if(not self.uwtask.hasSingleLineWordsInArea("using",A=[79,112,125,129]) and self.uwtask.hasSingleLineWordsInArea("fast",A=[79,83,129,106])):
+            continueWithUntilBy(lambda: self.instance.clickPointV2(106,104), lambda: not self.uwtask.isPositionColorSimilarTo(79,103,(0,30,37)),3,10)
+            if(self.uwtask.hasSingleLineWordsInArea("purchase",A=[667,279,767,308])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(776,593),4,5)
+            if(self.haveSentBattleFinNotification==False):
+                self.uwtask.sendNotification(f"Battle finished")
+                self.haveSentBattleFinNotification=True
 
         centralPos=718,452
         openSkillPos=1379,378
@@ -86,7 +95,7 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 4, Otto:6 , Ernst: 6
+                    # Alan: 4, Otto:6 , Ernst: 5
                     wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(4)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
@@ -98,20 +107,23 @@ class Battle:
                     # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 3:
                     #open skill #No3 ram buff
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
+
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
+
                 case 4:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case 5:
                     #5  atk Buff
-                    # wait(lambda: self.instance.clickPointV2(294,28),0.5)
-                    # wait(lambda: self.instance.clickPointV2(242,25),0.5)
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+
                 case 6:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case 7:

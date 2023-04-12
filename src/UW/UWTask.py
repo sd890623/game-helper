@@ -51,21 +51,10 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
-        self.useTradeSkill()
-        self.checkForDailyPopup(5)
-
-        self.buyBlackMarket("ceuta")
-        self.changeFleet(4)
-        self.selectCityFromMapAndMove("chang'an")
-        # battle=importBattle()(self.simulatorInstance,self)
-        # battle.leavePort()
-        market=importMarket()(self.simulatorInstance,self)
-        market.buyInBlackMarket("laga")
-        self.currentCity = "banda"
-        self.buyInCity('banda', products=["nutmeg"])
-        self.sendNotification(f"You have reached {'mob'}")
-        self.waitForCity()
-        # self.buyBlackMarket('visby')
+        if(self.hasSingleLineWordsInArea("fast",A=[79,83,129,106])):
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(106,104), lambda: not self.isPositionColorSimilarTo(79,103,(0,30,37)),3,10)
+            if(self.hasSingleLineWordsInArea("purchase",A=[667,279,767,308])):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(776,593),4,5)
 
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
@@ -337,9 +326,9 @@ class UWTask(FrontTask):
 
     def checkForDailyPopup(self,delay=0):
         hour=dt.datetime.now().hour
-        if(hour in [2,3]):
+        if(hour in [1,2]):
             time.sleep(delay)
-            if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[242,172,359,208])):
+            if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[241,174,367,206])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
             wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)

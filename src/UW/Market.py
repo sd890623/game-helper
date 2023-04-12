@@ -257,7 +257,7 @@ class Market:
                 "largekeel" in productName or
                 "silverastrolabe" in productName or #"specialenhanced" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
-                "lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
+                #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
                 ("agradeprocessed" in productName) or # and "lumber" not in productName and "metal" not in productName) or
                 ()

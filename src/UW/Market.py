@@ -1,5 +1,5 @@
 from guiUtils import win
-from utils import wait,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString
+from utils import wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString
 import os
 import json
 import time
@@ -246,20 +246,24 @@ class Market:
             xDiff=int(index%4*225.3)
             yDiff=int(int(index/4)*134)
             index+=1
-            productName=self.uwtask.getMultiLineWordsInArea(A=[275+xDiff,119+yDiff,415+xDiff,183+yDiff])
+            productName=self.uwtask.getMultiLineWordsInArea(A=[275+xDiff,118+yDiff,418+xDiff,163+yDiff])
+            # for case of smaller text a grade material not recognized, 2nd round of recog
+            if(productName=="material"):
+                productName=self.uwtask.getSingleLineWordsInArea(A=[275+xDiff,118+yDiff,419+xDiff,136+yDiff])
             if(not(productName) or productName==''):
-                continue 
+                continue
             if(
                  ("intermediatetrade" in productName and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
                  ("high" in productName and "highest" not in productName) or
-                "teak" in productName or "largegunport" in productName or
-                "largekeel" in productName or
+                 "tanjaq" in productName or
+                # "teak" in productName or "largegunport" in productName or
+                # "largekeel" in productName or
                 "silverastrolabe" in productName or #"specialenhanced" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                ("agradeprocessed" in productName) or # and "lumber" not in productName and "metal" not in productName) or
+                (isStringSameOrSimilar("agrade",productName)) or # and "lumber" not in productName and "metal" not in productName) or
                 ()
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -270,13 +274,13 @@ class Market:
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
                 if(
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
-                    "decoration" in productName or#"mediumkeel" in productName or 
+                    "deco" in productName or#"mediumkeel" in productName or 
                     "redseal" in productName or
                     "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
-                if("decoration" in itemType or "design" in itemType or "cape" in itemType):
+                if("deco" in itemType or "design" in itemType or "cape" in itemType):
                     return False
                 if(price and price>938):
                     doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)

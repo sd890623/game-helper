@@ -51,6 +51,14 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        self.buyBlackMarket()
+        wait(lambda: self.simulatorInstance.clickPointV2(713,684),2)
+        if(self.hasSingleLineWordsInArea("ok",A=[757,597,811,616])):
+            wait(lambda: self.simulatorInstance.clickPointV2(632,566),2)
+            wait(lambda: self.simulatorInstance.clickPointV2(777,607),2)
+        wait(lambda: self.simulatorInstance.clickPointV2(725,681),2)
+        if(self.hasSingleLineWordsInArea("yes",A=[1041,779,1118,811])):
+            wait(lambda: self.simulatorInstance.clickPointV2(1072,789),2)
         if(self.hasSingleLineWordsInArea("fast",A=[79,83,129,106])):
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(106,104), lambda: not self.isPositionColorSimilarTo(79,103,(0,30,37)),3,10)
             if(self.hasSingleLineWordsInArea("purchase",A=[667,279,767,308])):
@@ -499,7 +507,7 @@ class UWTask(FrontTask):
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1395,849), lambda: self.hasSingleLineWordsInArea("redistribute", A=[637,214,751,236]),1,15)#redistributeCrew
                 wait(lambda: self.simulatorInstance.clickPointV2(456,663),1)#distributeMin
                 wait(lambda: self.simulatorInstance.clickPointV2(1026,672),1)#apply
-                wait(lambda: self.simulatorInstance.clickPointV2(780,566),1)#ok
+                wait(lambda: self.simulatorInstance.clickPointV2(778,609),1)#ok
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)
 
     def dumpCrew(self):
@@ -546,6 +554,9 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632),1)
         if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[787,317,888,340])):
             wait(lambda: self.simulatorInstance.clickPointV2(831,476),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
+        if(self.hasArrayStringInSingleLineWords(["negotiator"],A=[671,318,766,344])):
+            wait(lambda: self.simulatorInstance.clickPointV2(739,441),1)
             wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
     
     def shouldFinishTrade(self,routeObject):

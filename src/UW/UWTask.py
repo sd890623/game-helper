@@ -51,8 +51,8 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
-        self.buyBlackMarket()
-        wait(lambda: self.simulatorInstance.clickPointV2(713,684),2)
+        self.checkForDailyPopup()
+
         if(self.hasSingleLineWordsInArea("ok",A=[757,597,811,616])):
             wait(lambda: self.simulatorInstance.clickPointV2(632,566),2)
             wait(lambda: self.simulatorInstance.clickPointV2(777,607),2)
@@ -336,7 +336,7 @@ class UWTask(FrontTask):
         hour=dt.datetime.now().hour
         if(hour in [1,2]):
             time.sleep(delay)
-            if(self.hasArrayStringEqualSingleLineWords(['attendance'],A=[241,174,367,206])):
+            if(self.hasArrayStringEqualSingleLineWords(['attendance','perk'],A=[241,174,367,206])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.enterCityButton),4,5)
             wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)

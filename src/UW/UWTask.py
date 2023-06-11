@@ -559,12 +559,13 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(739,441),1)
             wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
     
-    def shouldFinishTrade(self,routeObject):
+    def shouldFinishTradeAndChangeFleet(self,routeObject):
         if(routeObject.get("sellFleet")):
             if(self.tradeRouteBuyFin and not self.hasStartedExtraBuy):
                 self.changeFleet(routeObject.get('sellFleet'))
                 self.tradeRouteBuyFin=False
                 self.hasStartedExtraBuy=True
+                self.buyInCity(routeObject["buyCities"], products=routeObject["buyProducts"],buyStrategy=routeObject.get("buyStrategy"))
                 return False
             elif(self.tradeRouteBuyFin and self.hasStartedExtraBuy):
                 return True
@@ -613,12 +614,6 @@ class UWTask(FrontTask):
                 # goto buy cities
                 deductedBuyBMCities=importMarket().deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
-                    self.print("tradeRouteBuyFin:"+str(self.tradeRouteBuyFin))
-                    self.print("hasStartedExtraBuy:"+str(self.hasStartedExtraBuy))
-                    self.print("sellFleet no:"+str(routeObject.get("sellFleet")))
-
-                    if(self.shouldFinishTrade(routeObject)):
-                        break
                     self.gotoCity(city,self.allCityList)
                     if(self.getTime()>=0 and self.getTime()<6):
                         # no BM in buy if twice strategy
@@ -629,9 +624,16 @@ class UWTask(FrontTask):
                     self.checkSB()
                     if(routeObject.get("buyStrategy")!= "twice"):
                         self.buyBlackMarket(city)
+                    self.print("tradeRouteBuyFin:"+str(self.tradeRouteBuyFin))
+                    self.print("hasStartedExtraBuy:"+str(self.hasStartedExtraBuy))
+                    self.print("sellFleet no:"+str(routeObject.get("sellFleet")))
+
+                    if(self.shouldFinishTradeAndChangeFleet(routeObject)):
+                        break
                     self.checkReachCity()
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True
+
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
                     for city in routeObject["buySupplyCities"]:

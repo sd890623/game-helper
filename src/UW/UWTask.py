@@ -659,7 +659,7 @@ class UWTask(FrontTask):
                 self.gotoCity(cityName,self.allCityList,useExtra=useSkill)
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)
-                if(types!="BM"):
+                if(types!="BM" and types!="supply"):
                     self.changeFleet(6,simple=True)
                     self.sellInCity(cityName,simple=True,types=types)
                     self.changeFleet(2,simple=True)

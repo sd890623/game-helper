@@ -77,7 +77,7 @@ NEEASupplySell={
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-    {"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}]
+    {"name":"hobe","types":"supply"},{"name":"chang","types":None}]
 }
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",

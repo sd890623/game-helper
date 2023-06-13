@@ -10,9 +10,9 @@ cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "ma
 battleCity="yeongil"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa", "pi",
+opponentsInList=["pil","ass","asa", "pi","rob",
 "golitsynpi","golitsynas","azubuikepi","azubuikeas","chenzuyipi","chenzuyias","kaikap","kaikaa"]
-opponentNames=["pill","pil","ass","asa","duchunyong"] #add ducunyong as it's double lines, so quick hack,only checked in board
+opponentNames=["pill","pil","ass","asa","duchunyong","rob"] #add ducunyong as it's double lines, so quick hack,only checked in board
 blackListForBattle=['piz','zpi']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass

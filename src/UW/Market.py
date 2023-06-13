@@ -27,7 +27,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -248,7 +248,7 @@ class Market:
             index+=1
             productName=self.uwtask.getMultiLineWordsInArea(A=[275+xDiff,118+yDiff,418+xDiff,163+yDiff])
             # for case of smaller text a grade material not recognized, 2nd round of recog
-            if(productName=="material"):
+            if(productName in ["material", "manual"]):
                 productName=self.uwtask.getSingleLineWordsInArea(A=[275+xDiff,118+yDiff,419+xDiff,136+yDiff])
             if(not(productName) or productName==''):
                 continue

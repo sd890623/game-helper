@@ -372,7 +372,7 @@ class UWTask(FrontTask):
 
         #sell
         market.sellGoodsWithMargin(simple,types)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(166,625),6,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(163,674),6,1)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1076,715),3, 2)

@@ -153,7 +153,7 @@ class Market:
 
         self.uwtask.print("sell items")
         sellItemsInScreen()
-        if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
+        if(not(self.uwtask.hasSingleLineWordsInArea("sel", A=[690,467,736,496]))):
             sellItemsInScreen()
         ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[891,5,985,50])
         moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+123,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]

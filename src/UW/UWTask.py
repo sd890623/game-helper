@@ -410,7 +410,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  
 
         area=[1232,251,1350,270]
-        index=0
+        index=startIndex
         while(index<150):
             yDiff=int(index%15*39)
             if(self.hasSingleLineWordsInArea(menuItem, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
@@ -436,7 +436,7 @@ class UWTask(FrontTask):
         self.print("SB 开始")
         self.pickedUpShip=False
         sb=importSB()(self.simulatorInstance, self)
-        timeout=times*1400      
+        timeout=times*1400   
         while(timeout>0):
             sb.gotoShipyard()
             for option in options:

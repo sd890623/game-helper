@@ -98,7 +98,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["peking","hanyang","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
+    "buyCities":["peking","hanyang","dongnae","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -231,10 +231,7 @@ routeLists=[
             "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        {
-            **EABuyBM,
-            "buyCities":["hanyang","jeju","hangzhou","quanzhou","hobe"]
-        },
+        EABuyBM,
         {
             **EADoubleBuy,
             "buyProductsAfterSupply": ["lacquerware","japanesepainting","candycraft","grapefruit","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
@@ -269,14 +266,11 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
-        {
-            **EABuyBM,
-            "buyCities":["hanyang","jeju","hangzhou","quanzhou","hobe"]
-        },
+        EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["lacquerware","japanesepainting","candycraft","grapefruit","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","dongnae","peking","chongqing"]
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","purewhiteporcelain","cheongju","nishijin","sweetolive"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ]
 

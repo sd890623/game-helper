@@ -27,7 +27,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
+"edo","nagasaki","dongnae"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -183,7 +184,7 @@ class Market:
             #red check area 260,203,346,221
             # if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[286+xDiff,211+yDiff,392+xDiff,232+yDiff])):
             #     continue   
-            productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,414+xDiff,139+yDiff])
+            productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,418+xDiff,139+yDiff])
             if(not(productName)):
                 continue
             if(stringhasStartsWithOneArrayString(productName, products)):

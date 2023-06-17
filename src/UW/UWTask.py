@@ -124,6 +124,8 @@ class UWTask(FrontTask):
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
+            if routeObject.get("buyProductsAfterSupplyCities"):
+                self.allCityList+=routeObject["buyProductsAfterSupplyCities"]
             self.allCityList+=list(map(lambda x: x["name"], routeObject["sellCities"]))            
 
     def checkReachCity(self):
@@ -636,12 +638,12 @@ class UWTask(FrontTask):
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True
 
-                if routeObject.get("buyProductsAfterSupply"):
+                if(self.hasStartedExtraBuy and routeObject.get("buyProductsAfterSupply")):
                     for city in routeObject.get("buyProductsAfterSupplyCities"):
                         self.gotoCity(city,self.allCityList)
                         if(self.getTime()>=0 and self.getTime()<6):
                             self.buyBlackMarket(city)
-                        self.buyInCity(routeObject["buyCities"], products=routeObject["buyProductsAfterSupply"],buyStrategy="once")
+                        self.buyInCity(routeObject["buyProductsAfterSupplyCities"], products=routeObject["buyProductsAfterSupply"],buyStrategy="once")
                         self.buyBlackMarket(city)
                         if(self.shouldFinishTradeAndChangeFleet(routeObject)):
                             break

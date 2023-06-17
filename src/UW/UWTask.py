@@ -630,9 +630,22 @@ class UWTask(FrontTask):
 
                     if(self.shouldFinishTradeAndChangeFleet(routeObject)):
                         break
+                    if(self.hasStartedExtraBuy and routeObject.get("buyProductsAfterSupply")): 
+                        break
                     self.checkReachCity()
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True
+
+                if routeObject.get("buyProductsAfterSupply"):
+                    for city in routeObject.get("buyProductsAfterSupplyCities"):
+                        self.gotoCity(city,self.allCityList)
+                        if(self.getTime()>=0 and self.getTime()<6):
+                            self.buyBlackMarket(city)
+                        self.buyInCity(routeObject["buyCities"], products=routeObject["buyProductsAfterSupply"],buyStrategy="once")
+                        self.buyBlackMarket(city)
+                        if(self.shouldFinishTradeAndChangeFleet(routeObject)):
+                            break
+                        self.checkReachCity()
 
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):

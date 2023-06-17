@@ -82,6 +82,8 @@ NEEASupplySell={
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
+    # "buyProductsAfterSupply": [], flag on enabling buy after supply
+    # "buyProductsAfterSupplyCities": [],
     "buyCities":["naha","hobe","hangzhou","chang","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
@@ -229,10 +231,17 @@ routeLists=[
             "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        EABuyBM,
-        EADoubleBuy,
+        {
+            **EABuyBM,
+            "buyCities":["hanyang","jeju","hangzhou","quanzhou","hobe"]
+        },
+        {
+            **EADoubleBuy,
+            "buyProductsAfterSupply": ["lacquerware","japanesepainting","candycraft","grapefruit","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","dongnae","peking","chongqing"]
+        }
     ],
-    #5 Autumn Sep-Nov, NE-EA, EA-perfume+>, 
+    #5 Autumn Sep-Nov, NE-EA, EA-perfume+
     [
         {
             **NEEASupplySell,
@@ -243,8 +252,10 @@ routeLists=[
             "sellFleet":2,
         },
         EABuyBM,
-        {**EADoubleBuy,
+        {
+            **EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
+            "buyProductsAfterSupply": [],
             "buyCities":["naha","hangzhou","chang","hanyang"],
         }
     ],
@@ -258,8 +269,15 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
-        EABuyBM,
-        EADoubleBuy,
+        {
+            **EABuyBM,
+            "buyCities":["hanyang","jeju","hangzhou","quanzhou","hobe"]
+        },
+        {
+            **EADoubleBuy,
+            "buyProductsAfterSupply": ["lacquerware","japanesepainting","candycraft","grapefruit","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","dongnae","peking","chongqing"]
+        }
     ]
 
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen

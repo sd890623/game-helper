@@ -18,7 +18,7 @@ simuInstance=task.simulatorInstance
 class Investment:
     #Better do winter
     investmentCities = [
-        "bremen","saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+        "saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
     ]
     # investmentCities=investmentCitiesArray[investmentRoute]
     supplyCities = [

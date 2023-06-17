@@ -406,7 +406,7 @@ class UWTask(FrontTask):
             self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
         continueWithUntilByWithBackup(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList),3,30,backupFunc=backup)
 
-    def clickInMenu(self,menuItem,inTitle,infinite=False):
+    def clickInMenu(self,menuItem,inTitle,infinite=False,startIndex=0):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  
 
         area=[1232,251,1350,270]

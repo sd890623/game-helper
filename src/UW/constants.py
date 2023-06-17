@@ -269,7 +269,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","purewhiteporcelain","cheongju","nishijin","sweetolive"],
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","cheongju","nishijin","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ]

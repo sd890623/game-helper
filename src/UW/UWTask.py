@@ -268,7 +268,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.clickPointV2(717,860),1)
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
-        doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=10,backupFunc=backup)
+        doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList) or self.inCityList([cityname])),1,1,timeout=10,backupFunc=backup)
         if(self.inWater() and not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845])):
             if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1

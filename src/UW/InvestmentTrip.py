@@ -33,7 +33,7 @@ class Investment:
     ]
     buyGoods = [
         "vodka","felt","feather","amber","aquavit","twohand","whisky","velvet","western","oakmoss","narcissus","civet","damascus",
-        "chinesetea","huzhoubrush","ancientbone","gardenia","bingata","ramiefabric","sweetolive","shaoxingwine","blackvineg","staranise","beanpaste","chinesepainting","guqin","sanjiegun","firelance"
+        "chinesetea","huzhoubrush","ancientbone","gardenia","bingata","ramiefabric","sweetolive","shaoxingwine","blueandwhite","blackvineg","musa","staranise","beanpaste","chinesepainting","guqin","sanjiegun","firelance"
     ]
     sellCities = [
         "quanzhou","maracaibo"
@@ -44,9 +44,9 @@ class Investment:
     def investInCity(self):
         task.print("去投资")
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
-        task.clickInMenu("bureau","bureau",startIndex=6)
+        task.clickInMenu("bureau","bureau",startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
-        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasSingleLineWordsInArea("lnvest", [727,206,789,228]),2,2)
+        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasImageInScreen("investBtn", A=[643,430,779,726]),2,2)
         investBtn= task.hasImageInScreen("investBtn", A=[643,430,779,726])
         if(investBtn):
             doMoreTimesWithWait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5),2,2)

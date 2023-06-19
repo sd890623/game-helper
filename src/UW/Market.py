@@ -254,7 +254,7 @@ class Market:
             if(not(productName) or productName==''):
                 continue
             if(
-                 ("intermediatetrade" in productName and "appointment" not in productName) or
+                 (isStringSameOrSimilar("ntermediatetrade",productName) and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
                  ("high" in productName and "highest" not in productName) or
                  "tanjaq" in productName or
@@ -264,7 +264,7 @@ class Market:
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                (isStringSameOrSimilar("agrade",productName)) or # and "lumber" not in productName and "metal" not in productName) or
+                (isStringSameOrSimilar("agrade",productName) and "request" not in productName) or # and "lumber" not in productName and "metal" not in productName) or
                 ()
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -324,7 +324,7 @@ class Market:
                 timeout2+=1
                 if(timeout2>30):
                     return
-            if(not self.uwtask.clickInMenu("temshop","temshop")):
+            if(not self.uwtask.clickInMenu("temshop","temshop",startIndex=3)):
                 nonlocal timeout
                 timeout+=1
                 if(timeout>5):
@@ -340,7 +340,7 @@ class Market:
                 recursiveVisitBM()
 
         if(city in capitals):
-            self.uwtask.clickInMenu("temshop","temshop")
+            self.uwtask.clickInMenu("temshop","temshop",startIndex=3)
         else:
             recursiveVisitBM()
         if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):

@@ -497,7 +497,7 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,timeout=10)#assign
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,timeout=10)#settings
             y=int(282+int(62*(fleetNo-1)))
-            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(343,y),3,1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(343,y),2,1)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1127,667),lambda: self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,timeout=10)#apply
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(769,534),lambda: not self.hasSingleLineWordsInArea("target", A=[718,350,780,374]),1,1,timeout=10)#ok
             if(self.hasSingleLineWordsInArea("assign", A=[748,655,813,678])):

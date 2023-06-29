@@ -7,7 +7,7 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="yeongil"
+battleCity="ezo"
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
 opponentsInList=["pil","ass","asa", "pi","rob",
@@ -234,7 +234,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["lacquerware","japanesepainting","candycraft","grapefruit","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","dongnae","peking","chongqing"]
         }
     ],

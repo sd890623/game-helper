@@ -277,7 +277,7 @@ class Market:
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
                     "deco" in productName or#"mediumkeel" in productName or 
                     "redseal" in productName or
-                    "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
+                    "golden" in productName #or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])

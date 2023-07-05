@@ -7,13 +7,16 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="ezo"
+battleCity="okhotsk"
+# battleCity="edo"
+
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa", "pi","rob",
-"golitsynpi","golitsynas","azubuikepi","azubuikeas","chenzuyipi","chenzuyias","kaikap","kaikaa"]
+opponentsInList=["pil","ass","asa","aas","rob"
+]
+# "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 opponentNames=["pill","pil","ass","asa","duchunyong","rob"] #add ducunyong as it's double lines, so quick hack,only checked in board
-blackListForBattle=['piz','zpi']
+blackListForBattle=['piz','zpi','robeyn','masa']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -234,8 +237,8 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["japanesepainting","candycraft","senshomasamune","amethyst","purewhiteporcelain","whiteironporcelain","beanpaste"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","dongnae","peking","chongqing"]
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ],
     #5 Autumn Sep-Nov, NE-EA, EA-perfume+
@@ -269,7 +272,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","cheongju","nishijin","sweetolive"],
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ]

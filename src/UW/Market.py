@@ -199,7 +199,7 @@ class Market:
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),lambda: not self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),2,0)
         self.uwtask.print("buy fin")
         return boughtTick
 
@@ -221,6 +221,7 @@ class Market:
         self.buyProductsInMarket(products)
 
     def bargin(self):
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             #click yes

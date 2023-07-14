@@ -7,13 +7,16 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="yeongil"
+# battleCity="okhotsk"
+battleCity="naha"
+
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa", "pi",
-"golitsynpi","golitsynas","azubuikepi","azubuikeas","chenzuyipi","chenzuyias","kaikap","kaikaa"]
-opponentNames=["pill","pil","ass","asa","duchunyong"] #add ducunyong as it's double lines, so quick hack,only checked in board
-blackListForBattle=['piz','zpi']
+opponentsInList=["pil","ass","asa","aas","rob","ruthless"
+]
+# "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
+opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless"] #add ducunyong as it's double lines, so quick hack,only checked in board
+blackListForBattle=['piz','zpi','robeyn','masa']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -77,11 +80,13 @@ NEEASupplySell={
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-    {"name":"hobe","types":["placeholder"]},{"name":"chang","types":None}]
+    {"name":"hobe","types":"supply"},{"name":"chang","types":None}]
 }
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
     "buyProducts": ["gardenia","begonia","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
+    # "buyProductsAfterSupply": [], flag on enabling buy after supply
+    # "buyProductsAfterSupplyCities": [],
     "buyCities":["naha","hobe","hangzhou","chang","hanyang","jeju"],
     "buySupplyCities":[],
     "buyStrategy":"twice",
@@ -96,7 +101,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["peking","hanyang","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
+    "buyCities":["peking","hanyang","dongnae","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],
@@ -230,9 +235,13 @@ routeLists=[
             "sellFleet":2,
         },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+        }
     ],
-    #5 Autumn Sep-Nov, NE-EA, EA-perfume+>, 
+    #5 Autumn Sep-Nov, NE-EA, EA-perfume+
     [
         {
             **NEEASupplySell,
@@ -243,8 +252,10 @@ routeLists=[
             "sellFleet":2,
         },
         EABuyBM,
-        {**EADoubleBuy,
+        {
+            **EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
+            "buyProductsAfterSupply": [],
             "buyCities":["naha","hangzhou","chang","hanyang"],
         }
     ],
@@ -259,7 +270,11 @@ routeLists=[
             "sellFleet":2,
         },
         EABuyBM,
-        EADoubleBuy,
+        {
+            **EADoubleBuy,
+            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+        }
     ]
 
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen

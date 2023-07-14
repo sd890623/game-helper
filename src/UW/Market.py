@@ -27,7 +27,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "alexandria","cairo","candia","athens","thessaloni","constantino",
 "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang"
+"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
+"edo","nagasaki","dongnae"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -153,7 +154,7 @@ class Market:
 
         self.uwtask.print("sell items")
         sellItemsInScreen()
-        if(not(self.uwtask.hasSingleLineWordsInArea("sell", A=[706,471,737,494]))):
+        if(not(self.uwtask.hasSingleLineWordsInArea("sel", A=[690,467,736,496]))):
             sellItemsInScreen()
         ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMarket", A=[891,5,985,50])
         moneyScanArea=[ducatIconLocation[0]+18,ducatIconLocation[1]-2,ducatIconLocation[0]+123,ducatIconLocation[1]+16] if ducatIconLocation else [1007,11,1119,39]
@@ -183,7 +184,7 @@ class Market:
             #red check area 260,203,346,221
             # if(self.uwtask.hasSingleLineWordsInArea("unlock", A=[286+xDiff,211+yDiff,392+xDiff,232+yDiff])):
             #     continue   
-            productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,414+xDiff,139+yDiff])
+            productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,418+xDiff,139+yDiff])
             if(not(productName)):
                 continue
             if(stringhasStartsWithOneArrayString(productName, products)):
@@ -196,9 +197,9 @@ class Market:
                     break
 
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),lambda: not self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=10)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),lambda: not self.uwtask.hasSingleLineWordsInArea("ok", A=[757,689,816,712]),1,1,timeout=5)
         self.bargin()
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),2,0)
         self.uwtask.print("buy fin")
         return boughtTick
 
@@ -220,6 +221,7 @@ class Market:
         self.buyProductsInMarket(products)
 
     def bargin(self):
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             #click yes
@@ -248,12 +250,12 @@ class Market:
             index+=1
             productName=self.uwtask.getMultiLineWordsInArea(A=[275+xDiff,118+yDiff,418+xDiff,163+yDiff])
             # for case of smaller text a grade material not recognized, 2nd round of recog
-            if(productName=="material"):
+            if(productName in ["material", "manual"]):
                 productName=self.uwtask.getSingleLineWordsInArea(A=[275+xDiff,118+yDiff,419+xDiff,136+yDiff])
             if(not(productName) or productName==''):
                 continue
             if(
-                 ("intermediatetrade" in productName and "appointment" not in productName) or
+                 (isStringSameOrSimilar("ntermediatetrade",productName) and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
                  ("high" in productName and "highest" not in productName) or
                  "tanjaq" in productName or
@@ -263,7 +265,7 @@ class Market:
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                (isStringSameOrSimilar("agrade",productName)) or # and "lumber" not in productName and "metal" not in productName) or
+                (isStringSameOrSimilar("agrade",productName) and "request" not in productName) or # and "lumber" not in productName and "metal" not in productName) or
                 ()
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -276,7 +278,7 @@ class Market:
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
                     "deco" in productName or#"mediumkeel" in productName or 
                     "redseal" in productName or
-                    "golden" in productName or "pine" in productName or (productName.startswith("mediumgunport"))
+                    "golden" in productName #or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
@@ -323,7 +325,7 @@ class Market:
                 timeout2+=1
                 if(timeout2>30):
                     return
-            if(not self.uwtask.clickInMenu("temshop","temshop")):
+            if(not self.uwtask.clickInMenu("temshop","temshop",startIndex=3)):
                 nonlocal timeout
                 timeout+=1
                 if(timeout>5):
@@ -339,7 +341,7 @@ class Market:
                 recursiveVisitBM()
 
         if(city in capitals):
-            self.uwtask.clickInMenu("temshop","temshop")
+            self.uwtask.clickInMenu("temshop","temshop",startIndex=3)
         else:
             recursiveVisitBM()
         if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):

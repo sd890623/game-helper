@@ -13,7 +13,7 @@ class Battle:
     lastCallTime=0
     haveSentBattleFinNotification=False
     battleEnd={
-        "okBtn":[692,668,752,692],
+        "okBtn":[662,668,786,692],
         "closeBtn":[692,668,752,692]
     }
     opentimeout=0
@@ -55,6 +55,7 @@ class Battle:
         
         def backup():
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[682,268,755,294])):
+                wait(lambda: self.instance.clickPointV2(571,568))
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(780,600),4,5)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
@@ -86,7 +87,7 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(8): 
+        for x in range(7): 
             isFoeTurn=self.uwtask.isPositionColorSimilarTo(221,16,(165, 32, 28))
             if(isFoeTurn):
                 print("foe's turn, wait for 4s")
@@ -111,7 +112,7 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(2)
 
@@ -122,7 +123,7 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
 
                 case 6:
@@ -138,7 +139,7 @@ class Battle:
             wait(lambda: self.instance.clickPointV2(170,87),0.5)
             #Click on "no" for duel
 
-        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=480)
+        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("discard", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=480)
         def backupFunc():
             exitBattle()
             if(self.uwtask.hasSingleLineWordsInArea("defeat",A=[1078,781,1162,807])):
@@ -149,8 +150,8 @@ class Battle:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,3)
 
         def exitBattle():
-            wait(lambda: self.instance.clickPointV2(713,684),2)
-            if(self.uwtask.hasSingleLineWordsInArea("ok",A=[757,597,811,616])):
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(713,684),3,2)
+            if(self.uwtask.hasSingleLineWordsInArea("ok",A=[756,597,804,620])):
                 wait(lambda: self.instance.clickPointV2(632,566),2)
                 wait(lambda: self.instance.clickPointV2(777,607),2)
         doAndWaitUntilBy(lambda: exitBattle(),lambda: self.uwtask.inWater(),5,2,backupFunc=backupFunc)
@@ -173,12 +174,12 @@ class Battle:
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
             if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","pinkdiamond"],marketMode=1)
+               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","doenjang","lris"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponentsInList):
         firstPosi=(1227,257)
-        area=[1210,248,1347,270]
+        area=[1210,248,1367,270]
         index=0
         while(index<15):
             yDiff=int(index%11*56.5)

@@ -18,16 +18,19 @@ time.sleep(3)
 #todo
 
 
+
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="naples"
 task.setRouteOption(4)
-task.battleRoute()
+
+task.tradeRouteBuyFin=True
+# task.battleRoute()
 
 #Init option
 #Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
 #4 summer, 5autumn, 6winter
-# task.enableSB("amsterda",options=[5])
+# task.enableSB("malacca",options=[5])
 
 # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
 # kochi: 12d=18min, 18*8/14=10min=600

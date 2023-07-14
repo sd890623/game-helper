@@ -55,6 +55,7 @@ class Battle:
         
         def backup():
             if(self.uwtask.hasSingleLineWordsInArea("notice",A=[682,268,755,294])):
+                wait(lambda: self.instance.clickPointV2(571,568))
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(780,600),4,5)
                 if(self.haveSentBattleFinNotification==False):
                     self.uwtask.sendNotification(f"Battle finished")
@@ -97,7 +98,7 @@ class Battle:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # Alan: 4, Otto:5 , Ernst: 5, anne: 5, saiyida 5
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(4)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -149,7 +150,7 @@ class Battle:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,3)
 
         def exitBattle():
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(713,684),1,2)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(713,684),3,2)
             if(self.uwtask.hasSingleLineWordsInArea("ok",A=[756,597,804,620])):
                 wait(lambda: self.instance.clickPointV2(632,566),2)
                 wait(lambda: self.instance.clickPointV2(777,607),2)

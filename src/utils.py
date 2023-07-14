@@ -115,7 +115,7 @@ def hasOneArrayStringSimilarToString(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour>=5 and hour<6):
+    if(hour>=5 and hour<7):
         return False
     return True
 

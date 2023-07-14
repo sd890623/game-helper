@@ -2,7 +2,7 @@ from FrontTask import FrontTask
 
 from windows import *
 from images import getOCRfromImageBlob
-from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour,isStringSameOrSimilar
+from utils import hasOneArrayStringSimilarToString,wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour,isStringSameOrSimilar
 
 import time
 import datetime as dt
@@ -51,6 +51,7 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
         self.checkForDailyPopup()
 
@@ -222,7 +223,7 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea), 1,2)
 
     def inWater(self):
-        return self.hasArrayStringEqualSingleLineWords(["lawlesswaters","dangerouswaters","safewaters"], A=self.outSeaWaterTitle)
+        return self.hasArrayStringEqualSingleLineWords(["lawlesswaters","dangerouswaters","safewaters","lawless"], A=self.outSeaWaterTitle)
 
     def depart(self):
         departBtn=1287,655
@@ -309,6 +310,8 @@ class UWTask(FrontTask):
 
     def checkForBasicStuck(self):
         self.checkForDailyPopup()
+        #Check for special purchase
+        wait(lambda: self.simulatorInstance.clickPointV2(1029,268),1)
         if(self.hasSingleLineWordsInArea("notice",A=[555,379,600,401])):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(859,507),5,10)
         if(self.hasSingleLineWordsInArea("notice",A=[684,282,755,305])):
@@ -697,6 +700,10 @@ class UWTask(FrontTask):
         battle=importBattle()(self.simulatorInstance,self)
         while(True):
             if(not self.inWater()):
+                if(not(isWorkHour())):
+                    self.print("not working hour,sleep for 30mins")
+                    time.sleep(1800)
+                    continue
                 battle.checkInPort(battleCity)
                 battle.leavePort()
             self.checkForGiftAndReceive()

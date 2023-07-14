@@ -1,4 +1,5 @@
 import sys
+import time
 sys.path.append("src")
 from windows import getAllWindowsWithTitle
 from UWTask import UWTask
@@ -49,7 +50,8 @@ class Investment:
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasImageInScreen("investBtn", A=[643,430,779,726]),2,2)
         investBtn= task.hasImageInScreen("investBtn", A=[643,430,779,726])
         if(investBtn):
-            doMoreTimesWithWait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5),2,2)
+            wait(lambda: simuInstance.clickPointV2(709,261),1)
+            wait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5))
         # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("sel", A=task.titleArea),2,2)
         # wait(lambda: simuInstance.clickPointV2(),1)
         continueWithUntilByWithBackup(lambda: simuInstance.clickPointV2(*task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities),3,30)
@@ -68,6 +70,18 @@ class Investment:
             task.buyBlackMarket(city)
             task.checkSB()
             task.checkReachCity()
+            # if index is the last of the array
+            if(index is len(self.investmentCities)-1):
+                # stop the python program
+                sys.exit()
+
 
 investment=Investment()
-investment.runInvestmentTrip()
+while(True):
+    # task.setCurrentCityFromScreen()
+    if(not task.inCityList(investment.investmentCities)):
+        task.print("没有在长途城市列表中，中断")
+        wait(lambda: simuInstance.rightClickPointV2(*task.randomPoint))
+        time.sleep(5)
+        continue
+    investment.runInvestmentTrip()

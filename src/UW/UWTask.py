@@ -51,6 +51,7 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        self.waitForCity(["quanzhou","quanzhou"])
         print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
         self.checkForDailyPopup()
@@ -325,6 +326,7 @@ class UWTask(FrontTask):
     def waitForCity(self,cityList=None,targetCity=None):
         self.print("航行中")
         def backupFunc():
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(cityList)),2)
             self.checkForBasicStuck()
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),40)
@@ -484,7 +486,7 @@ class UWTask(FrontTask):
             return 12
 
     def healInjury(self,city):
-        self.clickInMenu("inn","lnn",infinite=True)
+        self.clickInMenu("inn","inn",infinite=True)
         # 4th button: 58,279 5th 84,341
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(449,67,(253,53,51))):

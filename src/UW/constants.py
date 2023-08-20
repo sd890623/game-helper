@@ -7,15 +7,15 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-# battleCity="okhotsk"
-battleCity="naha"
+# battleCity="korf"
+battleCity="ezo"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa","aas","rob","ruthless"
+opponentsInList=["pil","ass","asa","aas","ruthless"
 ]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
-opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless"] #add ducunyong as it's double lines, so quick hack,only checked in board
+opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless","nanima"] #add ducunyong as it's double lines, so quick hack,only checked in board
 blackListForBattle=['piz','zpi','robeyn','masa']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
@@ -230,14 +230,14 @@ routeLists=[
             **NEEASupplySell,
             "buyFleet":4,
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
+            "buyProducts": ["twohand","lilyof","felt","gobelin","woodenshoe","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["hamburg","bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ],
@@ -247,8 +247,8 @@ routeLists=[
             **NEEASupplySell,
             "buyFleet":4,
             "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo"],
-            "buyCities":["hamburg","bremen","london","dover","calais","plymouth","bristol","bordeaux","seville","laga"],
+            "buyProducts": ["twohand","lilyof","felt","gobelin","woodenshoe","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
         EABuyBM,
@@ -272,7 +272,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["japanesepainting","candycraft","amethyst","shuriori","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ]

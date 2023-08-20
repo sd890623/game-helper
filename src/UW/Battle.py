@@ -17,7 +17,7 @@ class Battle:
         "closeBtn":[692,668,752,692]
     }
     opentimeout=0
-    nameBoardInPrePanel=[62,132,165,158]
+    nameBoardInPrePanel=[61,163,157,190]
 
     def __init__(self, instance:win, uwtask:UWTask) -> None:
         self.instance=instance
@@ -87,7 +87,7 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(7): 
+        for x in range(9): 
             isFoeTurn=self.uwtask.isPositionColorSimilarTo(221,16,(165, 32, 28))
             if(isFoeTurn):
                 print("foe's turn, wait for 4s")
@@ -97,37 +97,49 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 4, Otto:5 , Ernst: 5, anne: 5, saiyida 5
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    # Alan: 5, Otto:5 , olama: 6, anne: 5, saiyida 8, 金井 6
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    #No 2 eva Buff
-                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # wait(lambda: self.instance.clickPointV2(getSkillPosByIndex(7)),0.5)
-                    # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
-                case 3:
-                    #open skill #No3 ram buff
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    #No 2 ram Buff
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(11)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(2)
+                    time.sleep(5)
+                case 3:
+                    #open skill #No3 eva buff
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+
+                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
+                    # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
+                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    # time.sleep(3)
 
                 case 4:
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                case 5:
                     #5  atk Buff
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(7)),0.5)
                     wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
+                case 5:
+                    #5  atk Buff
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+
+                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
+                    # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
+                    # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
 
                 case 6:
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    #open skill #No3 def buff
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
+
+                    wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(10)),0.5)
+                    wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
                 case 7:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case _:
@@ -163,7 +175,7 @@ class Battle:
     def checkStats(self,town):
         time.sleep(2)
         # 0 crew not fixed
-        if(self.uwtask.isPositionColorSimilarTo(140,63,(218,165,30)) or self.uwtask.isPositionColorSimilarTo(140,64,(232,202,44))):
+        if(self.uwtask.isPositionColorSimilarTo(169,64,(221,187,35)) or self.uwtask.isPositionColorSimilarTo(176,62,(198,62,71)) or self.uwtask.isPositionColorSimilarTo(204,65,(238,208,36))):
             self.goBackPort(town)
             return False
         return True

@@ -177,7 +177,7 @@ class Market:
         index=0
         #Loop through and find what can be bought
         self.uwtask.print("buy items")
-        while (index<9):
+        while (index<12):
             xDiff=int(index%4*225.5)
             yDiff=int(index/4)*134
             index+=1
@@ -221,11 +221,11 @@ class Market:
         self.buyProductsInMarket(products)
 
     def bargin(self):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),3,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             #click yes
-            wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
+            # wait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),2)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 
@@ -257,16 +257,19 @@ class Market:
             if(
                  (isStringSameOrSimilar("ntermediatetrade",productName) and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
+                ("wooden" in productName and "astro" in productName) or
+                "ebony" in productName or
                  ("high" in productName and "highest" not in productName) or
                  "tanjaq" in productName or
+                 "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
+                 "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or
                 "silverastrolabe" in productName or #"specialenhanced" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                (isStringSameOrSimilar("agrade",productName) and "request" not in productName) or # and "lumber" not in productName and "metal" not in productName) or
-                ()
+                (isStringSameOrSimilar("agrade",productName) and "request" not in productName and "ore" not in productName) # and "lumber" not in productName and "metal" not in productName) or
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
                 continue
@@ -278,6 +281,7 @@ class Market:
                     "dye" in productName or "emblem" in productName or "lowest" in productName or
                     "deco" in productName or#"mediumkeel" in productName or 
                     "redseal" in productName or
+                    "blueprint" in productName or
                     "golden" in productName #or "pine" in productName or (productName.startswith("mediumgunport"))
                 ):
                     return False

@@ -17,9 +17,20 @@ task = UWTask(hwndObject["hwnd"], "uw")
 simuInstance=task.simulatorInstance
 
 class Investment:
+    goBM = True
     #Better do winter
     investmentCities = [
-        "saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+        #"saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","pasay","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou",
+        "chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+    ]
+    investmentCities3 = [
+        #"saint","riga","visby","beck","copenhag","bergen",
+        "dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes",
+        "acapulco","guatemala","panama",
+        "copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+    ]
+    investmentCities2 = [
+        "unalaska","tacoma","ohlone","acapulco","guatemala","panama"
     ]
     # investmentCities=investmentCitiesArray[investmentRoute]
     supplyCities = [
@@ -42,16 +53,24 @@ class Investment:
     #before going to a city
     changeFleet = ["nutak"]
 
+    def investOnce(self,max=False):
+        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasImageInScreen("investBtn", A=[643,430,779,726]),2,2)
+        investBtn= task.hasImageInScreen("investBtn", A=[643,430,779,726])
+        if(investBtn):
+            wait(lambda: simuInstance.clickPointV2(709,261),1)
+            if(max):
+                wait(lambda: simuInstance.clickPointV2(786,532),1)
+            wait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5))
+            wait(lambda: simuInstance.clickPointV2(1278,853),1)
+
     def investInCity(self):
         task.print("去投资")
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
         task.clickInMenu("bureau","bureau",startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
-        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasImageInScreen("investBtn", A=[643,430,779,726]),2,2)
-        investBtn= task.hasImageInScreen("investBtn", A=[643,430,779,726])
-        if(investBtn):
-            wait(lambda: simuInstance.clickPointV2(709,261),1)
-            wait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5))
+        while(task.getNumberFromSingleLineInArea(A=[260,807,285,823])<500 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
+            self.investOnce(True)
+        self.investOnce()
         # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("sel", A=task.titleArea),2,2)
         # wait(lambda: simuInstance.clickPointV2(),1)
         continueWithUntilByWithBackup(lambda: simuInstance.clickPointV2(*task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities),3,30)
@@ -67,7 +86,8 @@ class Investment:
                 task.sellInCity(city)
             if(city in self.buyCities):
                 task.buyInCity(self.investmentCities, products=self.buyGoods)
-            task.buyBlackMarket(city)
+            if(self.goBM):
+                task.buyBlackMarket(city)
             task.checkSB()
             task.checkReachCity()
             # if index is the last of the array
@@ -77,6 +97,7 @@ class Investment:
 
 
 investment=Investment()
+task.allCityList=investment.investmentCities
 while(True):
     # task.setCurrentCityFromScreen()
     if(not task.inCityList(investment.investmentCities)):

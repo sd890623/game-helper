@@ -21,12 +21,12 @@ marketBuyData={
 }
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
-"bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
-"zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
-"algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
-"alexandria","cairo","candia","athens","thessaloni","constantino",
-"roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-"pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
+# "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
+# "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
+# "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
+# "alexandria","cairo","candia","athens","thessaloni","constantino",
+# "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
+# "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
 "macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
 "edo","nagasaki","dongnae"
 ]
@@ -265,7 +265,7 @@ class Market:
                  "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or
-                "silverastrolabe" in productName or #"specialenhanced" in productName or
+                "silverastrolabe" in productName or "goldastrolabe" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or

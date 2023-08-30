@@ -97,8 +97,8 @@ class Battle:
                 case 1:
                     #No 1 Pao Buff
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # Alan: 5, Otto:5 , olama: 6, anne: 5, saiyida 8, 金井 6
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
+                    # Alan: 5, Otto:5 , olama: 6, anne: 5, saiyida 9, 金井 6
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(9)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 2:
@@ -106,7 +106,7 @@ class Battle:
                     #No 2 ram Buff
 
                     wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(11)),0.5)
+                    wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(5)
                 case 3:
@@ -175,7 +175,7 @@ class Battle:
     def checkStats(self,town):
         time.sleep(2)
         # 0 crew not fixed
-        if(self.uwtask.isPositionColorSimilarTo(169,64,(221,187,35)) or self.uwtask.isPositionColorSimilarTo(176,62,(198,62,71)) or self.uwtask.isPositionColorSimilarTo(204,65,(238,208,36))):
+        if(self.uwtask.isPositionColorSimilarTo(169,64,(221,187,35)) or self.uwtask.isPositionColorSimilarTo(176,62,(198,62,71))):
             self.goBackPort(town)
             return False
         return True

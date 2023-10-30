@@ -137,4 +137,7 @@ def isStringSameOrSimilar(stringA, stringB):
     else:
         return False
 
+def randomInt(max_value=5):
+    return random.randint(-max_value, max_value)
+                          
 findPlayerCountLk=threading.Lock()

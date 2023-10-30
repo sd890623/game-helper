@@ -7,8 +7,8 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-# battleCity="korf"
-battleCity="ezo"
+battleCity="edo"
+# battleCity="ezo"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -93,7 +93,7 @@ EADoubleBuy={
     "buyStrategy":"twice",
     "dumpCrewCities": [],
     "sellFleet":2,
-    "supplyCities":["macau","pasay","toamasina","cape","bathurst","lisboa","london"],
+    "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","lisboa","london"],
     "useSkillCity":"beck",
     "sellCities":[{"name":"beck","types":None},{"name":"saint","types":"BM"}],
 }
@@ -273,6 +273,24 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
+            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+        }
+    ],
+    #7 Spring Dec-Feb, NE-EA, EA-perfume->, liquor+
+    [
+        {
+            **NEEASupplySell,
+            "buyFleet":4,
+            "buyStrategy":"twice",
+            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
+            "sellFleet":2,
+        },
+        EABuyBM,
+        {
+            **EADoubleBuy,
+            "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","cannon","celadon"],
             "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }

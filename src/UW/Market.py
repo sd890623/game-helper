@@ -168,6 +168,10 @@ class Market:
         return (self.uwtask.getNumberFromSingleLineInArea(A=[1300,105,1353,126])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
+        # wait(lambda: self.instance.clickPointV2(*self.purchaseBtn))
+        if(self.uwtask.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39])):
+            doAndWaitUntilBy(lambda: self.instance.clickPointV2(1373,23), lambda: self.uwtask.hasSingleLineWordsInArea("market", A=self.uwtask.titleArea), 2,2)
+
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.purchaseBtn), lambda: self.uwtask.hasSingleLineWordsInArea("purchase", A=self.uwtask.titleArea), 2,2)
         print(products)
         boughtTick=0
@@ -257,7 +261,7 @@ class Market:
             if(
                  (isStringSameOrSimilar("ntermediatetrade",productName) and "appointment" not in productName) or
                  productName.startswith("intermediatecombatappointment") or
-                ("wooden" in productName and "astro" in productName) or
+                ("wooden" in productName and "astro" in productName) or "lowcombat" in productName or
                 "ebony" in productName or
                  ("high" in productName and "highest" not in productName) or
                  "tanjaq" in productName or
@@ -278,8 +282,8 @@ class Market:
                 #Ducat case
                 price=self.uwtask.getNumberFromSingleLineInArea(A=[260+xDiff,212+yDiff,373+xDiff,231+yDiff])
                 if(
-                    "dye" in productName or "emblem" in productName or "lowest" in productName or
-                    "deco" in productName or#"mediumkeel" in productName or 
+                    "dye" in productName or "emblem" in productName or
+                    "deco" in productName or#"mediumkeel" in productName or "lowest" in productName or 
                     "redseal" in productName or
                     "blueprint" in productName or
                     "golden" in productName #or "pine" in productName or (productName.startswith("mediumgunport"))

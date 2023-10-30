@@ -17,20 +17,19 @@ task = UWTask(hwndObject["hwnd"], "uw")
 simuInstance=task.simulatorInstance
 
 class Investment:
-    goBM = True
+    goBM = False
     #Better do winter
     investmentCities = [
-        #"saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","pasay","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou",
-        "chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
-    ]
-    investmentCities3 = [
-        #"saint","riga","visby","beck","copenhag","bergen",
-        "dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes",
-        "acapulco","guatemala","panama",
+        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes",
         "copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
     ]
-    investmentCities2 = [
-        "unalaska","tacoma","ohlone","acapulco","guatemala","panama"
+    investmentCities3 = [
+        #"saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama",
+        "copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+    ]
+    investmentCities4 = [
+        #"unalaska","tacoma",
+        "ohlone","acapulco","guatemala","panama"
     ]
     # investmentCities=investmentCitiesArray[investmentRoute]
     supplyCities = [
@@ -68,7 +67,7 @@ class Investment:
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
         task.clickInMenu("bureau","bureau",startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
-        while(task.getNumberFromSingleLineInArea(A=[260,807,285,823])<500 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
+        while(task.getNumberFromSingleLineInArea(A=[260,807,285,823])<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
             self.investOnce(True)
         self.investOnce()
         # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("sel", A=task.titleArea),2,2)
@@ -78,7 +77,7 @@ class Investment:
     def runInvestmentTrip(self):
         for index,city in enumerate(self.investmentCities):
             if(city in self.changeFleet):
-                task.changeFleet(3)
+                task.changeFleet(5)
             task.gotoCity(city,self.investmentCities)
             if(not city in self.supplyCities):
                 self.investInCity()

@@ -264,16 +264,18 @@ class Market:
                 ("wooden" in productName and "astro" in productName) or "lowcombat" in productName or
                 "ebony" in productName or
                  ("high" in productName and "highest" not in productName) or
-                 "tanjaq" in productName or
+                #  "tanjaq" in productName or
                  "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
-                 "junk" in productName or "higaki" in productName or
+                #  "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or
-                "silverastrolabe" in productName or "goldastrolabe" in productName or
+                # "silverastrolabe" in productName or
+                "goldastrolabe" in productName or
                 #"rosewoodmast" in productName or #"beech" in productName
                 #"lightsha" in productName or "tanjaq" in productName or #"improvedmedium" in productName
                 # "lareale" in productName or# "heavycarrack" in productName or "largeschoo" in productName or
-                (isStringSameOrSimilar("agrade",productName) and "request" not in productName and "ore" not in productName) # and "lumber" not in productName and "metal" not in productName) or
+                (isStringSameOrSimilar("agrade",productName) and "processed" in productName and "parts" not in productName) or # and "lumber" not in productName and "metal" not in productName) or
+                "abcccc" in productName
             ):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
                 continue

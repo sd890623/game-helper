@@ -141,7 +141,7 @@ class UWTask(FrontTask):
             with open('src/UW/reachCity.txt', 'w') as f:
                 f.write('')
             self.print("reached city: "+reachCity)            
-            time.sleep(1800)
+            time.sleep(1200)
 
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")
@@ -490,7 +490,7 @@ class UWTask(FrontTask):
             return 12
 
     def healInjury(self,city):
-        self.clickInMenu("inn","lnn",infinite=True)
+        self.clickInMenu("inn","inn",infinite=True)
         # 4th button: 58,279 5th 84,341
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(449,67,(253,53,51))):

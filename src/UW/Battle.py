@@ -72,7 +72,7 @@ class Battle:
         if(self.uwtask.hasSingleLineWordsInArea("fre",A=[694,866,725,881])):
             self.instance.clickPointV2(718,867)
         if(not self.uwtask.hasSingleLineWordsInArea("using",A=[699,867,738,881]) and self.uwtask.hasSingleLineWordsInArea("fast",A=[701,850,738,866])):
-            continueWithUntilBy(lambda: self.instance.clickPointV2(718,867), lambda: not self.uwtask.hasSingleLineWordsInArea("fast",A=[701,850,738,866]))
+            continueWithUntilBy(lambda: self.instance.clickPointV2(718,867), lambda: not self.uwtask.hasSingleLineWordsInArea("fast",A=[701,850,738,866]) or self.uwtask.isPositionColorSimilarTo(678,863,(177,170,71)))
             if(self.uwtask.hasSingleLineWordsInArea("purchase",A=[660,279,781,308])):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(786,591),2,2)
             if(self.haveSentBattleFinNotification==False):
@@ -82,7 +82,7 @@ class Battle:
         centralPos=716,454
         openSkillPos=1270,786
         openSkilltab=1387,656
-        expressskill=1198,852
+        expressskill=1224,853
         waitPos=1392,788
         def getSkillPosByIndex(index):
             xDiff=76.3

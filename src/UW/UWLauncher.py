@@ -20,7 +20,7 @@ time.sleep(3)
 #Optional
 # task.shipBuilding(options=[12,12],city="ceuta", times=1)
 # task.targetCity="naples"
-task.setRouteOption(5)
+task.setRouteOption(6)
 
 task.tradeRouteBuyFin=True
 # task.battleRoute()

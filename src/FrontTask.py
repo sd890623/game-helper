@@ -2,6 +2,7 @@ from windows import getChildHwndByTitleAndParentHwnd
 from images import getOCRfromImageBlob, getCoordinateByScreenshotTarget, getOCRfromImageBlobMultiLine, getNumberfromImageBlob
 from utils import wait, getDateTimeString, random, hasOneArrayStringInString, isStringSameOrSimilar, hasOneArrayStringSimilarToString
 import guiUtils
+import psutil
 from Messager import Messager
 import math
 import os
@@ -13,7 +14,7 @@ class FrontTask(object):
     index = None
     syncBetweenUsers = True
 
-    def __init__(self, hwnd, index):
+    def __init__(self, hwnd, index, monitorProcess: psutil.Process=None):
         childHwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0", hwnd)
         parentWindow = guiUtils.win(hwnd, bor=True)
         parentWindow.moveWindow(10, 10)
@@ -21,6 +22,7 @@ class FrontTask(object):
             childHwndObject["hwnd"], parentHwnd=hwnd, bor=True)
         self.index = index
         self.messager = Messager()
+        self.monitorProcess=monitorProcess
 
     def print(self, text):
         print(getDateTimeString()+": "+text)

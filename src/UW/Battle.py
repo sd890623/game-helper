@@ -89,9 +89,8 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(8): 
-            isFoeTurn=self.uwtask.isPositionColorSimilarTo(39,135,(184, 0, 0)) or self.uwtask.isPositionColorSimilarTo(46,130,(170, 0, 0))
-            if(isFoeTurn):
+        for x in range(7): 
+            while(self.uwtask.isPositionColorSimilarTo(39,135,(184, 0, 0)) or self.uwtask.isPositionColorSimilarTo(112,127,(219,29,36))):
                 print("foe's turn, wait for 5s")
                 time.sleep(5)
             number=self.uwtask.getNumberFromSingleLineInArea(A=[33,118,48,136])
@@ -106,7 +105,7 @@ class Battle:
                     time.sleep(5)
                 case 2:
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    #No 2 ram Buff
+                    #No 2 
 
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
@@ -117,7 +116,7 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
                     wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),3,0.5)
-                    time.sleep(4)
+                    time.sleep(2)
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
@@ -135,20 +134,23 @@ class Battle:
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),3,0.5)
                     time.sleep(4)
                 case 5:
-                    #5  atk Buff
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(2)
+                    #5  
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    # wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
+                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    # time.sleep(2)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
                     # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
 
                 case 6:
-                    #open skill #No3 def buff
+                    #open skill #ATK 
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
+                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    time.sleep(2)
 
                 case 7:
+                    # DEF
                     wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(2)

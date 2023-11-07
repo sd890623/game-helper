@@ -7,8 +7,8 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-battleCity="narvik"
-# battleCity="hag"
+#battleCity="arkhang"
+battleCity="haga"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -102,7 +102,7 @@ EABuyBM={
     "buyStrategy":"once",
     # , ,"shaoxingwine", "goryeoceladon","chinesepainting","easterncannon"
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
-    "buyCities":["peking","hanyang","dongnae","jeju","chongqing","hangzhou","quanzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
+    "buyCities":["hanyang","dongnae","jeju","hangzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
     "buySupplyCities":[],
     "dumpCrewCities": [],

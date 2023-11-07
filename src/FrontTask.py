@@ -14,7 +14,7 @@ class FrontTask(object):
     index = None
     syncBetweenUsers = True
 
-    def __init__(self, hwnd, index, monitorProcess: psutil.Process):
+    def __init__(self, hwnd, index, monitorProcess: psutil.Process=None):
         childHwndObject = getChildHwndByTitleAndParentHwnd("MKSWindow#0", hwnd)
         parentWindow = guiUtils.win(hwnd, bor=True)
         parentWindow.moveWindow(10, 10)

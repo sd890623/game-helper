@@ -181,7 +181,7 @@ class UWTask(FrontTask):
         else:
             #click out any message
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),0)
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),lambda: self.hasSingleLineWordsInArea(nextCityName,A=[647,823,791,845]),5,30,5)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),lambda: self.hasSingleLineWordsInArea(nextCityName,A=[647,823,791,845]),3,30,1)
         
     def goToHarbor(self):
         self.print("去码头")
@@ -418,7 +418,7 @@ class UWTask(FrontTask):
             self.simulatorInstance.clickPointV2(*self.rightTopTownIcon)
         continueWithUntilByWithBackup(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(cityList),3,30,backupFunc=backup)
 
-    def clickInMenu(self,menuItem,inTitle,infinite=False,startIndex=0):
+    def clickInMenu(self,menuItem,inTitleArray,infinite=False,startIndex=0):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1)  
 
         area=[1232,251,1350,270]
@@ -426,7 +426,7 @@ class UWTask(FrontTask):
         while(index<150):
             yDiff=int(index%15*39)
             if(self.hasSingleLineWordsInArea(menuItem, A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])):
-                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1241,261+yDiff), lambda: self.hasSingleLineWordsInArea(inTitle, A=self.titleArea),2,2)
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1241,261+yDiff), lambda: self.hasArrayStringEqualSingleLineWords(inTitleArray, A=self.titleArea),2,2)
                 break
             index+=1
             if(not infinite and index==15):
@@ -490,7 +490,7 @@ class UWTask(FrontTask):
             return 12
 
     def healInjury(self,city):
-        self.clickInMenu("inn","lnn",infinite=True)
+        self.clickInMenu("inn",["lnn","inn"],infinite=True)
         # 4th button: 58,279 5th 84,341
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(58,279), lambda: self.hasSingleLineWordsInArea("managemate", A=self.titleArea),2,1)
         if(self.isPositionColorSimilarTo(449,67,(253,53,51))):

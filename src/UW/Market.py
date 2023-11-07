@@ -265,7 +265,7 @@ class Market:
                 "ebony" in productName or
                  ("high" in productName and "highest" not in productName) or
                 #  "tanjaq" in productName or
-                 "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
+                #  "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
                 #  "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or

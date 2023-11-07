@@ -141,7 +141,7 @@ class UWTask(FrontTask):
             with open('src/UW/reachCity.txt', 'w') as f:
                 f.write('')
             self.print("reached city: "+reachCity)            
-            time.sleep(1800)
+            time.sleep(1200)
 
     def playNotification(self):
         soundPath = os.path.abspath(__file__ + "\\..\\..\\assets\\alert1.mp3")

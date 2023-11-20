@@ -149,7 +149,7 @@ class UWTask(FrontTask):
         # playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
         
-    def findCityAndClick(self, cityName=None):
+    def findCityAndClick(self, cityName=None, noExpect=None):
         if(cityName==None):
             index=cityNames.index(self.currentCity)
             nextCityName = None
@@ -181,7 +181,10 @@ class UWTask(FrontTask):
         else:
             #click out any message
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),0)
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),lambda: self.hasSingleLineWordsInArea(nextCityName,A=[647,823,791,845]),3,30,1)
+            if(noExpect):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),3,1)
+            else:
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+int(index*58.3)),lambda: self.hasSingleLineWordsInArea(nextCityName,A=[647,823,791,845]),3,30,1)
         
     def goToHarbor(self):
         self.print("去码头")
@@ -386,7 +389,7 @@ class UWTask(FrontTask):
 
         #sell
         market.sellGoodsWithMargin(simple,types)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(163,674),8,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(163,674),3,1)
         time.sleep(3)
         def backup():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1076,715),3, 2)

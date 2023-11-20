@@ -7,8 +7,8 @@
 
 cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
-#battleCity="arkhang"
-battleCity="haga"
+battleCity="narvik"
+# battleCity="hag"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -93,7 +93,7 @@ EADoubleBuy={
     "buyStrategy":"twice",
     "dumpCrewCities": [],
     "sellFleet":2,
-    "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","lisboa","london"],
+    "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","london"],
     "useSkillCity":"beck",
     "sellCities":[{"name":"beck","types":None},{"name":"saint","types":"BM"}],
 }

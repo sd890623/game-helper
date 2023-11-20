@@ -89,7 +89,7 @@ class Battle:
             yDiff=75
             return (1161+int(index%4*xDiff),369+int(index/4)*yDiff)
 
-        for x in range(7): 
+        for x in range(6): 
             while(self.uwtask.isPositionColorSimilarTo(39,135,(184, 0, 0)) or self.uwtask.isPositionColorSimilarTo(112,127,(219,29,36))):
                 print("foe's turn, wait for 5s")
                 time.sleep(5)
@@ -130,24 +130,21 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(*openSkilltab),0.5)
                     # wait(lambda: self.instance.clickPointV2(1272,408),0.5)
                     wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),3,0.5)
                     time.sleep(4)
                 case 5:
-                    #5  
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    # wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    # time.sleep(2)
-                    # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(5)),0.5)
-                    # wait(lambda: self.instance.longerClickPointV2(*centralPos),3)
-
-                case 6:
-                    #open skill #ATK 
+                    #5  #ATK 
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
                     wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
                     doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     time.sleep(2)
+
+                case 6:
+                    #open skill 
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    # wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
+                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    # time.sleep(2)
 
                 case 7:
                     # DEF
@@ -287,7 +284,7 @@ class Battle:
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
         wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),0)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
-        wait(lambda: self.uwtask.findCityAndClick(town),0)
+        wait(lambda: self.uwtask.findCityAndClick(town,noExpect=True),0)
         self.quickWaitForCity([town],targetCity=town)
         self.opentimeout=0
 

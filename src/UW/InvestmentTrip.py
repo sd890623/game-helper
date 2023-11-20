@@ -20,7 +20,8 @@ class Investment:
     goBM = False
     #Better do winter
     investmentCities = [
-        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","narvik","edinburgh"
+        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
+        "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
     investmentCities3 = [
         #"saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama",
@@ -46,7 +47,7 @@ class Investment:
         "chinesetea","huzhoubrush","ancientbone","gardenia","bingata","ramiefabric","sweetolive","shaoxingwine","blueandwhite","blackvineg","musa","staranise","beanpaste","chinesepainting","guqin","sanjiegun","firelance"
     ]
     sellCities = [
-        "quanzhou","maracaibo"
+        "quanzhou","nassau"
     ]
     #before going to a city
     changeFleet = ["nutak"]
@@ -76,7 +77,7 @@ class Investment:
     def runInvestmentTrip(self):
         for index,city in enumerate(self.investmentCities):
             if(city in self.changeFleet):
-                task.changeFleet(5)
+                task.changeFleet(3)
             task.gotoCity(city,self.investmentCities)
             if(not city in self.supplyCities):
                 self.investInCity()

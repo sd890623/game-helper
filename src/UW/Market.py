@@ -26,8 +26,8 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 # "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-# "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
+# "malacca","palembang","banjarmasin","surabaya","jayakarta",
+"pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
 "edo","nagasaki","dongnae"
 ]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]

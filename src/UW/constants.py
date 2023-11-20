@@ -77,8 +77,8 @@ NEEASupplySell={
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": [""],
-    "enableVillageTrade": False,
-    "villages": ["samir"],
+    "enableVillageTrade": True,
+    "villages": ["svear","sami"],
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
@@ -114,11 +114,24 @@ EABuyBM={
 villageTradeList = {
     "svear": {
         "startCities": ['beck'],
-        "villageName": "svear"
+        "villageName": "svear",
+        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "supplyCities": ["visby"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "buyStrategy": "useGem",
+        "useGemCities": ["santa"],
+        "barterFleet":2
     },
     "sami": {
         "startCities": ['beck'],
-        "villageName": "svear"
+        "villageName": "sami",
+        "shortVillageName": "s",
+        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "supplyCities": ["bergen"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "buyStrategy": "useGem",
+        "useGemCities": ["santa"],
+        "barterFleet":7
     }
 }
 routeLists=[

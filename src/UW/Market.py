@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 from guiUtils import win
-from utils import wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString
+from utils import wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy
 import os
 import json
 import time
@@ -39,8 +39,9 @@ capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
 class Market:
-    randomPoint=851,678
+    randomPoint=851,668
     buySellWholeArea=[187,99,949,395]
+    errorMsgTitleArea=[640,276,803,310]
     today=None
     transactPurchaseBtn=1306,845
     transactClick=307,177
@@ -229,6 +230,12 @@ class Market:
 
         self.buyProductsInMarket(products)
 
+    def buyProductsInCityTwiceWithGem(self,products):
+        self.buyProductsInMarket(products)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1000,83), lambda: self.uwtask.hasSingleLineWordsInArea("stock", A=[730,271,797,297]),2,1)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(767,611), lambda: not self.uwtask.hasSingleLineWordsInArea("stock", A=[730,271,797,297]),2,1)
+        self.buyProductsInMarket(products)
+
     def bargin(self):
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
@@ -368,5 +375,48 @@ class Market:
         with open('src/UW/blackMarket.json', 'w') as json_file:
             json.dump(boughtCities, json_file)
         
+    def barterInVillage(self, villageObject):
+        def cleanupGoods():
+            index=0
+            #first 540,475
+            #2th 614,480
+            while (index<3):
+                xDiff=int(index*74)
+                # yDiff=int(index/4)*134
+                index+=1
+                wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
+                wait(lambda: self.instance.clickPointV2(540+xDiff,475),2)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(377,665),lambda: self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts")+["birch"],A=[651,423,786,448])):
+                    doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
 
+        for index in [0,1]:
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+index*76,201),2,0)
+            doAndWaitUntilBy(lambda: self.instance.clickPointV2(1267,851), lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
+            doAndWaitUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
+            if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
+                if(index==2):
+                    cleanupGoods()
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(712,668), lambda: not self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236]) or self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2,timeout=5)
+                if(self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304])):
+                    doAndWaitUntilBy(lambda: self.instance.clickPointV2(789,593), lambda: not self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2)
+
+    def cleanupGoods(self, goods):
+        continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1390,94),lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),1,1,timeout=10)#storage
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(42,339), lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),2,1)
+        index=0
+        #first 242,264
+        #5th 567,264
+        while (index<6):
+            xDiff=int(index*81.25)
+            # yDiff=int(index/4)*134
+            index+=1
+            wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
+            wait(lambda: self.instance.clickPointV2(242+xDiff,264),2)
+            if(self.uwtask.hasArrayStringInSingleLineWords(goods,A=[627,245,810,272])):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(570,670),lambda: self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+            else:
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(1202,837),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
             

@@ -1,14 +1,19 @@
-from FrontTask import FrontTask
+import sys
+import os
+import json
 
-from windows import *
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from images import getOCRfromImageBlob
-from utils import hasOneArrayStringSimilarToString,wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,isWorkHour,isStringSameOrSimilar
+from utils import *
+from FrontTask import FrontTask
 
 import time
 import datetime as dt
 import random
 import os
-from constants import cityNames, routeLists, opponentNames,battleCity,opponentsInList
+from constants import villageTradeList, cityNames, routeLists, opponentNames,battleCity,opponentsInList
 
 def importBattle():
     from Battle import Battle
@@ -568,6 +573,9 @@ class UWTask(FrontTask):
         self.waitForCity(cityList,targetCity=cityname)
         self.sendMessage("UW","reached city of "+cityname)
     
+    # def goToVillage(self,village):
+
+
     def useTradeSkill(self):
         wait(lambda: self.simulatorInstance.clickPointV2(39,632))
         if(self.hasArrayStringInSingleLineWords(["talker","seeker","expertise"],A=[787,317,888,340])):
@@ -603,6 +611,26 @@ class UWTask(FrontTask):
         else:
             if(self.tradeRouteBuyFin):
                 return True
+    def getVillageTradeDoneToday(self,villageName):
+        with open('src/UW/villageTrade.json', 'r') as f:
+            villageTrade = json.load(f)
+            return villageTrade.get(villageName)
+        
+    def doVillageTrade(self,routeObject):
+        for village in routeObject.get("villages"):
+            if(village in villageTradeList.keys() and not self.getVillageTradeDoneToday(village)):
+                self.print("do village trade")
+                
+                # self.goToVillage(village)
+
+                with open('src/UW/villageTrade.json', 'r') as f:
+                    villageTrade = json.load(f)
+                    villageTrade[village]=True
+                    with open('src/UW/villageTrade.json', 'w') as f:
+                        json.dump(villageTrade, f)
+                return
+
+
     def startTradeRoute(self):
         routeObjIndex=0
         routeObject=None
@@ -625,6 +653,10 @@ class UWTask(FrontTask):
                 continue
 
             self.changeFleet(routeObject.get('buyFleet'))
+            # 换货
+            if(routeObject.get("enableVillageTrade")):
+                self.doVillageTrade(routeObject)
+
             self.tradeRouteBuyFin=False
             self.hasStartedExtraBuy=False
             self.print("出发买东西城市")

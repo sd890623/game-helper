@@ -1,43 +1,14 @@
-import threading
-import time
-import sys
+import json
+import os
 
+if __name__ == '__main__':
+    filePath = os.path.abspath(__file__ + "\\..\\villageTrade.json")
 
-class MyThreadA(threading.Thread):
-    def __init__(self, event):
-        threading.Thread.__init__(self)
-        self.event = event
+    with open(filePath, 'r') as f:
+        villageTrade = json.load(f)
+    print(villageTrade.get("samir"))
+    villageTrade["samir"]= True
+    villageTrade["samir2"]= False
 
-    def run(self):
-        while True:
-            if self.event.is_set():
-                print("Thread A is running...")
-            else:
-                print("Thread A is paused...")
-            time.sleep(1)
-
-class MyThreadB(threading.Thread):
-    def __init__(self, event):
-        threading.Thread.__init__(self)
-        self.event = event
-
-    def run(self):
-        while True:
-            time.sleep(2)
-            self.event.clear()
-            time.sleep(2)
-            self.event.set()
-
-def signal_handler(signal, frame):
-    print("Exiting program...")
-    sys.exit(0)
-
-event = threading.Event()
-thread_a = MyThreadA(event)
-thread_b = MyThreadB(event)
-
-# signal.signal(signal.SIGINT, signal_handler)
-
-
-thread_a.start()
-thread_b.start()
+    with open(filePath, 'w') as json_file:
+        json.dump(villageTrade, json_file)

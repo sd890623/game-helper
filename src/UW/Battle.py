@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from guiUtils import win
 from datetime import datetime
 from utils import randomInt,wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,getTimeDiffInSeconds,getHour,hasOneArrayStringSimilarToString

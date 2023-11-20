@@ -1,6 +1,8 @@
 import sys
-import time
-sys.path.append("src")
+import os
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from windows import getAllWindowsWithTitle
 from UWTask import UWTask
 from utils import doMoreTimesWithWait,doAndWaitUntilBy,continueWithUntilByWithBackup,wait

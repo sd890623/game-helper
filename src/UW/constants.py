@@ -77,6 +77,8 @@ NEEASupplySell={
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": [""],
+    "enableVillageTrade": False,
+    "villages": ["samir"],
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
@@ -109,13 +111,22 @@ EABuyBM={
     "supplyCities":[],
     "sellCities":[],
 }
-
+villageTradeList = {
+    "svear": {
+        "startCities": ['beck'],
+        "villageName": "svear"
+    },
+    "sami": {
+        "startCities": ['beck'],
+        "villageName": "svear"
+    }
+}
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
     # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
 
-    #0 SEA-Carrebean  mar-May-spring, 
+    #0 SEA-Carrebean  mar-May-spring
     [
         #harvest
         {

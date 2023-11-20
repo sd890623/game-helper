@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from guiUtils import win
 from utils import wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,random
 from UWTask import UWTask

@@ -3,6 +3,8 @@
 src/__pycache__
 src/UW/__pycache__
 src/UW/blackMarket.json
+src/UW/villageTrade.json
 src/UW/reachCity.txt
 assets/screenshots/UW
 src/EVE/__pycache__
+src/utils/__pycache__

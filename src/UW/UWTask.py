@@ -134,6 +134,7 @@ class UWTask(FrontTask):
         self.allCityList=cityNames
         self.allCityList+=[battleCity]
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
+        self.allCityList+=["visby","bergen"]
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
@@ -486,14 +487,14 @@ class UWTask(FrontTask):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
 
     def startJourney(self):
-        self.checkSB()
+        # self.checkSB()
         self.goToHarbor()
         self.depart()
         self.selectNextCity()
         self.waitForCity()
         self.basicMarket()
         self.checkReachCity()
-        self.buyBlackMarket(self.currentCity)
+        # self.buyBlackMarket(self.currentCity)
         time.sleep(random.randint(3,5))
 
     def getTime(self):
@@ -606,7 +607,7 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(634,568),1)
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
-        doAndWaitUntilBy(lambda: False, lambda: (self.inWater() and self.hasSingleLineWordsInArea(village,A=[647,823,791,845])),1,1,timeout=10,backupFunc=backup)
+        doAndWaitUntilBy(lambda: False, lambda: (self.inWater() and self.hasSingleLineWordsInArea(village,A=[647,823,791,845])),1,1,backupFunc=backup)
 
         self.print("航行中")
         def reachedVillage():
@@ -709,7 +710,7 @@ class UWTask(FrontTask):
                         buyStrategy="useGem"
                     self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
                 for city in villageObject.get("supplyCities"):
-                    self.gotoCity(city,[city])
+                    self.gotoCity(city,self.allCityList)
                 if(villageObject.get("barterFleet")):
                     self.changeFleet(villageObject.get("barterFleet"))
 

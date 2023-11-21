@@ -25,7 +25,7 @@ def run():
     #Optional
     # task.shipBuilding(options=[12,12],city="ceuta", times=1)
     # task.targetCity="naples"
-    task.setRouteOption(4)
+    task.setRouteOption(7)
 
     task.tradeRouteBuyFin=True
     # task.battleRoute()
@@ -49,6 +49,7 @@ def run():
             time.sleep(1800)
             continue
         task.startTradeRoute()
+        # task.startJourney()
         
 
 

@@ -390,12 +390,13 @@ class Market:
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts")+["birch"],A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
 
-        for index in [0,1]:
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+index*76,201),2,0)
+        for (index, val) in villageObject.get("tradeObjects"):
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1267,851), lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
             if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
-                if(index==2):
+                if(index==villageObject.get("cleanupIndex")):
+                    self.uwtask.print("clean up goods, last round")
                     cleanupGoods()
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(712,668), lambda: not self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236]) or self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2,timeout=5)
                 if(self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304])):
@@ -405,13 +406,13 @@ class Market:
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1390,94),lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),1,1,timeout=10)#storage
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(42,339), lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),2,1)
-        index=0
+        index=4
         #first 242,264
         #5th 567,264
-        while (index<6):
+        while (index>=0):
             xDiff=int(index*81.25)
             # yDiff=int(index/4)*134
-            index+=1
+            index-=1
             wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
             wait(lambda: self.instance.clickPointV2(242+xDiff,264),2)
             if(self.uwtask.hasArrayStringInSingleLineWords(goods,A=[627,245,810,272])):

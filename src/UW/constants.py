@@ -3,12 +3,12 @@
 # NorthEuropeCitynames=["london","antwerp","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
 # cityNames=["amsterda","bremen","hamburg","groningen"]
 # portgual reputation
-#cityNames=["funchal","faro","lisboa","porto"]
+cityNames=["funchal","faro","lisboa","porto"]
 
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
+# cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
 battleCity="narvik"
-# battleCity="hag"
+battleCity="hag"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -118,6 +118,9 @@ villageTradeList = {
         "buyCities": ["santa","barcelona", "seville","amsterda"],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
+        # (index, val) array
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
         "buyStrategy": "useGem",
         "useGemCities": ["santa"],
         "barterFleet":2
@@ -129,6 +132,8 @@ villageTradeList = {
         "buyCities": ["santa","barcelona", "seville","amsterda"],
         "supplyCities": ["bergen"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
         "buyStrategy": "useGem",
         "useGemCities": ["santa"],
         "barterFleet":7

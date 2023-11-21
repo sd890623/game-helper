@@ -267,8 +267,8 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],
     #5 Autumn Sep-Nov, NE-EA, EA-perfume+
@@ -302,8 +302,8 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],
     #7 Spring Dec-Feb, NE-EA, EA-perfume->, liquor+

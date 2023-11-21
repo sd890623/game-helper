@@ -67,7 +67,7 @@ class Investment:
     def investInCity(self):
         task.print("去投资")
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
-        task.clickInMenu("bureau","bureau",startIndex=5)
+        task.clickInMenu("bureau",["bureau"],startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
         while(task.getNumberFromSingleLineInArea(A=[260,807,285,823])<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
             self.investOnce(True)

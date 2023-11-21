@@ -25,16 +25,14 @@ marketBuyData={
     "sasari":["garnet"],
 }
 
-hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","amsterda","london","antwerp","calais","plymouth",
+hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","london","antwerp","calais","plymouth","amsterda",
 # "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
 # "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 # "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-# "pasay","malacca","palembang","banjarmasin","surabaya","jayakarta",
-"macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing",
-"edo","nagasaki","dongnae"
-]
+# "malacca","palembang","banjarmasin","surabaya","jayakarta",
+"pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae",]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 
@@ -347,7 +345,7 @@ class Market:
                 timeout2+=1
                 if(timeout2>30):
                     return
-            if(not self.uwtask.clickInMenu("temshop","temshop",startIndex=3)):
+            if(not self.uwtask.clickInMenu("temshop",["temshop"],startIndex=3)):
                 nonlocal timeout
                 timeout+=1
                 if(timeout>5):
@@ -363,7 +361,7 @@ class Market:
                 recursiveVisitBM()
 
         if(city in capitals):
-            self.uwtask.clickInMenu("temshop","temshop",startIndex=3)
+            self.uwtask.clickInMenu("temshop",["temshop"],startIndex=3)
         else:
             recursiveVisitBM()
         if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):

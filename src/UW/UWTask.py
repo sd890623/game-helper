@@ -40,7 +40,7 @@ class UWTask(FrontTask):
     #VM screen size: 1440x900
 
     syncBetweenUsers = True
-    currentCity = "visby"
+    currentCity = "amsterda"
     sbCity=None
     sbOptions=[]
     pickedUpShip=False
@@ -81,7 +81,6 @@ class UWTask(FrontTask):
         self.setCurrentCityFromScreen()
         self.checkReachCity()
 
-        # self.buyBlackMarket('london')
         self.dumpCrew()
         wait(lambda: self.clickWithImage("tourmaline", A=[187,99,949,395],imagePrefix="products"),1)
         #print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
@@ -487,6 +486,7 @@ class UWTask(FrontTask):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
 
     def startJourney(self):
+        # self.buyBlackMarket(self.currentCity)
         # self.checkSB()
         self.goToHarbor()
         self.depart()
@@ -494,7 +494,6 @@ class UWTask(FrontTask):
         self.waitForCity()
         self.basicMarket()
         self.checkReachCity()
-        # self.buyBlackMarket(self.currentCity)
         time.sleep(random.randint(3,5))
 
     def getTime(self):

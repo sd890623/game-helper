@@ -169,7 +169,10 @@ class Market:
     def checkMaxBought(self,xDiff,yDiff):
         if(self.marketMode==1):
             return self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204))
-        return (self.uwtask.getNumberFromSingleLineInArea(A=[1300,105,1353,126])>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
+        goodsNumber=self.uwtask.getNumberFromSingleLineInArea(A=[1300,105,1353,126])
+        if(not goodsNumber):
+            return True
+        return (goodsNumber>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
         # wait(lambda: self.instance.clickPointV2(*self.purchaseBtn))
@@ -333,7 +336,7 @@ class Market:
         #     wait(lambda: self.instance.clickPointV2(719,482))
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(74,210),2,1)
         screenshotBlob = self.instance.outputWindowScreenshotV2()
-        self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
+        self.uwtask.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\..\\assets\\screenshots\\UW\\"+self.today,filename=city+".jpg")
     
     def buyBlackMarket(self,city):
         timeout=0
@@ -375,15 +378,15 @@ class Market:
         
     def barterInVillage(self, villageObject):
         def cleanupGoods():
-            index=0
+            index=3
             #first 540,475
             #2th 614,480
-            while (index<3):
+            while (index>=0):
                 xDiff=int(index*74)
                 # yDiff=int(index/4)*134
-                index+=1
+                index-=1
                 wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
-                wait(lambda: self.instance.clickPointV2(540+xDiff,475),2)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(540+xDiff,475),2,1)
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(377,665),lambda: self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts")+["birch"],A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)

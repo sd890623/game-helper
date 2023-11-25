@@ -40,7 +40,7 @@ class UWTask(FrontTask):
     #VM screen size: 1440x900
 
     syncBetweenUsers = True
-    currentCity = "amsterda"
+    currentCity = "las"
     sbCity=None
     sbOptions=[]
     pickedUpShip=False
@@ -411,7 +411,8 @@ class UWTask(FrontTask):
         market=importMarket()(self.simulatorInstance, self,marketMode=marketMode)
 
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),1, 1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1253,294), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea) or self.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39]),2,2)
+        self.clickInMenu('market', ['market'])
+        # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1253,294), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea) or self.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39]),2,2)
 
         #buy
         match buyStrategy:
@@ -444,7 +445,7 @@ class UWTask(FrontTask):
                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1241,261+yDiff), lambda: self.hasArrayStringEqualSingleLineWords(inTitleArray, A=self.titleArea),2,2)
                 break
             index+=1
-            if(not infinite and index==15):
+            if(not infinite and index==30):
                 return False
         return True
 
@@ -622,6 +623,9 @@ class UWTask(FrontTask):
         if(self.hasArrayStringInSingleLineWords(["negotiator"],A=[671,318,766,344])):
             wait(lambda: self.simulatorInstance.clickPointV2(739,441),1)
             wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
+        if(self.hasArrayStringInSingleLineWords(["negotiator"],A=[560,320,644,337])):
+            wait(lambda: self.simulatorInstance.clickPointV2(603,513),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
     
     def shouldFinishTradeAndChangeFleet(self,routeObject):
         if(routeObject.get("sellFleet")):
@@ -703,7 +707,7 @@ class UWTask(FrontTask):
             villageObject=self.getTargetVillageObject(routeObject)
             if(villageObject):
                 for city in villageObject.get("buyCities"):
-                    self.gotoCity(city,self.allCityList) 
+                    self.gotoCity(city,self.allCityList)
                     buyStrategy=None 
                     if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
                         buyStrategy="useGem"

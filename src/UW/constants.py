@@ -3,12 +3,13 @@
 # NorthEuropeCitynames=["london","antwerp","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
 # cityNames=["amsterda","bremen","hamburg","groningen"]
 # portgual reputation
-cityNames=["funchal","faro","lisboa","porto"]
+cityNames=["funchal","lisboa","faro","casablanca","las"]
 
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
 battleCity="narvik"
 battleCity="hag"
+
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -97,7 +98,7 @@ EADoubleBuy={
     "sellFleet":2,
     "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","london"],
     "useSkillCity":"beck",
-    "sellCities":[{"name":"beck","types":None},{"name":"saint","types":"BM"}],
+    "sellCities":[{"name":"beck","types":None}],
 }
 EABuyBM={
     "buyFleet":4,
@@ -121,9 +122,9 @@ villageTradeList = {
         # (index, val) array
         "tradeObjects": [(0,0),(1,1),(2,1)],
         "cleanupIndex": 2,
-        "buyStrategy": "useGem",
+        "buyStrategy": "",
         "useGemCities": ["santa"],
-        "barterFleet":2
+        "barterFleet":7
     },
     "sami": {
         "startCities": ['beck'],
@@ -134,7 +135,7 @@ villageTradeList = {
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         "tradeObjects": [(0,0),(1,1),(2,1)],
         "cleanupIndex": 2,
-        "buyStrategy": "useGem",
+        "buyStrategy": "",
         "useGemCities": ["santa"],
         "barterFleet":7
     }

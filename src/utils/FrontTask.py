@@ -143,10 +143,14 @@ class FrontTask(object):
             return False
 
     def getNumberFromSingleLineInArea(self, A=[0, 0, 0, 0], debug=False):
-        screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
-        if (debug == True):
-            self.saveImageToFile(screenshotBlob)
-        return getNumberfromImageBlob(screenshotBlob)
+        try:
+            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
+            if (debug == True):
+                self.saveImageToFile(screenshotBlob)
+            return getNumberfromImageBlob(screenshotBlob)
+        except Exception as e:
+            print("fail to get number")
+            return False 
 
     def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
         try:
@@ -175,7 +179,7 @@ class FrontTask(object):
                     self.print("Directory " + absPath + " Created ")
                 screenshotImgPath = absPath+"\\"+filename
             else:
-                screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\assets\\screenshots\\"+str(
+                screenshotImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\screenshots\\"+str(
                     self.index)+"\\ocr-"+str(random.randint(0, 10000))+".bmp")
             cv2.imwrite(screenshotImgPath, imageBlob)
         except Exception as e:

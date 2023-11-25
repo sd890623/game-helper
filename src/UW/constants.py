@@ -3,12 +3,13 @@
 # NorthEuropeCitynames=["london","antwerp","calais","antwerp","helder","amsterda","groningen","bremen","hamburg"]
 # cityNames=["amsterda","bremen","hamburg","groningen"]
 # portgual reputation
-#cityNames=["funchal","faro","lisboa","porto"]
+cityNames=["funchal","lisboa","faro","casablanca","las"]
 
-cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
+# cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
 battleCity="narvik"
-# battleCity="hag"
+battleCity="hag"
+
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
@@ -77,6 +78,8 @@ NEEASupplySell={
     "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
     "buySupplyCities":[],
     "dumpCrewCities": [""],
+    "enableVillageTrade": True,
+    "villages": ["svear","sami"],
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
@@ -95,7 +98,7 @@ EADoubleBuy={
     "sellFleet":2,
     "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","london"],
     "useSkillCity":"beck",
-    "sellCities":[{"name":"beck","types":None},{"name":"saint","types":"BM"}],
+    "sellCities":[{"name":"beck","types":None}],
 }
 EABuyBM={
     "buyFleet":4,
@@ -109,13 +112,40 @@ EABuyBM={
     "supplyCities":[],
     "sellCities":[],
 }
-
+villageTradeList = {
+    "svear": {
+        "startCities": ['beck'],
+        "villageName": "svear",
+        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "supplyCities": ["visby"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        # (index, val) array
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
+        "buyStrategy": "",
+        "useGemCities": ["santa"],
+        "barterFleet":7
+    },
+    "sami": {
+        "startCities": ['beck'],
+        "villageName": "sami",
+        "shortVillageName": "s",
+        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "supplyCities": ["bergen"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
+        "buyStrategy": "",
+        "useGemCities": ["santa"],
+        "barterFleet":7
+    }
+}
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
     # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
 
-    #0 SEA-Carrebean  mar-May-spring, 
+    #0 SEA-Carrebean  mar-May-spring
     [
         #harvest
         {
@@ -238,8 +268,8 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],
     #5 Autumn Sep-Nov, NE-EA, EA-perfume+
@@ -273,8 +303,8 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
-            "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],
     #7 Spring Dec-Feb, NE-EA, EA-perfume->, liquor+

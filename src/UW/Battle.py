@@ -1,3 +1,8 @@
+import sys
+import os
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from guiUtils import win
 from datetime import datetime
 from utils import randomInt,wait,doMoreTimesWithWait,continueWithUntilBy,doAndWaitUntilBy,continueWithUntilByWithBackup,getTimeDiffInSeconds,getHour,hasOneArrayStringSimilarToString
@@ -134,17 +139,17 @@ class Battle:
                     time.sleep(4)
                 case 5:
                     #5  #ATK 
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(2)
-
-                case 6:
-                    #open skill 
                     wait(lambda: self.instance.clickPointV2(*waitPos),3)
                     # wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
                     # time.sleep(2)
+
+                case 6:
+                    #open skill 
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
+                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    time.sleep(2)
 
                 case 7:
                     # DEF
@@ -202,13 +207,15 @@ class Battle:
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponentsInList):
-        firstPosi=(1227,257)
-        area=[1210,248,1367,270]
+        firstPosi=(1286,344)
+        area=[1236,326,1362,345]
+        #5TH AREA
+        # 1232,601,1399,629
         index=0
         while(index<15):
-            yDiff=int(index%11*56.5)
+            yDiff=int(index%11*56.2)
             index+=1
-            ocrName=self.uwtask.getSingleLineWordsInArea(A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff])
+            ocrName=self.uwtask.getSingleLineWordsInArea(A=[area[0], area[1]+yDiff, area[2], area[3]+yDiff],debug=False)
             hasName=hasOneArrayStringSimilarToString(ocrName,opponentsInList) and not hasOneArrayStringSimilarToString(ocrName,blackListForBattle)
 
             if(hasName):
@@ -325,7 +332,7 @@ class Battle:
 
         if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159]) and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
             self.uwtask.print("opened")
-            return doAndWaitUntilBy(lambda: self.instance.clickPointV2(720,825),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
+            return doAndWaitUntilBy(lambda: self.instance.clickPointV2(683,829),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
         self.opentimeout+=1
         if(self.opentimeout>2):

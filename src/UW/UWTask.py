@@ -625,7 +625,13 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
         if(self.hasArrayStringInSingleLineWords(["negotiator"],A=[560,320,644,337])):
             wait(lambda: self.simulatorInstance.clickPointV2(603,513),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(775,612),1)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(775,612),2)
+        if(self.hasArrayStringInSingleLineWords(["sales"],A=[346,320,380,337])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(354,515),lambda: self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(784,606),lambda: not self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(600,506),lambda: self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(784,606),lambda: not self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
+
     
     def shouldFinishTradeAndChangeFleet(self,routeObject):
         if(routeObject.get("sellFleet")):
@@ -787,7 +793,7 @@ class UWTask(FrontTask):
             for index,cityObject in enumerate(deductedSellBMCities):
                 cityName=cityObject["name"]
                 types=cityObject["types"]
-                useSkill=self.useTradeSkill if (cityName==routeObject.get("useSkillCity")) else lambda:False
+                useSkill=self.useTradeSkill if (cityName==routeObject.get("useSkillCity") and villageObject) else lambda:False
                 self.gotoCity(cityName,self.allCityList,useExtra=useSkill)
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(cityName)

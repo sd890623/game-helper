@@ -81,6 +81,7 @@ NEEASupplySell={
     "enableVillageTrade": True,
     "villages": ["svear","sami"],
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
+    "useSkillCity":"chang",
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     # {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
@@ -97,7 +98,6 @@ EADoubleBuy={
     "dumpCrewCities": [],
     "sellFleet":2,
     "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","london"],
-    "useSkillCity":"beck",
     "sellCities":[{"name":"beck","types":None}],
 }
 EABuyBM={
@@ -268,7 +268,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],
@@ -303,7 +303,7 @@ routeLists=[
         EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","nishijin","yosegi","sweetolive"],
+            "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["chang","edo","nagasaki","sakai","hangzhou"]
         }
     ],

@@ -21,13 +21,14 @@ simuInstance=task.simulatorInstance
 class Investment:
     goBM = False
     #Better do winter
-    investmentCities = [
+    investmentCities2 = [
         "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
-    investmentCities3 = [
-        #"saint","riga","visby","beck","copenhag","bergen","dublin","ceuta","marseille","pisa","calvi","syracuse","candia","antalya","beirut","cairo","casablanca","las","douala","cape","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","kotte","aceh","malacca","palembang","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama",
-        "copiap","ushuaia","rio","pernambuco","maracaibo","nassau","nutak","arviat","reykjav","edinburgh"
+    investmentCities = [
+        #"aceh",
+        "lopburi","brunei","ambon","banda",
+        "yanyun","hangzhou","quanzhou"
     ]
     investmentCities4 = [
         #"unalaska","tacoma",

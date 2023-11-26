@@ -35,7 +35,7 @@ class FrontTask(object):
 
     def hasImageInScreen(self, imageName, A=[0, 0, 0, 0], greyMode=False, debug=False):
         imagePath = os.path.abspath(
-            __file__ + "\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
+            __file__ + "\\..\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug):

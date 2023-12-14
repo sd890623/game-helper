@@ -8,7 +8,7 @@ cityNames=["funchal","lisboa","faro","casablanca","las"]
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
 battleCity="narvik"
-battleCity="hag"
+# battleCity="hag"
 
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
@@ -79,13 +79,14 @@ NEEASupplySell={
     "buySupplyCities":[],
     "dumpCrewCities": [""],
     "enableVillageTrade": True,
-    "villages": ["svear","sami"],
+    "villages": ["svear","svea","sami","sam"],
     "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
-    "useSkillCity":"chang",
+    "useSkillCity":"yanyun",
+    "checkInnCities": ['lisboa','cape','toamasina','seville'],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     # {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-    {"name":"hobe","types":"supply"},{"name":"chang","types":None}]
+    {"name":"hobe","types":"supply"},{"name":"yanyun","types":None}]
 }
 EADoubleBuy={
     #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
@@ -96,8 +97,10 @@ EADoubleBuy={
     "buySupplyCities":[],
     "buyStrategy":"twice",
     "dumpCrewCities": [],
+    "useSkillCity":"beck",
+    "checkInnCities": ["dublin",'dover','london','macau',"edo",'sakai','hanyang','hobe',"playmouth","naha"],
     "sellFleet":2,
-    "supplyCities":["macau","pasay","toamasina","cape","soda","bathurst","london"],
+    "supplyCities":["sakai","macau","pasay","toamasina","cape","soda","bathurst","dublin","playmouth","dover","london"],
     "sellCities":[{"name":"beck","types":None}],
 }
 EABuyBM={
@@ -107,6 +110,7 @@ EABuyBM={
     "buyProducts": ["gardenia","begonia","sweetolive","azalea"],#,"tiger'seye"],
     "buyCities":["hanyang","dongnae","jeju","hangzhou","hobe"],#,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
     "deductBuyBM":True,
+    "checkInnCities": ['sakai',"edo",'hanyang','hangzhou',"dongnae","jeju","hobe"],
     "buySupplyCities":[],
     "dumpCrewCities": [],
     "supplyCities":[],
@@ -116,10 +120,22 @@ villageTradeList = {
     "svear": {
         "startCities": ['beck'],
         "villageName": "svear",
-        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "buyCities": ["santa","seville","dublin","amsterda"],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         # (index, val) array
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
+        "buyStrategy": "",
+        "useGemCities": ["santa"],
+        "barterFleet":7
+    },
+    "svea": {
+        "startCities": ['beck'],
+        "villageName": "svea",
+        "buyCities": ["santa","seville","dublin","amsterda"],
+        "supplyCities": ["visby"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
         "tradeObjects": [(0,0),(1,1),(2,1)],
         "cleanupIndex": 2,
         "buyStrategy": "",
@@ -130,7 +146,20 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "sami",
         "shortVillageName": "s",
-        "buyCities": ["santa","barcelona", "seville","amsterda"],
+        "buyCities": ["santa","seville","dublin","amsterda"],
+        "supplyCities": ["bergen"],
+        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "tradeObjects": [(0,0),(1,1),(2,1)],
+        "cleanupIndex": 2,
+        "buyStrategy": "",
+        "useGemCities": ["santa"],
+        "barterFleet":7
+    },
+    "sam": {
+        "startCities": ['beck'],
+        "villageName": "sam",
+        "shortVillageName": "s",
+        "buyCities": ["santa","seville","dublin","amsterda"],
         "supplyCities": ["bergen"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         "tradeObjects": [(0,0),(1,1),(2,1)],

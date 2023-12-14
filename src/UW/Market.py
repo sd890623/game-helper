@@ -276,7 +276,7 @@ class Market:
                  productName.startswith("intermediatecombatappointment") or
                 ("wooden" in productName and "astro" in productName) or "lowcombat" in productName or
                 "ebony" in productName or
-                 ("high" in productName and "highest" not in productName) or
+                 ("highcombat" in productName and "highest" not in productName) or
                 #  "tanjaq" in productName or
                 #  "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
                 #  "junk" in productName or "higaki" in productName or

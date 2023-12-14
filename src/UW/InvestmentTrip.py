@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
@@ -20,12 +21,14 @@ simuInstance=task.simulatorInstance
 
 class Investment:
     goBM = False
+    inn=True
     #Better do winter
-    investmentCities2 = [
-        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra","pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
+    investmentCities = [
+        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra",
+        "pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
-    investmentCities = [
+    investmentCities4 = [
         #"aceh",
         "lopburi","brunei","ambon","banda",
         "yanyun","hangzhou","quanzhou"
@@ -80,7 +83,7 @@ class Investment:
     def runInvestmentTrip(self):
         for index,city in enumerate(self.investmentCities):
             if(city in self.changeFleet):
-                task.changeFleet(3)
+                task.changeFleet(7)
             task.gotoCity(city,self.investmentCities)
             if(not city in self.supplyCities):
                 self.investInCity()
@@ -90,8 +93,11 @@ class Investment:
                 task.buyInCity(self.investmentCities, products=self.buyGoods)
             if(self.goBM):
                 task.buyBlackMarket(city)
+            if(self.inn):
+                task.checkInn(city, {"checkInnCities": self.investmentCities})
             task.checkSB()
             task.checkReachCity()
+        
             # if index is the last of the array
             if(index is len(self.investmentCities)-1):
                 # stop the python program

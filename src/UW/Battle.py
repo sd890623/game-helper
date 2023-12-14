@@ -165,7 +165,7 @@ class Battle:
         if(type(number) == int and number>30):
             wait(lambda: self.instance.clickPointV2(825+randomInt(),863+randomInt()),0.5)
 
-        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("discard", A=self.battleEnd["okBtn"]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=480)
+        continueWithUntilBy(lambda: self.instance.rightClickPointV2(*self.randomPoint),lambda: self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"]) or self.uwtask.hasSingleLineWordsInArea("discard", A=[679,667,757,682]) or self.uwtask.inCityList(self.uwtask.allCityList),5,timeout=480)
         def backupFunc():
             exitBattle()
             if(self.uwtask.hasSingleLineWordsInArea("defeat",A=[1078,781,1162,807])):
@@ -225,7 +225,7 @@ class Battle:
                     continue
                 else:
                     time.sleep(1)
-                    if(self.uwtask.hasSingleLineWordsInArea("pirate", A=[1187,129,1396,159])):
+                    if(self.uwtask.hasSingleLineWordsInArea("pirate", A=[1187,129,1396,159]) and not self.uwtask.hasSingleLineWordsInArea("ruthless", A=[1187,129,1396,159])):
                         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
                         continue
                     else:
@@ -330,9 +330,13 @@ class Battle:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
             return self.findOpponentOrReturn(opponentsInList,opponents,town)
 
-        if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159]) and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
+        def clickIntoBattle():
+            self.instance.clickPointV2(683,829)
+            self.instance.clickPointV2(726,820)
+
+        if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159])): #and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
             self.uwtask.print("opened")
-            return doAndWaitUntilBy(lambda: self.instance.clickPointV2(683,829),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
+            return doAndWaitUntilBy(lambda: clickIntoBattle(),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
         self.opentimeout+=1
         if(self.opentimeout>2):

@@ -8,7 +8,7 @@ cityNames=["funchal","lisboa","faro","casablanca","las"]
 # cityNames = ["pisa", "genoa", "calvi", "marseille", "barcelona", "valencia", "malaga", "seville", "ceuta", "cagliari","sassari"]
 
 battleCity="narvik"
-# battleCity="hag"
+battleCity="hag"
 
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
@@ -79,10 +79,10 @@ NEEASupplySell={
     "buySupplyCities":[],
     "dumpCrewCities": [""],
     "enableVillageTrade": True,
-    "villages": ["svear","svea","sami","sam"],
-    "supplyCities":["lisboa","bathurst","luanda","cape","toamasina","pasay"],
+    "villages": ["svear","sami","svea","sam"],
+    "supplyCities":["seville","pisa","genoa","bathurst","sierra","luanda","cape","toamasina","pasay"],
     "useSkillCity":"yanyun",
-    "checkInnCities": ['lisboa','cape','toamasina','seville'],
+    "checkInnCities": ['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda"],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     # {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},

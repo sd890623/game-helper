@@ -25,12 +25,11 @@ class Investment:
     #Better do winter
     investmentCities = [
         "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra",
-        "pirie","hobart","gari","kaka","ambon","banda","makassar","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
+        "pirie","hobart","gari","kaka","dili","banda","ambon","makassar","ternate","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
-    investmentCities4 = [
-        #"aceh",
-        "lopburi","brunei","ambon","banda",
+    investmentCities2 = [
+        "aceh","lopburi","brunei","ambon","dili","banda","davao",
         "yanyun","hangzhou","quanzhou"
     ]
     investmentCities4 = [
@@ -100,6 +99,7 @@ class Investment:
         
             # if index is the last of the array
             if(index is len(self.investmentCities)-1):
+                task.sendNotification("investment finished")
                 # stop the python program
                 sys.exit()
 

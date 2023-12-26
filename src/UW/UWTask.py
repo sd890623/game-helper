@@ -13,7 +13,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames, routeLists, opponentNames,battleCity,opponentsInList
+from constants import villageTradeList, cityNames, routeLists, opponentNames,monthToRoute,opponentsInList
 
 def importBattle():
     from Battle import Battle
@@ -48,7 +48,7 @@ class UWTask(FrontTask):
     hasStartedExtraBuy=False
     waitForCityTimeOut=800
     hasSelectedMap=0
-    routeOption=0
+    routeOption=4
     routeList=[]
     allCityList=cityNames
     battleMode="run"
@@ -130,11 +130,19 @@ class UWTask(FrontTask):
     def setCurrentCityFromScreen(self):
         self.inCityList(self.allCityList)
 
-    def setRouteOption(self,routeOption: int):
-        self.routeOption=routeOption
+    def setRouteOptionFromScreen(self):
+        month=self.getSingleLineWordsInArea(A=[1322,220,1357,239])
+        if month and monthToRoute.get(month):
+            self.routeOption=monthToRoute.get(month)
+
+    def setRouteOption(self,routeOption: int=False):
+        if(routeOption):
+            self.routeOption=routeOption
+        else:
+            self.setRouteOptionFromScreen()
         self.routeList=routeLists[routeOption]
         self.allCityList=cityNames
-        self.allCityList+=[battleCity]
+        # self.allCityList+=[battleCity]
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
         self.allCityList+=["visby","bergen"]
         for routeObject in self.routeList:
@@ -850,7 +858,7 @@ class UWTask(FrontTask):
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
 	
-    def battleRoute(self):
+    def battleRoute(self,battleCity):
         battle=importBattle()(self.simulatorInstance,self)
         while(True):
             if(not self.inWater()):

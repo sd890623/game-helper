@@ -10,11 +10,9 @@ cityNames=["funchal","lisboa","faro","casablanca","las"]
 battleCity="narvik"
 battleCity="hag"
 
-
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa","aas","ruthless"
-]
+opponentsInList=["pil","ass","asa","aas","ruthless"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless","nanima"] #add ducunyong as it's double lines, so quick hack,only checked in board
 blackListForBattle=['piz','zpi','robeyn','masa']
@@ -27,51 +25,6 @@ blackListForBattle=['piz','zpi','robeyn','masa']
 # "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
 
 # Shared object
-northEuropeHot={
-    # ,"tourmaline","amber", "jewllery""glassbead","aquavit"
-    "buyProducts": ["twohand","gobelin","steel","vodka","gin","whisky","westerncann","saffron","western"],
-    # "gda", "hamburg"
-    # Feb alchohol+
-    # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
-    # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","bergen","edinburgh","groningen","amsterda","london","dover","bristol","bristol","bordeaux","seville","laga","marseil","genoa"],
-    "buySupplyCities":["copenhag"],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-northEuropeStd={
-    # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["twohand","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westerncann","western","saffron","azulejo","almond"],
-    # "gda", "hamburg"
-    # Feb alchohol+
-    # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","calais","plymouth","bristol","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
-    "buySupplyCities":["copenhag"],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-northEuropeLightSea={
-    # "jewllery", ,"handcanno", "flannel",
-    "buyProducts": ["amber","chrysoberyl","tourmaline","twohand","felt","feather","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","silverplate","western","westerncann","saffron","azulejo","almond"],
-    "buyCities":["saint","stockhol","visby","copenhag","london"],
-    "buySupplyCities":[],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-northEuropeQuick={
-    # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
-    "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-    "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
-    "buySupplyCities":[],
-    "buyStrategy":"once",
-    "dumpCrewCities": [""],
-    "supplyCities":["lisboa","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
     "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
@@ -168,6 +121,17 @@ villageTradeList = {
         "useGemCities": ["santa"],
         "barterFleet":7
     }
+}
+
+#Init option
+#Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
+#4 summer, 5autumn, 6winter 7 spring
+monthToRoute = {
+    "mar": 7,
+    "apr": 7, "may": 7, "jun": 4,
+    "jul": 4, "aug": 4, "sep": 5,
+    "oct": 5, "nov": 5, "dec": 6,
+    "jan": 6, "feb": 6
 }
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-

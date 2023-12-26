@@ -75,14 +75,14 @@ class Battle:
         #use fast
 
         if(self.uwtask.hasSingleLineWordsInArea("fre",A=[694,866,725,881])):
-            self.instance.clickPointV2(718,867)
-        if(not self.uwtask.hasSingleLineWordsInArea("using",A=[699,867,738,881]) and self.uwtask.hasSingleLineWordsInArea("fast",A=[701,850,738,866])):
-            continueWithUntilBy(lambda: self.instance.clickPointV2(718,867), lambda: not self.uwtask.hasSingleLineWordsInArea("fast",A=[701,850,738,866]) or self.uwtask.isPositionColorSimilarTo(678,863,(177,170,71)))
+            wait(lambda: self.instance.clickPointV2(718,867))
+        if(not self.uwtask.hasSingleLineWordsInArea("using",A=[699,867,738,881]) and self.uwtask.hasSingleLineWordsInArea("fast",A=[699,848,739,866])):
+            continueWithUntilBy(lambda: self.instance.clickPointV2(718,867), lambda: not self.uwtask.hasSingleLineWordsInArea("fast",A=[699,848,739,866]) or self.uwtask.isPositionColorSimilarTo(675,856,(255,255,85)))
             if(self.uwtask.hasSingleLineWordsInArea("purchase",A=[660,279,781,308])):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(786,591),2,2)
-            if(self.haveSentBattleFinNotification==False):
-                self.uwtask.sendNotification(f"Battle finished")
-                self.haveSentBattleFinNotification=True
+                if(self.haveSentBattleFinNotification==False):
+                    self.uwtask.sendNotification(f"Battle finished")
+                    self.haveSentBattleFinNotification=True
 
         centralPos=716,454
         openSkillPos=1270,786
@@ -251,7 +251,7 @@ class Battle:
         self.uwtask.clickEnterCityButton()
 
     def depart(self):
-        firstLineArrowBtn=1401,540
+        firstLineArrowBtn=1401,500
         okBtn=752,607
         departBtn=1287,655
         def clickAndStock():
@@ -265,8 +265,8 @@ class Battle:
                 self.uwtask.restock()
                 self.instance.clickPointV2(*departBtn)
         clickAndStock()
-        if(self.uwtask.hasSingleLineWordsInArea("crewsize",A=[1203,529,1274,550])):
-            crewWords=self.uwtask.getSingleLineWordsInArea(A=[1274,529,1364,548],ocrType=2)
+        if(self.uwtask.hasSingleLineWordsInArea("crewsize",A=[1200,490,1276,514])):
+            crewWords=self.uwtask.getSingleLineWordsInArea(A=[1273,492,1374,513],ocrType=2)
 
             actualCrew=getNumberFromString(crewWords.split("/")[0])
             maxCrew=getNumberFromString(crewWords.split("/")[1])

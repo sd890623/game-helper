@@ -58,6 +58,8 @@ class UWTask(FrontTask):
 # todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
 
     def testTask(self):
+        battle=importBattle()(self.simulatorInstance,self)
+        battle.doBattle()
         self.checkInn('manila',{
                 "checkInnCities": ['manila','hanyang','hangzhou','hobe']
         })
@@ -203,11 +205,11 @@ class UWTask(FrontTask):
     def restock(self):
         self.print("补给")
         okBtn=752,607
-        firstLineArea=[1200,528,1362,552]
-        firstLineArrowBtn=1401,540
+        firstLineArea=[1201,490,1380,514]
+        firstLineArrowBtn=1405,500
         # Repair ship
-        while(self.hasSingleLineWordsInArea("notenoughdurability",A=[1202,560,1362,589])):
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1405,574),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
+        while(self.hasSingleLineWordsInArea("notenoughdurability",A=[1202,518,1362,543])):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1403,528),lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea), 1,2)
             wait(lambda: self.simulatorInstance.clickPointV2(1110,857),1)
             wait(lambda: self.simulatorInstance.clickPointV2(1297,859),1)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),3,1)
@@ -283,7 +285,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
 
         wait(lambda: self.simulatorInstance.clickPointV2(39,97),1)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),3,1)
@@ -618,7 +620,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712,27),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
         wait(lambda: self.simulatorInstance.clickPointV2(39,97),1)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(141,78),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
         shortVillageName=None
         if(villageObject and villageObject.get("shortVillageName")):
             shortVillageName=villageObject.get("shortVillageName")

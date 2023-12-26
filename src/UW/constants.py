@@ -98,9 +98,9 @@ EADoubleBuy={
     "buyStrategy":"twice",
     "dumpCrewCities": [],
     "useSkillCity":"beck",
-    "checkInnCities": ["dublin",'dover','london','macau',"edo",'sakai','hanyang','hobe',"playmouth","naha"],
+    "checkInnCities": ["dublin",'dover','london','macau',"edo",'sakai','hanyang','hobe',"plymouth","naha"],
     "sellFleet":2,
-    "supplyCities":["sakai","macau","pasay","toamasina","cape","soda","bathurst","dublin","playmouth","dover","london"],
+    "supplyCities":["sakai","macau","pasay","toamasina","cape","soda","bathurst","dublin","plymouth","dover","london"],
     "sellCities":[{"name":"beck","types":None}],
 }
 EABuyBM={

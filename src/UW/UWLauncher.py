@@ -25,10 +25,13 @@ def run():
     #Optional
     # task.shipBuilding(options=[12,12],city="ceuta", times=1)
     # task.targetCity="naples"
-    task.setRouteOption(7)
+    task.setRouteOption(6)
 
     task.tradeRouteBuyFin=True
-    # task.battleRoute()
+    task.print("抗浪;删除到达城市;调最大仓;检查道具少,检查黑市可买")
+    task.print("提示：检查物品栏，长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;检查市场购买勾")
+
+    #task.battleRoute()
 
     #Init option
     #Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
@@ -41,8 +44,6 @@ def run():
     task.battleMode="run"
     task.playNotification()
     task.setCurrentCityFromScreen()
-    task.print("提示：长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;检查市场购买勾")
-    task.print("抗浪;删除到达城市;调最大仓;检查道具少,检查黑市可买")
     while(True):
         if(not(isWorkHour())):
             task.print("not working hour,sleep for 30mins")

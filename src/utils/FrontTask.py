@@ -192,7 +192,7 @@ class FrontTask(object):
             return False
         d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +
                       (positionRGB[1] - rgb[1]) ** 2 + (positionRGB[2] - rgb[2]) ** 2)
-        if (d < 13):
+        if (d < 40):
             return True
         else:
             return False

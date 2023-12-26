@@ -50,7 +50,7 @@ if __name__ == '__main__':
     # thread=threading.Thread(target=lambda: UWPropsLauncher.run({"battleOn": battle_var.get()}))
 
     battleVar = tk.BooleanVar()
-    battleCheckbox = tk.Checkbutton(root, text="开启战斗", variable=battleVar, command=onBattleCheckbox)
+    battleCheckbox = tk.Checkbutton(root, text="单独战斗", variable=battleVar, command=onBattleCheckbox)
     battleCheckbox.pack()
 
     cityLabel = tk.Label(root, text="战斗城市")
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     appRunningLabel.pack()
 
     # 创建确认按钮
-    confirm_button = tk.Button(root, text="启动", command=on_confirm)
+    confirm_button = tk.Button(root, text="混合模式启动", command=on_confirm)
     confirm_button.pack()
 
     # 创建取消按钮

@@ -52,10 +52,8 @@ class UWTask(FrontTask):
     routeList=[]
     allCityList=cityNames
     battleMode="run"
-    villageFile = os.path.abspath(__file__ + "\\..\\villageTrade.json")
-
-
-# todo                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,666),lambda: not self.hasSingleLineWordsInArea("ship", A=[703,431,758,449]),1,1,10)#injury confirm
+    initialRun=True
+    dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
         battle=importBattle()(self.simulatorInstance,self)
@@ -140,7 +138,7 @@ class UWTask(FrontTask):
             self.routeOption=routeOption
         else:
             self.setRouteOptionFromScreen()
-        self.routeList=routeLists[routeOption]
+        self.routeList=routeLists[self.routeOption]
         self.allCityList=cityNames
         # self.allCityList+=[battleCity]
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
@@ -693,11 +691,18 @@ class UWTask(FrontTask):
         else:
             if(self.tradeRouteBuyFin):
                 return True
-    def getVillageTradeDoneToday(self,villageName):
-        with open(self.villageFile, 'r') as f:
-            villageTrade = json.load(f)
-            return villageTrade.get(villageName)
+    def getDailyConfValByKey(self,key):
+        with open(self.dailyConfFile, 'r') as f:
+            dailyConf = json.load(f)
+            return dailyConf.get(key)
         
+    def updateDailyConfVal(self,key,val):
+        with open(self.dailyConfFile, 'r') as f:
+            dailyConf = json.load(f)
+            dailyConf[key]=val
+            with open(self.dailyConfFile, 'w') as f:
+                json.dump(dailyConf, f)
+
     def doVillageTrade(self,villageObject):
         village=villageObject.get("villageName")
         self.print("do village trade to "+village)
@@ -705,37 +710,44 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1)
         market=importMarket()(self.simulatorInstance, self)
         market.barterInVillage(villageObject)
-
-        with open(self.villageFile, 'r') as f:
-            villageTrade = json.load(f)
-            villageTrade[village]=True
-            with open(self.villageFile, 'w') as f:
-                json.dump(villageTrade, f)
+        self.updateDailyConfVal(village,True)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(24,24),lambda: (self.inWater()),2)
 
     def getTargetVillageObject(self,routeObject):
         if(routeObject.get("enableVillageTrade")):
             for village in routeObject.get("villages"):
-                if(village in villageTradeList.keys() and not self.getVillageTradeDoneToday(village)):
+                if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
                     return villageTradeList.get(village)
         return None
     
-    def startTradeRoute(self):
-        routeObjIndex=0
-        routeObject=None
+    def getInitialRouteIndex(self):
         self.setCurrentCityFromScreen()
+        self.setRouteOption()
+        routeObjIndex=0
         for index,obj in enumerate(self.routeList):
             if(self.currentCity in obj["buyCities"]):  #or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
                 routeObjIndex=index
-                routeObject=obj
-                break
-        if(routeObject is None):
+                return routeObjIndex
+        if(not routeObjIndex):
             self.print("没有在长途城市列表中，中断")
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint))
             time.sleep(5)
-            return
+            return False
 
-        while(True):
+    def startMerchantQuest(self):
+        if(not self.getDailyConfValByKey("merchantQuest")):
+            print("go merchant")
+            self.updateDailyConfVal("merchantQuest", True)
+
+    def startDailyBattle(self):
+        if(not self.getDailyConfValByKey("dailyBattle")):
+            print("adv")
+            print("battle")
+            self.updateDailyConfVal("dailyBattle", True)
+
+    def startTradeRoute(self, routeObjIndex:int =0):
+        routeObject=self.routeList[routeObjIndex]
+        while(routeObjIndex is not len(self.routeList)):
             if(not(isWorkHour())):
                 self.print("not working hour,sleep for 30mins")
                 time.sleep(1800)
@@ -835,7 +847,7 @@ class UWTask(FrontTask):
                 def useSkill():
                     if(villageObject):
                         return cityName=="yanyun"
-                    if(self.getVillageTradeDoneToday("svea")):
+                    if(self.getDailyConfValByKey("svea")):
                         return cityName=="beck"
                     else:
                         return cityName=="yanyun"

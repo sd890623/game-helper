@@ -43,14 +43,18 @@ def run(props):
     task.waitForCityTimeOut=650
     task.battleMode="run"
     task.playNotification()
-    task.setCurrentCityFromScreen()
-    task.setRouteOption()
+    initialRouteIndex=False
+    while(initialRouteIndex is False):
+        initialRouteIndex=task.getInitialRouteIndex()
     while(True):
         if(not(isWorkHour())):
             task.print("not working hour,sleep for 30mins")
             time.sleep(1800)
             continue
-        task.startTradeRoute()
+        task.startMerchantQuest()
+        task.startDailyBattle()
+        task.startTradeRoute(initialRouteIndex if task.initialRun else 0)
+        task.initialRun=False
         # task.startJourney()
         
 

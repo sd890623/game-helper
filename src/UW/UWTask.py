@@ -13,7 +13,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames, routeLists, opponentNames,monthToRoute,opponentsInList
+from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,opponentsInList
 
 def importBattle():
     from Battle import Battle
@@ -57,11 +57,10 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
-        print(self.getDailyConfValByKey("sami"))
-        self.checkReachCity()
-        self.buyBlackMarket("london")
-        battle=importBattle()(self.simulatorInstance,self)
-        battle.doBattle()
+        self.startDailyBattle("sierra")
+        dailyBattleInstance=importBattle()(self.simulatorInstance,self)
+        self.goLanding(dailyBattleInstance)
+        dailyBattleInstance.doBattle()
         self.checkInn('manila',{
                 "checkInnCities": ['manila','hanyang','hangzhou','hobe']
         })
@@ -144,9 +143,8 @@ class UWTask(FrontTask):
             self.setRouteOptionFromScreen()
         self.routeList=routeLists[self.routeOption]
         self.allCityList=cityNames
-        # self.allCityList+=[battleCity]
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
-        self.allCityList+=["visby","bergen"]
+        self.allCityList+=["visby","bergen","bremen","narvik"]
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
@@ -252,7 +250,7 @@ class UWTask(FrontTask):
     def inWater(self):
         return self.hasArrayStringEqualSingleLineWords(["lawlesswaters","dangerouswaters","safewaters","lawless"], A=self.outSeaWaterTitle)
 
-    def depart(self):
+    def depart(self, littleMove=True):
         departBtn=1287,655
         def clickAndStock():
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,0.2)
@@ -269,10 +267,11 @@ class UWTask(FrontTask):
         self.print("出海")
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,1, backupFunc=clickAndStockBackup)
         time.sleep(2)
-        # Stop the ship on rare case it goes back town
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(39,695),lambda: self.getNumberFromSingleLineInArea(A=[1174,133,1197,150])==0, 3, firstWait=2)#leave map
-        # doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,695),2,0)
-        time.sleep(2)
+        if(littleMove):
+            # Stop the ship on rare case it goes back town
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(39,695),lambda: self.getNumberFromSingleLineInArea(A=[1174,133,1197,150])==0, 3, firstWait=2)#leave map
+            # doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(39,695),2,0)
+            time.sleep(2)
         self.checkForDailyPopup(5)
 
     def selectNextCity(self):
@@ -607,7 +606,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(), 1,30)
 
     #cityList is an array to contain the target city
-    def gotoCity(self,cityname,cityList,dumpCrew=False,useExtra=lambda: False):
+    def gotoCity(self,cityname,cityList=None,dumpCrew=False,useExtra=lambda: False):
         self.goToHarbor()
         self.depart()
         useExtra()
@@ -615,7 +614,7 @@ class UWTask(FrontTask):
         wait(lambda: self.findCityAndClick(cityname),2)
         #if(dumpCrew):
             #self.dumpCrew()
-        self.waitForCity(cityList,targetCity=cityname)
+        self.waitForCity(cityList if cityList else [cityname],targetCity=cityname)
         self.sendMessage("UW","reached city of "+cityname)
     
     def goToVillage(self,village, villageObject=None):
@@ -746,11 +745,46 @@ class UWTask(FrontTask):
             print("go merchant")
             self.updateDailyConfVal("merchantQuest", True)
 
-    def startDailyBattle(self):
-        if(not self.getDailyConfValByKey("dailyBattle")):
-            print("adv")
-            print("battle")
-            self.updateDailyConfVal("dailyBattle", True)
+    def goLanding(self,battleInstance):
+        self.changeFleet(dailyJobConf.get("landingFleet"))
+        self.gotoCity(dailyJobConf.get("landingCity"))
+        self.goToHarbor()
+        self.depart(littleMove=False)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+        battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+
+    def startDailyBattle(self,battleCity):
+        if(self.getDailyConfValByKey("dailyBattle")):
+            return
+        buffCity=dailyJobConf.get("buffCity")
+        if(buffCity):
+            self.gotoCity(buffCity)
+            self.clickInMenu('sanctuary', ['sanctuary'])
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(46,146), lambda: self.hasSingleLineWordsInArea("donate", A=self.titleArea),2,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(806,318), lambda: self.hasSingleLineWordsInArea("yes", A=[1007,770,1154,816]),2,1,timeout=10)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1075,787),3,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(buffCity),2,16)
+
+        self.print("landing starts")
+        dailyBattleInstance=importBattle()(self.simulatorInstance,self)
+        self.goLanding(dailyBattleInstance)
+        self.print("battle starts")
+        # deactivate protection
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(46,178), lambda: self.hasSingleLineWordsInArea("protection", A=[699,258,799,280]),2,1,timeout=6)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(789,626),3,1)
+
+        self.changeFleet(dailyJobConf.get("battleFleet"))
+        self.battleRoute(battleCity)
+
+        # activate protection
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(46,178), lambda: self.isPositionColorSimilarTo(39,165,(147,255,114)),5)
+
+        self.updateDailyConfVal("dailyBattle", True)
 
     def startTradeRoute(self, routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
@@ -875,22 +909,44 @@ class UWTask(FrontTask):
             time.sleep(10+random.randint(1,10))
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
-	
+
+    # will update lastCheckTime if hourly check is done
+    def checkShouldBattle(self, lastCheckTime,battleCity):
+        currentTime=datetime.now()
+        if(lastCheckTime and currentTime-lastCheckTime<3600):
+            return True
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(170,36),lambda: self.hasSingleLineWordsInArea("company", A=self.titleArea),1,1,timeout=10)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
+        battleLeft=self.getNumberFromSingleLineInArea(A=[596,325,614,344])
+        finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
+        lastCheckTime=datetime.now()
+        if(battleLeft==0 and finishedFirstBattle):
+            return False
+        else:
+            return True
+        
     def battleRoute(self,battleCity):
         battle=importBattle()(self.simulatorInstance,self)
-        while(True):
+        battleFinished=False
+        lastCheckTime=None
+        while(not battleFinished):
             if(not self.inWater()):
+                battle.checkInPort(battleCity)
+                if(not self.checkShouldBattle(lastCheckTime,battleCity)):
+                    battleFinished=True
+                    continue
                 if(not(isWorkHour())):
                     self.print("not working hour,sleep for 30mins")
                     time.sleep(1800)
                     continue
-                battle.checkInPort(battleCity)
                 battle.leavePort()
             self.checkForGiftAndReceive()
             foundOpponent=battle.findOpponentOrReturn(opponentsInList,opponentNames,battleCity)
             if(not foundOpponent):
                 continue
             battle.doBattle()
+            self.updateDailyConfVal("finishedFirstBattle", True)
             if(not battle.checkStats(battleCity)):
                 continue
             print("repeat battle")

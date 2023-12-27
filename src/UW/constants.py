@@ -133,6 +133,12 @@ monthToRoute = {
     "oct": 5, "nov": 5, "dec": 6,
     "jan": 6, "feb": 6
 }
+dailyJobConf={
+    "buffCity": "casablanca",
+    "landingFleet": 1,
+    "landingCity": "narvik",
+    "battleFleet": 3
+}
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++

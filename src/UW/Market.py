@@ -45,7 +45,6 @@ class Market:
     transactClick=307,177
     marketTransactOKBtn=781,700
     purchaseBtn=55,90
-    
 
     @staticmethod
     def deductSellBMFromCities(cities):

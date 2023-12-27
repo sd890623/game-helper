@@ -52,10 +52,14 @@ class UWTask(FrontTask):
     routeList=[]
     allCityList=cityNames
     battleMode="run"
+    goBM=True
     initialRun=True
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
+        print(self.getDailyConfValByKey("sami"))
+        self.checkReachCity()
+        self.buyBlackMarket("london")
         battle=importBattle()(self.simulatorInstance,self)
         battle.doBattle()
         self.checkInn('manila',{
@@ -151,11 +155,11 @@ class UWTask(FrontTask):
             self.allCityList+=list(map(lambda x: x["name"], routeObject["sellCities"]))            
 
     def checkReachCity(self):
-        with open('src/UW/reachCity.txt', 'r') as f:
+        with open(os.path.abspath(__file__ + "\\..\\reachCity.txt"), 'r') as f:
             reachCity=f.readline()
         if(reachCity==self.currentCity):
             self.sendNotification(f"You have reached {reachCity}")
-            with open('src/UW/reachCity.txt', 'w') as f:
+            with open(os.path.abspath(__file__ + "\\..\\reachCity.txt"), 'w') as f:
                 f.write('')
             self.print("reached city: "+reachCity)            
             time.sleep(1200)
@@ -464,6 +468,9 @@ class UWTask(FrontTask):
         return True
 
     def buyBlackMarket(self,city):
+        if(not self.goBM):
+            self.print("不去黑店")
+            return
         market=importMarket()(self.simulatorInstance, self)
         if(market.shouldBuyBlackMarket(city)):
             self.print("去黑店")
@@ -780,13 +787,12 @@ class UWTask(FrontTask):
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
                 self.changeFleet(routeObject.get('buyFleet'))
 
-
             self.tradeRouteBuyFin=False
             self.hasStartedExtraBuy=False
             self.print("出发买东西城市")
             while(not self.shouldFinishTradeSimple(routeObject) and len(routeObject["buyCities"])>1):
                 # goto buy cities
-                deductedBuyBMCities=importMarket().deductBuyBMFromRouteObj(routeObject)
+                deductedBuyBMCities=market.deductBuyBMFromRouteObj(routeObject)
                 for city in deductedBuyBMCities:
                     self.gotoCity(city,self.allCityList)
                     if(self.getTime()>=0 and self.getTime()<6):

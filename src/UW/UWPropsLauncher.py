@@ -12,15 +12,13 @@ from utils import isWorkHour
 def run(props):
     battleOn=props.get("battleOn")
     battleCity=props.get("battleCity")
+    goBM=props.get("goBM")
     allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
     if (len(allWindowsWithTitle) > 0):
         hwndObject = allWindowsWithTitle[0]
 
     task = UWTask(hwndObject["hwnd"], "uw")
     time.sleep(3)
-
-    #test
-    # task.testTask()
 
     #todo
 
@@ -35,14 +33,18 @@ def run(props):
     if(battleOn):
         task.battleRoute(battleCity)
 
-
     # task.enableSB("malacca",options=[5])
 
     # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
     # kochi: 12d=18min, 18*8/14=10min=600
     task.waitForCityTimeOut=650
     task.battleMode="run"
-    task.playNotification()
+    task.goBM=goBM
+    # task.playNotification()
+
+    #test
+    # task.testTask()
+
     initialRouteIndex=False
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()

@@ -3,8 +3,8 @@ from tkinter import messagebox
 from UW import UWPropsLauncher
 import multiprocessing
 
-def run_task(battleVal,battleCity):
-    UWPropsLauncher.run({"battleOn": battleVal,"battleCity": battleCity})
+def run_task(battleVal,battleCity,goBMVal):
+    UWPropsLauncher.run({"battleOn": battleVal,"battleCity": battleCity, "goBM": goBMVal})
 
 def onBattleCheckbox():
     # 根据复选框1的状态显示或隐藏下拉菜单
@@ -17,7 +17,7 @@ def onBattleCheckbox():
 
 def on_confirm():   
     global process
-    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get()))
+    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get(),goBMVar.get()))
     process.start()
     appRunningLabel.config(text="状态：active")
 
@@ -52,6 +52,10 @@ if __name__ == '__main__':
     battleVar = tk.BooleanVar()
     battleCheckbox = tk.Checkbutton(root, text="单独战斗", variable=battleVar, command=onBattleCheckbox)
     battleCheckbox.pack()
+
+    goBMVar = tk.BooleanVar()
+    goBMCheckbox = tk.Checkbutton(root, text="开启黑店", variable=goBMVar)
+    goBMCheckbox.pack()
 
     cityLabel = tk.Label(root, text="战斗城市")
     # cityLabel.pack()

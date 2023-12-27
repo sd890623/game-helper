@@ -817,7 +817,7 @@ class UWTask(FrontTask):
         self.battleRoute(battleCity)
 
         # activate protection
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(38,205), lambda: self.isPositionColorSimilarTo(38,205,(162,255,113)),5)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(38,205), lambda: self.isPositionColorSimilarTo(38,205,(162,255,113)),5,timeout=10)
 
         self.updateDailyConfVal("dailyBattle", True)
 
@@ -959,7 +959,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
         lastCheckTime=datetime.now()
-        if(battleLeft==0 and finishedFirstBattle):
+        if(battleLeft<10 and finishedFirstBattle):
             return False
         else:
             return True

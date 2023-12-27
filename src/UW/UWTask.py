@@ -145,6 +145,7 @@ class UWTask(FrontTask):
         self.routeList=routeLists[self.routeOption]
         self.allCityList=cityNames
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
+        self.allCityList+=villageTradeList.get("turk").get("buyCities")
         self.allCityList+=["visby","bergen","bremen","narvik"]
         self.allCityList+=[dailyJobConf["merchatQuestCity"]]
         for routeObject in self.routeList:
@@ -778,6 +779,8 @@ class UWTask(FrontTask):
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
             self.acceptQuest(["exchange"])
             self.bartingTrade(maticBarterTrade)
+            self.changeFleet(6,simple=True)
+            self.sellInCity(dailyJobConf.get("sellCity"),simple=True)
             self.updateDailyConfVal("merchantQuest", True)
 
     def goLanding(self,battleInstance):
@@ -950,8 +953,8 @@ class UWTask(FrontTask):
 
     # will update lastCheckTime if hourly check is done
     def checkShouldBattle(self, lastCheckTime,battleCity):
-        currentTime=datetime.now()
-        if(lastCheckTime and currentTime-lastCheckTime<3600):
+        now=datetime.now()
+        if(lastCheckTime and getTimeDiffInSeconds(lastCheckTime,now)<3600):
             return True
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(170,36),lambda: self.hasSingleLineWordsInArea("company", A=self.titleArea),1,1,timeout=10)

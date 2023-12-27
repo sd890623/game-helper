@@ -776,7 +776,7 @@ class UWTask(FrontTask):
             print("go merchant request, TBC")
             self.changeFleet(4)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
-            self.acceptQuest("repel")
+            self.acceptQuest("exchange")
             self.updateDailyConfVal("merchantQuest", True)
 
     def goLanding(self,battleInstance):
@@ -809,14 +809,14 @@ class UWTask(FrontTask):
         self.goLanding(dailyBattleInstance)
         self.print("battle starts")
         # deactivate protection
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(46,178), lambda: self.hasSingleLineWordsInArea("protection", A=[699,258,799,280]),2,1,timeout=6)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(38,205), lambda: self.hasSingleLineWordsInArea("protection", A=[699,258,799,280]),2,1,timeout=6)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(789,626),3,1)
 
         self.changeFleet(dailyJobConf.get("battleFleet"))
         self.battleRoute(battleCity)
 
         # activate protection
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(46,178), lambda: self.isPositionColorSimilarTo(39,165,(147,255,114)),5)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(38,205), lambda: self.isPositionColorSimilarTo(38,205,(162,255,113)),5)
 
         self.updateDailyConfVal("dailyBattle", True)
 
@@ -951,8 +951,8 @@ class UWTask(FrontTask):
             return True
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(170,36),lambda: self.hasSingleLineWordsInArea("company", A=self.titleArea),1,1,timeout=10)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         battleLeft=self.getNumberFromSingleLineInArea(A=[596,325,614,344])
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
         lastCheckTime=datetime.now()
         if(battleLeft==0 and finishedFirstBattle):

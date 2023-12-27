@@ -24,7 +24,11 @@ blackListForBattle=['piz','zpi','robeyn','masa']
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
 # "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
 
-# Shared object
+maticBarterTrade={
+    "buyProducts": ["silverware","coffee","wine"],
+    "villages": ["turk"],
+    "buyCities":["nantes","arguin","geona"],
+}
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
     "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
@@ -70,6 +74,19 @@ EABuyBM={
     "sellCities":[],
 }
 villageTradeList = {
+    "turk": {
+        "startCities": ['beck'],
+        "villageName": "turk",
+        "buyCities": ["nantes","arguin","geona"],
+        "supplyCities": ["antalya"],
+        "buyProducts": ["silverware","coffee","wine"],
+        # (index, val) array
+        "tradeObjects": [(0,0),(1,0),(2,0)],
+        "cleanupIndex": 2,
+        "buyStrategy": "",
+        "useGemCities": [],
+        "barterFleet":7
+    },
     "svear": {
         "startCities": ['beck'],
         "villageName": "svear",

@@ -13,7 +13,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,opponentsInList
+from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,opponentsInList,maticBarterTrade
 
 def importBattle():
     from Battle import Battle
@@ -742,7 +742,7 @@ class UWTask(FrontTask):
             time.sleep(5)
             return False
 
-    def acceptQuest(self, questName):
+    def acceptQuest(self, questNames):
         self.clickInMenu('union', ['union'])
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(61,84), lambda: self.hasSingleLineWordsInArea("requests", A=self.titleArea),2,1)
 
@@ -758,7 +758,7 @@ class UWTask(FrontTask):
             while(y<5):
                 yDiff=int(y%5*97)
                 y+=1
-                if(self.hasSingleLineWordsInArea(questName, A=[firstArea[0], firstArea[1]+yDiff, firstArea[2], firstArea[3]+yDiff])):
+                if(self.hasArrayStringEqualSingleLineWords(questNames, A=[firstArea[0], firstArea[1]+yDiff, firstArea[2], firstArea[3]+yDiff])):
                     doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+yDiff),3,1)
                     doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1248,847),lambda: self.hasSingleLineWordsInArea("notice",A=[683,270,763,297]))
                     doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(778,608),lambda: not self.hasSingleLineWordsInArea("notice",A=[683,270,763,297]))
@@ -776,7 +776,8 @@ class UWTask(FrontTask):
             print("go merchant request, TBC")
             self.changeFleet(4)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
-            self.acceptQuest("exchange")
+            self.acceptQuest(["exchange"])
+            self.bartingTrade(maticBarterTrade)
             self.updateDailyConfVal("merchantQuest", True)
 
     def goLanding(self,battleInstance):
@@ -820,6 +821,32 @@ class UWTask(FrontTask):
 
         self.updateDailyConfVal("dailyBattle", True)
 
+    def bartingTrade(self, routeObject):
+        # 换货
+        villageObject=self.getTargetVillageObject(routeObject)
+        if(villageObject):
+            for city in villageObject.get("buyCities"):
+                self.gotoCity(city,self.allCityList)
+                self.checkInn(city, routeObject)
+                self.checkReachCity()
+                buyStrategy=None
+                if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
+                    buyStrategy="useGem"
+                self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
+            for city in villageObject.get("supplyCities"):
+                self.gotoCity(city,self.allCityList)
+            if(villageObject.get("barterFleet")):
+                self.changeFleet(villageObject.get("barterFleet"))
+
+            self.doVillageTrade(villageObject)
+            for city in villageObject.get("supplyCities"):
+                wait(lambda: self.findCityAndClick(city),2)
+                self.waitForCity(self.allCityList,targetCity=city)
+            market=importMarket()(self.simulatorInstance, self)
+            market.cleanupGoods(villageObject["buyProducts"])
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
+            self.changeFleet(routeObject.get('buyFleet'))
+
     def startTradeRoute(self, routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -827,33 +854,10 @@ class UWTask(FrontTask):
                 self.print("not working hour,sleep for 30mins")
                 time.sleep(1800)
                 continue
-
+            market=importMarket()(self.simulatorInstance, self)
             self.changeFleet(routeObject.get('buyFleet'))
-
-            # 换货
             villageObject=self.getTargetVillageObject(routeObject)
-            if(villageObject):
-                for city in villageObject.get("buyCities"):
-                    self.gotoCity(city,self.allCityList)
-                    self.checkInn(city, routeObject)
-                    self.checkReachCity()
-                    buyStrategy=None
-                    if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
-                        buyStrategy="useGem"
-                    self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
-                for city in villageObject.get("supplyCities"):
-                    self.gotoCity(city,self.allCityList)
-                if(villageObject.get("barterFleet")):
-                    self.changeFleet(villageObject.get("barterFleet"))
-
-                self.doVillageTrade(villageObject)
-                for city in villageObject.get("supplyCities"):
-                    wait(lambda: self.findCityAndClick(city),2)
-                    self.waitForCity(self.allCityList,targetCity=city)
-                market=importMarket()(self.simulatorInstance, self)
-                market.cleanupGoods(villageObject["buyProducts"])
-                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
-                self.changeFleet(routeObject.get('buyFleet'))
+            self.bartingTrade(routeObject)
 
             self.tradeRouteBuyFin=False
             self.hasStartedExtraBuy=False
@@ -974,6 +978,9 @@ class UWTask(FrontTask):
                     self.print("not working hour,sleep for 30mins")
                     time.sleep(1800)
                     continue
+                if(not self.getDailyConfValByKey("acceptedDailyBattleQuest")):
+                    self.acceptQuest(["perfect","fighting"])
+                    self.updateDailyConfVal("acceptedDailyBattleQuest", True)
                 battle.leavePort()
             self.checkForGiftAndReceive()
             foundOpponent=battle.findOpponentOrReturn(opponentsInList,opponentNames,battleCity)

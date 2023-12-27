@@ -27,7 +27,9 @@ blackListForBattle=['piz','zpi','robeyn','masa']
 maticBarterTrade={
     "buyProducts": ["silverware","coffee","wine"],
     "villages": ["turk"],
-    "buyCities":["nantes","arguin","geona"],
+    "buyCities":["nantes","arguin","genoa"],
+    "enableVillageTrade": True,
+    "sellCity": "antalya"
 }
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
@@ -81,8 +83,8 @@ villageTradeList = {
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
         # (index, val) array
-        "tradeObjects": [(0,0),(1,0),(2,0)],
-        "cleanupIndex": 2,
+        "tradeObjects": [(0,0),(1,0)],
+        "cleanupIndex": 1,
         "buyStrategy": "",
         "useGemCities": [],
         "barterFleet":7

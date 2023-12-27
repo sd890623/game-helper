@@ -57,6 +57,7 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
+        self.startMerchantQuest()
         self.startDailyBattle("sierra")
         dailyBattleInstance=importBattle()(self.simulatorInstance,self)
         self.goLanding(dailyBattleInstance)
@@ -145,6 +146,7 @@ class UWTask(FrontTask):
         self.allCityList=cityNames
         self.allCityList+=villageTradeList.get("svear").get("buyCities")
         self.allCityList+=["visby","bergen","bremen","narvik"]
+        self.allCityList+=[dailyJobConf["merchatQuestCity"]]
         for routeObject in self.routeList:
             self.allCityList+=routeObject["buyCities"]
             self.allCityList+=routeObject["supplyCities"]
@@ -740,9 +742,41 @@ class UWTask(FrontTask):
             time.sleep(5)
             return False
 
+    def acceptQuest(self, questName):
+        self.clickInMenu('union', ['union'])
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(61,84), lambda: self.hasSingleLineWordsInArea("requests", A=self.titleArea),2,1)
+
+        firstPosi=(400,165)
+        firstArea=[319,133,594,161]
+        gotQuest=False
+
+        x=0
+        #5TH AREA
+        # 321,521,500,549
+        while(x<20):
+            y=0
+            while(y<5):
+                yDiff=int(y%5*97)
+                y+=1
+                if(self.hasSingleLineWordsInArea(questName, A=[firstArea[0], firstArea[1]+yDiff, firstArea[2], firstArea[3]+yDiff])):
+                    doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(firstPosi[0],firstPosi[1]+yDiff),3,1)
+                    doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1248,847),lambda: self.hasSingleLineWordsInArea("notice",A=[683,270,763,297]))
+                    doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(778,608),lambda: not self.hasSingleLineWordsInArea("notice",A=[683,270,763,297]))
+                    gotQuest=True
+                    break
+            if(gotQuest):
+                break
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1042,87),lambda: self.hasSingleLineWordsInArea("refresh",A=[662,270,741,295]))
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(780,614),lambda: not self.hasSingleLineWordsInArea("refresh",A=[662,270,741,295]))
+            x+=1
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: self.inCityList(self.allCityList),2)
+
     def startMerchantQuest(self):
         if(not self.getDailyConfValByKey("merchantQuest")):
-            print("go merchant")
+            print("go merchant request, TBC")
+            self.changeFleet(4)
+            self.gotoCity(dailyJobConf.get("merchatQuestCity"))
+            self.acceptQuest("repel")
             self.updateDailyConfVal("merchantQuest", True)
 
     def goLanding(self,battleInstance):

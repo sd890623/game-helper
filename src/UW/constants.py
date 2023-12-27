@@ -134,6 +134,7 @@ monthToRoute = {
     "jan": 6, "feb": 6
 }
 dailyJobConf={
+    "merchatQuestCity": "nantes",
     "buffCity": "casablanca",
     "landingFleet": 1,
     "landingCity": "narvik",

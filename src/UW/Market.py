@@ -64,8 +64,8 @@ class Market:
         self.today=date.today().strftime("%d-%m-%Y")
 
     def deductBuyBMFromRouteObj(self,routeObject):
-        if(not self.uwtask.goBM):
-            return []
+        # if(not self.uwtask.goBM):
+        #     return []
         cities=routeObject["buyCities"]
         if(not routeObject.get("deductBuyBM")):
             return cities
@@ -152,6 +152,8 @@ class Market:
                         wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
                 if(types is None):
                     wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
+            if(simple):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033,856),3,0)
             wait(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),5)
             self.bargin()

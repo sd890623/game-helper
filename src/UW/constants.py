@@ -59,6 +59,7 @@ EADoubleBuy={
     "useSkillCity":"beck",
     "checkInnCities": ["dublin",'dover','london','macau',"edo",'sakai','hanyang','hobe',"plymouth","naha"],
     "sellFleet":2,
+    "buyFleet":4,
     "supplyCities":["sakai","macau","pasay","toamasina","cape","soda","bathurst","dublin","plymouth","dover","london"],
     "sellCities":[{"name":"beck","types":None}],
 }
@@ -79,7 +80,7 @@ villageTradeList = {
     "turk": {
         "startCities": ['beck'],
         "villageName": "turk",
-        "buyCities": ["nantes","arguin","geona"],
+        "buyCities": ["nantes","arguin","genoa"],
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
         # (index, val) array
@@ -157,7 +158,8 @@ dailyJobConf={
     "buffCity": "casablanca",
     "landingFleet": 1,
     "landingCity": "narvik",
-    "battleFleet": 3
+    "battleFleet": 3,
+    "endBattleCity": "london"
 }
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
@@ -284,7 +286,7 @@ routeLists=[
             "buyCities":["hamburg","bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
@@ -301,7 +303,7 @@ routeLists=[
             "buyCities":["bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
@@ -319,7 +321,7 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
@@ -336,7 +338,7 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","cannon","celadon"],

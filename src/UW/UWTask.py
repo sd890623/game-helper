@@ -575,7 +575,7 @@ class UWTask(FrontTask):
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[151,19,227,37]),2,1,firstWait=2)
                 doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1244,107), lambda: self.hasSingleLineWordsInArea("managefleet", A=self.titleArea),2,1)
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1344,850), lambda: self.hasSingleLineWordsInArea("redistribute", A=[637,214,751,236]),1,15)#redistributeCrew
-                wait(lambda: self.simulatorInstance.clickPointV2(456,663),1)#distributeMin
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(456,663),3,1)#distributeMin
                 wait(lambda: self.simulatorInstance.clickPointV2(1026,672),1)#apply
                 wait(lambda: self.simulatorInstance.clickPointV2(778,609),1)#ok
                 continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),1,15)

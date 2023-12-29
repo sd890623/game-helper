@@ -57,7 +57,6 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
-        self.sellInCity(dailyJobConf.get("endBattleCity"), simple=True)
         dailyBattleInstance=importBattle()(self.simulatorInstance,self)
         self.goLanding(dailyBattleInstance)
         dailyBattleInstance.doBattle()
@@ -789,6 +788,10 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("landingCity"))
         self.goToHarbor()
         self.depart(littleMove=False)
+        while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
+            battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+            self.goToHarbor()
+            self.depart(littleMove=False)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)

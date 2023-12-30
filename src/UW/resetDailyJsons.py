@@ -4,7 +4,7 @@ import json
 
 print("Resetting daily data")
 filePath1 = os.path.abspath(__file__ + "\\..\\blackMarket.json")
-filePath2 = os.path.abspath(__file__ + "\\..\\villageTrade.json")
+filePath2 = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
 with open(filePath1, 'w') as json_file:
     json.dump([], json_file)

@@ -1,4 +1,4 @@
-from UW import UWLauncher
+from UW import UWPropsLauncher
 
 if __name__ == '__main__':
-    UWLauncher.run()
+    UWPropsLauncher.run({"battleOn": False})

@@ -35,7 +35,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 "pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae",]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
-
+BMfile=os.path.abspath(__file__ + "\\..\\blackMarket.json")
 class Market:
     randomPoint=851,668
     buySellWholeArea=[187,99,949,395]
@@ -45,20 +45,10 @@ class Market:
     transactClick=307,177
     marketTransactOKBtn=781,700
     purchaseBtn=55,90
-    @staticmethod
-    def deductBuyBMFromRouteObj(routeObject):
-        cities=routeObject["buyCities"]
-        if(not routeObject.get("deductBuyBM")):
-            return cities
-        with open('src/UW/blackMarket.json', 'r') as f:
-            boughtCities = json.load(f)
-        def filterCallback(city):
-            return (city not in boughtCities)
-        return list(filter(filterCallback, cities))
 
     @staticmethod
     def deductSellBMFromCities(cities):
-        with open('src/UW/blackMarket.json', 'r') as f:
+        with open(BMfile, 'r') as f:
             boughtCities = json.load(f)
         def filterCallback(city):
             if(city['types']=="BM" and city['name'] in boughtCities):
@@ -73,6 +63,17 @@ class Market:
         self.marketMode=marketMode
         self.today=date.today().strftime("%d-%m-%Y")
 
+    def deductBuyBMFromRouteObj(self,routeObject):
+        # if(not self.uwtask.goBM):
+        #     return []
+        cities=routeObject["buyCities"]
+        if(not routeObject.get("deductBuyBM")):
+            return cities
+        with open(BMfile, 'r') as f:
+            boughtCities = json.load(f)
+        def filterCallback(city):
+            return (city not in boughtCities)
+        return list(filter(filterCallback, cities))
     #             x   y    x   y
     #priceAreaSlot1: [337,203,388,221]
     #priceAreaSlot6: [860,334,905,352]
@@ -151,6 +152,8 @@ class Market:
                         wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
                 if(types is None):
                     wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
+            if(simple):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033,856),3,0)
             wait(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),5)
             self.bargin()
@@ -247,7 +250,7 @@ class Market:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 
     def shouldBuyBlackMarket(self,city):
-        with open('src/UW/blackMarket.json', 'r') as f:
+        with open(BMfile, 'r') as f:
             boughtCities = json.load(f)
         # time=self.uwtask.getTime()
         if((city in hasBMCities) and (city not in boughtCities)): #and (time<6 or time>12)):
@@ -370,10 +373,10 @@ class Market:
         if(self.uwtask.hasSingleLineWordsInArea("temshop", A=self.uwtask.titleArea)):
             self.buyInBlackMarket(city)
                 
-        with open('src/UW/blackMarket.json', 'r') as f:
+        with open(BMfile, 'r') as f:
             boughtCities = json.load(f)
         boughtCities.append(city)
-        with open('src/UW/blackMarket.json', 'w') as json_file:
+        with open(BMfile, 'w') as json_file:
             json.dump(boughtCities, json_file)
         
     def barterInVillage(self, villageObject):

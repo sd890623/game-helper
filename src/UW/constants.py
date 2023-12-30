@@ -10,14 +10,12 @@ cityNames=["funchal","lisboa","faro","casablanca","las"]
 battleCity="narvik"
 battleCity="hag"
 
-
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa","aas","ruthless"
-]
+opponentsInList=["pil","ass","asa","aas","ruthless","rob"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless","nanima"] #add ducunyong as it's double lines, so quick hack,only checked in board
-blackListForBattle=['piz','zpi','robeyn','masa']
+blackListForBattle=['piz','zpi','robeyn','masa','roberts']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -26,52 +24,13 @@ blackListForBattle=['piz','zpi','robeyn','masa']
 # "buyProducts": ["amber","felt","steel","vodka","aquavit","gin","whisky","cheese"],
 # "buyCities":["saint","stockhol","visby","copenhag","groningen","amsterda","london","dover","plymouth"],
 
-# Shared object
-northEuropeHot={
-    # ,"tourmaline","amber", "jewllery""glassbead","aquavit"
-    "buyProducts": ["twohand","gobelin","steel","vodka","gin","whisky","westerncann","saffron","western"],
-    # "gda", "hamburg"
-    # Feb alchohol+
-    # "buyCities":["saint","riga","copenhag","groningen","amsterda","london","dover","calais","plymouth","groningen","amsterda","london","dover","calais","plymouth"],
-    # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","riga","bergen","edinburgh","groningen","amsterda","london","dover","bristol","bristol","bordeaux","seville","laga","marseil","genoa"],
-    "buySupplyCities":["copenhag"],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
+maticBarterTrade={
+    "buyProducts": ["silverware","coffee","wine"],
+    "villages": ["turk"],
+    "buyCities":["nantes","arguin","genoa"],
+    "enableVillageTrade": True,
+    "sellCity": "antalya"
 }
-northEuropeStd={
-    # ,"tourmaline","amber", "jewllery""glassbead"
-    "buyProducts": ["twohand","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","westerncann","western","saffron","azulejo","almond"],
-    # "gda", "hamburg"
-    # Feb alchohol+
-    # Feb alchohol+-
-    "buyCities":["saint","stockhol","visby","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","calais","plymouth","bristol","bristol","bordeaux","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
-    "buySupplyCities":["copenhag"],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-northEuropeLightSea={
-    # "jewllery", ,"handcanno", "flannel",
-    "buyProducts": ["amber","chrysoberyl","tourmaline","twohand","felt","feather","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","silverplate","western","westerncann","saffron","azulejo","almond"],
-    "buyCities":["saint","stockhol","visby","copenhag","london"],
-    "buySupplyCities":[],
-    "dumpCrewCities": ["kochi"],
-    "supplyCities":["ceuta","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-northEuropeQuick={
-    # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
-    "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-    "buyCities":["stockhol","visby","beck","copenhag","bergen","edinburgh","groningen","amsterda","london","dover","antwerp","calais","bristol","nantes","bordeaux","porto","seville","laga","marseil","genoa","seville","laga","marseil","genoa","seville","laga","marseil","genoa"],
-    "buySupplyCities":[],
-    "buyStrategy":"once",
-    "dumpCrewCities": [""],
-    "supplyCities":["lisboa","bathurst","luanda","cape","mozambiqu","kochi"],
-    "sellCities":[{"name":"kochi","types":None}],
-}
-
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
     "buyProducts": ["amber","twohand","felt","gobelin","steel","vodka","aquavit","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
@@ -100,6 +59,7 @@ EADoubleBuy={
     "useSkillCity":"beck",
     "checkInnCities": ["dublin",'dover','london','macau',"edo",'sakai','hanyang','hobe',"plymouth","naha"],
     "sellFleet":2,
+    "buyFleet":4,
     "supplyCities":["sakai","macau","pasay","toamasina","cape","soda","bathurst","dublin","plymouth","dover","london"],
     "sellCities":[{"name":"beck","types":None}],
 }
@@ -117,6 +77,19 @@ EABuyBM={
     "sellCities":[],
 }
 villageTradeList = {
+    "turk": {
+        "startCities": ['beck'],
+        "villageName": "turk",
+        "buyCities": ["nantes","arguin","genoa"],
+        "supplyCities": ["antalya"],
+        "buyProducts": ["silverware","coffee","wine"],
+        # (index, val) array
+        "tradeObjects": [(0,0),(1,0)],
+        "cleanupIndex": 1,
+        "buyStrategy": "",
+        "useGemCities": [],
+        "barterFleet":7
+    },
     "svear": {
         "startCities": ['beck'],
         "villageName": "svear",
@@ -168,6 +141,25 @@ villageTradeList = {
         "useGemCities": ["santa"],
         "barterFleet":7
     }
+}
+
+#Init option
+#Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
+#4 summer, 5autumn, 6winter 7 spring
+monthToRoute = {
+    "mar": 7,
+    "apr": 7, "may": 7, "jun": 4,
+    "jul": 4, "aug": 4, "sep": 5,
+    "oct": 5, "nov": 5, "dec": 6,
+    "jan": 6, "feb": 6
+}
+dailyJobConf={
+    "merchatQuestCity": "nantes",
+    "buffCity": "casablanca",
+    "landingFleet": 1,
+    "landingCity": "narvik",
+    "battleFleet": 3,
+    "endBattleCity": "london"
 }
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
@@ -294,7 +286,7 @@ routeLists=[
             "buyCities":["hamburg","bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
@@ -311,7 +303,7 @@ routeLists=[
             "buyCities":["bremen","london","dover","den","antwerp","bristol","bordeaux","seville","laga"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProducts": ["gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang"],
@@ -329,7 +321,7 @@ routeLists=[
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
             "buyProductsAfterSupply": ["chinesepainting","shubrocade","candycraft","amethyst","yosegi","sweetolive"],
@@ -343,13 +335,13 @@ routeLists=[
             "buyFleet":4,
             "buyStrategy":"twice",
             "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
+            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover","santa"],
             "sellFleet":2,
         },
-        EABuyBM,
+        # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","cannon","celadon"],
+            "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","easterncannon","goryeo"],
             "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }

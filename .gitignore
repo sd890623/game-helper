@@ -3,7 +3,7 @@
 src/__pycache__
 src/UW/__pycache__
 src/UW/blackMarket.json
-src/UW/villageTrade.json
+src/UW/dailyConfFile.json
 src/UW/reachCity.txt
 assets/screenshots/UW
 src/EVE/__pycache__

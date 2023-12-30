@@ -15,7 +15,7 @@ battleCity="hag"
 opponentsInList=["pil","ass","asa","aas","ruthless","rob"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless","nanima"] #add ducunyong as it's double lines, so quick hack,only checked in board
-blackListForBattle=['piz','zpi','robeyn','masa']
+blackListForBattle=['piz','zpi','robeyn','masa','roberts']
 # rob: "rob",
 #hanyang chowta ass, chenziyu pirate fleet, shiyang ass
 #hobe azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -335,13 +335,13 @@ routeLists=[
             "buyFleet":4,
             "buyStrategy":"twice",
             "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
+            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover","santa"],
             "sellFleet":2,
         },
         # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","cannon","celadon"],
+            "buyProducts": ["begonia","tiger'seye","gardenia","sweetolive","azalea","chinesetea","agarwood","ylang-ylang","chinesepainting","shubrocade","easterncannon","goryeo"],
             "buyProductsAfterSupply": ["horseback","japanesepainting","candycraft","amethyst","nishijin","yosegi","sweetolive"],
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }

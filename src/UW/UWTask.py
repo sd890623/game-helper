@@ -620,6 +620,8 @@ class UWTask(FrontTask):
         self.sendMessage("UW","reached city of "+cityname)
     
     def goToVillage(self,village, villageObject=None):
+        def reachedVillage():
+            return self.hasSingleLineWordsInArea("village", A=self.titleArea)
         def backup():
             self.print("cant move, map again")
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater()),2)#leave map
@@ -647,11 +649,10 @@ class UWTask(FrontTask):
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(634,568),1)
             wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
-        if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList) or self.inCityList([village])),1,1,timeout=10,backupFunc=backup):
+        if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList) or self.inCityList([village]) or reachedVillage()),1,1,timeout=10,backupFunc=backup):
             return
         self.print("航行中")
-        def reachedVillage():
-            return self.hasSingleLineWordsInArea("village", A=self.titleArea)
+
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: reachedVillage(), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backup)
         self.print("到达村庄")
 

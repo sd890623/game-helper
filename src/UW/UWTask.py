@@ -13,7 +13,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,opponentsInList,maticBarterTrade
+from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,bartingMonthToRoute,opponentsInList,maticBarterTrade
 
 def importBattle():
     from Battle import Battle
@@ -54,6 +54,7 @@ class UWTask(FrontTask):
     battleMode="run"
     goBM=True
     initialRun=True
+    focusedBarterTrade=False
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
@@ -132,8 +133,10 @@ class UWTask(FrontTask):
 
     def setRouteOptionFromScreen(self):
         month=self.getSingleLineWordsInArea(A=[1322,220,1357,239])
-        if month and monthToRoute.get(month):
-            self.routeOption=monthToRoute.get(month)
+        mapping=bartingMonthToRoute if self.focusedBarterTrade else monthToRoute
+
+        if month and mapping.get(month):
+            self.routeOption=mapping.get(month)
 
     def setRouteOption(self,routeOption: int=False):
         if(routeOption):
@@ -954,6 +957,11 @@ class UWTask(FrontTask):
             time.sleep(10+random.randint(1,10))
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
+
+    def startFocusedBartingTrade(self,routeObjIndex:int =0):
+        self.print("购买换货物品")
+
+        
 
     # will update lastCheckTime if hourly check is done
     # Return tuple (Boolean, updated/original time)

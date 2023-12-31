@@ -13,6 +13,7 @@ def run(props):
     battleOn=props.get("battleOn")
     battleCity=props.get("battleCity")
     goBM=props.get("goBM")
+    focusedBarterTrade=props.get("focusedBarterTrade")
     allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
     if (len(allWindowsWithTitle) > 0):
         hwndObject = allWindowsWithTitle[0]
@@ -40,6 +41,7 @@ def run(props):
     task.waitForCityTimeOut=650
     task.battleMode="run"
     task.goBM=goBM
+    task.focusedBarterTrade= focusedBarterTrade
     task.setRouteOption()
     # task.playNotification()
 
@@ -49,16 +51,21 @@ def run(props):
     initialRouteIndex=False
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()
+
     while(True):
         if(not(isWorkHour())):
             task.print("not working hour,sleep for 30mins")
             time.sleep(1800)
             continue
         task.setRouteOptionFromScreen()
-        task.startTradeRoute(initialRouteIndex if task.initialRun else 0)
-        task.initialRun=False
-        task.startMerchantQuest()
-        task.startDailyBattle(battleCity)
+        if(focusedBarterTrade):
+            task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
+            task.initialRun=False
+        else:
+            task.startTradeRoute(initialRouteIndex if task.initialRun else 0)
+            task.initialRun=False
+            task.startMerchantQuest()
+            task.startDailyBattle(battleCity)
         # task.startJourney()
         
 

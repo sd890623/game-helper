@@ -3,8 +3,8 @@ from tkinter import messagebox
 from UW import UWPropsLauncher
 import multiprocessing
 
-def run_task(battleVal,battleCity,goBMVal):
-    UWPropsLauncher.run({"battleOn": battleVal,"battleCity": battleCity, "goBM": goBMVal})
+def run_task(battleOn,battleCity,goBM,focusedBarterTrade):
+    UWPropsLauncher.run({"battleOn": battleOn,"battleCity": battleCity, "goBM": goBM, "focusedBarterTrade": focusedBarterTrade})
 
 def onBattleCheckbox():
     # 根据复选框1的状态显示或隐藏下拉菜单
@@ -17,7 +17,7 @@ def onBattleCheckbox():
 
 def on_confirm():   
     global process
-    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get(),goBMVar.get()))
+    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get(),goBMVar.get(),focusedBarterTradeVar.get()))
     process.start()
     appRunningLabel.config(text="状态：active")
 
@@ -57,6 +57,10 @@ if __name__ == '__main__':
     goBMCheckbox = tk.Checkbutton(root, text="开启黑店", variable=goBMVar)
     goBMCheckbox.pack()
 
+    focusedBarterTradeVar = tk.BooleanVar(value=True)
+    focusedBarterTradeCheckbox = tk.Checkbutton(root, text="高级换货", variable=focusedBarterTradeVar)
+    focusedBarterTradeCheckbox.pack()
+
     cityLabel = tk.Label(root, text="战斗城市")
     # cityLabel.pack()
 
@@ -71,7 +75,7 @@ if __name__ == '__main__':
     appRunningLabel.pack()
 
     # 创建确认按钮
-    confirm_button = tk.Button(root, text="混合模式启动", command=on_confirm)
+    confirm_button = tk.Button(root, text="启动", command=on_confirm)
     confirm_button.pack()
 
     # 创建取消按钮

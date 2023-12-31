@@ -51,7 +51,6 @@ def run(props):
     initialRouteIndex=False
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()
-
     while(True):
         if(not(isWorkHour())):
             task.print("not working hour,sleep for 30mins")

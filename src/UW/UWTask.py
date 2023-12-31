@@ -58,6 +58,12 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     def testTask(self):
+        a=[]
+        b=[{"route":3,"target":"dhofar"}]
+        c=["dhofff"]
+        addNonExistArrayToArray(a,b)
+        addNonExistArrayToArray(a,c)
+        print(a)
         dailyBattleInstance=importBattle()(self.simulatorInstance,self)
         self.goLanding(dailyBattleInstance)
         dailyBattleInstance.doBattle()
@@ -134,7 +140,6 @@ class UWTask(FrontTask):
     def setRouteOptionFromScreen(self):
         month=self.getSingleLineWordsInArea(A=[1322,220,1357,239])
         mapping=bartingMonthToRoute if self.focusedBarterTrade else monthToRoute
-
         if month and mapping.get(month):
             self.routeOption=mapping.get(month)
 
@@ -145,16 +150,28 @@ class UWTask(FrontTask):
             self.setRouteOptionFromScreen()
         self.routeList=routeLists[self.routeOption]
         self.allCityList=cityNames
-        self.allCityList+=villageTradeList.get("svear").get("buyCities")
-        self.allCityList+=villageTradeList.get("turk").get("buyCities")
-        self.allCityList+=["visby","bergen","antalya","bremen","narvik"]
-        self.allCityList+=[dailyJobConf["merchatQuestCity"]]
+        for key, value in villageTradeList.items():
+            if(value.get("buyCities")):
+                addNonExistArrayToArray(self.allCityList, value.get("buyCities"))
+            if(value.get("supplyCities")):
+                addNonExistArrayToArray(self.allCityList, value.get("supplyCities"))
+            if(value.get("afterVillageSupplyCities")):
+                addNonExistArrayToArray(self.allCityList, value.get("afterVillageSupplyCities"))
+        # self.allCityList+=["bremen"]
+        self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"]]
         for routeObject in self.routeList:
-            self.allCityList+=routeObject["buyCities"]
-            self.allCityList+=routeObject["supplyCities"]
-            if routeObject.get("buyProductsAfterSupplyCities"):
-                self.allCityList+=routeObject["buyProductsAfterSupplyCities"]
-            self.allCityList+=list(map(lambda x: x["name"], routeObject["sellCities"]))            
+            if(routeObject.get("buyCities")):
+                addNonExistArrayToArray(self.allCityList, routeObject.get("buyCities"))
+            if(routeObject.get("supplyCities")):
+                addNonExistArrayToArray(self.allCityList, routeObject.get("supplyCities"))
+            if(routeObject.get("sellCityOptions")):
+                addNonExistArrayToArray(self.allCityList, routeObject.get("sellCityOptions"))
+            if(routeObject.get("buyProductsAfterSupplyCities")):
+                addNonExistArrayToArray(self.allCityList, routeObject.get("buyProductsAfterSupplyCities"))
+            if(routeObject.get("afterSellCities")):
+                addNonExistArrayToArray(self.allCityList, routeObject.get("afterSellCities"))
+            if(routeObject.get("sellCities")):
+                self.allCityList+=list(map(lambda x: x["name"], routeObject["sellCities"]))
 
     def checkReachCity(self):
         with open(os.path.abspath(__file__ + "\\..\\reachCity.txt"), 'r') as f:
@@ -737,7 +754,7 @@ class UWTask(FrontTask):
         self.setRouteOption()
         routeObjIndex=0
         for index,obj in enumerate(self.routeList):
-            if(self.currentCity in obj["buyCities"]):  #or self.currentCity in list(map(lambda x: x["name"], obj["sellCities"]))):
+            if(obj.get("buyCities") and self.currentCity in obj["buyCities"]):
                 routeObjIndex=index
                 return routeObjIndex
         if(not routeObjIndex):

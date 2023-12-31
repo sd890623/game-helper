@@ -192,7 +192,7 @@ monthToRoute = {
 bartingMonthToRoute = {
     "mar": 8,
     "apr": 8, "may": 8, "jun": 8,
-    "jul": 7, "aug": 8, "sep": 8,
+    "jul": 8, "aug": 8, "sep": 8,
     "oct": 8, "nov": 8, "dec": 8,
     "jan": 8, "feb": 8
 }

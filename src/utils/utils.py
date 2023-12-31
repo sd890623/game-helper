@@ -141,3 +141,27 @@ def randomInt(max_value=5):
     return random.randint(-max_value, max_value)
                           
 findPlayerCountLk=threading.Lock()
+
+def addNonExistElementToArray(array,element):
+    name=None
+    # check if element is an object
+    if(isinstance(element, collections.abc.Mapping)):
+        name=element.get("target")
+    else:
+        name=element
+    if(name not in array):
+        array.append(name)
+        return True
+    return False
+
+def addNonExistArrayToArray(array,arrayToAdd):
+    for element in arrayToAdd:
+        name=None
+        # check if element is an object
+        if(isinstance(element, collections.abc.Mapping)):
+            name=element.get("target")
+        else:
+            name=element
+        if(name not in array):
+            array.append(name)
+    return True

@@ -165,3 +165,10 @@ def addNonExistArrayToArray(array,arrayToAdd):
         if(name not in array):
             array.append(name)
     return array
+
+def removeArrayElementFromArray(array,arrayToRemove):
+    arrayCopy=list(array)
+    for element in arrayToRemove:
+        if(element in array):
+            arrayCopy.remove(element)
+    return arrayCopy

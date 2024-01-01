@@ -1,10 +1,12 @@
 import sys
 import os
+import copy
+
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 from guiUtils import win
-from utils import wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy
+from utils import removeArrayElementFromArray,wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy
 import os
 import json
 import time
@@ -178,7 +180,6 @@ class Market:
         return (goodsNumber>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
     def buyProductsInMarket(self,products):
-        # wait(lambda: self.instance.clickPointV2(*self.purchaseBtn))
         if(self.uwtask.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39])):
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1373,23), lambda: self.uwtask.hasSingleLineWordsInArea("market", A=self.uwtask.titleArea), 2,2)
 
@@ -217,8 +218,11 @@ class Market:
         self.uwtask.print("buy fin")
         return boughtTick
 
-    def buyProductsInCityTwice(self,products):
+    def buyProductsInCityTwice(self,products,returnResultsLambda=None):
+        results=None
         boughtTick=self.buyProductsInMarket(products)
+        if(returnResultsLambda):
+            results=returnResultsLambda()
         if(self.uwtask.tradeRouteBuyFin):
             return
         # if(boughtTick==0):
@@ -233,6 +237,9 @@ class Market:
                 wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
 
         self.buyProductsInMarket(products)
+        if(returnResultsLambda):
+            return results
+
 
     def buyProductsInCityTwiceWithGem(self,products):
         self.buyProductsInMarket(products)
@@ -425,5 +432,38 @@ class Market:
             else:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1202,837),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
         
+    def buyInCityByConf(self, buyCities, buyProducts, buyFin, buysConf, buyStrategy=None):
+        def getUpdatedBuyResults():
+            result=copy.copy(buyFin)
+            for (index,element) in enumerate(buysConf):
+                xDiff=1145+index*83
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(xDiff,178),lambda: self.uwtask.hasSingleLineWordsInArea("cargo", A=[671,209,730,232]),1,1,timeout=5)
+                boughtQty=self.uwtask.getNumberFromSingleLineInArea(A=[640,294,677,311])
+                if(boughtQty>element["targetNum"]):
+                    result[element["product"]]=True
+                wait(lambda: self.instance.clickPointV2(1051,668),1)
+            return result
+
+        return self.uwtask.buyInCity(buyCities, buyProducts, buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
+
+
     def getBestPriceCity(self,cities):
         print("a")
+
+    def buyUntilByConf(self,villageObject):
+        buyProducts=villageObject.get("buyProducts")
+        buyCities=villageObject.get("buyCities")
+        buyFin={}
+        def getUpdateBuyCities():
+            updatedCities=list(buyCities)
+            for element in villageObject.get("buys"):
+                if(buyFin.get(element["product"])):
+                   updatedCities=removeArrayElementFromArray(updatedCities,element["cities"])
+            return updatedCities
+        
+        while(len(getUpdateBuyCities())>1):
+            for city in getUpdateBuyCities():
+                self.uwtask.gotoCity(city,self.uwtask.allCityList,express=True)
+                buyFin=self.buyInCityByConf(buyCities, buyProducts, buyFin, villageObject.get("buys"), buyStrategy=villageObject.get("buyStrategy"))
+                self.uwtask.checkInn(city, villageObject)
+        

@@ -93,12 +93,14 @@ villageTradeList = {
     "apache": {
         "villageName": "apache",
         "buys": [
+            # sequence has to map in game display
             {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":500},
             {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":500}
         ],
         "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
-        "supplyCities": ["cape","ushuaia","lima","acapulco"],
+        "supplyCities": ["ushuaia","lima","acapulco"],
         "buyProducts": ["platinum","tuberose"],
+        "checkInnCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco"],
         "afterVillageSupplyCities":["acapulco"],
         # (index, val) array
         "tradeObjects": [(0,2),(1,2),(2,2)],
@@ -393,7 +395,7 @@ routeLists=[
         {
             "buyProducts": ["arnica"],
             "buyFleet":4,
-            "buyCities":["natal"],
+            "buyCities":["ushuaia","natal"],
             "buySupplyCities":[],
             "dumpCrewCities": [""],
             "enableVillageTrade": True,

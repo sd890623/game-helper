@@ -447,8 +447,36 @@ class Market:
         return self.uwtask.buyInCity(buyCities, buyProducts, buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
 
 
-    def getBestPriceCity(self,cities):
-        print("a")
+    def getBestPriceCity(self,cities,sellPriceIndex):
+        self.uwtask.print("find city with best price")
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(39,97), lambda: self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
+        highestCity={"city":None,"price":0}
+        # init
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)
+        wait(lambda: self.instance.typewrite("aden"),0)
+        continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(1226,159),2,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(1270,196),2,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)
+        self.instance.send_backspaces()
+
+        for city in cities:
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)
+            wait(lambda: self.instance.typewrite(city),0)
+            continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
+            # doMoreTimesWithWait(lambda: self.instance.clickPointV2(1260,195),2,0)
+            yDiff=sellPriceIndex*45
+            ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMap", A=[1331,227+yDiff,1370,250+yDiff])
+            moneyScanArea=[ducatIconLocation[0]+13,ducatIconLocation[1]-2,ducatIconLocation[0]+66,ducatIconLocation[1]+15] if ducatIconLocation else [1350,224+yDiff,1410,251+yDiff]
+            price=self.uwtask.getNumberFromSingleLineInArea(A=moneyScanArea)
+            if(price>highestCity["price"]):
+                highestCity["city"]=city
+                highestCity["price"]=price
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)
+            self.instance.send_backspaces()
+
+        return highestCity.get("city")
 
     def buyUntilByConf(self,villageObject):
         buyProducts=villageObject.get("buyProducts")

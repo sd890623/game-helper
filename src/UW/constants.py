@@ -98,7 +98,7 @@ villageTradeList = {
             {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":500}
         ],
         "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
-        "supplyCities": ["ushuaia","lima","acapulco"],
+        "supplyCities": ["cape","ushuaia","lima","acapulco"],
         "buyProducts": ["platinum","tuberose"],
         "checkInnCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco"],
         "afterVillageSupplyCities":["acapulco"],
@@ -395,7 +395,7 @@ routeLists=[
         {
             "buyProducts": ["arnica"],
             "buyFleet":4,
-            "buyCities":["ushuaia","natal"],
+            "buyCities":["natal"],
             "buySupplyCities":[],
             "dumpCrewCities": [""],
             "enableVillageTrade": True,
@@ -405,12 +405,25 @@ routeLists=[
             "sellFleet":7,
             "useSkillCity":"dhofar",
             "checkInnCities": [],
+            "sellPriceIndex": 1,
             "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
             "afterSellCities": ["mogadishu"]
         },
         {
-            "sameasabove":"xx",
-            "afterSellCities": ["suez"]
+            "buyProducts": ["arnica"],
+            "buyFleet":4,
+            "buyCities":["natal"],
+            "buySupplyCities":[],
+            "dumpCrewCities": [""],
+            "enableVillageTrade": True,
+            "villages": ["apache"],
+            "afterVillageBuyCities": ["acapulco"],
+            "supplyCities":[{"route":3,"target":"dhofar"}],
+            "sellFleet":7,
+            "useSkillCity":"dhofar",
+            "checkInnCities": [],
+            "sellPriceIndex": 1,
+            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],            "afterSellCities": ["suez"]
         },
         {
             "mode": "tunnel",

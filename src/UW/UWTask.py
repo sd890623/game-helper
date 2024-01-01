@@ -296,10 +296,10 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
 
         wait(lambda: self.simulatorInstance.clickPointV2(39,97),1)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),2,1)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
         wait(lambda: self.simulatorInstance.send_enter(),0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),1)
         # wait(lambda: self.simulatorInstance.clickPointV2(717,860),1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860),lambda: (self.hasSingleLineWordsInArea("notice",A=[683,278,756,304]) or self.inWater() or self.inCityList(self.allCityList)),5,firstWait=3)

@@ -19,6 +19,8 @@ def run(props):
         hwndObject = allWindowsWithTitle[0]
 
     task = UWTask(hwndObject["hwnd"], "uw")
+    task.initMarket()
+
     time.sleep(3)
 
     #todo
@@ -40,6 +42,7 @@ def run(props):
     # kochi: 12d=18min, 18*8/14=10min=600
     task.waitForCityTimeOut=650
     task.battleMode="run"
+    task.battleCity=battleCity
     task.goBM=goBM
     task.focusedBarterTrade= focusedBarterTrade
     task.setRouteOption()

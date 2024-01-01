@@ -391,16 +391,18 @@ routeLists=[
     ],
     [
         {
-            "buyProducts": [],
+            "buyProducts": ["arnica"],
+            "buyFleet":4,
             "buyCities":["natal"],
             "buySupplyCities":[],
             "dumpCrewCities": [""],
             "enableVillageTrade": True,
             "villages": ["apache"],
+            "afterVillageBuyCities": ["acapulco"],
             "supplyCities":[{"route":3,"target":"dhofar"}],
             "sellFleet":7,
             "useSkillCity":"dhofar",
-            "checkInnCities": ['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda"],
+            "checkInnCities": [],
             "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
             "afterSellCities": ["mogadishu"]
         },
@@ -412,7 +414,7 @@ routeLists=[
             "mode": "tunnel",
             "supplyCities":["barcelona"],
         },
-        {"mode": "landing"},
+        # {"mode": "landing"},
         {"mode": "battle"},
         {"mode": "merchantQuest", "supplyCities":["barcelona","london"]},
         {

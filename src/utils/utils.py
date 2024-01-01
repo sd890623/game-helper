@@ -151,7 +151,7 @@ def addNonExistElementToArray(array,element):
         name=element
     if(name not in array):
         array.append(name)
-        return True
+        return array
     return False
 
 def addNonExistArrayToArray(array,arrayToAdd):
@@ -164,4 +164,4 @@ def addNonExistArrayToArray(array,arrayToAdd):
             name=element
         if(name not in array):
             array.append(name)
-    return True
+    return array

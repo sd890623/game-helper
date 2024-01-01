@@ -23,12 +23,16 @@ def on_confirm():
 
 def on_cancel():
     # 结束应用程序
-    if process.is_alive():
-        process.terminate()
-        process.join()
-        root.destroy()
-    else:
+    try:
+        if process.is_alive():
+            process.terminate()
+            process.join()
+            root.destroy()
+        else:
+            messagebox.showinfo("Notifications","还没启动呢")
+    except NameError:
         messagebox.showinfo("Notifications","还没启动呢")
+
 
 if __name__ == '__main__':
     # 创建主窗口

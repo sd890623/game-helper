@@ -1,9 +1,14 @@
 import sys
 import os
+
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
 from datetime import datetime, timedelta
 from guiUtils import win
 import os
 import time
+from utils import *
 from datetime import date
 from UWTask import UWTask
 
@@ -103,5 +108,6 @@ class Fashion:
         return map['zoneMinutes']
 
 if __name__ == '__main__':
+    print(getCentralTime())
     fashion=Fashion(None,None)
     print(fashion.getFashionsByCity("suez",5))

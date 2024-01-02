@@ -188,3 +188,9 @@ def isArrayAnyInArray(array,arrayToCheck):
         if(element in array):
             return True
     return False
+
+def isDst():
+        return bool(time.localtime().tm_isdst)
+    
+def getCentralTime():
+    return datetime.now()-timedelta(hours=1)-(timedelta(hours=1) if isDst() else timedelta(hours=0))

@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 from windows import getAllWindowsWithTitle
 from UWTask import UWTask
-from utils import isWorkHour
+from utils import isWorkHour,getCentralTime
 
 def run(props):
     battleOn=props.get("battleOn")
@@ -52,6 +52,7 @@ def run(props):
     # task.testTask()
 
     initialRouteIndex=False
+    lastExecuted=None
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()
     while(True):
@@ -61,7 +62,10 @@ def run(props):
             continue
         task.setRouteOptionFromScreen()
         if(focusedBarterTrade):
+            while(lastExecuted is not None and (getCentralTime().day == lastExecuted.day)):
+                time.sleep(60)
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
+            lastExecuted=getCentralTime()
             task.initialRun=False
         else:
             task.startTradeRoute(initialRouteIndex if task.initialRun else 0)

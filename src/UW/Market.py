@@ -445,8 +445,14 @@ class Market:
                     result[element["product"]]=True
                 wait(lambda: self.instance.clickPointV2(1051,668),1)
             return result
+        def getUpdatedBuyProducts():
+            result=list(buyProducts)
+            for product in buyProducts:
+                if(buyFin[product]):
+                    result.remove(product)
+            return result
 
-        return self.uwtask.buyInCity(buyCities, buyProducts, buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
+        return self.uwtask.buyInCity(buyCities, getUpdatedBuyProducts(), buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
 
     def getFashionByCity(self, city):
         self.uwtask.print("find city for fashions")
@@ -498,6 +504,8 @@ class Market:
         
         while(len(getUpdateBuyCities())>1):
             for city in getUpdateBuyCities():
+                if(getUpdateBuyCities()<=1):
+                    break
                 self.uwtask.gotoCity(city,self.uwtask.allCityList,express=True)
                 buyFin=self.buyInCityByConf(buyCities, buyProducts, buyFin, villageObject.get("buys"), buyStrategy=villageObject.get("buyStrategy"))
                 self.uwtask.checkInn(city, villageObject)

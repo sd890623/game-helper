@@ -95,7 +95,7 @@ villageTradeList = {
         "buys": [
             # sequence has to map in game display
             {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":500},
-            {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":500}
+            {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
         ],
         "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
         "supplyCities": ["cape","ushuaia","lima","acapulco"],

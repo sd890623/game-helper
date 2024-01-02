@@ -712,7 +712,6 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712,27),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
-        wait(lambda: self.simulatorInstance.clickPointV2(39,97),1)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
         shortVillageName=None
         if(villageObject and villageObject.get("shortVillageName")):
@@ -1050,6 +1049,27 @@ class UWTask(FrontTask):
             time.sleep(10+random.randint(1,10))
             routeObjIndex+=1
             routeObject=self.routeList[(routeObjIndex)%len(self.routeList)]
+
+    def specialConfUpdate(self):
+        self.print("check today's barting")
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712,27),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
+        wait(lambda: self.simulatorInstance.typewrite("apache"),0)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),3,1)
+        #right panel
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1356,153),lambda: (self.hasSingleLineWordsInArea("trade",A=[1148,185,1196,204])))
+        wampumQty=self.getNumberFromSingleLineInArea(A=[1158,640,1171,658])
+        if(wampumQty==None):
+            villageTradeList["apache"]["buys"][0]["targetNum"]=300
+            villageTradeList["apache"]["buys"][1]["targetNum"]=400
+            villageTradeList["apache"]["tradeObjects"]= [(0,2),(1,2)]
+            villageTradeList["apache"]["cleanupIndex"]= 1
+            self.routeList.insert(1,self.routeList[0])
+        if(wampumQty==3):
+            villageTradeList["apache"]["buys"][0]["targetNum"]=400
+            villageTradeList["apache"]["buys"][1]["targetNum"]=500
 
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]

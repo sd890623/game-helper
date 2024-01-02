@@ -64,6 +64,7 @@ def run(props):
         if(focusedBarterTrade):
             while(lastExecuted is not None and (getCentralTime().day == lastExecuted.day)):
                 time.sleep(60)
+            task.specialConfUpdate()
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
             lastExecuted=getCentralTime()
             task.initialRun=False

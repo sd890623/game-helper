@@ -407,6 +407,7 @@ routeLists=[
             "checkInnCities": [],
             "sellPriceIndex": 1,
             "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+            "fashions": ["奢华","赞助"],           
             "afterSellCities": ["mogadishu"]
         },
         {
@@ -423,7 +424,9 @@ routeLists=[
             "useSkillCity":"dhofar",
             "checkInnCities": [],
             "sellPriceIndex": 1,
-            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],            "afterSellCities": ["suez"]
+            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+            "fashions": ["奢华","赞助"],           
+            "afterSellCities": ["suez"]
         },
         {
             "mode": "tunnel",

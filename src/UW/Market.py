@@ -6,12 +6,13 @@ sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 from guiUtils import win
-from utils import removeArrayElementFromArray,wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy
+from utils import removeArrayElementFromArray,wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy,isArrayAnyInArray
 import os
 import json
 import time
 from datetime import date
 from UWTask import UWTask
+from Fashion import Fashion
 
 marketBuyData={
     "kokkola":["amber"],
@@ -64,6 +65,7 @@ class Market:
         self.uwtask=uwtask
         self.marketMode=marketMode
         self.today=date.today().strftime("%d-%m-%Y")
+        self.fashion=Fashion(self.instance,self.uwtask)
 
     def deductBuyBMFromRouteObj(self,routeObject):
         # if(not self.uwtask.goBM):
@@ -446,8 +448,13 @@ class Market:
 
         return self.uwtask.buyInCity(buyCities, buyProducts, buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
 
+    def getFashionByCity(self, city):
+        self.uwtask.print("find city for fashions")
+        fashionsInTwoHours=self.fashion.getFashionsByCity(city,2)
 
-    def getBestPriceCity(self,cities,sellPriceIndex):
+    def getBestPriceCity(self,routeObject):
+        cities=routeObject.get("sellCityOptions")
+        sellPriceIndex=routeObject.get("sellPriceIndex"),
         self.uwtask.print("find city with best price")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(39,97), lambda: self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
@@ -495,3 +502,11 @@ class Market:
                 buyFin=self.buyInCityByConf(buyCities, buyProducts, buyFin, villageObject.get("buys"), buyStrategy=villageObject.get("buyStrategy"))
                 self.uwtask.checkInn(city, villageObject)
         
+    def shouldWaitForFashion(self,routeObject):
+        targetFashions=routeObject.get("fashions")
+        sellCityOptions=routeObject.get("sellCityOptions")
+        fashionsR=self.fashion.getFashionsByCity(sellCityOptions[0],3)
+        for fashion in fashionsR:
+            if(isArrayAnyInArray(fashion["fashions"],targetFashions)):
+                return fashion["hour"]
+        return 0

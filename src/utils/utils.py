@@ -4,6 +4,7 @@ from datetime import datetime
 import datetime as dt
 import threading
 import collections.abc
+from datetime import datetime, timedelta
 from strsimpy.damerau import Damerau
 
 stringDist = Damerau().distance
@@ -172,3 +173,18 @@ def removeArrayElementFromArray(array,arrayToRemove):
         if(element in array):
             arrayCopy.remove(element)
     return arrayCopy
+
+def waitUntilClockByHour(hour,extraMinute=0):
+    print(f"wait until next {hour} hour sharp")
+    now = datetime.now()
+    next_hour = now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=hour)
+    # 计算等待时间（秒）
+    wait_time = (next_hour - now).total_seconds()
+    # 等待
+    time.sleep(wait_time+60*extraMinute+5)
+
+def isArrayAnyInArray(array,arrayToCheck):
+    for element in arrayToCheck:
+        if(element in array):
+            return True
+    return False

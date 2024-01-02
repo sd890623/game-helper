@@ -57,11 +57,33 @@ class UWTask(FrontTask):
     initialRun=True
     focusedBarterTrade=False
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
-
+    
     def testTask(self):
-        self.crossTunnel()
         self.initMarket()
-        self.market.getBestPriceCity(["massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad","diu","goa","kozhi","kochi"],1)
+        shouldWaitForFashion=self.market.shouldWaitForFashion(
+                    {
+            "buyProducts": ["arnica"],
+            "buyFleet":4,
+            "buyCities":["natal"],
+            "buySupplyCities":[],
+            "dumpCrewCities": [""],
+            "enableVillageTrade": True,
+            "villages": ["apache"],
+            "afterVillageBuyCities": ["acapulco"],
+            "supplyCities":[{"route":3,"target":"dhofar"}],
+            "sellFleet":7,
+            "useSkillCity":"dhofar",
+            "checkInnCities": [],
+            "sellPriceIndex": 1,
+            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+            "fashions": ["传染病"],           
+            "afterSellCities": ["suez"]
+        }
+        )
+        if(shouldWaitForFashion):
+            extraMinutes=self.market.fashion.getExtraMinutesByCity("suez")
+            waitUntilClockByHour(shouldWaitForFashion,extraMinutes)
+        self.market.getFashionByCity("dhofar")
         self.goToRoute({"route":2,"target":"juan"})
         self.goLanding()
         self.checkInn('manila',{
@@ -1064,7 +1086,11 @@ class UWTask(FrontTask):
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
                 if(routeObject.get("sellCityOptions")):
-                    sellCity=self.market.getBestPriceCity(routeObject.get("sellCityOptions"), routeObject.get("sellPriceIndex"))
+                    shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject)
+                    if(shouldWaitForFashion):
+                        self.print("find fashion in 2 hours, wait")
+                        waitUntilClockByHour(shouldWaitForFashion)
+                    sellCity=self.market.getBestPriceCity(routeObject)
                     self.gotoCity(sellCity,self.allCityList,express=True)
                     self.useTradeSkill(inCity=True)
                     self.changeFleet(6,simple=True)

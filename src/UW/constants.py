@@ -138,7 +138,7 @@ villageTradeList = {
         "cleanupIndex": 2,
         "buyStrategy": "",
         "useGemCities": ["santa"],
-        "barterFleet":7
+        "barterFleet":4
     },
     "svea": {
         "startCities": ['beck'],
@@ -150,7 +150,7 @@ villageTradeList = {
         "cleanupIndex": 2,
         "buyStrategy": "",
         "useGemCities": ["santa"],
-        "barterFleet":7
+        "barterFleet":4
     },
     "sami": {
         "startCities": ['beck'],

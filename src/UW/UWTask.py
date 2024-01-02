@@ -1086,10 +1086,11 @@ class UWTask(FrontTask):
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
                 if(routeObject.get("sellCityOptions")):
-                    shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject)
-                    if(shouldWaitForFashion):
-                        self.print("find fashion in 2 hours, wait")
-                        waitUntilClockByHour(shouldWaitForFashion)
+                    if(routeObject.get("waitForFashion")):
+                        shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject)
+                        if(shouldWaitForFashion):
+                            self.print("find fashion in 2 hours, wait")
+                            waitUntilClockByHour(shouldWaitForFashion)
                     sellCity=self.market.getBestPriceCity(routeObject)
                     self.gotoCity(sellCity,self.allCityList,express=True)
                     self.useTradeSkill(inCity=True)

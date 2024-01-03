@@ -803,7 +803,9 @@ class UWTask(FrontTask):
     def getTargetVillageObject(self,routeObject):
         if(routeObject.get("enableVillageTrade")):
             for village in routeObject.get("villages"):
-                if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
+                # todo disable for new routes, break old route 
+                # if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
+                if(village in villageTradeList.keys()):
                     return villageTradeList.get(village)
         return None
     

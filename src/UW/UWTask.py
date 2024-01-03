@@ -59,7 +59,7 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     
     def testTask(self):
-        self.initMarket()
+        self.specialConfUpdate()
         shouldWaitForFashion=self.market.shouldWaitForFashion(
                     {
             "buyProducts": ["arnica"],
@@ -691,7 +691,7 @@ class UWTask(FrontTask):
             return
         if(self.inWater() and (not self.hasSingleLineWordsInArea(city,A=[647,823,791,845]) or self.checkStopped())):
             backup()
-        self.waitForCity(self.allCityList,targetCity=city)
+        self.waitForCity(self.allCityList,targetCity=city,routeMode=True)
         self.sendMessage("UW","reached city of "+city)
 
 
@@ -941,7 +941,6 @@ class UWTask(FrontTask):
             self.checkInn(city, villageObject)
         if(villageObject.get("barterFleet")):
             self.changeFleet(villageObject.get("barterFleet"))
-
         self.doVillageTrade(villageObject)
         afterVillageSupplyCities=villageObject.get("afterVillageSupplyCities") if villageObject.get("afterVillageSupplyCities") else villageObject.get("supplyCities")
         for city in afterVillageSupplyCities:
@@ -1055,13 +1054,14 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712,27),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),2,1)
         wait(lambda: self.simulatorInstance.typewrite("apache"),0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),3,1)
+        wait(lambda: self.simulatorInstance.send_enter(),0)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
         #right panel
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1356,153),lambda: (self.hasSingleLineWordsInArea("trade",A=[1148,185,1196,204])))
         wampumQty=self.getNumberFromSingleLineInArea(A=[1158,640,1171,658])
-        if(wampumQty==None):
+        if(wampumQty==4):
             villageTradeList["apache"]["buys"][0]["targetNum"]=300
             villageTradeList["apache"]["buys"][1]["targetNum"]=400
             villageTradeList["apache"]["tradeObjects"]= [(0,2),(1,2)]
@@ -1094,6 +1094,7 @@ class UWTask(FrontTask):
                         self.checkInn(city, routeObject)
                         self.checkReachCity()
             else:
+                self.changeFleet(routeObject.get('buyFleet'))
                 self.bartingTrade(routeObject)
                 self.changeFleet(routeObject.get('sellFleet'))
                 if(routeObject.get("afterVillageBuyCities")):

@@ -431,8 +431,8 @@ routeLists=[
             "supplyCities":["barcelona"],
         },
         # {"mode": "landing"},
+        {"mode": "merchantQuest", "supplyCities":["barcelona"]},
         {"mode": "battle"},
-        {"mode": "merchantQuest", "supplyCities":["barcelona","london"]},
         {
             **NEEASupplySell,
             "buyFleet":4,

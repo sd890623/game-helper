@@ -791,13 +791,13 @@ class UWTask(FrontTask):
             with open(self.dailyConfFile, 'w') as f:
                 json.dump(dailyConf, f)
 
-    def doVillageTrade(self,villageObject):
+    def doVillageTrade(self,villageKey,villageObject):
         village=villageObject.get("villageName")
         self.print("do village trade to "+village)
         self.goToVillage(village, villageObject)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1)
         self.market.barterInVillage(villageObject)
-        self.updateDailyConfVal(village,True)
+        self.updateDailyConfVal(villageKey,True)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(24,24),lambda: (self.inWater()),2)
 
     def getTargetVillageObject(self,routeObject):
@@ -806,7 +806,7 @@ class UWTask(FrontTask):
                 # todo disable for new routes, break old route 
                 # if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
                 if(village in villageTradeList.keys()):
-                    return villageTradeList.get(village)
+                    return (village, villageTradeList.get(village))
         return None
     
     def getInitialRouteIndex(self):
@@ -922,7 +922,7 @@ class UWTask(FrontTask):
         print("channel")
     def bartingTrade(self, routeObject):
         # 换货
-        villageObject=self.getTargetVillageObject(routeObject)
+        (villageKey,villageObject)=self.getTargetVillageObject(routeObject)
         if(not villageObject):
             return
         if(villageObject.get("buys")):
@@ -937,13 +937,14 @@ class UWTask(FrontTask):
                 if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
                     buyStrategy="useGem"
                 self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
-        
+        if(villageObject.get("sellFleet")):
+            self.changeFleet(villageObject.get("sellFleet"))
         for city in villageObject.get("supplyCities"):
             self.gotoCity(city,self.allCityList,express=True)
             self.checkInn(city, villageObject)
         if(villageObject.get("barterFleet")):
             self.changeFleet(villageObject.get("barterFleet"))
-        self.doVillageTrade(villageObject)
+        self.doVillageTrade(villageKey,villageObject)
         afterVillageSupplyCities=villageObject.get("afterVillageSupplyCities") if villageObject.get("afterVillageSupplyCities") else villageObject.get("supplyCities")
         for city in afterVillageSupplyCities:
             self.gotoCity(city,self.allCityList,express=True)
@@ -959,7 +960,7 @@ class UWTask(FrontTask):
                 time.sleep(1800)
                 continue
             self.changeFleet(routeObject.get('buyFleet'))
-            villageObject=self.getTargetVillageObject(routeObject)
+            (villageKey,villageObject)=self.getTargetVillageObject(routeObject)
             self.bartingTrade(routeObject)
 
             self.tradeRouteBuyFin=False
@@ -1068,7 +1069,10 @@ class UWTask(FrontTask):
             villageTradeList["apache"]["buys"][1]["targetNum"]=400
             villageTradeList["apache"]["tradeObjects"]= [(0,2),(1,2)]
             villageTradeList["apache"]["cleanupIndex"]= 1
+
             self.routeList.insert(1,self.routeList[0])
+            self.routeList[1]["villages"]="apach"
+
         if(wampumQty==3):
             villageTradeList["apache"]["buys"][0]["targetNum"]=400
             villageTradeList["apache"]["buys"][1]["targetNum"]=500

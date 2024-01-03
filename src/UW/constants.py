@@ -76,6 +76,26 @@ EABuyBM={
     "supplyCities":[],
     "sellCities":[],
 }
+apache={
+    "villageName": "apache",
+    "buys": [
+        # sequence has to map in game display
+        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":500},
+        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
+    ],
+    "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
+    "supplyCities": ["cape","ushuaia","lima","acapulco"],
+    "buyProducts": ["platinum","tuberose"],
+    "checkInnCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco"],
+    "afterVillageSupplyCities":["acapulco"],
+    # (index, val) array
+    "tradeObjects": [(0,2),(1,2),(2,2)],
+    "cleanupIndex": 2,
+    "buyStrategy": "twice",
+    "useGemCities": [],
+    "sellFleet":2,
+    "barterFleet":2
+}
 villageTradeList = {
     "turk": {
         "startCities": ['beck'],
@@ -90,25 +110,9 @@ villageTradeList = {
         "useGemCities": [],
         "barterFleet":7
     },
-    "apache": {
-        "villageName": "apache",
-        "buys": [
-            # sequence has to map in game display
-            {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":500},
-            {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
-        ],
-        "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
-        "supplyCities": ["cape","ushuaia","lima","acapulco"],
-        "buyProducts": ["platinum","tuberose"],
-        "checkInnCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco"],
-        "afterVillageSupplyCities":["acapulco"],
-        # (index, val) array
-        "tradeObjects": [(0,2),(1,2),(2,2)],
-        "cleanupIndex": 2,
-        "buyStrategy": "twice",
-        "useGemCities": [],
-        "barterFleet":4
-    },
+    "apache": apache,
+    "apach": apache,
+    "apac": apache,
     "varo": {
         "villageName": "varo",
         "buys": [
@@ -412,9 +416,9 @@ routeLists=[
         {
             "buyProducts": ["arnica"],
             "buyFleet":4,
-            "buyCities":["natal"],
+            "buyCities":["sofala"],
             "enableVillageTrade": True,
-            "villages": ["apache"],
+            "villages": ["apac"],
             "afterVillageBuyCities": ["acapulco"],
             "supplyCities":[{"route":3,"target":"dhofar"}],
             "sellFleet":7,
@@ -443,6 +447,7 @@ routeLists=[
             "sellFleet":2,
             "sellCityOptions":["macau","quanzhou","hobe","hangzhou","yanyun","peking","hanyang","jeju","chang","chongqing"],
             "fashions": ["奢华","赞助"],  
+            "sellPriceIndex":0,
             "waitForFashion":False,    
             "afterSellCities": [{"route":4,"target":"mogadishu"}]
         },

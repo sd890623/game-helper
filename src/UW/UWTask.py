@@ -55,6 +55,7 @@ class UWTask(FrontTask):
     battleCity=""
     goBM=True
     initialRun=True
+    lastExecuted=None
     focusedBarterTrade=False
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     
@@ -748,7 +749,7 @@ class UWTask(FrontTask):
         if(self.hasArrayStringInSingleLineWords(["sales"],A=[346,320,380,337])):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(354,515),lambda: self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(784,606),lambda: not self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
-            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,632),lambda: self.hasSingleLineWordsInArea("order", A=[735,253,801,280]), 2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*openButton),lambda: self.hasSingleLineWordsInArea("order", A=[735,253,801,280]), 2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(600,506),lambda: self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(784,606),lambda: not self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
 
@@ -853,13 +854,16 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(780,614),lambda: not self.hasSingleLineWordsInArea("refresh",A=[662,270,741,295]))
             x+=1
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: self.inCityList(self.allCityList),2)
+        return gotQuest
 
     def startMerchantQuest(self):
         if(not self.getDailyConfValByKey("merchantQuest")):
             print("go merchant request, TBC")
             self.changeFleet(4)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
-            self.acceptQuest(["exchange"])
+            if(not self.acceptQuest(["exchange"])):
+                self.updateDailyConfVal("merchantQuest", True)
+                return
             self.bartingTrade(maticBarterTrade)
             self.changeFleet(6,simple=True)
             self.sellInCity(maticBarterTrade.get("sellCity"),simple=True)
@@ -1088,6 +1092,7 @@ class UWTask(FrontTask):
             if(routeObject.get("mode")):
                 if(routeObject.get("mode")=="tunnel"):
                     self.crossTunnel()
+                    self.lastExecuted=getCentralTime()
                 elif(routeObject.get("mode")=="landing"):
                     self.goLanding()
                 elif(routeObject.get("mode")=="battle"):
@@ -1153,7 +1158,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
         
-        if(battleLeft<10 and finishedFirstBattle):
+        if(battleLeft<7 and finishedFirstBattle):
             return (False,now)
         else:
             return (True,now)

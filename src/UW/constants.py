@@ -101,6 +101,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "turk",
         "buyCities": ["nantes","arguin","genoa"],
+        "checkInnCities": ["nantes","arguin","genoa"],
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
         # (index, val) array
@@ -135,6 +136,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "svear",
         "buyCities": ["santa","seville","dublin","amsterda"],
+        "checkInnCities": ["santa","seville","dublin","amsterda"],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         # (index, val) array
@@ -148,6 +150,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "svea",
         "buyCities": ["santa","seville","dublin","amsterda"],
+        "checkInnCities": ["santa","seville","dublin","amsterda"],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         "tradeObjects": [(0,0),(1,1),(2,1)],
@@ -435,7 +438,7 @@ routeLists=[
             "supplyCities":["barcelona"],
         },
         # {"mode": "landing"},
-        {"mode": "merchantQuest", "supplyCities":["barcelona"]},
+        {"mode": "merchantQuest"},
         {"mode": "battle"},
         {
             **NEEASupplySell,

@@ -890,6 +890,13 @@ class UWTask(FrontTask):
         battleInstance.goBackPort(dailyJobConf.get("landingCity"))
         self.updateDailyConfVal("dailyLanding", True)
 
+    def sellOverload(self):
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1385,109), lambda: self.hasSingleLineWordsInArea("storage", A=self.titleArea))
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(55,341),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1339,153),3,1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inCityList(self.allCityList)),2)
+
     #this includes landing
     def startDailyBattle(self,battleCity):
         if(self.getDailyConfValByKey("dailyBattle")):
@@ -917,6 +924,9 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("endBattleCity"))
         self.sellInCity(dailyJobConf.get("endBattleCity"), simple=True)
         self.updateDailyConfVal("dailyBattle", True)
+        self.changeFleet(2,simple=True)
+        self.sellOverload()
+
 
     def crossTunnel(self):
         self.clickInMenu('mmigration', ['mmigration'])
@@ -1081,6 +1091,9 @@ class UWTask(FrontTask):
             villageTradeList["apache"]["buys"][0]["targetNum"]=400
             villageTradeList["apache"]["buys"][1]["targetNum"]=500
 
+        if(wampumQty==2):
+            print("should restore")
+
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -1125,7 +1138,8 @@ class UWTask(FrontTask):
                             waitUntilClockByHour(shouldWaitForFashion)
                     sellCity=self.market.getBestPriceCity(routeObject)
                     self.gotoCity(sellCity,self.allCityList,express=True)
-                    self.useTradeSkill(inCity=True)
+                    if(routeObject.get("useSkillCity")):
+                        self.useTradeSkill(inCity=True)
                     self.changeFleet(6,simple=True)
                     self.sellInCity(sellCity,simple=True)
                 else:

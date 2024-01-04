@@ -39,8 +39,8 @@ NEEASupplySell={
     "dumpCrewCities": [""],
     "enableVillageTrade": True,
     "villages": ["svear","sami","svea","sam"],
-    "supplyCities":["seville","pisa","genoa","bathurst","sierra","luanda","cape","toamasina","pasay"],
-    "useSkillCity":"yanyun",
+    "supplyCities":["seville","pisa","genoa","bathurst","sierra","luanda","cape","toamasina","pasay","hangzhou"],
+    "useSkillCity":None,
     "checkInnCities": ['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda"],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
@@ -80,7 +80,7 @@ apache={
     "villageName": "apache",
     "buys": [
         # sequence has to map in game display
-        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":500},
+        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":462},
         {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
     ],
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
@@ -108,7 +108,7 @@ villageTradeList = {
         "tradeObjects": [(0,0),(1,0)],
         "cleanupIndex": 1,
         "buyStrategy": "",
-        "useGemCities": [],
+        "useGemCities": ["arguin"],
         "barterFleet":7
     },
     "apache": apache,
@@ -448,6 +448,7 @@ routeLists=[
             "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
             "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
             "sellFleet":2,
+            "useSkillCity": None,
             "sellCityOptions":["macau","quanzhou","hobe","hangzhou","yanyun","peking","hanyang","jeju","chang","chongqing"],
             "fashions": ["奢华","赞助"],  
             "sellPriceIndex":0,

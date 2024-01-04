@@ -60,7 +60,7 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     
     def testTask(self):
-        self.specialConfUpdate()
+        self.fishing()
         shouldWaitForFashion=self.market.shouldWaitForFashion(
                     {
             "buyProducts": ["arnica"],
@@ -395,7 +395,12 @@ class UWTask(FrontTask):
             battle=importBattle()(self.simulatorInstance,self)
             battle.suppressBattle()
 
-    def waitForCity(self,cityList=None,targetCity=None,routeMode=False):
+    def fishing(self):
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(288,792), lambda: self.hasSingleLineWordsInArea("fishing", A=[709,218,780,246]),2,2)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1004,575),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(785,663), lambda: not self.hasSingleLineWordsInArea("fishing", A=[709,218,780,246]),2,2)
+
+    def waitForCity(self,cityList=None,targetCity=None,routeMode=False,fishing=False):
         self.print("航行中")
         def backupFunc():
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(cityList)),2)
@@ -403,7 +408,8 @@ class UWTask(FrontTask):
             time.sleep(10)
             wait(lambda: self.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
-        
+        if(fishing):
+            self.fishing()
         if(routeMode):
             continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=32000,notifyFunc=lambda: self.print("route city not found, wait for 8s"))
         else:
@@ -648,10 +654,10 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(), 1,30)
 
     #cityList is an array to contain the target city
-    def gotoCity(self,cityname,cityList=None,dumpCrew=False,useExtra=lambda: False, express=False):
+    def gotoCity(self,cityname,cityList=None,dumpCrew=False,useExtra=lambda: False, express=False,fishing=False):
         if(express):
             self.selectCityFromMapAndMove(cityname)
-            self.waitForCity(cityList if cityList else [cityname],targetCity=cityname)
+            self.waitForCity(cityList if cityList else [cityname],targetCity=cityname,fishing=fishing)
         else:
             self.goToHarbor()
             self.depart()
@@ -660,7 +666,7 @@ class UWTask(FrontTask):
             wait(lambda: self.findCityAndClick(cityname),2)
             #if(dumpCrew):
                 #self.dumpCrew()
-            self.waitForCity(cityList if cityList else [cityname],targetCity=cityname)
+            self.waitForCity(cityList if cityList else [cityname],targetCity=cityname,fishing=fishing)
         self.sendMessage("UW","reached city of "+cityname)
 
     def checkStopped(self):
@@ -954,7 +960,7 @@ class UWTask(FrontTask):
         if(villageObject.get("sellFleet")):
             self.changeFleet(villageObject.get("sellFleet"))
         for city in villageObject.get("supplyCities"):
-            self.gotoCity(city,self.allCityList,express=True)
+            self.gotoCity(city,self.allCityList,express=True,fishing=(routeObject.get("useFishingCities") is not None and  city in routeObject.get("useFishingCities")))
             self.checkInn(city, villageObject)
         if(villageObject.get("barterFleet")):
             self.changeFleet(villageObject.get("barterFleet"))

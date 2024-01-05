@@ -441,7 +441,7 @@ class Market:
                 xDiff=1145+index*83
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(xDiff,178),lambda: self.uwtask.hasSingleLineWordsInArea("cargo", A=[671,209,730,232]),1,1,timeout=5)
                 boughtQty=self.uwtask.getNumberFromSingleLineInArea(A=[640,294,677,311])
-                if(boughtQty>element["targetNum"]):
+                if(boughtQty and boughtQty>element["targetNum"]):
                     result[element["product"]]=True
                 wait(lambda: self.instance.clickPointV2(1051,668),1)
             return result
@@ -482,7 +482,7 @@ class Market:
             ducatIconLocation= self.uwtask.hasImageInScreen("ducatInMap", A=[1331,227+yDiff,1370,250+yDiff])
             moneyScanArea=[ducatIconLocation[0]+13,ducatIconLocation[1]-2,ducatIconLocation[0]+66,ducatIconLocation[1]+15] if ducatIconLocation else [1350,224+yDiff,1410,251+yDiff]
             price=self.uwtask.getNumberFromSingleLineInArea(A=moneyScanArea)
-            if(price>highestCity["price"]):
+            if(price and price>highestCity["price"]):
                 highestCity["city"]=city
                 highestCity["price"]=price
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)

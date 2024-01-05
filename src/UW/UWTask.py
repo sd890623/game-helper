@@ -909,7 +909,7 @@ class UWTask(FrontTask):
             return
         buffCity=dailyJobConf.get("buffCity")
         if(buffCity):
-            self.gotoCity(buffCity)
+            self.gotoCity(buffCity,express=True)
             self.clickInMenu('sanctuary', ['sanctuary'])
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(46,146), lambda: self.hasSingleLineWordsInArea("donate", A=self.titleArea),2,1)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(806,318), lambda: self.hasSingleLineWordsInArea("yes", A=[1007,770,1154,816]),2,1,timeout=10)
@@ -1178,7 +1178,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
         
-        if(battleLeft<7 and finishedFirstBattle):
+        if(battleLeft and battleLeft<7 and finishedFirstBattle):
             return (False,now)
         else:
             return (True,now)

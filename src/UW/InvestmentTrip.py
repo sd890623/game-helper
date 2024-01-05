@@ -72,9 +72,12 @@ class Investment:
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
         task.clickInMenu("bureau",["bureau"],startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
-        while(task.getNumberFromSingleLineInArea(A=[260,807,285,823])<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
-            self.investOnce(True)
-        self.investOnce()
+        while(True):
+            num=task.getNumberFromSingleLineInArea(A=[260,807,285,823])
+            if(num and num<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
+                self.investOnce(True)
+                continue
+            break
         # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("sel", A=task.titleArea),2,2)
         # wait(lambda: simuInstance.clickPointV2(),1)
         continueWithUntilByWithBackup(lambda: simuInstance.clickPointV2(*task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities),3,30)

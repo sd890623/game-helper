@@ -42,7 +42,7 @@ if __name__ == '__main__':
     screen_height = root.winfo_screenheight()
     # 计算窗口的x和y坐标，使窗口靠右侧显示
     window_width = 300
-    window_height = 200
+    window_height = 400
     # root.geometry(f"{window_width}x{window_height}")
     x = screen_width - window_width - 100
     y = (screen_height - window_height) // 2 - 200

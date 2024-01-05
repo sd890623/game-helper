@@ -147,13 +147,10 @@ class FrontTask(object):
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
                 self.saveImageToFile(screenshotBlob)
-            num=getNumberfromImageBlob(screenshotBlob)
-            if(num is None):
-                return 0
-            return num
+            return getNumberfromImageBlob(screenshotBlob)
         except Exception as e:
             print("fail to get number")
-            return 0
+            return False
 
     def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
         try:

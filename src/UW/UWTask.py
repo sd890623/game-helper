@@ -13,7 +13,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,bartingMonthToRoute,opponentsInList,maticBarterTrade
+from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,bartingMonthToRoute,opponentsInList,maticBarterTrade,checkInnCities
 
 def importBattle():
     from Battle import Battle
@@ -181,7 +181,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageSupplyCities"))
             if(value.get("afterVillageBuyCities")):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageBuyCities"))
-        self.allCityList+=["said"]
+        # self.allCityList+=["said"]
         self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"]]
         for routeObject in self.routeList:
             if(routeObject.get("buyCities")):
@@ -557,7 +557,7 @@ class UWTask(FrontTask):
     def checkInn(self, city, routeObject):
         if(not routeObject.get("checkInnCities")):
             return
-        if(city not in routeObject.get("checkInnCities")):
+        if(city not in checkInnCities):
             return
         self.clickInMenu("inn",["lnn","inn"],infinite=True)
         if(not self.hasSingleLineWordsInArea("ailable", A=[8,61,90,80])):
@@ -938,8 +938,8 @@ class UWTask(FrontTask):
         self.clickInMenu('mmigration', ['mmigration'])
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1326,643), lambda: self.hasSingleLineWordsInArea("notice", A=[681,314,757,337]),2,2)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(776,568), lambda: self.inCityList(self.allCityList),5,timeout=60)
-
         print("channel")
+
     def bartingTrade(self, routeObject):
         # 换货
         (villageKey,villageObject)=self.getTargetVillageObject(routeObject)
@@ -957,8 +957,8 @@ class UWTask(FrontTask):
                 if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
                     buyStrategy="useGem"
                 self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
-        if(villageObject.get("sellFleet")):
-            self.changeFleet(villageObject.get("sellFleet"))
+        if(villageObject.get("supplyFleet")):
+            self.changeFleet(villageObject.get("supplyFleet"))
         for city in villageObject.get("supplyCities"):
             self.gotoCity(city,self.allCityList,express=True,fishing=(routeObject.get("useFishingCities") is not None and  city in routeObject.get("useFishingCities")))
             self.checkInn(city, villageObject)

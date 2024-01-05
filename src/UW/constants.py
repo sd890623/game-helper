@@ -41,7 +41,7 @@ NEEASupplySell={
     "villages": ["svear","sami","svea","sam"],
     "supplyCities":["seville","pisa","genoa","bathurst","sierra","luanda","cape","toamasina","pasay","hangzhou"],
     "useSkillCity":None,
-    "checkInnCities": ['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda"],
+    "checkInnCities": [],
     "sellCities":[{"name":"pasay","types":"BM"},
     # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
     # {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
@@ -86,14 +86,35 @@ apache={
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
     "supplyCities": ["cape","ushuaia","lima","acapulco"],
     "buyProducts": ["platinum","tuberose"],
-    "checkInnCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco"],
+    "checkInnCities": [],
     "afterVillageSupplyCities":["acapulco"],
     # (index, val) array
     "tradeObjects": [(0,2),(1,2),(2,2)],
     "cleanupIndex": 2,
     "buyStrategy": "twice",
     "useGemCities": [],
-    "sellFleet":2,
+    "supplyFleet":2,
+    "barterFleet":2
+}
+witoto={
+    "villageName": "witoto",
+    "buys": [
+        # sequence has to map in game display
+        {"product":"noni","cities":["kuching","jayakarta","makassar"],"targetNum":500},
+        {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":500},
+        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":300}
+    ],
+    "buyCities": ["prey","kuching","malacca","jayakarta","makassar","pasay","aceh"],
+    "supplyCities": ["aceh","tomasina","cape","soda","pernambuco","cayenne"],
+    "buyProducts": ["noni","benzoin","mangosteen"],
+    "checkInnCities": [],
+    "afterVillageSupplyCities":["cayenne"],
+    # (index, val) array
+    "tradeObjects": [(0,2),(1,2),(2,2)],
+    "cleanupIndex": 2,
+    "buyStrategy": "twice",
+    "useGemCities": [],
+    "supplyFleet":2,
     "barterFleet":2
 }
 villageTradeList = {
@@ -101,7 +122,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "turk",
         "buyCities": ["nantes","arguin","genoa"],
-        "checkInnCities": ["nantes","arguin","genoa"],
+        "checkInnCities": [],
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
         # (index, val) array
@@ -114,6 +135,8 @@ villageTradeList = {
     "apache": apache,
     "apach": apache,
     "apac": apache,
+    "witoto": witoto,
+    "witot": witoto,
     "varo": {
         "villageName": "varo",
         "buys": [
@@ -136,7 +159,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "svear",
         "buyCities": ["santa","seville","dublin","amsterda"],
-        "checkInnCities": ["santa","seville","dublin","amsterda"],
+        "checkInnCities": [],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         # (index, val) array
@@ -150,7 +173,7 @@ villageTradeList = {
         "startCities": ['beck'],
         "villageName": "svea",
         "buyCities": ["santa","seville","dublin","amsterda"],
-        "checkInnCities": ["santa","seville","dublin","amsterda"],
+        "checkInnCities": [],
         "supplyCities": ["visby"],
         "buyProducts": ["candle", "matchlock","iron", "lron"],
         "tradeObjects": [(0,0),(1,1),(2,1)],
@@ -207,12 +230,14 @@ bartingMonthToRoute = {
 }
 dailyJobConf={
     "merchatQuestCity": "nantes",
-    "buffCity": "casablanca",
-    "landingFleet": 1,
-    "landingCity": "narvik",
-    "battleFleet": 3,
-    "endBattleCity": "london"
+    "buffCity": "davao",
+    "landingFleet": 8,
+    "landingCity": "hag",
+    "battleFleet": 5,
+    "endBattleCity": "davao"
 }
+
+checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","santa","seville","dublin","amsterda","hanyang","hobe","malacca","soda","pernambuco","cayenne"]
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
@@ -440,23 +465,46 @@ routeLists=[
             "supplyCities":["barcelona"],
         },
         # {"mode": "landing"},
-        {"mode": "merchantQuest"},
+        {"mode": "merchantQuest","supplyCities":["said"]},
+        {
+            "mode": "tunnel",
+            "supplyCities":["hadiboh","aceh","ambon","ternate"],
+            "checkInnCities": [],
+        },
         {"mode": "battle"},
         {
-            **NEEASupplySell,
+            "buyProducts": [],
             "buyFleet":4,
-            "villages": ["svear"],
-            "buyStrategy":"twice",
-            "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
-            "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
-            "sellFleet":2,
-            "useSkillCity": None,
-            "sellCityOptions":["macau","quanzhou","hobe","hangzhou","yanyun","peking","hanyang","jeju","chang","chongqing"],
-            "fashions": ["奢华","赞助"],  
-            "sellPriceIndex":0,
-            "waitForFashion":False,    
-            "afterSellCities": [{"route":4,"target":"mogadishu"}]
+            "buyCities":["prey"],
+            "enableVillageTrade": True,
+            "useFishingCities": [],
+            "villages": ["witoto"],
+            "afterVillageBuyCities": [],
+            "supplyCities":[{"route":4,"target":"dongnae"}],
+            "sellFleet":7,
+            # "useSkillCity":"suez",
+            "checkInnCities": [],
+            "sellPriceIndex": 0,
+            "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
+            "fashions": ["赞助"],
+            "waitForFashion":True,           
+            "afterSellCities": ["hanyang","hobe","malacca","mogadishu"]
         },
+        # {
+        #     **NEEASupplySell,
+        #     "buyFleet":4,
+        #     "villages": ["svear"],
+        #     "buyStrategy":"twice",
+        #     "buyProducts": ["twohand","lilyof","gobelin","steel","vodka","gin","whisky","tapestry","western","westerncann","saffron","azulejo","almond"],
+        #     "buyCities":["saint","stockhol","visby","riga","edinburgh","groningen","amsterda","london","dover"],
+        #     "sellFleet":2,
+        #     "useSkillCity": None,
+        #     "sellCityOptions":["macau","quanzhou","hobe","hangzhou","yanyun","peking","hanyang","jeju","chang","chongqing"],
+        #     "fashions": ["奢华","赞助"],  
+        #     "sellPriceIndex":0,
+        #     "waitForFashion":False,    
+        #     "afterSellCities": [{"route":4,"target":"mogadishu"}]
+        # },
         # {
         #     **NEEASupplySell,
         #     "buyFleet":4,

@@ -702,7 +702,7 @@ class UWTask(FrontTask):
         self.sendMessage("UW","reached city of "+city)
 
 
-    def goToVillage(self,village, villageObject=None):
+    def goToVillage(self,village,villageObject=None,fishing=False):
         def reachedVillage():
             return self.hasSingleLineWordsInArea("village", A=self.titleArea)
         def backup():
@@ -711,7 +711,7 @@ class UWTask(FrontTask):
             self.checkForBasicStuck()
             if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
-                self.goToVillage(village, villageObject)
+                self.goToVillage(village, villageObject,fishing=fishing)
 
         self.print("select village from map")
         # if not doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15):
@@ -736,7 +736,8 @@ class UWTask(FrontTask):
         if(self.inWater() and self.checkStopped()):
             backup()
         self.print("航行中")
-
+        if(fishing):
+            self.fishing()
         continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: reachedVillage(), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backup)
         self.print("到达村庄")
 
@@ -801,7 +802,7 @@ class UWTask(FrontTask):
     def doVillageTrade(self,villageKey,villageObject):
         village=villageObject.get("villageName")
         self.print("do village trade to "+village)
-        self.goToVillage(village, villageObject)
+        self.goToVillage(village, villageObject,fishing=villageObject.get("useFishing"))
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1)
         self.market.barterInVillage(villageObject)
         self.updateDailyConfVal(villageKey,True)

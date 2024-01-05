@@ -104,6 +104,7 @@ witoto={
         {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":500},
         {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":300}
     ],
+    "useFishing": True,
     "buyCities": ["prey","kuching","malacca","jayakarta","makassar","pasay","aceh"],
     "supplyCities": ["aceh","tomasina","cape","soda","pernambuco","cayenne"],
     "buyProducts": ["noni","benzoin","mangosteen"],

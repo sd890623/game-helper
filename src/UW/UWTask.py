@@ -968,6 +968,7 @@ class UWTask(FrontTask):
             self.checkInn(city, villageObject)
         if(villageObject.get("barterFleet")):
             self.changeFleet(villageObject.get("barterFleet"))
+        self.sellOverload()
         self.doVillageTrade(villageKey,villageObject)
         afterVillageSupplyCities=villageObject.get("afterVillageSupplyCities") if villageObject.get("afterVillageSupplyCities") else villageObject.get("supplyCities")
         for city in afterVillageSupplyCities:

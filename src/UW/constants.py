@@ -81,7 +81,7 @@ apache={
     "buys": [
         # sequence has to map in game display
         {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":462},
-        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
+        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":550}
     ],
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
     "supplyCities": ["cape","ushuaia","lima","acapulco"],

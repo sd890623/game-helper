@@ -17,7 +17,9 @@ sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 class Fashion:
     cityMapList=[
-        {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"]}
+        {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"]},
+        {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]},
+        {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]}
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0},

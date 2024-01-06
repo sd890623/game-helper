@@ -936,8 +936,10 @@ class UWTask(FrontTask):
         self.sellOverload()
 
 
-    def crossTunnel(self):
+    def crossTunnel(self,goods=False):
         self.clickInMenu('mmigration', ['mmigration'])
+        if(goods):
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1189,579), lambda: self.isPositionColorSimilarTo(1269,577,(76,80,92)),2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1326,643), lambda: self.hasSingleLineWordsInArea("notice", A=[681,314,757,337]),2,2)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(776,568), lambda: self.inCityList(self.allCityList),5,timeout=60)
         print("channel")
@@ -1104,8 +1106,34 @@ class UWTask(FrontTask):
             villageTradeList=self.oriVillageTradeList
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),3)
 
+    def getSellCity(self,routeObject):
+        if(routeObject.get("waitForFashion")):
+            if(routeObject.get("secondSellOptions")):
+                for element in routeObject.get("secondSellOptions"):
+                    shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),element.get("cities"),2)
+                    if(shouldWaitForFashion):
+                        self.print("find fashion in 1 hours, wait")
+                        waitUntilClockByHour(shouldWaitForFashion)
+                        sellCity=self.market.getBestPriceCity(routeObject,element.get("cities"))
+                        return (sellCity,element)
+            shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),3)
+            if(shouldWaitForFashion):
+                self.print("find fashion in 2 hours, wait")
+                waitUntilClockByHour(shouldWaitForFashion)
+        sellCity=self.market.getBestPriceCity(routeObject,routeObject.get("sellCityOptions"))
+        return (sellCity,None)
 
-
+    def sellBySequencedConf(self,option,routeObject):
+        for seq in option.get("seqs"):
+            if(seq.get("type")=="go"):
+                self.gotoCity(seq.get("val"),[seq.get("val")],express=True)
+            if(seq.get("type")=="tunnel"):
+                self.crossTunnel(goods=True)
+            if(seq.get("type")=="sell"):
+                if(routeObject.get("useSkillCity")):
+                    self.useTradeSkill(inCity=True)
+                self.changeFleet(6,simple=True)
+                self.sellInCity("",simple=True)
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -1143,17 +1171,16 @@ class UWTask(FrontTask):
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
                 if(routeObject.get("sellCityOptions")):
-                    if(routeObject.get("waitForFashion")):
-                        shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject)
-                        if(shouldWaitForFashion):
-                            self.print("find fashion in 2 hours, wait")
-                            waitUntilClockByHour(shouldWaitForFashion)
-                    sellCity=self.market.getBestPriceCity(routeObject)
-                    self.gotoCity(sellCity,self.allCityList,express=True)
-                    if(routeObject.get("useSkillCity")):
-                        self.useTradeSkill(inCity=True)
-                    self.changeFleet(6,simple=True)
-                    self.sellInCity(sellCity,simple=True)
+                    #(sellCity,element), element is obj in secondSellOptions or None
+                    (sellCity, element)=self.getSellCity(routeObject)
+                    if(element is None):
+                        self.gotoCity(sellCity,self.allCityList,express=True)
+                        if(routeObject.get("useSkillCity")):
+                            self.useTradeSkill(inCity=True)
+                        self.changeFleet(6,simple=True)
+                        self.sellInCity(sellCity,simple=True)
+                    else:
+                        self.sellBySequencedConf(element,routeObject)
                 else:
                     sellCity=routeObject.get("sellCities")[2]["name"]
                     self.gotoCity(sellCity,self.allCityList,express=True)

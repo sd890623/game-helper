@@ -451,8 +451,7 @@ class Market:
 
         return self.uwtask.buyInCity(buyCities, getUpdatedBuyProducts(), buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
 
-    def getBestPriceCity(self,routeObject):
-        cities=routeObject.get("sellCityOptions")
+    def getBestPriceCity(self,routeObject,cities):
         sellPriceIndex=routeObject.get("sellPriceIndex")
         self.uwtask.print("find city with best price")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
@@ -506,11 +505,9 @@ class Market:
                 buyFin=self.buyInCityByConf(buyCities, buyProducts, buyFin, villageObject.get("buys"), buyStrategy=villageObject.get("buyStrategy"))
                 self.uwtask.checkInn(city, villageObject)
         
-    def shouldWaitForFashion(self,routeObject):
-        targetFashions=routeObject.get("fashions")
-        sellCityOptions=routeObject.get("sellCityOptions")
-        fashionsR=self.fashion.getFashionsByCity(sellCityOptions[0],3)
+    def shouldWaitForFashion(self,fashions,cities,hours=3):
+        fashionsR=self.fashion.getFashionsByCity(cities[0],hours)
         for fashion in fashionsR:
-            if(isArrayAnyInArray(fashion["fashions"],targetFashions)):
+            if(isArrayAnyInArray(fashion["fashions"],fashions)):
                 return fashion["hour"]
         return 0

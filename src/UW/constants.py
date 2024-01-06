@@ -457,6 +457,24 @@ routeLists=[
             "checkInnCities": [],
             "sellPriceIndex": 1,
             "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+            "secondSellOptions": [
+                {
+                    "seq":[
+                        {"type":"go","val":"suez"},
+                        {"type":"tunnel"},
+                        {"type":"sell"},
+                        {"type":"go","val":"said"},
+                        {"type":"tunnel"}
+                    ],
+                    "cities": ["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]
+                },
+                {
+                    "seq":[
+                        {"type":"sell"}
+                    ],
+                    "cities": ["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]
+                }
+            ],
             "fashions": ["奢华","赞助"],  
             "waitForFashion":True,           
             "afterSellCities": ["suez"]

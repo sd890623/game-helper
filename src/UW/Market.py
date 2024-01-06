@@ -499,7 +499,7 @@ class Market:
         
         while(len(getUpdateBuyCities())>1):
             for city in getUpdateBuyCities():
-                if(len(getUpdateBuyCities())<=1):
+                if(city not in getUpdateBuyCities()):
                     break
                 self.uwtask.gotoCity(city,self.uwtask.allCityList,express=True)
                 buyFin=self.buyInCityByConf(buyCities, buyProducts, buyFin, villageObject.get("buys"), buyStrategy=villageObject.get("buyStrategy"))

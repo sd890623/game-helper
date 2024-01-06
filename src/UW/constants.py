@@ -259,6 +259,7 @@ apacheRouteBase={
             "seqs":[
                 {"type":"go","val":"suez"},
                 {"type":"tunnel"},
+                {"type":"goSellCity"},
                 {"type":"sell"},
                 {"type":"go","val":"said"},
                 {"type":"tunnel"}

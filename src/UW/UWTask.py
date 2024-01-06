@@ -1123,17 +1123,19 @@ class UWTask(FrontTask):
         sellCity=self.market.getBestPriceCity(routeObject,routeObject.get("sellCityOptions"))
         return (sellCity,None)
 
-    def sellBySequencedConf(self,option,routeObject):
+    def sellBySequencedConf(self,sellCity,option,routeObject):
         for seq in option.get("seqs"):
             if(seq.get("type")=="go"):
                 self.gotoCity(seq.get("val"),[seq.get("val")],express=True)
+            if(seq.get("type")=="goSellCity"):
+                self.gotoCity(sellCity,[sellCity],express=True)
             if(seq.get("type")=="tunnel"):
                 self.crossTunnel(goods=True)
             if(seq.get("type")=="sell"):
                 if(routeObject.get("useSkillCity")):
                     self.useTradeSkill(inCity=True)
                 self.changeFleet(6,simple=True)
-                self.sellInCity("",simple=True)
+                self.sellInCity(sellCity,simple=True)
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -1180,7 +1182,7 @@ class UWTask(FrontTask):
                         self.changeFleet(6,simple=True)
                         self.sellInCity(sellCity,simple=True)
                     else:
-                        self.sellBySequencedConf(element,routeObject)
+                        self.sellBySequencedConf(sellCity,element,routeObject)
                 else:
                     sellCity=routeObject.get("sellCities")[2]["name"]
                     self.gotoCity(sellCity,self.allCityList,express=True)

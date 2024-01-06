@@ -221,10 +221,7 @@ class Market:
         return boughtTick
 
     def buyProductsInCityTwice(self,products,returnResultsLambda=None):
-        results=None
         boughtTick=self.buyProductsInMarket(products)
-        if(returnResultsLambda):
-            results=returnResultsLambda()
         if(self.uwtask.tradeRouteBuyFin):
             return
         # if(boughtTick==0):
@@ -240,7 +237,7 @@ class Market:
 
         self.buyProductsInMarket(products)
         if(returnResultsLambda):
-            return results
+            return returnResultsLambda()
 
 
     def buyProductsInCityTwiceWithGem(self,products):

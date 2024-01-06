@@ -239,6 +239,43 @@ dailyJobConf={
 }
 
 checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","santa","seville","dublin","amsterda","hanyang","hobe","malacca","soda","pernambuco","cayenne"]
+
+apacheRouteBase={
+    "buyProducts": ["arnica"],
+    "buyFleet":4,
+    "buyCities":["sofala"],
+    "enableVillageTrade": True,
+    "useFishingCities": ["ushuaia"],
+    "villages": ["apac"],
+    "afterVillageBuyCities": ["acapulco"],
+    "supplyCities":[{"route":3,"target":"dhofar"}],
+    "sellFleet":7,
+    "useSkillCity":"suez",
+    "checkInnCities": [],
+    "sellPriceIndex": 1,
+    "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+    "secondSellOptions": [
+        {
+            "seqs":[
+                {"type":"go","val":"suez"},
+                {"type":"tunnel"},
+                {"type":"sell"},
+                {"type":"go","val":"said"},
+                {"type":"tunnel"}
+            ],
+            "cities": ["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]
+        },
+        {
+            "seqs":[
+                {"type":"sell"}
+            ],
+            "cities": ["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]
+        }
+    ],
+    "fashions": ["奢华","赞助"],  
+    "waitForFashion":True,           
+    "afterSellCities": ["suez"]
+}
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
@@ -426,57 +463,13 @@ routeLists=[
     ],
     [
         {
-            "buyProducts": ["arnica"],
-            "buyFleet":4,
+            **apacheRouteBase,
             "buyCities":["natal"],
-            "enableVillageTrade": True,
-            "useFishingCities": ["ushuaia"],
-            "villages": ["apache"],
-            "afterVillageBuyCities": ["acapulco"],
-            "supplyCities":[{"route":3,"target":"dhofar"}],
-            "sellFleet":7,
-            "useSkillCity":"suez",
-            "checkInnCities": [],
-            "sellPriceIndex": 1,
-            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
-            "fashions": ["奢华","赞助"],
-            "waitForFashion":True,           
             "afterSellCities": ["mogadishu"]
         },
         {
-            "buyProducts": ["arnica"],
-            "buyFleet":4,
+            **apacheRouteBase,
             "buyCities":["sofala"],
-            "enableVillageTrade": True,
-            "useFishingCities": ["ushuaia"],
-            "villages": ["apac"],
-            "afterVillageBuyCities": ["acapulco"],
-            "supplyCities":[{"route":3,"target":"dhofar"}],
-            "sellFleet":7,
-            "useSkillCity":"suez",
-            "checkInnCities": [],
-            "sellPriceIndex": 1,
-            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
-            "secondSellOptions": [
-                {
-                    "seq":[
-                        {"type":"go","val":"suez"},
-                        {"type":"tunnel"},
-                        {"type":"sell"},
-                        {"type":"go","val":"said"},
-                        {"type":"tunnel"}
-                    ],
-                    "cities": ["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]
-                },
-                {
-                    "seq":[
-                        {"type":"sell"}
-                    ],
-                    "cities": ["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]
-                }
-            ],
-            "fashions": ["奢华","赞助"],  
-            "waitForFashion":True,           
             "afterSellCities": ["suez"]
         },
         {

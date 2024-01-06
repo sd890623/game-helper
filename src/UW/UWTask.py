@@ -46,7 +46,7 @@ class UWTask(FrontTask):
     pickedUpShip=False
     tradeRouteBuyFin=False
     hasStartedExtraBuy=False
-    waitForCityTimeOut=800
+    waitForCityTimeOut=860
     hasSelectedMap=0
     routeOption=4
     routeList=[]
@@ -58,6 +58,7 @@ class UWTask(FrontTask):
     lastExecuted=None
     focusedBarterTrade=False
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
+    oriVillageTradeList=villageTradeList
     
     def testTask(self):
         self.fishing()
@@ -1100,6 +1101,10 @@ class UWTask(FrontTask):
 
         if(wampumQty==2):
             print("should restore")
+            villageTradeList=self.oriVillageTradeList
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),3)
+
+
 
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
@@ -1179,7 +1184,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(battleCity),2,16)
         finishedFirstBattle=self.getDailyConfValByKey("finishedFirstBattle")
         
-        if(battleLeft and battleLeft<7 and finishedFirstBattle):
+        if(battleLeft<7 and finishedFirstBattle):
             return (False,now)
         else:
             return (True,now)

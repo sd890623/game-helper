@@ -197,6 +197,9 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(self.allCityList, routeObject.get("afterSellCities"))
             if(routeObject.get("sellCities")):
                 self.allCityList+=list(map(lambda x: x["name"], routeObject["sellCities"]))
+            if(routeObject.get("secondSellOptions")):
+                for element in routeObject.get("secondSellOptions"):
+                    addNonExistArrayToArray(self.allCityList, element.get("cities"))
 
     def checkReachCity(self):
         with open(os.path.abspath(__file__ + "\\..\\reachCity.txt"), 'r') as f:
@@ -336,7 +339,7 @@ class UWTask(FrontTask):
         self.print("select city from map")
         # if not doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15):
         #     return
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=8)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156,76),2,1)
         wait(lambda: self.simulatorInstance.typewrite(cityname),0)
@@ -1122,6 +1125,7 @@ class UWTask(FrontTask):
                 self.print("find fashion in 2 hours, wait")
                 waitUntilClockByHour(shouldWaitForFashion)
         sellCity=self.market.getBestPriceCity(routeObject,routeObject.get("sellCityOptions"))
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList), 3,2)
         return (sellCity,None)
 
     def sellBySequencedConf(self,sellCity,option,routeObject):
@@ -1129,7 +1133,7 @@ class UWTask(FrontTask):
             if(seq.get("type")=="go"):
                 self.gotoCity(seq.get("val"),[seq.get("val")],express=True)
             if(seq.get("type")=="goSellCity"):
-                self.gotoCity(sellCity,[sellCity],express=True)
+                self.gotoCity(sellCity,[sellCity])
             if(seq.get("type")=="tunnel"):
                 self.crossTunnel(goods=True)
             if(seq.get("type")=="sell"):
@@ -1173,6 +1177,7 @@ class UWTask(FrontTask):
                         self.goToRoute(element)
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
+
                 if(routeObject.get("sellCityOptions")):
                     #(sellCity,element), element is obj in secondSellOptions or None
                     (sellCity, element)=self.getSellCity(routeObject)
@@ -1189,6 +1194,7 @@ class UWTask(FrontTask):
                     self.gotoCity(sellCity,self.allCityList,express=True)
                     self.changeFleet(6,simple=True)
                     self.sellInCity(sellCity,simple=True)
+                self.changeFleet(routeObject.get('sellFleet'))
                 if(routeObject.get("afterSellCities")):
                     for element in routeObject.get("afterSellCities"):
                         if(isinstance(element, collections.abc.Mapping)):

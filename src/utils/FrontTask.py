@@ -150,7 +150,7 @@ class FrontTask(object):
             return getNumberfromImageBlob(screenshotBlob)
         except Exception as e:
             print("fail to get number")
-            return False 
+            return False
 
     def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
         try:

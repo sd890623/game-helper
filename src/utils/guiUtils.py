@@ -427,6 +427,10 @@ class win ():#line:35
     def typewrite(self, words):
         pydirectinput.typewrite(words)
 
+    def send_backspaces(self):
+        for i in range(0,10):
+            pydirectinput.press("backspace")
+
     def send_enter (O00000OOOOOOOOOO0 ):#line:231
         pydirectinput.press("enter")
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232

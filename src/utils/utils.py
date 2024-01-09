@@ -4,6 +4,7 @@ from datetime import datetime
 import datetime as dt
 import threading
 import collections.abc
+from datetime import datetime, timedelta
 from strsimpy.damerau import Damerau
 
 stringDist = Damerau().distance
@@ -141,3 +142,55 @@ def randomInt(max_value=5):
     return random.randint(-max_value, max_value)
                           
 findPlayerCountLk=threading.Lock()
+
+def addNonExistElementToArray(array,element):
+    name=None
+    # check if element is an object
+    if(isinstance(element, collections.abc.Mapping)):
+        name=element.get("target")
+    else:
+        name=element
+    if(name not in array):
+        array.append(name)
+        return array
+    return False
+
+def addNonExistArrayToArray(array,arrayToAdd):
+    for element in arrayToAdd:
+        name=None
+        # check if element is an object
+        if(isinstance(element, collections.abc.Mapping)):
+            name=element.get("target")
+        else:
+            name=element
+        if(name not in array):
+            array.append(name)
+    return array
+
+def removeArrayElementFromArray(array,arrayToRemove):
+    arrayCopy=list(array)
+    for element in arrayToRemove:
+        if(element in array):
+            arrayCopy.remove(element)
+    return arrayCopy
+
+def waitUntilClockByHour(hour,extraMinute=0):
+    print(f"wait until next {hour} hour sharp")
+    now = datetime.now()
+    next_hour = now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=hour)
+    # 计算等待时间（秒）
+    wait_time = (next_hour - now).total_seconds()
+    # 等待
+    time.sleep(wait_time+60*extraMinute+5)
+
+def isArrayAnyInArray(array,arrayToCheck):
+    for element in arrayToCheck:
+        if(element in array):
+            return True
+    return False
+
+def isDst():
+        return bool(time.localtime().tm_isdst)
+    
+def getCentralTime():
+    return datetime.now()-timedelta(hours=1)-(timedelta(hours=1) if isDst() else timedelta(hours=0))

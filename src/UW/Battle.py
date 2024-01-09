@@ -202,8 +202,8 @@ class Battle:
         if(getTimeDiffInSeconds(self.lastCallTime,now)>1800):
             if(now.minute>=30):
                 self.uwtask.healInjury(town)
-            if(self.uwtask.tradeRouteBuyFin==False):
-               self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","doenjang","lris"],marketMode=1)
+            # if(self.uwtask.tradeRouteBuyFin==False):
+            #    self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","doenjang","lris"],marketMode=1)
             self.lastCallTime=now
 
     def selectOpponentInList(self,opponentsInList):
@@ -302,9 +302,6 @@ class Battle:
         if(getHour() in [21,22,23,24,0,1,2]):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(39,695),2,4)
 
-    def checkStopped(self):
-        return self.uwtask.getNumberFromSingleLineInArea(A=[1174,133,1197,150])==0
-    
     def findOpponentOrReturn(self,opponentsInList,opponents,town):
         wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),0)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
@@ -320,7 +317,7 @@ class Battle:
         while(timeout>0 and not combatScreenOpened):
             if(self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel)):
                 break
-            if(self.checkStopped()):
+            if(self.uwtask.checkStopped()):
                 return self.findOpponentOrReturn(opponentsInList,opponents,town)
             timeout-=1
             wait(lambda: False,1)

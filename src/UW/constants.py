@@ -81,7 +81,7 @@ apache={
     "buys": [
         # sequence has to map in game display
         {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":462},
-        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":550}
+        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
     ],
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
     "supplyCities": ["cape","ushuaia","lima","acapulco"],
@@ -100,12 +100,12 @@ witoto={
     "villageName": "witoto",
     "buys": [
         # sequence has to map in game display
-        {"product":"noni","cities":["kuching","jayakarta","makassar"],"targetNum":450},
-        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":150},
+        {"product":"noni","cities":["kuching","jayakarta","makassar"],"targetNum":400},
+        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":170},
         {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":350}
     ],
     "useFishing": True,
-    "buyCities": ["prey","kuching","malacca","jayakarta","pasay","makassar","aceh"],
+    "buyCities": ["prey","kuching","malacca","jayakarta","makassar","pasay","aceh"],
     "supplyCities": ["aceh","toamasina","cape","soda","pernambuco","cayenne"],
     "buyProducts": ["noni","mangosteen","benzoin"],
     "checkInnCities": True,
@@ -113,7 +113,7 @@ witoto={
     # (index, val) array
     "tradeObjects": [(0,2),(1,2),(2,2)],
     "cleanupIndex": 2,
-    "buyStrategy": "twice",
+    "buyStrategy": "once",
     "useGemCities": [],
     "supplyFleet":2,
     "barterFleet":2
@@ -129,7 +129,7 @@ villageTradeList = {
         # (index, val) array
         "tradeObjects": [(0,0),(1,0)],
         "cleanupIndex": 1,
-        "buyStrategy": "",
+        "buyStrategy": "useGem",
         "useGemCities": ["arguin"],
         "barterFleet":7
     },
@@ -241,7 +241,7 @@ dailyJobConf={
 checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","santa","seville","dublin","amsterda","hanyang","hobe","malacca","soda","pernambuco","cayenne"]
 
 apacheRouteBase={
-    "buyProducts": ["arnica"],
+    "buyProducts": [],
     "buyFleet":4,
     "buyCities":["sofala"],
     "enableVillageTrade": True,
@@ -252,7 +252,7 @@ apacheRouteBase={
     "sellFleet":7,
     "useSkillCity":"suez",
     "checkInnCities": True,
-    "sellPriceIndex": 1,
+    "sellPriceIndex": 0,
     "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
     "secondSellOptions": [
         {
@@ -466,12 +466,14 @@ routeLists=[
     [
         {
             **apacheRouteBase,
+            "villages": ["apache"],
             "buyCities":["natal"],
             "afterSellCities": ["mogadishu"]
         },
         {
             **apacheRouteBase,
-            "buyCities":["aden"],
+            "villages": ["apac"],
+            "buyCities":["sofala","aden"],
             "afterSellCities": ["suez"]
         },
         {
@@ -489,7 +491,7 @@ routeLists=[
         {
             "buyProducts": [],
             "buyFleet":4,
-            "buyCities":["prey"],
+            "buyCities":["prey","deokwon"],
             "enableVillageTrade": True,
             "useFishingCities": [],
             "villages": ["witoto"],

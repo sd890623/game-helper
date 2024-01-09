@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import copy
 
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
@@ -58,7 +59,7 @@ class UWTask(FrontTask):
     lastExecuted=None
     focusedBarterTrade=False
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
-    oriVillageTradeList=villageTradeList
+    villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
         self.fishing()
@@ -173,7 +174,7 @@ class UWTask(FrontTask):
             self.setRouteOptionFromScreen()
         self.routeList=routeLists[self.routeOption]
         self.allCityList=cityNames
-        for key, value in villageTradeList.items():
+        for key, value in self.villageTradeList.items():
             if(value.get("buyCities")):
                 addNonExistArrayToArray(self.allCityList, value.get("buyCities"))
             if(value.get("supplyCities")):
@@ -415,7 +416,7 @@ class UWTask(FrontTask):
         if(fishing):
             self.fishing()
         if(routeMode):
-            continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=32000,notifyFunc=lambda: self.print("route city not found, wait for 8s"))
+            continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=3600,notifyFunc=lambda: self.print("route city not found, wait for 8s"))
         else:
             continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
         self.hasSelectedMap=0
@@ -490,6 +491,8 @@ class UWTask(FrontTask):
                 market.buyProductsInCityTwiceWithGem(products)
             case _:
                 market.buyProductsInMarket(products)
+                if(returnResultsLambda):
+                    results=returnResultsLambda()
 
         time.sleep(3)
         def backup():
@@ -817,8 +820,8 @@ class UWTask(FrontTask):
             for village in routeObject.get("villages"):
                 # todo disable for new routes, break old route 
                 # if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
-                if(village in villageTradeList.keys()):
-                    return (village, villageTradeList.get(village))
+                if(village in self.villageTradeList.keys()):
+                    return (village, self.villageTradeList.get(village))
         return None
     
     def getInitialRouteIndex(self):
@@ -977,6 +980,7 @@ class UWTask(FrontTask):
         for city in afterVillageSupplyCities:
             self.gotoCity(city,self.allCityList,express=True)
         self.market.cleanupGoods(villageObject["buyProducts"])
+        self.sellOverload()
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
         self.changeFleet(routeObject.get('buyFleet'),simple=True)
 
@@ -1093,37 +1097,39 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1356,153),lambda: (self.hasSingleLineWordsInArea("trade",A=[1148,185,1196,204])))
         wampumQty=self.getNumberFromSingleLineInArea(A=[1158,640,1171,658])
         if(wampumQty==4):
-            villageTradeList["apache"]["buys"][0]["targetNum"]=300
-            villageTradeList["apache"]["buys"][1]["targetNum"]=400
-            villageTradeList["apache"]["tradeObjects"]= [(0,2),(1,2)]
-            villageTradeList["apache"]["cleanupIndex"]= 1
+            self.villageTradeList["apache"]["buys"][0]["targetNum"]=300
+            self.villageTradeList["apache"]["buys"][1]["targetNum"]=400
+            self.villageTradeList["apache"]["tradeObjects"]= [(0,2),(1,2)]
+            self.villageTradeList["apache"]["cleanupIndex"]= 1
 
             self.routeList.insert(1,self.routeList[0])
             self.routeList[1]["villages"]="apach"
 
-        if(wampumQty==3):
-            villageTradeList["apache"]["buys"][0]["targetNum"]=400
-            villageTradeList["apache"]["buys"][1]["targetNum"]=500
+        # if(wampumQty==3):
+            # self.villageTradeList["apache"]["buys"][0]["targetNum"]=400
+            # self.villageTradeList["apache"]["buys"][1]["targetNum"]=500
 
         if(wampumQty==2):
             print("should restore")
-            villageTradeList=self.oriVillageTradeList
+            self.villageTradeList=copy.copy(villageTradeList)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),3)
 
     def getSellCity(self,routeObject):
         if(routeObject.get("waitForFashion")):
-            if(routeObject.get("secondSellOptions")):
+            shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),3)
+            if(shouldWaitForFashion):
+                self.print("find fashion in 2 hours, wait")
+                extraMinutes=self.market.fashion.getExtraMinutesByCity(routeObject.get("sellCityOptions")[0])
+                waitUntilClockByHour(shouldWaitForFashion,extraMinutes)
+            elif(routeObject.get("secondSellOptions")):
                 for element in routeObject.get("secondSellOptions"):
                     shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),element.get("cities"),2)
                     if(shouldWaitForFashion):
                         self.print("find fashion in 1 hours, wait")
-                        waitUntilClockByHour(shouldWaitForFashion)
+                        extraMinutes=self.market.fashion.getExtraMinutesByCity(element.get("cities")[0])
+                        waitUntilClockByHour(shouldWaitForFashion,extraMinutes)
                         sellCity=self.market.getBestPriceCity(routeObject,element.get("cities"))
                         return (sellCity,element)
-            shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),3)
-            if(shouldWaitForFashion):
-                self.print("find fashion in 2 hours, wait")
-                waitUntilClockByHour(shouldWaitForFashion)
         sellCity=self.market.getBestPriceCity(routeObject,routeObject.get("sellCityOptions"))
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList), 3,2)
         return (sellCity,None)
@@ -1141,6 +1147,7 @@ class UWTask(FrontTask):
                     self.useTradeSkill(inCity=True)
                 self.changeFleet(6,simple=True)
                 self.sellInCity(sellCity,simple=True)
+                self.checkInn(sellCity, routeObject)
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -1187,6 +1194,7 @@ class UWTask(FrontTask):
                             self.useTradeSkill(inCity=True)
                         self.changeFleet(6,simple=True)
                         self.sellInCity(sellCity,simple=True)
+                        self.checkInn(city, routeObject)
                     else:
                         self.sellBySequencedConf(sellCity,element,routeObject)
                 else:

@@ -47,7 +47,8 @@ class UWTask(FrontTask):
     pickedUpShip=False
     tradeRouteBuyFin=False
     hasStartedExtraBuy=False
-    waitForCityTimeOut=860
+    # 860=14mins
+    waitForCityTimeOut=900
     hasSelectedMap=0
     routeOption=4
     routeList=[]
@@ -416,7 +417,7 @@ class UWTask(FrontTask):
         if(fishing):
             self.fishing()
         if(routeMode):
-            continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=3600,notifyFunc=lambda: self.print("route city not found, wait for 8s"))
+            continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=4500,notifyFunc=lambda: self.print("route city not found, wait for 8s"))
         else:
             continueWithUntilByWithBackup(lambda: self.inJourneyTask(), lambda: self.inCityList(cityList), 8, timeout=self.waitForCityTimeOut,notifyFunc=lambda: self.print("not found, wait for 8s"),backupFunc=backupFunc)
         self.hasSelectedMap=0
@@ -810,7 +811,7 @@ class UWTask(FrontTask):
         village=villageObject.get("villageName")
         self.print("do village trade to "+village)
         self.goToVillage(village, villageObject,fishing=villageObject.get("useFishing"))
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1,timeout=10)
         self.market.barterInVillage(villageObject)
         self.updateDailyConfVal(villageKey,True)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(24,24),lambda: (self.inWater()),2)
@@ -1194,7 +1195,7 @@ class UWTask(FrontTask):
                             self.useTradeSkill(inCity=True)
                         self.changeFleet(6,simple=True)
                         self.sellInCity(sellCity,simple=True)
-                        self.checkInn(city, routeObject)
+                        self.checkInn(sellCity, routeObject)
                     else:
                         self.sellBySequencedConf(sellCity,element,routeObject)
                 else:
@@ -1209,6 +1210,7 @@ class UWTask(FrontTask):
                             self.goToRoute(element)
                         else:
                             self.gotoCity(element,self.allCityList,express=True)
+                            self.checkInn(element, routeObject)
                 
             time.sleep(random.randint(1,10))
             routeObjIndex+=1

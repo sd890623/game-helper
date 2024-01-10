@@ -80,8 +80,8 @@ apache={
     "villageName": "apache",
     "buys": [
         # sequence has to map in game display
-        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":462},
-        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
+        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":402},
+        {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":522}
     ],
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
     "supplyCities": ["cape","ushuaia","lima","acapulco"],
@@ -505,7 +505,7 @@ routeLists=[
             "fashions": ["赞助"],
             "waitForFashion":True,           
             "afterSellCities": ["hanyang","hobe","malacca","mogadishu"]
-        },
+        }
         # {
         #     **NEEASupplySell,
         #     "buyFleet":4,

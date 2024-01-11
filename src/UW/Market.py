@@ -403,11 +403,11 @@ class Market:
         for (index, val) in villageObject.get("tradeObjects"):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
-            nogoTimes=2
+            nogoTimes=3
             if(index==len(villageObject.get("tradeObjects"))-1):
-                nogoTimes=5
+                nogoTimes=7
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(553,628),nogoTimes,1)
-            doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.randomPoint), lambda: not self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
+            doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.enterCityButton), lambda: not self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
 
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1267,851), lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)

@@ -675,6 +675,7 @@ class UWTask(FrontTask):
             #if(dumpCrew):
                 #self.dumpCrew()
             self.waitForCity(cityList if cityList else [cityname],targetCity=cityname,fishing=fishing)
+        self.checkReachCity()
         self.sendMessage("UW","reached city of "+cityname)
 
     def checkStopped(self):
@@ -880,6 +881,9 @@ class UWTask(FrontTask):
                 self.updateDailyConfVal("merchantQuest", True)
                 return
             self.bartingTrade(maticBarterTrade)
+            self.gotoCity("said")
+            self.crossTunnel(goods=True)
+            self.gotoCity(maticBarterTrade.get("sellCity"))
             self.changeFleet(6,simple=True)
             self.sellInCity(maticBarterTrade.get("sellCity"),simple=True)
             self.updateDailyConfVal("merchantQuest", True)
@@ -963,7 +967,6 @@ class UWTask(FrontTask):
             for city in villageObject.get("buyCities"):
                 self.gotoCity(city,self.allCityList,express=True)
                 self.checkInn(city, villageObject)
-                self.checkReachCity()
                 buyStrategy=None
                 if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
                     buyStrategy="useGem"
@@ -1022,7 +1025,6 @@ class UWTask(FrontTask):
                         break
                     if(self.hasStartedExtraBuy and routeObject.get("buyProductsAfterSupply")): 
                         break
-                    self.checkReachCity()
                 if(routeObject.get("buyStrategy")=="once"):
                     self.tradeRouteBuyFin=True
 
@@ -1035,7 +1037,6 @@ class UWTask(FrontTask):
                         self.buyBlackMarket(city)
                         if(self.shouldFinishTradeAndChangeFleet(routeObject)):
                             break
-                        self.checkReachCity()
 
                 #go to buy again if not full
                 if(self.tradeRouteBuyFin!=True):
@@ -1051,7 +1052,6 @@ class UWTask(FrontTask):
                 if(self.getTime()>=0 and self.getTime()<6):
                     self.buyBlackMarket(city)
                 self.buyBlackMarket(city)
-                self.checkReachCity()
 
             self.print("出发卖货城市")
             # goto sell cities
@@ -1075,7 +1075,6 @@ class UWTask(FrontTask):
                     self.sellInCity(cityName,simple=True,types=types)
                     self.changeFleet(2,simple=True)
                 self.buyBlackMarket(cityName)
-                self.checkReachCity()
         
                 # if(index==len(routeObject["sellCities"])-1):
                 #     self.buyInCity(cityName, products=routeObject["buyProducts"])
@@ -1149,6 +1148,7 @@ class UWTask(FrontTask):
                 self.changeFleet(6,simple=True)
                 self.sellInCity(sellCity,simple=True)
                 self.checkInn(sellCity, routeObject)
+
     def startFocusedBartingTrade(self,routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
         while(routeObjIndex is not len(self.routeList)):
@@ -1171,7 +1171,6 @@ class UWTask(FrontTask):
                     for city in routeObject.get("supplyCities"):
                         self.gotoCity(city,self.allCityList,express=True)
                         self.checkInn(city, routeObject)
-                        self.checkReachCity()
             else:
                 self.changeFleet(routeObject.get('buyFleet'))
                 self.bartingTrade(routeObject)

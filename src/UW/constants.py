@@ -468,7 +468,25 @@ routeLists=[
             **apacheRouteBase,
             "villages": ["apache"],
             "buyCities":["natal"],
-            "afterSellCities": ["mogadishu"]
+            "afterSellCities": ["hadiboh","aceh"]
+        },
+        {
+            "buyProducts": [],
+            "buyFleet":4,
+            "buyCities":["prey","deokwon"],
+            "enableVillageTrade": True,
+            "useFishingCities": [],
+            "villages": ["witoto"],
+            "afterVillageBuyCities": [],
+            "supplyCities":[{"route":4,"target":"dongnae"}],
+            "sellFleet":7,
+            # "useSkillCity":"suez",
+            "checkInnCities": True,
+            "sellPriceIndex": 0,
+            "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
+            "fashions": ["赞助"],
+            "waitForFashion":True,           
+            "afterSellCities": ["hanyang","hobe","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -481,20 +499,22 @@ routeLists=[
             "supplyCities":["barcelona"],
         },
         # {"mode": "landing"},
-        {"mode": "merchantQuest","supplyCities":["said"]},
         {
-            "mode": "tunnel",
+            "mode": "merchantQuest",
             "supplyCities":["hadiboh","aceh","ambon","ternate"],
-            "checkInnCities": True,
+            "checkInnCities": True
         },
-        {"mode": "battle"},
+        {
+            "mode": "battle",
+            "buyCities":["ternate"],
+        },
         {
             "buyProducts": [],
             "buyFleet":4,
             "buyCities":["prey","deokwon"],
             "enableVillageTrade": True,
             "useFishingCities": [],
-            "villages": ["witoto"],
+            "villages": ["witot"],
             "afterVillageBuyCities": [],
             "supplyCities":[{"route":4,"target":"dongnae"}],
             "sellFleet":7,

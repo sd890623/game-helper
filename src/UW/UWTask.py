@@ -14,7 +14,7 @@ import time
 import datetime as dt
 import random
 import os
-from constants import villageTradeList, cityNames,dailyJobConf, routeLists, opponentNames,monthToRoute,bartingMonthToRoute,opponentsInList,maticBarterTrade,checkInnCities
+from constants import villageTradeList, cityNames,dailyJobConf,witoto, routeLists, opponentNames,monthToRoute,bartingMonthToRoute,opponentsInList,maticBarterTrade,checkInnCities
 
 def importBattle():
     from Battle import Battle
@@ -48,7 +48,7 @@ class UWTask(FrontTask):
     tradeRouteBuyFin=False
     hasStartedExtraBuy=False
     # 860=14mins
-    waitForCityTimeOut=900
+    waitForCityTimeOut=960
     hasSelectedMap=0
     routeOption=4
     routeList=[]
@@ -63,30 +63,8 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.fishing()
-        shouldWaitForFashion=self.market.shouldWaitForFashion(
-                    {
-            "buyProducts": ["arnica"],
-            "buyFleet":4,
-            "buyCities":["natal"],
-            "buySupplyCities":[],
-            "dumpCrewCities": [""],
-            "enableVillageTrade": True,
-            "villages": ["apache"],
-            "afterVillageBuyCities": ["acapulco"],
-            "supplyCities":[{"route":3,"target":"dhofar"}],
-            "sellFleet":7,
-            "useSkillCity":"dhofar",
-            "checkInnCities": [],
-            "sellPriceIndex": 1,
-            "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
-            "fashions": ["传染病"],           
-            "afterSellCities": ["suez"]
-        }
-        )
-        if(shouldWaitForFashion):
-            extraMinutes=self.market.fashion.getExtraMinutesByCity("suez")
-            waitUntilClockByHour(shouldWaitForFashion,extraMinutes)
+        self.market.barterInVillage(witoto)
+
         self.market.getFashionByCity("dhofar")
         self.goToRoute({"route":2,"target":"juan"})
         self.goLanding()

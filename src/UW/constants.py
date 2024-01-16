@@ -29,7 +29,7 @@ maticBarterTrade={
     "villages": ["turk"],
     "buyCities":["nantes","arguin","genoa"],
     "enableVillageTrade": True,
-    "sellCity": "antalya"
+    "sellCity": "suez"
 }
 NEEASupplySell={
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
@@ -478,7 +478,7 @@ routeLists=[
             "useFishingCities": [],
             "villages": ["witoto"],
             "afterVillageBuyCities": [],
-            "supplyCities":[{"route":4,"target":"dongnae"}],
+            "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
             "sellFleet":7,
             # "useSkillCity":"suez",
             "checkInnCities": True,
@@ -495,6 +495,7 @@ routeLists=[
             "afterSellCities": ["suez"]
         },
         {
+            "buyCities":["suez"],
             "mode": "tunnel",
             "supplyCities":["barcelona"],
         },
@@ -516,7 +517,7 @@ routeLists=[
             "useFishingCities": [],
             "villages": ["witot"],
             "afterVillageBuyCities": [],
-            "supplyCities":[{"route":4,"target":"dongnae"}],
+            "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
             "sellFleet":7,
             # "useSkillCity":"suez",
             "checkInnCities": True,

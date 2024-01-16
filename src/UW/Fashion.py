@@ -23,11 +23,11 @@ class Fashion:
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0},
-        {'name': '东地中海', 'zone': -1, 'show': True, 'flag': 0},
+        {'name': '东地中海', 'zone': -1, 'show': True, 'flag': 0, "zoneMinutes":1},
         {'name': '大西洋&西地中海', 'zone': -2, 'show': True, 'flag': 0},
         {'name': '西非', 'zone': -3, 'show': True, 'flag': 0},
         {'name': '南非', 'zone': -4, 'show': True, 'flag': 0},
-        {'name': '东非', 'zone': -5, 'show': True, 'flag': 0},
+        {'name': '东非', 'zone': -5, 'show': True, 'flag': 0, "zoneMinutes":1},
         {'name': '阿拉伯西印度群岛', 'zone': -6, 'show': True, 'flag': 0,"zoneMinutes":3},
         {'name': '东印度群岛&印度支那', 'zone': -7, 'show': True, 'flag': 0},
         {'name': '南亚', 'zone': -8, 'show': True, 'flag': 0},

@@ -28,7 +28,7 @@ class Investment:
         "pirie","hobart","gari","kaka","dili","banda","ambon","makassar","ternate","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
-    investmentCities2 = [
+    investmentCitiesSecond = [
         "aceh","lopburi","brunei","ambon","dili","banda","davao",
         "yanyun","hangzhou","quanzhou"
     ]

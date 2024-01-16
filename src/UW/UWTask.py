@@ -961,7 +961,7 @@ class UWTask(FrontTask):
         afterVillageSupplyCities=villageObject.get("afterVillageSupplyCities") if villageObject.get("afterVillageSupplyCities") else villageObject.get("supplyCities")
         for city in afterVillageSupplyCities:
             self.gotoCity(city,self.allCityList,express=True)
-        self.market.cleanupGoods(villageObject["buyProducts"])
+        # self.market.cleanupGoods(villageObject["buyProducts"])
         self.sellOverload()
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
         self.changeFleet(routeObject.get('buyFleet'),simple=True)

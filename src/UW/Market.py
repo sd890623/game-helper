@@ -412,6 +412,10 @@ class Market:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.enterCityButton), lambda: not self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
 
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1267,851), lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
+            # position tba
+            if(self.uwtask.isPositionColorSimilarTo(120,663,(221,226,223))):
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(667,594), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
+                break
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
             if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
                 if(index==villageObject.get("cleanupIndex")):
@@ -465,7 +469,7 @@ class Market:
         self.uwtask.print("find city with best price")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(39,97), lambda: self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
-        highestCity={"city":None,"price":0}
+        highestCity={"city":"suez","price":0}
         # init
         def initClick(city):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)

@@ -855,10 +855,8 @@ class UWTask(FrontTask):
             print("go merchant request, TBC")
             self.changeFleet(4)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
-            if(not self.acceptQuest(["exchange"])):
-                self.updateDailyConfVal("merchantQuest", True)
-                return
-            self.bartingTrade(maticBarterTrade)
+            if(self.acceptQuest(["exchange"])):
+                self.bartingTrade(maticBarterTrade)
             self.gotoCity("said")
             self.crossTunnel(goods=True)
             self.gotoCity(maticBarterTrade.get("sellCity"))

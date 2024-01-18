@@ -96,6 +96,26 @@ apache={
     "supplyFleet":2,
     "barterFleet":2
 }
+# apache={
+#     "villageName": "apache",
+#     # "buys": [
+#     #     # sequence has to map in game display
+#     #     {"product":"silver","cities":[],"targetNum":402},
+#     #     {"product":"coral","cities":[],"targetNum":600}
+#     # ],
+#     "buyCities": ["sofala","quelimane","cape","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
+#     "supplyCities": ["acapulco"],
+#     "buyProducts": ["silver","coral"],
+#     "checkInnCities": True,
+#     "afterVillageSupplyCities":["acapulco"],
+#     # (index, val) array
+#     "tradeObjects": [(0,1),(1,1),(2,1)],
+#     "cleanupIndex": 2,
+#     "buyStrategy": "useGem",
+#     "useGemCities": ["praia","las"],
+#     "supplyFleet":2,
+#     "barterFleet":2
+# }
 witoto={
     "villageName": "witoto",
     "buys": [

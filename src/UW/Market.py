@@ -405,8 +405,8 @@ class Market:
             num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
             if(num and num<600):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
-                nogoTimes=7
-                while(self.uwtask.isPositionColorSimilarTo(909,305,(69,170,65)) and nogoTimes>0):
+                nogoTimes=5
+                while(self.uwtask.isPositionColorSimilarTo(1019,317,(190,255,76)) and nogoTimes>0):
                     wait(lambda: self.instance.clickPointV2(553,628),0)
                     nogoTimes-=1
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.enterCityButton), lambda: not self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)

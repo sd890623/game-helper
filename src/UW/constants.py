@@ -80,7 +80,7 @@ apache={
     "villageName": "apache",
     "buys": [
         # sequence has to map in game display
-        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":402},
+        {"product":"platinum","cities":["natal","sofala","quelimane"],"targetNum":472},
         {"product":"tuberose","cities":["kilwa","zanzibar","mogadishu"],"targetNum":600}
     ],
     "buyCities": ["natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu"],
@@ -121,8 +121,8 @@ witoto={
     "buys": [
         # sequence has to map in game display
         {"product":"noni","cities":["kuching","jayakarta","makassar"],"targetNum":400},
-        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":170},
-        {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":350}
+        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":200},
+        {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":400}
     ],
     "useFishing": True,
     "buyCities": ["prey","kuching","malacca","jayakarta","makassar","pasay","aceh"],

@@ -17,18 +17,19 @@ if (len(allWindowsWithTitle) > 0):
     hwndObject = allWindowsWithTitle[0]
 
 task = UWTask(hwndObject["hwnd"], "uw")
+task.initMarket()
 simuInstance=task.simulatorInstance
 
 class Investment:
     goBM = False
     inn=True
     #Better do winter
-    investmentCities = [
-        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra",
+    investmentCities2 = [
+        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","pangk","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra",
         "pirie","hobart","gari","kaka","dili","banda","ambon","makassar","ternate","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
-    investmentCitiesSecond = [
+    investmentCities = [
         "aceh","lopburi","brunei","ambon","dili","banda","davao",
         "yanyun","hangzhou","quanzhou"
     ]
@@ -70,8 +71,9 @@ class Investment:
     def investInCity(self):
         task.print("去投资")
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
-        task.clickInMenu("bureau",["bureau"],startIndex=5)
+        task.clickInMenu(["bureau"],["bureau"],startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
+        self.investOnce(True)
         while(True):
             num=task.getNumberFromSingleLineInArea(A=[260,807,285,823])
             if(num and num<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):

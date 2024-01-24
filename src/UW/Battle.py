@@ -333,7 +333,7 @@ class Battle:
 
         if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159])): #and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
             self.uwtask.print("opened")
-            return doAndWaitUntilBy(lambda: clickIntoBattle(),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),1,1,timeout=10)
+            return continueWithUntilBy(lambda: clickIntoBattle(),lambda: self.uwtask.hasSingleLineWordsInArea("combat", A=[684,15,746,32]),3,timeout=10)
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(), 1,30)
         self.opentimeout+=1
         if(self.opentimeout>2):

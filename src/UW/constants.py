@@ -27,7 +27,7 @@ blackListForBattle=['piz','zpi','robeyn','masa','roberts']
 maticBarterTrade={
     "buyProducts": ["silverware","coffee","wine"],
     "villages": ["turk"],
-    "buyCities":["nantes","arguin","genoa"],
+    "buyCities":["nantes","arguin","genoa","tunis"],
     "enableVillageTrade": True,
     "sellCity": "suez"
 }
@@ -258,7 +258,7 @@ dailyJobConf={
     "endBattleCity": "davao"
 }
 
-checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","santa","seville","dublin","amsterda","hanyang","hobe","malacca","soda","pernambuco","cayenne"]
+checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
 
 apacheRouteBase={
     "buyProducts": [],
@@ -273,7 +273,7 @@ apacheRouteBase={
     "useSkillCity":"suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
-    "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"],
+    "sellCityOptions":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad","diu","goa","kozhi","kochi"],
     "secondSellOptions": [
         {
             "seqs":[
@@ -506,7 +506,7 @@ routeLists=[
             "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
             "fashions": ["赞助"],
             "waitForFashion":True,           
-            "afterSellCities": ["hanyang","hobe","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -532,7 +532,7 @@ routeLists=[
         {
             "buyProducts": [],
             "buyFleet":4,
-            "buyCities":["prey","deokwon"],
+            "buyCities":["kuching"],
             "enableVillageTrade": True,
             "useFishingCities": [],
             "villages": ["witot"],
@@ -545,7 +545,7 @@ routeLists=[
             "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
             "fashions": ["赞助"],
             "waitForFashion":True,           
-            "afterSellCities": ["hanyang","hobe","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
         }
         # {
         #     **NEEASupplySell,

@@ -405,7 +405,7 @@ class Market:
             num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
             if(num and num<600):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
-                nogoTimes=5
+                nogoTimes=8
                 while(self.uwtask.isPositionColorSimilarTo(1019,317,(190,255,76)) and nogoTimes>0):
                     wait(lambda: self.instance.clickPointV2(553,628),0)
                     nogoTimes-=1
@@ -496,6 +496,9 @@ class Market:
                 highestCity["price"]=price
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)
             self.instance.send_backspaces()
+            if(not self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90])):
+                wait(lambda: self.instance.clickPointV2(259,73),1)
+                self.instance.send_backspaces()
 
         return highestCity.get("city")
 

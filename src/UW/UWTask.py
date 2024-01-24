@@ -63,10 +63,6 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.market.barterInVillage(witoto)
-
-        self.market.getFashionByCity("dhofar")
-        self.goToRoute({"route":2,"target":"juan"})
         self.goLanding()
         self.checkInn('manila',{
                 "checkInnCities": ['manila','hanyang','hangzhou','hobe']
@@ -329,7 +325,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860),lambda: (self.hasSingleLineWordsInArea("notice",A=[683,278,756,304]) or self.inWater() or self.inCityList(self.allCityList)),5,firstWait=15)
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(634,568),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(794,599),10)
         if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=30,backupFunc=backup):
             return
         if(self.inWater() and (not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845]) or self.checkStopped())):
@@ -683,7 +679,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860),lambda: (self.hasSingleLineWordsInArea("notice",A=[683,278,756,304]) or self.inWater() or self.inCityList(self.allCityList)),5,firstWait=15)
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(634,568),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(794,599),10)
         if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=30,backupFunc=backup):
             return
         if(self.inWater() and (not self.hasSingleLineWordsInArea(city,A=[647,823,791,845]) or self.checkStopped())):
@@ -720,7 +716,7 @@ class UWTask(FrontTask):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(717,860),lambda: (self.hasSingleLineWordsInArea("notice",A=[683,278,756,304]) or self.inWater() or self.inCityList(self.allCityList)),5,firstWait=15)
         if(self.hasSingleLineWordsInArea("notice",A=[683,278,756,304])):
             wait(lambda: self.simulatorInstance.clickPointV2(634,568),1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794,599),1)
+            wait(lambda: self.simulatorInstance.clickPointV2(794,599),10)
         if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList) or reachedVillage()),1,1,timeout=30,backupFunc=backup):
             return
         if(self.inWater() and self.checkStopped()):
@@ -885,6 +881,18 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(278,859), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
+        def checkNum():
+            num=self.getNumberFromSingleLineInArea(A=[1316,136,1338,158])
+            return num and num>11
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=150)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+
         battleInstance.goBackPort(dailyJobConf.get("landingCity"))
         self.updateDailyConfVal("dailyLanding", True)
 

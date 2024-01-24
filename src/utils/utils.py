@@ -21,7 +21,7 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=F
         wait(func, seconds, disableWait)
         times-=1
 
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=30):
+def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10):
     wait(func, seconds)
     while(not(untilFunc()) and timeout >0):
         time.sleep(frequency)
@@ -50,8 +50,10 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30,firstWait=0):
         for x in [0,1,2,3]:
             wait(func,frequency)
             if(untilFunc()):
-                return
+                return True
+        return False
     time.sleep(random.randint(0,1))
+    return True
 
 def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
     wait(func, 0)

@@ -121,8 +121,8 @@ witoto={
     "buys": [
         # sequence has to map in game display
         {"product":"noni","cities":["kuching","jayakarta","makassar"],"targetNum":400},
-        {"product":"mangosteen","cities":["prey","malacca","aceh"],"targetNum":200},
-        {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":400}
+        {"product":"mangosteen","cities":["malacca","aceh"],"targetNum":200},
+        {"product":"benzoin","cities":["prey","malacca","pasay"],"targetNum":450}
     ],
     "useFishing": True,
     "buyCities": ["prey","kuching","malacca","jayakarta","makassar","pasay","aceh"],

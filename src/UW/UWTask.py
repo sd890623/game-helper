@@ -1103,9 +1103,10 @@ class UWTask(FrontTask):
 
     def getSellCity(self,routeObject):
         if(routeObject.get("waitForFashion")):
-            shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),3)
+            waitHour=routeObject.get("waitHour")+1 if routeObject.get("waitHour") else 3
+            shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),waitHour)
             if(shouldWaitForFashion):
-                self.print("find fashion in 2 hours, wait")
+                self.print(f"find fashion in {waitHour} hours, wait")
                 extraMinutes=self.market.fashion.getExtraMinutesByCity(routeObject.get("sellCityOptions")[0])
                 waitUntilClockByHour(shouldWaitForFashion,extraMinutes)
             elif(routeObject.get("secondSellOptions")):

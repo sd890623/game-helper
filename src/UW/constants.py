@@ -298,6 +298,25 @@ apacheRouteBase={
     "waitForFashion":True,           
     "afterSellCities": ["suez"]
 }
+witotoRouteBase={
+    "buyProducts": [],
+    "buyFleet":4,
+    "buyCities":["prey","deokwon"],
+    "enableVillageTrade": True,
+    "useFishingCities": [],
+    "villages": ["witoto"],
+    "afterVillageBuyCities": [],
+    "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
+    "sellFleet":7,
+    # "useSkillCity":"suez",
+    "checkInnCities": True,
+    "sellPriceIndex": 0,
+    "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
+    "fashions": ["赞助"],
+    "waitForFashion":True,   
+    "waitHour":1,        
+    "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
+}
 routeLists=[
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
@@ -491,21 +510,9 @@ routeLists=[
             "afterSellCities": ["hadiboh","aceh"]
         },
         {
-            "buyProducts": [],
-            "buyFleet":4,
+            **witotoRouteBase,
             "buyCities":["prey","deokwon"],
-            "enableVillageTrade": True,
-            "useFishingCities": [],
-            "villages": ["witoto"],
-            "afterVillageBuyCities": [],
-            "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
-            "sellFleet":7,
-            # "useSkillCity":"suez",
-            "checkInnCities": True,
-            "sellPriceIndex": 0,
-            "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
-            "fashions": ["赞助"],
-            "waitForFashion":True,           
+            "villages": ["witoto"],    
             "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
         },
         {
@@ -530,21 +537,9 @@ routeLists=[
             "buyCities":["ternate"],
         },
         {
-            "buyProducts": [],
-            "buyFleet":4,
+            **witotoRouteBase,
             "buyCities":["kuching"],
-            "enableVillageTrade": True,
-            "useFishingCities": [],
             "villages": ["witot"],
-            "afterVillageBuyCities": [],
-            "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
-            "sellFleet":7,
-            # "useSkillCity":"suez",
-            "checkInnCities": True,
-            "sellPriceIndex": 0,
-            "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
-            "fashions": ["赞助"],
-            "waitForFashion":True,           
             "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
         }
         # {

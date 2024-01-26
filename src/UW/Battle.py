@@ -329,7 +329,8 @@ class Battle:
 
         def clickIntoBattle():
             self.instance.clickPointV2(683,829)
-            self.instance.clickPointV2(726,820)
+            # for small boss, enable only when required. Might cause stop of ship as 2nd click clicks after screen goes to sea.
+            # self.instance.clickPointV2(726,820)
 
         if(self.uwtask.hasArrayStringInSingleLineWords(opponents, A=[1187,129,1396,159])): #and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
             self.uwtask.print("opened")

@@ -25,12 +25,12 @@ class Investment:
     inn=True
     #Better do winter
     investmentCities2 = [
-        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","pangk","palembang","lopburi","brunei","kuching","jayakarta","surabaya","pinjarra",
+        "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","pangk","palembang","lopburi","prey","brunei","kuching","jayakarta","surabaya","pinjarra",
         "pirie","hobart","gari","kaka","dili","banda","ambon","makassar","ternate","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
     investmentCities = [
-        "aceh","lopburi","brunei","ambon","dili","banda","davao",
+        "aceh","lopburi","brunei","surabaya","ambon","dili","banda","davao","jolo",
         "yanyun","hangzhou","quanzhou"
     ]
     investmentCities4 = [

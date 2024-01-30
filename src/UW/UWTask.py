@@ -545,6 +545,7 @@ class UWTask(FrontTask):
         if(city not in checkInnCities):
             return
         self.clickInMenu(["inn","lnn"],["lnn","inn"],infinite=True)
+        time.sleep(3)
         if(not self.hasSingleLineWordsInArea("ailable", A=[8,61,90,80])):
             self.sendNotification("found mate")
             time.sleep(1200)

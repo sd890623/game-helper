@@ -12,7 +12,7 @@ battleCity="hag"
 
 #"piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 #opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList=["pil","ass","asa","aas","ruthless","rob"]
+opponentsInList=["pil","ass","asa","aas","ruthless"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 opponentNames=["pill","pil","ass","asa","duchunyong","rob","ruthless","nanima"] #add ducunyong as it's double lines, so quick hack,only checked in board
 blackListForBattle=['piz','zpi','robeyn','masa','roberts']
@@ -27,7 +27,7 @@ blackListForBattle=['piz','zpi','robeyn','masa','roberts']
 maticBarterTrade={
     "buyProducts": ["silverware","coffee","wine"],
     "villages": ["turk"],
-    "buyCities":["nantes","arguin","genoa","tunis"],
+    "buyCities":["nantes","arguin","genoa","algiers","tunis"],
     "enableVillageTrade": True,
     "sellCity": "suez"
 }
@@ -96,26 +96,26 @@ apache={
     "supplyFleet":2,
     "barterFleet":2
 }
-# apache={
-#     "villageName": "apache",
-#     # "buys": [
-#     #     # sequence has to map in game display
-#     #     {"product":"silver","cities":[],"targetNum":402},
-#     #     {"product":"coral","cities":[],"targetNum":600}
-#     # ],
-#     "buyCities": ["sofala","quelimane","cape","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
-#     "supplyCities": ["acapulco"],
-#     "buyProducts": ["silver","coral"],
-#     "checkInnCities": True,
-#     "afterVillageSupplyCities":["acapulco"],
-#     # (index, val) array
-#     "tradeObjects": [(0,1),(1,1),(2,1)],
-#     "cleanupIndex": 2,
-#     "buyStrategy": "useGem",
-#     "useGemCities": ["praia","las"],
-#     "supplyFleet":2,
-#     "barterFleet":2
-# }
+apache={
+    "villageName": "apache",
+    # "buys": [
+    #     # sequence has to map in game display
+    #     {"product":"silver","cities":[],"targetNum":402},
+    #     {"product":"coral","cities":[],"targetNum":600}
+    # ],
+    "buyCities": ["sofala","quelimane","cape","tom","praia","las","santo","rida","portobelo","santo","bahia","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
+    "supplyCities": ["acapulco"],
+    "buyProducts": ["silver","coral"],
+    "checkInnCities": True,
+    "afterVillageSupplyCities":["acapulco"],
+    # (index, val) array
+    "tradeObjects": [(0,1),(1,1),(2,1)],
+    "cleanupIndex": 2,
+    "buyStrategy": "useGem",
+    "useGemCities": ["tom","santo"],
+    "supplyFleet":2,
+    "barterFleet":2
+}
 witoto={
     "villageName": "witoto",
     "buys": [
@@ -258,7 +258,7 @@ dailyJobConf={
     "endBattleCity": "davao"
 }
 
-checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
+checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","algiers","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
 
 apacheRouteBase={
     "buyProducts": [],
@@ -503,11 +503,22 @@ routeLists=[
         }
     ],
     [
+        # {
+        #     **apacheRouteBase,
+        #     "villages": ["apache"],
+        #     "buyCities":["natal"],
+        #     "afterSellCities": ["hadiboh","aceh"]
+        # },
+
+        #wine replacement
         {
             **apacheRouteBase,
             "villages": ["apache"],
             "buyCities":["natal"],
-            "afterSellCities": ["hadiboh","aceh"]
+            "afterSellCities": ["hadiboh","aceh"],
+            "useSkillCity":False,
+            "sellCityOptions":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"],
+            "waitForFashion":False
         },
         {
             **witotoRouteBase,

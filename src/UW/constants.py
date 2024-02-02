@@ -142,7 +142,7 @@ villageTradeList = {
     "turk": {
         "startCities": ['beck'],
         "villageName": "turk",
-        "buyCities": ["nantes","arguin","genoa"],
+        "buyCities": ["nantes","arguin","genoa","algiers","tunis"],
         "checkInnCities": True,
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
@@ -182,7 +182,7 @@ villageTradeList = {
         "buyCities": ["santa","seville","dublin","amsterda"],
         "checkInnCities": True,
         "supplyCities": ["visby"],
-        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "buyProducts": ["candle", "matchlock","iron", "lron","birch"],
         # (index, val) array
         "tradeObjects": [(0,0),(1,1),(2,1)],
         "cleanupIndex": 2,
@@ -196,7 +196,7 @@ villageTradeList = {
         "buyCities": ["santa","seville","dublin","amsterda"],
         "checkInnCities": True,
         "supplyCities": ["visby"],
-        "buyProducts": ["candle", "matchlock","iron", "lron"],
+        "buyProducts": ["candle", "matchlock","iron", "lron","birch"],
         "tradeObjects": [(0,0),(1,1),(2,1)],
         "cleanupIndex": 2,
         "buyStrategy": "",
@@ -258,7 +258,36 @@ dailyJobConf={
     "endBattleCity": "davao"
 }
 
-checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","algiers","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
+checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","barcelona","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","algiers","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
+
+svearRouteBase={
+    "buyProducts": [],
+    "buyFleet":4,
+    "buyCities":["santa","seville","hangzhou"],
+    "enableVillageTrade": True,
+    "useFishingCities": [],
+    "villages": ["svear"],
+    "afterVillageBuyCities": [],
+    "supplyCities":[{"route":2,"target":"hangzhou"}],
+    "sellFleet":2,
+    "useSkillCity":"suez",
+    "checkInnCities": True,
+    "sellPriceIndex": 1,
+    "sellCityOptions":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"],
+    "secondSellOptions": [
+        {
+            "seqs":[
+                {"type":"goSellCity"},
+                {"type":"sell"}
+            ],
+            "cities": ["hanyang","jeju","edo","nagasaki","dongnae","yeongil","deokwon","sakai"]
+        }
+    ],
+    "fashions": ["赞助"],
+    "waitForFashion":True,   
+    "waitHour":1,        
+    "afterSellCities": []
+}
 
 apacheRouteBase={
     "buyProducts": [],
@@ -503,6 +532,7 @@ routeLists=[
         }
     ],
     [
+        # apache
         # {
         #     **apacheRouteBase,
         #     "villages": ["apache"],
@@ -510,27 +540,39 @@ routeLists=[
         #     "afterSellCities": ["hadiboh","aceh"]
         # },
 
-        #wine replacement
+        # apache wine replacement
+        # {
+        #     **apacheRouteBase,
+        #     "villages": ["apache"],
+        #     "buyCities":["natal"],
+        #     "afterSellCities": ["hadiboh","aceh"],
+        #     "useSkillCity":False,
+        #     "sellCityOptions":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"],
+        #     "waitForFashion":False
+        # },
         {
-            **apacheRouteBase,
-            "villages": ["apache"],
-            "buyCities":["natal"],
-            "afterSellCities": ["hadiboh","aceh"],
-            "useSkillCity":False,
-            "sellCityOptions":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"],
-            "waitForFashion":False
+            **svearRouteBase,
+            "buyCities":["santa"],
+            "villages": ["svear"],    
+            "afterSellCities": ["tainan"]
         },
         {
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","tainan","pasay","toamasina","cape","soda","bathurst"]
         },
+        # {
+        #     **apacheRouteBase,
+        #     "villages": ["apac"],
+        #     "buyCities":["sofala","aden"],
+        #     "afterSellCities": ["suez"]
+        # },
         {
-            **apacheRouteBase,
-            "villages": ["apac"],
-            "buyCities":["sofala","aden"],
-            "afterSellCities": ["suez"]
+            **svearRouteBase,
+            "buyCities":["seville","hangzhou"],
+            "villages": ["svea"],    
+            "afterSellCities": ["tainan","malacca","aden","suez"]
         },
         {
             "buyCities":["suez"],
@@ -551,7 +593,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","tainan","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","tainan","pasay","toamasina","cape","soda","bathurst"]
         }
         # {
         #     **NEEASupplySell,

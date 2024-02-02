@@ -35,7 +35,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 # "malacca","palembang","banjarmasin","surabaya","jayakarta",
-"pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae",]
+"pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 BMfile=os.path.abspath(__file__ + "\\..\\blackMarket.json")
@@ -474,6 +474,7 @@ class Market:
         def initClick(city):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)
             wait(lambda: self.instance.typewrite(city),0)
+            wait(lambda: self.instance.send_enter(),0)
             continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1226,159),2,0)
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1270,196),2,0)
@@ -485,6 +486,7 @@ class Market:
         for city in cities:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)
             wait(lambda: self.instance.typewrite(city),0)
+            wait(lambda: self.instance.send_enter(),0)
             continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
             # doMoreTimesWithWait(lambda: self.instance.clickPointV2(1260,195),2,0)
             yDiff=sellPriceIndex*45

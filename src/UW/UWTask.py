@@ -158,7 +158,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageSupplyCities"))
             if(value.get("afterVillageBuyCities")):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageBuyCities"))
-        # self.allCityList+=["said"]
+        self.allCityList+=["said"]
         self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"]]
         for routeObject in self.routeList:
             if(routeObject.get("buyCities")):

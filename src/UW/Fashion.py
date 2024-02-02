@@ -20,7 +20,8 @@ class Fashion:
         {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"]},
         {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]},
         {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]},
-        {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]}
+        {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
+        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]}
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0},
@@ -32,8 +33,8 @@ class Fashion:
         {'name': '阿拉伯西印度群岛', 'zone': -6, 'show': True, 'flag': 0,"zoneMinutes":3},
         {'name': '东印度群岛&印度支那', 'zone': -7, 'show': True, 'flag': 0},
         {'name': '南亚', 'zone': -8, 'show': True, 'flag': 0},
-        {'name': '东亚', 'zone': -9, 'show': True, 'flag': 0},
-        {'name': '远东亚洲', 'zone': -10, 'show': True, 'flag': 0},
+        {'name': '东亚', 'zone': -9, 'show': True, 'flag': 0,"zoneMinutes":4},
+        {'name': '远东亚洲', 'zone': -10, 'show': True, 'flag': 0,"zoneMinutes":5},
         {'name': '南太平洋', 'zone': -11, 'show': True, 'flag': 0},
         {'name': '南美洲、西美', 'zone': 0, 'show': True, 'flag': 1},
         {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1}

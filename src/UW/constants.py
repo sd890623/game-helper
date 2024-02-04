@@ -94,7 +94,7 @@ apache={
     "buyStrategy": "twice",
     "useGemCities": [],
     "supplyFleet":2,
-    "barterFleet":2
+    "barterFleet":3
 }
 apache={
     "villageName": "apache",
@@ -114,7 +114,7 @@ apache={
     "buyStrategy": "useGem",
     "useGemCities": ["tom","santo"],
     "supplyFleet":2,
-    "barterFleet":2
+    "barterFleet":3
 }
 witoto={
     "villageName": "witoto",
@@ -136,7 +136,7 @@ witoto={
     "buyStrategy": "once",
     "useGemCities": [],
     "supplyFleet":2,
-    "barterFleet":2
+    "barterFleet":3
 }
 villageTradeList = {
     "turk": {
@@ -151,7 +151,7 @@ villageTradeList = {
         "cleanupIndex": 1,
         "buyStrategy": "useGem",
         "useGemCities": ["arguin"],
-        "barterFleet":7
+        "barterFleet":3
     },
     "apache": apache,
     "apach": apache,
@@ -188,7 +188,7 @@ villageTradeList = {
         "cleanupIndex": 2,
         "buyStrategy": "",
         "useGemCities": ["santa"],
-        "barterFleet":4
+        "barterFleet":3
     },
     "svea": {
         "startCities": ['beck'],
@@ -201,7 +201,7 @@ villageTradeList = {
         "cleanupIndex": 2,
         "buyStrategy": "",
         "useGemCities": ["santa"],
-        "barterFleet":4
+        "barterFleet":3
     },
     "sami": {
         "startCities": ['beck'],
@@ -272,7 +272,7 @@ svearRouteBase={
     "sellFleet":2,
     "useSkillCity":"suez",
     "checkInnCities": True,
-    "sellPriceIndex": 1,
+    "sellPriceIndex": 0,
     "sellCityOptions":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"],
     "secondSellOptions": [
         {
@@ -340,7 +340,7 @@ witotoRouteBase={
     # "useSkillCity":"suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
-    "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon"],
+    "sellCityOptions":["hanyang","jeju","dongnae","yeongil","deokwon","edo","nagasaki","sakai"],
     "fashions": ["赞助"],
     "waitForFashion":True,   
     "waitHour":1,        

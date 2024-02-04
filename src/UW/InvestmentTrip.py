@@ -26,12 +26,12 @@ class Investment:
     #Better do winter
     investmentCities2 = [
         "saint","riga","visby","beck","copenhag","bergen","bremen","dublin","ceuta","marseille","pisa","calvi","syracuse","zadar","ragusa","candia","antalya","beirut","cairo","casablanca","las","bathurst","douala","cape","natal","manbasa","aden","suez","jeddah","massawa","hadiboh","dhofar","bidda","shiraz","hormuz","diu","kotte","aceh","pasay","malacca","pangk","palembang","lopburi","prey","brunei","kuching","jayakarta","surabaya","pinjarra",
-        "pirie","hobart","gari","kaka","dili","banda","ambon","makassar","ternate","davao","manila","quanzhou","naha","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
+        "pirie","hobart","gari","kaka","dili","banda","makassar","ambon","makassar","ternate","davao","manila","quanzhou","naha","chang","hangzhou","chongqing","yanyun","chang","peking","macau","pasay","toamasina","cape","bahia","aires","ushuaia","valpara","lima","tumbes","acapulco","guatemala","panama","copiap","ushuaia","rio","pernambuco","maracaibo",
         "nassau","nutak","arviat","reykjav","narvik","edinburgh"
     ]
     investmentCities = [
-        "aceh","lopburi","brunei","surabaya","ambon","dili","banda","davao","jolo",
-        "yanyun","hangzhou","quanzhou"
+        "aceh","lopburi","brunei","surabaya","ambon","makassar","dili","banda","davao","jolo",
+        "yanyun","chang","chongqing","hangzhou","quanzhou"
     ]
     investmentCities4 = [
         #"unalaska","tacoma",
@@ -58,12 +58,12 @@ class Investment:
     #before going to a city
     changeFleet = ["nutak"]
 
-    def investOnce(self,max=False):
+    def investOnce(self,domax=False):
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1248,238), lambda: task.hasImageInScreen("investBtn", A=[643,430,779,726]),2,2)
         investBtn= task.hasImageInScreen("investBtn", A=[643,430,779,726])
         if(investBtn):
             wait(lambda: simuInstance.clickPointV2(709,261),1)
-            if(max):
+            if(domax):
                 wait(lambda: simuInstance.clickPointV2(786,532),1)
             wait(lambda: simuInstance.clickPointV2(investBtn[0]+30,investBtn[1]+5))
             wait(lambda: simuInstance.clickPointV2(1278,853),1)
@@ -73,9 +73,9 @@ class Investment:
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(*task.rightCatePoint2),1, 1)
         task.clickInMenu(["bureau"],["bureau"],startIndex=5)
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(39,84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2,2)
-        self.investOnce(True)
+        self.investOnce()
         while(True):
-            num=task.getNumberFromSingleLineInArea(A=[260,807,285,823])
+            num=task.getNumberFromSingleLineInArea(A=[260,787,285,800])
             if(num and num<750 and task.hasSingleLineWordsInArea("p", A=[284,807,295,823])):
                 self.investOnce(True)
                 continue

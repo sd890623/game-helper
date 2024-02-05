@@ -453,7 +453,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(cityName), 3,2,backupFunc=backup)
 
-    def buyInCity(self,cityList,products,buyStrategy=False,marketMode=0,returnResultsLambda=None):
+    def buyInCity(self,cityList,products,buyStrategy=False,marketMode=0,returnResultsLambda=None,buyNotProducts=[]):
         self.print("去超市")
         market=importMarket()(self.simulatorInstance, self,marketMode=marketMode)
 
@@ -469,7 +469,7 @@ class UWTask(FrontTask):
             case "useGem":
                 market.buyProductsInCityTwiceWithGem(products)
             case _:
-                market.buyProductsInMarket(products)
+                market.buyProductsInMarket(products,buyNotProducts)
                 if(returnResultsLambda):
                     results=returnResultsLambda()
 
@@ -958,7 +958,7 @@ class UWTask(FrontTask):
                 buyStrategy=None
                 if(villageObject.get("buyStrategy")=="useGem" and city in villageObject.get("useGemCities")):
                     buyStrategy="useGem"
-                self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy)
+                self.buyInCity(villageObject["buyCities"], products=villageObject["buyProducts"],buyStrategy=buyStrategy,buyNotProducts=villageObject.get("buyNotProducts"))
         if(villageObject.get("supplyFleet")):
             self.changeFleet(villageObject.get("supplyFleet"))
         for city in villageObject.get("supplyCities"):

@@ -96,23 +96,25 @@ apache={
     "supplyFleet":2,
     "barterFleet":3
 }
-apache={
+
+apachewine={
     "villageName": "apache",
     # "buys": [
     #     # sequence has to map in game display
     #     {"product":"silver","cities":[],"targetNum":402},
     #     {"product":"coral","cities":[],"targetNum":600}
     # ],
-    "buyCities": ["sofala","quelimane","cape","tom","praia","las","santo","rida","portobelo","santo","bahia","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
+    "buyCities": ["sofala","quelimane","cape","tom","praia","las","santo","rida","trujillo","portobelo","santo","bahia","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
     "supplyCities": ["acapulco"],
     "buyProducts": ["silver","coral"],
+    "buyNotProducts": ["work"],
     "checkInnCities": True,
     "afterVillageSupplyCities":["acapulco"],
     # (index, val) array
     "tradeObjects": [(0,1),(1,1),(2,1)],
     "cleanupIndex": 2,
     "buyStrategy": "useGem",
-    "useGemCities": ["tom","santo"],
+    "useGemCities": ["tom"],
     "supplyFleet":2,
     "barterFleet":3
 }
@@ -142,7 +144,7 @@ villageTradeList = {
     "turk": {
         "startCities": ['beck'],
         "villageName": "turk",
-        "buyCities": ["nantes","arguin","genoa","algiers","tunis"],
+        "buyCities": ["nantes","arguin","algiers","genoa","pisa","tunis"],
         "checkInnCities": True,
         "supplyCities": ["antalya"],
         "buyProducts": ["silverware","coffee","wine"],
@@ -156,6 +158,9 @@ villageTradeList = {
     "apache": apache,
     "apach": apache,
     "apac": apache,
+    "apachewine":apachewine,
+    "apachwine":apachewine,
+    "apacwine":apachewine,
     "witoto": witoto,
     "witot": witoto,
     "varo": {
@@ -243,22 +248,22 @@ monthToRoute = {
     "jan": 6, "feb": 6
 }
 bartingMonthToRoute = {
-    "mar": 8,
-    "apr": 8, "may": 8, "jun": 8,
-    "jul": 8, "aug": 8, "sep": 8,
-    "oct": 8, "nov": 8, "dec": 8,
-    "jan": 8, "feb": 8
+    "mar": 9,
+    "apr": 9, "may": 9, "jun": 9,
+    "jul": 9, "aug": 9, "sep": 9,
+    "oct": 9, "nov": 9, "dec": 9,
+    "jan": 9, "feb": 9
 }
 dailyJobConf={
     "merchatQuestCity": "nantes",
     "buffCity": "davao",
-    "landingFleet": 8,
+    "landingFleet": 9,
     "landingCity": "hag",
     "battleFleet": 5,
     "endBattleCity": "davao"
 }
 
-checkInnCities=['lisboa','cape','toamasina','seville','bathurst','sierra',"genoa","barcelona","pisa","saint","amsterda","hadiboh","aceh","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","algiers","tunis","santa","seville","dublin","amsterda","hanyang","tainan","hobe","malacca","soda","pernambuco","cayenne"]
+checkInnCities=['lisboa','cape','toamasina','bathurst',"elmina",'sierra',"barcelona","pisa","saint","amsterda","visby","santo","trujillo","hadiboh","aceh","pasay","banjarmasin","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","pisa","algiers","tunis","santa","seville","dublin","amsterda","bremen","hanyang","nagasaki","hangzhou","tainan","hobe","malacca","gari","hobart","soda","pernambuco","cayenne"]
 
 svearRouteBase={
     "buyProducts": [],
@@ -335,7 +340,7 @@ witotoRouteBase={
     "useFishingCities": [],
     "villages": ["witoto"],
     "afterVillageBuyCities": [],
-    "supplyCities":["pernambuco","cape","toamasina","pasay","dongnae"],
+    "supplyCities":["elmina","cape","toamasina","pasay","dongnae"],
     "sellFleet":7,
     # "useSkillCity":"suez",
     "checkInnCities": True,
@@ -531,6 +536,7 @@ routeLists=[
             "buyProductsAfterSupplyCities": ["edo","nagasaki","sakai","hangzhou"]
         }
     ],
+    # svear+witoto， #8
     [
         # apache
         # {
@@ -560,7 +566,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","tainan","pasay","toamasina","cape","soda","bathurst"]
+            "afterSellCities": ["hanyang","tainan","malacca","toamasina","cape","soda","bathurst"]
         },
         # {
         #     **apacheRouteBase,
@@ -582,7 +588,7 @@ routeLists=[
         # {"mode": "landing"},
         {
             "mode": "merchantQuest",
-            "supplyCities":["hadiboh","aceh","ambon","ternate"],
+            "supplyCities":["hadiboh","malacca","ambon","ternate"],
             "checkInnCities": True
         },
         {
@@ -593,7 +599,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","tainan","pasay","toamasina","cape","soda","bathurst"]
+            "afterSellCities": ["hanyang","tainan","malacca","toamasina","cape","soda","bathurst"]
         }
         # {
         #     **NEEASupplySell,
@@ -623,8 +629,54 @@ routeLists=[
         # }
 
         # check passed day or pause
+    ],
+    # wine+witoto #9
+    [
+        # apache wine replacement
+        {
+            **apacheRouteBase,
+            "villages": ["apachewine"],
+            "buyCities":["natal"],
+            "afterSellCities": ["hadiboh","aceh"],
+            "useSkillCity":False,
+            "sellCityOptions":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"],
+            "waitForFashion":False
+        },
+        {
+            **witotoRouteBase,
+            "buyCities":["prey","deokwon"],
+            "villages": ["witoto"],    
+            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+        },
+        {
+            **apacheRouteBase,
+            "villages": ["apacwine"],
+            "buyCities":["sofala","aden"],
+            "afterSellCities": ["suez"]
+        },
+        {
+            "buyCities":["suez"],
+            "mode": "tunnel",
+            "supplyCities":["barcelona"],
+        },
+        # {"mode": "landing"},
+        {
+            "mode": "merchantQuest",
+            "supplyCities":["hadiboh","malacca","ambon","ternate"],
+            "checkInnCities": True
+        },
+        {
+            "mode": "battle",
+            "buyCities":["ternate"],
+        },
+        {
+            **witotoRouteBase,
+            "buyCities":["kuching"],
+            "villages": ["witot"],
+            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+        }
+        # check passed day or pause
     ]
-
     #x NE valuable cities: liquor ok- saint-stockhol-visby-hamburg-bremen
     #liquor bad route: hamburg,bremen,helder,antwerp,calais,
 ]

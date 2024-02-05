@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 from guiUtils import win
-from utils import removeArrayElementFromArray,wait,isStringSameOrSimilar,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy,isArrayAnyInArray
+from utils import removeArrayElementFromArray,wait,isStringSameOrSimilar,hasOneArrayStringInString,doMoreTimesWithWait,doAndWaitUntilBy,hasOneArrayStringInStringAndNotVeryDifferent,isArray,stringhasStartsWithOneArrayString,continueWithUntilBy,isArrayAnyInArray
 import os
 import json
 import time
@@ -181,7 +181,7 @@ class Market:
             return True
         return (goodsNumber>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
-    def buyProductsInMarket(self,products):
+    def buyProductsInMarket(self,products,buyNotProducts=[]):
         if(self.uwtask.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39])):
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1373,23), lambda: self.uwtask.hasSingleLineWordsInArea("market", A=self.uwtask.titleArea), 2,2)
 
@@ -203,6 +203,8 @@ class Market:
             #     continue   
             productName=self.uwtask.getSingleLineWordsInArea(A=[273+xDiff,117+yDiff,418+xDiff,139+yDiff])
             if(not(productName)):
+                continue
+            if(hasOneArrayStringInString(productName,buyNotProducts)):
                 continue
             if(stringhasStartsWithOneArrayString(productName, products)):
                 # beforeBuyQty=self.uwtask.getNumberFromSingleLineInArea(A=[237+xDiff,160+yDiff,264+xDiff,176+yDiff])

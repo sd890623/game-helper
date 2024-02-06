@@ -181,7 +181,9 @@ class Market:
             return True
         return (goodsNumber>1000 and self.uwtask.isPositionColorSimilarTo(362+xDiff,173+yDiff,(225,215,204)))
     
-    def buyProductsInMarket(self,products,buyNotProducts=[]):
+    def buyProductsInMarket(self,products,buyNotProducts=None):
+        if(buyNotProducts is None):
+            buyNotProducts=[]
         if(self.uwtask.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39])):
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1373,23), lambda: self.uwtask.hasSingleLineWordsInArea("market", A=self.uwtask.titleArea), 2,2)
 

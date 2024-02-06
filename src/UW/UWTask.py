@@ -890,7 +890,7 @@ class UWTask(FrontTask):
         def checkNum():
             num=self.getNumberFromSingleLineInArea(A=[1316,136,1338,158])
             return num and num>11
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=150)
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=3600)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
 
@@ -1173,6 +1173,7 @@ class UWTask(FrontTask):
                         self.goToRoute(element)
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
+                        self.checkInn(element, routeObject)
 
                 if(routeObject.get("sellCityOptions")):
                     #(sellCity,element), element is obj in secondSellOptions or None

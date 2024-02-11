@@ -59,6 +59,9 @@ class UWTask(FrontTask):
     initialRun=True
     lastExecuted=None
     focusedBarterTrade=False
+    apacheFriendly=None
+    liquorStock=None
+    craftStock=None
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     villageTradeList=copy.copy(villageTradeList)
     
@@ -136,9 +139,29 @@ class UWTask(FrontTask):
     def setCurrentCityFromScreen(self):
         self.inCityList(self.allCityList)
 
+    def getRouteNoFromApacheStats(self):
+        if(self.apacheFriendly>90000):
+            if(self.craftStock in [1,2,3]):
+                return 10
+            elif(self.liquorStock in [1,2,3]):
+                return 9
+            else:
+                return 8
+        else:
+            if(self.liquorStock in [1,2,3]):
+                return 9
+            else:
+                return 8
+        
     def setRouteOptionFromScreen(self):
         month=self.getSingleLineWordsInArea(A=[1322,220,1357,239])
-        mapping=bartingMonthToRoute if self.focusedBarterTrade else monthToRoute
+        if(self.focusedBarterTrade):
+            mapping=bartingMonthToRoute
+            if(self.apacheFriendly):
+                for month in mapping.keys():
+                    mapping[month] = self.getRouteNoFromApacheStats()
+        else:
+            mapping=monthToRoute
         if month and mapping.get(month):
             self.routeOption=mapping.get(month)
 
@@ -290,7 +313,7 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,1, backupFunc=clickAndStockBackup)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*departBtn), lambda: self.inWater(), 4,1, backupFunc=clickAndStockBackup,timeout=30)
         time.sleep(2)
         if(littleMove):
             # Stop the ship on rare case it goes back town
@@ -869,13 +892,13 @@ class UWTask(FrontTask):
             return
         battleInstance=importBattle()(self.simulatorInstance,self)
         self.changeFleet(dailyJobConf.get("landingFleet"))
-        self.gotoCity(dailyJobConf.get("landingCity"))
+        self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         self.goToHarbor()
-        self.depart(littleMove=False)
+        battleInstance.depart()
         while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
             battleInstance.goBackPort(dailyJobConf.get("landingCity"))
             self.goToHarbor()
-            self.depart(littleMove=False)
+            battleInstance.depart()
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
@@ -888,13 +911,14 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(278,859), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
         def checkNum():
-            num=self.getNumberFromSingleLineInArea(A=[1316,136,1338,158])
-            return num and num>11
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=3600)
+            num=self.getNumberFromSingleLineInArea(A=[1302,139,1337,155])
+            return num and num>dailyJobConf.get("landingTimes")
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=7200)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
 
         battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+        self.sellOverload()
         self.updateDailyConfVal("dailyLanding", True)
 
     def sellOverload(self):
@@ -925,6 +949,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(789,626),3,1)
 
         self.changeFleet(dailyJobConf.get("battleFleet"))
+        self.gotoCity(battleCity,express=True)
         self.battleRoute(battleCity)
         # activate protection
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(38,205), lambda: self.isPositionColorSimilarTo(38,205,(162,255,113)),5,timeout=10)
@@ -1082,6 +1107,7 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.send_enter(),0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114,109),2,1)
         #right panel
+        self.apacheFriendly=self.getNumberFromSingleLineInArea(A=[1293,207,1346,222])
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1356,153),lambda: (self.hasSingleLineWordsInArea("trade",A=[1148,185,1196,204])))
         wampumQty=self.getNumberFromSingleLineInArea(A=[1158,640,1171,658])
         if(wampumQty==4):
@@ -1100,6 +1126,11 @@ class UWTask(FrontTask):
         if(wampumQty==2):
             print("should restore")
             self.villageTradeList=copy.copy(villageTradeList)
+
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1336,191),lambda: (self.hasSingleLineWordsInArea("closeout",A=[1215,219,1286,239])))
+        self.liquorStock=getStockIdFromString(self.getSingleLineWordsInArea(A=[1188,478,1300,501]))
+        self.craftStock=getStockIdFromString(self.getSingleLineWordsInArea(A=[1187,785,1301,811]))
+
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),3)
 
     def getSellCity(self,routeObject):

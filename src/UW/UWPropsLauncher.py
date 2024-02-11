@@ -30,8 +30,8 @@ def run(props):
     # task.targetCity="naples"
 
     task.tradeRouteBuyFin=True
-    task.print("删除到达城市;检查航海道具；检查船耐久;检查忠诚")
-    task.print("检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间")
+    task.print("检查航海道具；检查船耐久;检查忠诚")
+    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间")
 
     if(battleOn):
         task.battleRoute(battleCity)
@@ -59,11 +59,11 @@ def run(props):
             task.print("not working hour,sleep for 30mins")
             time.sleep(1800)
             continue
-        task.setRouteOption()
         if(focusedBarterTrade):
             while(task.lastExecuted is not None and (getCentralTime().day == task.lastExecuted.day)):
                 time.sleep(60)
             task.specialConfUpdate()
+            task.setRouteOption()
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
             task.initialRun=False
         else:

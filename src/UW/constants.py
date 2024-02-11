@@ -27,7 +27,7 @@ blackListForBattle=['piz','zpi','robeyn','masa','roberts']
 maticBarterTrade={
     "buyProducts": ["silverware","coffee","wine"],
     "villages": ["turk"],
-    "buyCities":["nantes","arguin","genoa","algiers","tunis"],
+    "buyCities":["nantes","arguin","marseille","genoa","algiers","tunis"],
     "enableVillageTrade": True,
     "sellCity": "suez"
 }
@@ -104,7 +104,7 @@ apachewine={
     #     {"product":"silver","cities":[],"targetNum":402},
     #     {"product":"coral","cities":[],"targetNum":600}
     # ],
-    "buyCities": ["sofala","quelimane","cape","tom","praia","las","santo","rida","trujillo","portobelo","santo","bahia","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
+    "buyCities": ["sofala","quelimane","cape","tom","praia","las","santo","trujillo","portobelo","santo","bahia","tom","praia","las","bahia","buenos","ushuaia","copia","guate","acapulco"],
     "supplyCities": ["acapulco"],
     "buyProducts": ["silver","coral"],
     "buyNotProducts": ["work"],
@@ -257,13 +257,14 @@ bartingMonthToRoute = {
 dailyJobConf={
     "merchatQuestCity": "nantes",
     "buffCity": "davao",
-    "landingFleet": 9,
-    "landingCity": "hag",
+    "landingFleet": 8,
+    "landingCity": "jeju",
     "battleFleet": 5,
-    "endBattleCity": "davao"
+    "endBattleCity": "davao",
+    "landingTimes":250
 }
 
-checkInnCities=['lisboa','cape','toamasina','bathurst',"elmina",'sierra',"barcelona","pisa","saint","amsterda","visby","santo","trujillo","hadiboh","aceh","pasay","banjarmasin","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","cape","ushuaia","lima","acapulco","nantes","arguin","genoa","pisa","algiers","tunis","santa","seville","dublin","amsterda","bremen","hanyang","nagasaki","hangzhou","tainan","hobe","malacca","gari","hobart","soda","pernambuco","cayenne"]
+checkInnCities=['lisboa','bathurst',"elmina","aden",'sierra',"barcelona","marseille","pisa","saint","amsterda","visby","santo","portobelo","trujillo","hadiboh","aceh","pasay","banjarmasin","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","ushuaia","lima","acapulco","nantes","arguin","genoa","pisa","algiers","tunis","santa","seville","dublin","amsterda","bremen","hanyang","nagasaki","hangzhou","tainan","hobe","malacca","gari","hobart","soda","pernambuco","cayenne"]
 
 svearRouteBase={
     "buyProducts": [],
@@ -594,7 +595,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -616,13 +617,13 @@ routeLists=[
         },
         {
             "mode": "battle",
-            "buyCities":["davao"],
+            "buyCities":["davao","hag"],
         },
         {
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
         }
         # check passed day or pause
     ],
@@ -638,7 +639,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -660,13 +661,13 @@ routeLists=[
         },
         {
             "mode": "battle",
-            "buyCities":["davao"],
+            "buyCities":["davao","hag"],
         },
         {
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
         }
         # check passed day or pause
     ]

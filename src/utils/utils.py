@@ -196,3 +196,13 @@ def isDst():
     
 def getCentralTime():
     return datetime.now()-timedelta(hours=1)-(timedelta(hours=1) if isDst() else timedelta(hours=0))
+
+stockPairs=[(0,"depleted"),(1,"insufficient"),(2,"recommended"),(3,"abundant")]
+# return 0, depleted when string not found
+def getStockIdFromString(string):
+    if(not string):
+        return 0
+    for id, value in stockPairs:
+        if isStringSameOrSimilar(value, string):
+            return id
+    return 0

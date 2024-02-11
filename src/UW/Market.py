@@ -42,7 +42,7 @@ BMfile=os.path.abspath(__file__ + "\\..\\blackMarket.json")
 class Market:
     randomPoint=851,668
     buySellWholeArea=[187,99,949,395]
-    errorMsgTitleArea=[640,276,803,310]
+    errorMsgTitleArea=[654,285,783,303]
     today=None
     transactPurchaseBtn=1306,845
     transactClick=307,177
@@ -400,9 +400,9 @@ class Market:
                 index-=1
                 wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(540+xDiff,475),2,1)
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(377,665),lambda: self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(377,665),lambda: self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts")+["birch"],A=[651,423,786,448])):
-                    doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                    doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
 
         for (index, val) in villageObject.get("tradeObjects"):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
@@ -443,10 +443,10 @@ class Market:
             wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
             wait(lambda: self.instance.clickPointV2(242+xDiff,264),2)
             if(self.uwtask.hasArrayStringInSingleLineWords(goods,A=[627,245,810,272])):
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(570,670),lambda: self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(570,670),lambda: self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,602),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
             else:
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(1202,837),lambda: not self.uwtask.hasSingleLineWordsInArea("discard", A=self.errorMsgTitleArea),1,1,timeout=5)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(1202,837),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
         
     def buyInCityByConf(self, buyCities, buyProducts, buyFin, buysConf, buyStrategy=None):
         def getUpdatedBuyResults():

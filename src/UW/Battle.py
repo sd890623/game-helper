@@ -278,7 +278,7 @@ class Battle:
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*okBtn),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2,backupFunc=lambda: self.instance.clickPointV2(*self.uwtask.leftTopBackBtn),timeout=10)
 
         self.uwtask.print("出海")
-        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*departBtn), lambda: self.uwtask.inWater(), 4,2, backupFunc=clickAndStockBackup)
+        doAndWaitUntilBy(lambda: self.instance.clickPointV2(*departBtn), lambda: self.uwtask.inWater(), 4,2, backupFunc=clickAndStockBackup,timeout=30)
         time.sleep(2)
         self.uwtask.checkForDailyPopup(3)
 

@@ -12,9 +12,6 @@ from utils import *
 from datetime import date
 from UWTask import UWTask
 
-sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
-sys.path.append(os.path.abspath(__file__ + "\\..\\"))
-
 class Fashion:
     cityMapList=[
         {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"]},

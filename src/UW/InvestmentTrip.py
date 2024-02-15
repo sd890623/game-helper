@@ -1,8 +1,11 @@
-from utils import doMoreTimesWithWait, doAndWaitUntilBy, continueWithUntilByWithBackup, wait
-from UWTask import UWTask
-from windows import getAllWindowsWithTitle
 import sys
 import os
+sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
+sys.path.append(os.path.abspath(__file__ + "\\..\\"))
+
+from utils import doMoreTimesWithWait, doAndWaitUntilBy, continueWithUntilByWithBackup, wait,continueWithUntilBy
+from UWTask import UWTask
+from windows import getAllWindowsWithTitle
 import time
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
@@ -26,12 +29,10 @@ class Investment:
     goBM = False
     inn = True
     # Better do winter
-    investmentCities2 = [
-        "saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca", "pangk", "palembang", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya", "pinjarra",
-        "pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo",
-        "nassau", "nutak", "arviat", "reykjav", "narvik", "edinburgh"
-    ]
     investmentCities = [
+        "saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca", "pangk", "palembang", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "reykjav", "narvik","edinburgh"
+    ]
+    investmentCities2 = [
         'quanzhou',
         'hangzhou',
         'chongqing',
@@ -90,13 +91,17 @@ class Investment:
         task.print("去投资")
         doMoreTimesWithWait(lambda: simuInstance.clickPointV2(
             *task.rightCatePoint2), 1, 1)
-        task.clickInMenu(["bureau"], ["bureau"], startIndex=5)
+        if(not task.clickInMenu(["bureau"], ["bureau"], startIndex=5)):
+            continueWithUntilBy(lambda: simuInstance.clickPointV2(
+            *task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities), 3, 30)
+            task.clickInMenu(["bureau"], ["bureau"], startIndex=5)
+
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
             39, 84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2, 2)
         self.investOnce()
         while (True):
             num = task.getNumberFromSingleLineInArea(A=[260, 787, 285, 800])
-            if (num and num < 750 and task.hasSingleLineWordsInArea("p", A=[284, 807, 295, 823])):
+            if (num and num < 750 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
                 self.investOnce(True)
                 continue
             break
@@ -109,7 +114,7 @@ class Investment:
         for index, city in enumerate(self.investmentCities):
             if (city in self.changeFleet):
                 task.changeFleet(7)
-            task.gotoCity(city, self.investmentCities)
+            task.gotoCity(city, self.investmentCities,express=True)
             if (not city in self.supplyCities):
                 self.investInCity()
             if (city in self.sellCities):

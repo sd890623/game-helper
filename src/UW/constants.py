@@ -261,7 +261,11 @@ dailyJobConf={
     "landingCity": "jeju",
     "battleFleet": 5,
     "endBattleCity": "davao",
-    "landingTimes":250
+    "landingTimes":250,
+    "reportAndAdvQuestCity":"edo",
+    "battleQuest":False,
+    "gotoBattlecity": ["kakatuwah","gari"],
+    "leaveBattlecity": ["gari","kakatuwah"]
 }
 
 checkInnCities=['lisboa','bathurst',"elmina","aden",'sierra',"barcelona","marseille","pisa","saint","amsterda","visby","santo","portobelo","trujillo","hadiboh","aceh","pasay","banjarmasin","ambon","ternate","natal","sofala","quelimane","mozambique","kilwa","zanzibar","mogadishu","ushuaia","lima","acapulco","nantes","arguin","genoa","pisa","algiers","tunis","santa","seville","dublin","amsterda","bremen","hanyang","nagasaki","hangzhou","tainan","hobe","malacca","gari","hobart","soda","pernambuco","cayenne"]
@@ -572,6 +576,9 @@ routeLists=[
             "mode": "battle",
             "buyCities":["davao"],
         },
+        {"mode": "reportAndAdvQuest",
+            "buyCities":["edo"]
+         },
         {
             **witotoRouteBase,
             "buyCities":["kuching"],
@@ -595,7 +602,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","quanzhou","banjarmasin","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -619,11 +626,14 @@ routeLists=[
             "mode": "battle",
             "buyCities":["davao","hag"],
         },
+        {"mode": "reportAndAdvQuest",
+            "buyCities":["edo"]
+         },
         {
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","quanzhou","banjarmasin","malacca","mogadishu"]
         }
         # check passed day or pause
     ],
@@ -639,7 +649,7 @@ routeLists=[
             **witotoRouteBase,
             "buyCities":["prey","deokwon"],
             "villages": ["witoto"],    
-            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","quanzhou","banjarmasin","malacca","mogadishu"]
         },
         {
             **apacheRouteBase,
@@ -663,11 +673,14 @@ routeLists=[
             "mode": "battle",
             "buyCities":["davao","hag"],
         },
+        {"mode": "reportAndAdvQuest",
+            "buyCities":["edo"]
+         },
         {
             **witotoRouteBase,
             "buyCities":["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang","nagasaki","tainan","banjarmasin","malacca","mogadishu"]
+            "afterSellCities": ["hanyang","nagasaki","quanzhou","banjarmasin","malacca","mogadishu"]
         }
         # check passed day or pause
     ]

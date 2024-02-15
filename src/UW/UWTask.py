@@ -66,7 +66,7 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.goLanding()
+        self.report()
         self.checkInn('manila',{
                 "checkInnCities": ['manila','hanyang','hangzhou','hobe']
         })
@@ -182,7 +182,7 @@ class UWTask(FrontTask):
             if(value.get("afterVillageBuyCities")):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageBuyCities"))
         self.allCityList+=["said"]
-        self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"]]
+        self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"],dailyJobConf["reportAndAdvQuestCity"]]
         for routeObject in self.routeList:
             if(routeObject.get("buyCities")):
                 addNonExistArrayToArray(self.allCityList, routeObject.get("buyCities"))
@@ -882,10 +882,36 @@ class UWTask(FrontTask):
                 self.bartingTrade(maticBarterTrade)
             self.gotoCity("said")
             self.crossTunnel(goods=True)
-            self.gotoCity(maticBarterTrade.get("sellCity"))
+            self.gotoCity(maticBarterTrade.get("sellCity"),express=True)
             self.changeFleet(6,simple=True)
             self.sellInCity(maticBarterTrade.get("sellCity"),simple=True)
+            self.changeFleet(2)
             self.updateDailyConfVal("merchantQuest", True)
+
+    def report(self):
+        self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
+        self.clickInMenu(["estate"],["estate"])
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(48,151), lambda: self.hasSingleLineWordsInArea("report", A=self.titleArea),2,1)
+        chestLocation= self.hasImageInScreen("chestInReport", A=[196,174,1098,468])
+        if (chestLocation):
+            chestClick=chestLocation[0]+5,chestLocation[1]+5
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*chestClick), lambda: self.hasSingleLineWordsInArea("report", A=[645,215,710,236]),2,1,timeout=10)
+            while(self.getNumberFromSingleLineInArea(A=[999,278,1064,295])>20000 or self.getNumberFromSingleLineInArea(A=[999,278,1064,295])<1500):
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1021,580), lambda: self.hasSingleLineWordsInArea("number", A=[963,279,1039,306]),2,1,timeout=10)
+                wait(lambda: self.simulatorInstance.clickPointV2(951,403),1)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(878,580),2,1)
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1073,556), lambda: not self.hasSingleLineWordsInArea("number", A=[963,279,1039,306]),2,1,timeout=10)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(796,668), lambda: not self.hasSingleLineWordsInArea("report", A=[645,215,710,236]),2,1,timeout=10)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1284,852), lambda: self.hasSingleLineWordsInArea("yes", A=[1047,779,1112,812]),2,1,timeout=10)
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1085,788),2,1)
+
+        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),2,16)
+
+
+    def reportAndAdvQuest(self):
+        if(not self.getDailyConfValByKey("reportAndAdvQuest")):
+            self.gotoCity(dailyJobConf.get("reportAndAdvQuestCity"),express=True)
+            self.report()
 
     def goLanding(self):
         if(self.getDailyConfValByKey("dailyLanding")):
@@ -911,7 +937,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(278,859), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
         def checkNum():
-            num=self.getNumberFromSingleLineInArea(A=[1302,139,1337,155])
+            num=self.getNumberFromSingleLineInArea(A=[1296,137,1332,157])
             return num and num>dailyJobConf.get("landingTimes")
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=7200)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
@@ -1191,6 +1217,8 @@ class UWTask(FrontTask):
                     for city in routeObject.get("supplyCities"):
                         self.gotoCity(city,self.allCityList,express=True)
                         self.checkInn(city, routeObject)
+                if(routeObject.get("mode")=="reportAndAdvQuest"):
+                    self.reportAndAdvQuest()
             else:
                 self.changeFleet(routeObject.get('buyFleet'))
                 self.bartingTrade(routeObject)
@@ -1270,7 +1298,8 @@ class UWTask(FrontTask):
                     time.sleep(1800)
                     continue
                 if(not self.getDailyConfValByKey("acceptedDailyBattleQuest")):
-                    self.acceptQuest(["perfect","fighting"])
+                    if(dailyJobConf.get("battleQuest")):
+                        self.acceptQuest(["perfect","fighting"])
                     self.updateDailyConfVal("acceptedDailyBattleQuest", True)
                 battle.leavePort()
             self.checkForGiftAndReceive()

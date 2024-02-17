@@ -64,6 +64,7 @@ def run(props):
                 time.sleep(60)
             task.specialConfUpdate()
             task.setRouteOption()
+            initialRouteIndex=task.getInitialRouteIndex()
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
             task.initialRun=False
         else:

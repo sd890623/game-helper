@@ -391,7 +391,7 @@ class Market:
         
     def barterInVillage(self, villageObject):
         def cleanupGoods():
-            index=2
+            index=3
             #first 540,475
             #2th 614,480
             while (index>=0):

@@ -30,7 +30,7 @@ class UWTask(FrontTask):
     rightCatePoint2=1290,90
     rightCatePoint3=1342,88
 
-    titleArea=[46,8,238,49]
+    titleArea=[50,9,301,46]
     rightTopTownIcon=1402,25
     leftTopBackBtn=23,26
     inTownCityNameArea=[121,20,262,46]
@@ -66,7 +66,7 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.report()
+        self.crossTunnel(goods=True)
         self.checkInn('manila',{
                 "checkInnCities": ['manila','hanyang','hangzhou','hobe']
         })
@@ -142,7 +142,8 @@ class UWTask(FrontTask):
     def getRouteNoFromApacheStats(self):
         if(self.apacheFriendly>90000):
             if(self.craftStock in [1,2,3]):
-                return 10
+                # return 10
+                return 11
             elif(self.liquorStock in [1,2,3]):
                 return 9
             else:
@@ -769,6 +770,8 @@ class UWTask(FrontTask):
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*openButton),lambda: self.hasSingleLineWordsInArea("order", A=[735,253,801,280]), 2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(600,506),lambda: self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(784,606),lambda: not self.hasSingleLineWordsInArea("notice", A=[681,269,760,295]), 2)
+        else:
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),lambda: not self.hasSingleLineWordsInArea("order", A=[735,253,801,280]), 2)
 
     
     def shouldFinishTradeAndChangeFleet(self,routeObject):
@@ -950,7 +953,7 @@ class UWTask(FrontTask):
     def sellOverload(self):
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1385,109), lambda: self.hasSingleLineWordsInArea("storage", A=self.titleArea))
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(55,341),3,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(55,341),2,1)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1339,153),3,1)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inCityList(self.allCityList)),2)
 
@@ -989,7 +992,7 @@ class UWTask(FrontTask):
     def crossTunnel(self,goods=False):
         self.clickInMenu(['mmigration'], ['mmigration'])
         if(goods):
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1189,579), lambda: self.isPositionColorSimilarTo(1189,584,(90,221,36)),2)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1332,579), lambda: self.isPositionColorSimilarTo(1188,583,(87,218,36)),2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1326,643), lambda: self.hasSingleLineWordsInArea("notice", A=[681,314,757,337]),2,2)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(776,568), lambda: self.inCityList(self.allCityList),5,timeout=60)
         print("channel")
@@ -1159,7 +1162,7 @@ class UWTask(FrontTask):
 
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),3)
 
-    def getSellCity(self,routeObject):
+    def getSellCity(self,routeObject):            
         if(routeObject.get("waitForFashion")):
             waitHour=routeObject.get("waitHour")+1 if routeObject.get("waitHour") else 3
             shouldWaitForFashion=self.market.shouldWaitForFashion(routeObject.get("fashions"),routeObject.get("sellCityOptions"),waitHour)
@@ -1185,9 +1188,11 @@ class UWTask(FrontTask):
             if(seq.get("type")=="go"):
                 self.gotoCity(seq.get("val"),[seq.get("val")],express=True)
             if(seq.get("type")=="goSellCity"):
-                self.gotoCity(sellCity,[sellCity])
+                self.gotoCity(sellCity,[sellCity],express=True)
             if(seq.get("type")=="tunnel"):
-                self.crossTunnel(goods=True)
+                self.crossTunnel(goods=seq.get("val"))
+            if(seq.get("type")=="getBestPriceCity"):
+                sellCity=self.getSellCity(routeObject)[0]
             if(seq.get("type")=="sell"):
                 if(routeObject.get("useSkillCity")):
                     self.useTradeSkill(inCity=True)
@@ -1213,12 +1218,13 @@ class UWTask(FrontTask):
                     self.startDailyBattle(self.battleCity)
                 elif(routeObject.get("mode")=="merchantQuest"):
                     self.startMerchantQuest()
+                elif(routeObject.get("mode")=="reportAndAdvQuest"):
+                    self.reportAndAdvQuest()
                 if(routeObject.get("supplyCities")):
                     for city in routeObject.get("supplyCities"):
                         self.gotoCity(city,self.allCityList,express=True)
                         self.checkInn(city, routeObject)
-                if(routeObject.get("mode")=="reportAndAdvQuest"):
-                    self.reportAndAdvQuest()
+
             else:
                 self.changeFleet(routeObject.get('buyFleet'))
                 self.bartingTrade(routeObject)
@@ -1233,8 +1239,9 @@ class UWTask(FrontTask):
                     else:
                         self.gotoCity(element,self.allCityList,express=True)
                         self.checkInn(element, routeObject)
-
-                if(routeObject.get("sellCityOptions")):
+                if(routeObject.get("forceUseSequenceOptions")):
+                    self.sellBySequencedConf(routeObject.get("secondSellOptions")[0].get("cities")[0],routeObject.get("secondSellOptions")[0],routeObject)
+                elif(routeObject.get("sellCityOptions")):
                     #(sellCity,element), element is obj in secondSellOptions or None
                     (sellCity, element)=self.getSellCity(routeObject)
                     if(element is None):
@@ -1251,7 +1258,7 @@ class UWTask(FrontTask):
                     self.gotoCity(sellCity,self.allCityList,express=True)
                     self.changeFleet(6,simple=True)
                     self.sellInCity(sellCity,simple=True)
-                self.changeFleet(routeObject.get('sellFleet'))
+                self.changeFleet(routeObject.get('sellFleet'),simple=True)
                 if(routeObject.get("afterSellCities")):
                     for element in routeObject.get("afterSellCities"):
                         if(isinstance(element, collections.abc.Mapping)):

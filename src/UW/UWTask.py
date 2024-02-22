@@ -66,10 +66,7 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.crossTunnel(goods=True)
-        self.checkInn('manila',{
-                "checkInnCities": ['manila','hanyang','hangzhou','hobe']
-        })
+        self.sendNotification("found mate")
         # market.cleanupGoods(["oil"])
         print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
@@ -183,7 +180,7 @@ class UWTask(FrontTask):
             if(value.get("afterVillageBuyCities")):
                 addNonExistArrayToArray(self.allCityList, value.get("afterVillageBuyCities"))
         self.allCityList+=["said"]
-        self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"],dailyJobConf["reportAndAdvQuestCity"]]
+        self.allCityList+=[dailyJobConf["merchatQuestCity"],dailyJobConf["buffCity"],dailyJobConf["landingCity"],dailyJobConf["endBattleCity"],dailyJobConf["reportAndAdvQuestCity"],self.battleCity]
         for routeObject in self.routeList:
             if(routeObject.get("buyCities")):
                 addNonExistArrayToArray(self.allCityList, routeObject.get("buyCities"))
@@ -434,7 +431,7 @@ class UWTask(FrontTask):
 
     def checkForDailyPopup(self,delay=0):
         hour=dt.datetime.now().hour
-        if(hour in [1,2]):
+        if(hour in [1,2,3,4]):
             time.sleep(delay)
             if(self.hasArrayStringEqualSingleLineWords(['attendance','perk'],A=[241,174,367,206])):
                 wait(lambda: self.simulatorInstance.clickPointV2(1135,213),2)
@@ -563,8 +560,8 @@ class UWTask(FrontTask):
         if(self.sbCity and self.currentCity==self.sbCity):
             self.shipBuilding(self.sbOptions, self.sbCity, 1)
 
-    def checkInn(self, city, routeObject):
-        if(not routeObject.get("checkInnCities")):
+    def checkInn(self, city, routeObject=None):
+        if(routeObject and not routeObject.get("checkInnCities")):
             return
         if(city not in checkInnCities):
             return
@@ -718,7 +715,7 @@ class UWTask(FrontTask):
             return self.hasSingleLineWordsInArea("village", A=self.titleArea)
         def backup():
             self.print("cant move, map again")
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater()),2)#leave map
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater()),2)
             self.checkForBasicStuck()
             if(self.hasSelectedMap<3):
                 self.hasSelectedMap+=1
@@ -882,12 +879,11 @@ class UWTask(FrontTask):
             self.changeFleet(4)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
             if(self.acceptQuest(["exchange"])):
-                self.bartingTrade(maticBarterTrade)
-            self.gotoCity("said")
-            self.crossTunnel(goods=True)
+                self.bartingTrade(maticBarterTrade)            
             self.gotoCity(maticBarterTrade.get("sellCity"),express=True)
             self.changeFleet(6,simple=True)
             self.sellInCity(maticBarterTrade.get("sellCity"),simple=True)
+            self.crossTunnel(goods=True)
             self.changeFleet(2)
             self.updateDailyConfVal("merchantQuest", True)
 
@@ -909,6 +905,9 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1085,788),2,1)
 
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCityList(self.allCityList),2,16)
+        self.checkInn(dailyJobConf.get("reportAndAdvQuestCity"))
+        #self.changeFleet(dailyJobConf.get("basicFleet"),simple=True)
+
 
 
     def reportAndAdvQuest(self):
@@ -920,8 +919,8 @@ class UWTask(FrontTask):
         if(self.getDailyConfValByKey("dailyLanding")):
             return
         battleInstance=importBattle()(self.simulatorInstance,self)
-        self.changeFleet(dailyJobConf.get("landingFleet"))
         self.gotoCity(dailyJobConf.get("landingCity"),express=True)
+        self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
         self.goToHarbor()
         battleInstance.depart()
         while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
@@ -985,7 +984,7 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("endBattleCity"))
         self.sellInCity(dailyJobConf.get("endBattleCity"), simple=True)
         self.updateDailyConfVal("dailyBattle", True)
-        self.changeFleet(2,simple=True)
+        self.changeFleet(2)
         self.sellOverload()
 
 
@@ -993,9 +992,11 @@ class UWTask(FrontTask):
         self.clickInMenu(['mmigration'], ['mmigration'])
         if(goods):
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1332,579), lambda: self.isPositionColorSimilarTo(1188,583,(87,218,36)),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1326,643), lambda: self.hasSingleLineWordsInArea("notice", A=[681,314,757,337]),2,2)
+        def backupFunc():
+            self.simulatorInstance.clickPointV2(1332,579)
+            self.simulatorInstance.clickPointV2(1326,643)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1326,643), lambda: self.hasSingleLineWordsInArea("notice", A=[681,314,757,337]),2,2,backupFunc=backupFunc)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(776,568), lambda: self.inCityList(self.allCityList),5,timeout=60)
-        print("channel")
 
     def bartingTrade(self, routeObject):
         # 换货

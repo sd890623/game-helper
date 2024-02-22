@@ -98,6 +98,9 @@ class Battle:
             while(self.uwtask.isPositionColorSimilarTo(39,135,(184, 0, 0)) or self.uwtask.isPositionColorSimilarTo(112,127,(219,29,36))):
                 print("foe's turn, wait for 5s")
                 time.sleep(5)
+            if(self.uwtask.isPositionColorSimilarTo(1182,830,(59,59,59))):
+                wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                continue
             number=self.uwtask.getNumberFromSingleLineInArea(A=[33,118,48,136])
             match number:
                 case 1:
@@ -246,7 +249,7 @@ class Battle:
             wait(lambda: self.uwtask.findCityAndClick(targetCity),40)
             doMoreTimesWithWait(lambda: self.instance.rightClickPointV2(*self.randomPoint),4,10)
         
-        continueWithUntilByWithBackup(lambda: inJourneyTask(), lambda: self.uwtask.inCityList(cityList), 1, timeout=40,notifyFunc=lambda: self.uwtask.print("not found, wait for 4s"),backupFunc=backupFunc)
+        continueWithUntilByWithBackup(lambda: inJourneyTask(), lambda: self.uwtask.inCityList(cityList), 1, timeout=80,notifyFunc=lambda: self.uwtask.print("not found, wait for 4s"),backupFunc=backupFunc)
         self.uwtask.print("click twice")
         self.uwtask.clickEnterCityButton()
 

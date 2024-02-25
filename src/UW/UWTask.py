@@ -66,7 +66,7 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.sendNotification("found mate")
+        self.goLanding()
         # market.cleanupGoods(["oil"])
         print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
@@ -883,7 +883,7 @@ class UWTask(FrontTask):
             self.gotoCity(maticBarterTrade.get("sellCity"),express=True)
             self.changeFleet(6,simple=True)
             self.sellInCity(maticBarterTrade.get("sellCity"),simple=True)
-            self.crossTunnel(goods=True)
+            self.crossTunnel()
             self.changeFleet(2)
             self.updateDailyConfVal("merchantQuest", True)
 
@@ -921,31 +921,35 @@ class UWTask(FrontTask):
         battleInstance=importBattle()(self.simulatorInstance,self)
         self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
-        self.goToHarbor()
-        battleInstance.depart()
-        while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
-            battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+        dailyRare=False
+        for x in range(3):
             self.goToHarbor()
             battleInstance.depart()
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+            while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
+                battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+                self.goToHarbor()
+                battleInstance.depart()
+            if(not dailyRare):
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
+                doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
+                continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+                dailyRare=True
 
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(278,859), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
-        def checkNum():
-            num=self.getNumberFromSingleLineInArea(A=[1296,137,1332,157])
-            return num and num>dailyJobConf.get("landingTimes")
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=7200)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
-        continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(278,859), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
+            def checkNum():
+                num=self.getNumberFromSingleLineInArea(A=[1296,137,1332,157])
+                return num and num>dailyJobConf.get("landingTimes")
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=7200)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+            battleInstance.goBackPort(dailyJobConf.get("landingCity"))
 
-        battleInstance.goBackPort(dailyJobConf.get("landingCity"))
         self.sellOverload()
         self.updateDailyConfVal("dailyLanding", True)
 

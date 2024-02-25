@@ -274,7 +274,7 @@ dailyJobConf = {
     "landingCity": "dongnae",
     "battleFleet": 5,
     "endBattleCity": "davao",
-    "landingTimes": 350,
+    "landingTimes": 175,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],

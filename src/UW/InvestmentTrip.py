@@ -30,7 +30,7 @@ class Investment:
     inn = True
     # Better do winter
     investmentCities = [
-        "saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca", "pangk", "palembang", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "reykjav", "narvik","edinburgh"
+        "saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "reykjav", "narvik","edinburgh"
     ]
     investmentCities2 = [
         'quanzhou',
@@ -67,7 +67,7 @@ class Investment:
     ]
     buyGoods = [
         "vodka", "felt", "paper", "feather", "amber", "aquavit", "twohand", "whisky", "velvet", "western", "oakmoss", "narcissus", "civet", "damascus",
-        "chinesetea", "huzhoubrush", "ancientbone", "gardenia", "bingata", "ramiefabric", "sweetolive", "shaoxingwine", "blueandwhite", "blackvineg", "musa", "staranise", "beanpaste", "chinesepainting", "guqin", "sanjiegun", "firelance"
+        "chinesetea", "huzhoubrush", "ancientbone", "gardenia", "bingata", "ramiefabric", "sweetolive", "shaoxingwine", "blueandwhite", "blackvineg", "musa", "staranise", "beanpaste", "chinesepainting", "guqin", "sanjiegun", "firelance","shu"
     ]
     sellCities = [
         "quanzhou", "nassau"
@@ -82,7 +82,7 @@ class Investment:
         if (investBtn):
             wait(lambda: simuInstance.clickPointV2(709, 261), 1)
             if (domax):
-                wait(lambda: simuInstance.clickPointV2(786, 532), 1)
+                doMoreTimesWithWait(lambda: simuInstance.clickPointV2(864,491),6,0)
             wait(lambda: simuInstance.clickPointV2(
                 investBtn[0]+30, investBtn[1]+5))
             wait(lambda: simuInstance.clickPointV2(1278, 853), 1)
@@ -97,7 +97,7 @@ class Investment:
             task.clickInMenu(["bureau"], ["bureau"], startIndex=5)
 
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
-            39, 84), lambda: task.hasSingleLineWordsInArea("lnvest", A=task.titleArea), 2, 2)
+            39, 84), lambda: task.hasSingleLineWordsInArea("invest", A=task.titleArea), 2,2,timeout=5)
         self.investOnce()
         while (True):
             num = task.getNumberFromSingleLineInArea(A=[260, 787, 285, 800])

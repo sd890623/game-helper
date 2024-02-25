@@ -353,7 +353,7 @@ apacheRouteBase = {
     "enableVillageTrade": True,
     "useFishingCities": ["ushuaia"],
     "villages": ["apac"],
-    "afterVillageBuyCities": ["acapulco"],
+    # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": [{"route": 3, "target": "aden"}],
     "sellFleet": 7,
     "useSkillCity": "suez",
@@ -742,21 +742,27 @@ routeLists = [
     [
         {
             **apacheRouteBase,
+            "supplyCities": ["panama"],
+            "forceUseSequenceOptions": True,
+            "sellCityOptions": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"],
             "secondSellOptions": [
                 {
                     "seqs": [
+                        {"type": "tunnel","val": True},
+                        {"type": "go", "val": "santa"},
+                        {"type": "go", "val": "plymouth"},
+                        {"type": "go", "val": "beck"},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"}
                     ],
-                    "cities": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "manbasa", "malindi", "mogadishu"]
+                    "cities": ["beck"]
                 }
             ],
             "villages": ["apache"],
-            "buyCities": ["natal"]
-        },
-        {
-            "buyCities": ["suez"],
-            "mode": "tunnel"
+            "buyCities": ["natal"],
+            "afterSellCities":["dover"]
         },
         {
             **svearRouteBase,
@@ -804,6 +810,8 @@ routeLists = [
         {
             **apacheRouteBase,
             "villages": ["apac"],
+            "supplyCities": ['lima', 'ushuaia', 'cape', 'aden'],
+            "useFishingCities": ["cape"],
             "secondSellOptions": [
                 {
                     "seqs": [

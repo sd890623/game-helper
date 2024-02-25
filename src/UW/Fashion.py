@@ -18,10 +18,11 @@ class Fashion:
         {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]},
         {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]},
         {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
-        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]}
+        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]},
+        {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
     ]
     mapList = [
-        {'name': '北海', 'zone': 0, 'show': True, 'flag': 0},
+        {'name': '北海', 'zone': 0, 'show': True, 'flag': 0,"zoneMinutes":0},
         {'name': '东地中海', 'zone': -1, 'show': True, 'flag': 0, "zoneMinutes":1},
         {'name': '大西洋&西地中海', 'zone': -2, 'show': True, 'flag': 0},
         {'name': '西非', 'zone': -3, 'show': True, 'flag': 0},

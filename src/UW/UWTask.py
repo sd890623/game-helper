@@ -1033,7 +1033,6 @@ class UWTask(FrontTask):
         self.market.cleanupGoods(villageObject["buyProducts"])
         self.sellOverload()
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inCity(self.currentCity),2,16)
-        self.changeFleet(routeObject.get('buyFleet'),simple=True)
 
     def startTradeRoute(self, routeObjIndex:int =0):
         routeObject=self.routeList[routeObjIndex]
@@ -1235,6 +1234,7 @@ class UWTask(FrontTask):
                 self.bartingTrade(routeObject)
                 self.changeFleet(routeObject.get('sellFleet'))
                 if(routeObject.get("afterVillageBuyCities")):
+                    self.changeFleet(routeObject.get('buyFleet'),simple=True)
                     for city in routeObject["afterVillageBuyCities"]:
                         self.gotoCity(city,self.allCityList,express=True)
                         self.buyInCity(self.allCityList, products=routeObject["buyProducts"])

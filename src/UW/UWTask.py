@@ -411,7 +411,7 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),4,5)
         if(fishing):
             self.fishing()
-            time.sleep(480)
+            time.sleep(180)
             doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1381,423), lambda: self.hasSingleLineWordsInArea("notice", A=[685,270,761,299]),2,2,timeout=10)
             doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(780,610),3)
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(cityList)),2)
@@ -921,7 +921,7 @@ class UWTask(FrontTask):
         battleInstance=importBattle()(self.simulatorInstance,self)
         self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
-        dailyRare=False
+        dailyRare=True
         for x in range(3):
             self.goToHarbor()
             battleInstance.depart()
@@ -1021,7 +1021,7 @@ class UWTask(FrontTask):
         if(villageObject.get("supplyFleet")):
             self.changeFleet(villageObject.get("supplyFleet"))
         for city in villageObject.get("supplyCities"):
-            self.gotoCity(city,self.allCityList,express=True,fishing=(routeObject.get("useFishingCities") is not None and  city in routeObject.get("useFishingCities")))
+            self.gotoCity(city,self.allCityList,express=True,fishing=(routeObject.get("useFishingCities") is not None and city in routeObject.get("useFishingCities")))
             self.checkInn(city, villageObject)
         if(villageObject.get("barterFleet")):
             self.changeFleet(villageObject.get("barterFleet"))
@@ -1191,6 +1191,7 @@ class UWTask(FrontTask):
         for seq in option.get("seqs"):
             if(seq.get("type")=="go"):
                 self.gotoCity(seq.get("val"),[seq.get("val")],express=True)
+                self.checkInn(seq.get("val"), routeObject)
             if(seq.get("type")=="goSellCity"):
                 self.gotoCity(sellCity,[sellCity],express=True)
             if(seq.get("type")=="tunnel"):
@@ -1242,7 +1243,7 @@ class UWTask(FrontTask):
                     if(isinstance(element, collections.abc.Mapping)):
                         self.goToRoute(element)
                     else:
-                        self.gotoCity(element,self.allCityList,express=True)
+                        self.gotoCity(element,self.allCityList,express=True,fishing=(routeObject.get("useFishingCities") is not None and element in routeObject.get("useFishingCities")))
                         self.checkInn(element, routeObject)
                 if(routeObject.get("forceUseSequenceOptions")):
                     self.sellBySequencedConf(routeObject.get("secondSellOptions")[0].get("cities")[0],routeObject.get("secondSellOptions")[0],routeObject)

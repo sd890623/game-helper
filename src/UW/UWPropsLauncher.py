@@ -60,9 +60,9 @@ def run(props):
             time.sleep(1800)
             continue
         if(focusedBarterTrade):
-            # while(task.lastExecuted is not None and (getCentralTime().day == task.lastExecuted.day)):
-            #     time.sleep(60)
-            #     task.print("sleep for 2nd day")
+            while(task.lastExecuted is not None and (getCentralTime().day == task.lastExecuted.day)):
+                time.sleep(60)
+                task.print("sleep for 2nd day")
             task.specialConfUpdate()
             task.setRouteOption()
             initialRouteIndex=task.getInitialRouteIndex()

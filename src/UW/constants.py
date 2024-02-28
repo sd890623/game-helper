@@ -149,6 +149,23 @@ witoto = {
     "supplyFleet": 2,
     "barterFleet": 3
 }
+quechuas = {
+    "villageName": "quechuas",
+    # 
+    "buyCities": ["kuching", "aceh","mogadishu","zanzibar","mozambique","cape","buenos","ushuaia", "valpara", "copia", "tumbes", "lima"],
+    "supplyCities": ["lima"],
+    "buyProducts": ["coal", "silver","gold"],
+    "buyNotProducts": ["dust"],
+    "checkInnCities": True,
+    # "afterVillageSupplyCities": ["acapulco"],
+    # (index, val) array
+    "tradeObjects": [(0, 0), (1, 0), (2, 0)],
+    "cleanupIndex": 2,
+    "buyStrategy": "useGem",
+    "useGemCities": ["kuching","copia"],
+    "supplyFleet": 2,
+    "barterFleet": 3
+}
 villageTradeList = {
     "turk": {
         "startCities": ['beck'],
@@ -172,6 +189,8 @@ villageTradeList = {
     "apacwine": apachewine,
     "witoto": witoto,
     "witot": witoto,
+    "quechuas": quechuas,
+    "quechua": quechuas,
     "varo": {
         "villageName": "varo",
         "buys": [
@@ -281,8 +300,8 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"]
 }
 
-checkInnCities = ['lisboa', 'bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "amsterda", "visby", "santo", "portobelo", "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa",
-                  "zanzibar", "mogadishu", "ushuaia", "lima", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa", "seville", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "tainan", "hobe", "malacca", "gari", "hobart", "soda", "pernambuco", "cayenne"]
+checkInnCities = ['lisboa', 'bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo", "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa",
+                  "zanzibar", "mogadishu", "ushuaia", "lima","valpara", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa", "seville", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "tainan", "hobe", "malacca", "gari", "hobart", "soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -357,6 +376,46 @@ apacheRouteBase = {
     "supplyCities": [{"route": 3, "target": "aden"}],
     "sellFleet": 7,
     "useSkillCity": "suez",
+    "checkInnCities": True,
+    "sellPriceIndex": 0,
+    "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+    "secondSellOptions": [
+        {
+            "seqs": [
+                {"type": "go", "val": "suez"},
+                {"type": "tunnel"},
+                {"type": "goSellCity"},
+                {"type": "sell"},
+                {"type": "go", "val": "said"},
+                {"type": "tunnel"}
+            ],
+            "cities": ["alexandria", "cairo", "said", "jaffa", "beirut", "lefkosa", "antalya", "candia", "trabzon", "benghazi"]
+        },
+        {
+            "seqs": [
+                {"type": "goSellCity"},
+                {"type": "sell"}
+            ],
+            "cities": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "manbasa", "malindi", "mogadishu"]
+        }
+    ],
+    "fashions": ["奢华", "赞助"],
+    "waitForFashion": True,
+    "waitHour": 1,
+    "afterSellCities": ["suez"]
+}
+
+quechuasRouteBase = {
+    "buyProducts": [],
+    "buyFleet": 4,
+    "buyCities": ["kuching"],
+    "enableVillageTrade": True,
+    "useFishingCities": ["ushuaia","cape"],
+    "villages": ["quechuas"],
+    # "afterVillageBuyCities": ["acapulco"],
+    "supplyCities": ['ushuaia', 'cape', 'aden'],
+    "sellFleet": 7,
+    "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndex": 0,
     "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
@@ -685,7 +744,7 @@ routeLists = [
          },
         {
             **witotoRouteBase,
-            "buyCities": ["kuching"],
+            "buyCities": ["kuching","mozambique"],
             "villages": ["witot"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malacca", "mogadishu"]
         }
@@ -811,7 +870,7 @@ routeLists = [
             **apacheRouteBase,
             "villages": ["apac"],
             "supplyCities": ['lima', 'ushuaia', 'cape', 'aden'],
-            "useFishingCities": ["cape"],
+            "useFishingCities": ["ushuaia","cape"],
             "secondSellOptions": [
                 {
                     "seqs": [
@@ -828,25 +887,6 @@ routeLists = [
             "mode": "tunnel"
         },
         {
-            **samiRouteBase,
-            "buyCities": ["ponta"],
-            "villages": ["sami"],
-            "forceUseSequenceOptions": True,
-            "waitForFashion": False,
-            "secondSellOptions": [
-                {
-                    "seqs": [
-                        {"type": "go", "val": "said"},
-                        {"type": "tunnel","val": True},
-                        {"type": "sell"},
-                        {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}
-                    ],
-                    "cities": ["suez"]
-                }
-            ],
-        },
-        {
             "buyCities": ["nantes"],
             "mode": "merchantQuest",
             "supplyCities": ["hadiboh", "malacca", "ambon", "ternate"],
@@ -859,31 +899,57 @@ routeLists = [
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["malacca", "hadiboh","suez"],
+            "supplyCities": ["malacca"],
+        },
+        {
+            **quechuasRouteBase,
+            "buyCities": ["kuching"],
         },
         {
             "mode": "tunnel"
         },
         {
             **samiRouteBase,
-            "buyCities": ["lisboa"],
-            "villages": ["sam"],
+            "buyCities": ["ponta"],
+            "villages": ["sami"],
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+            "waitForFashion": False,
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "said"},
                         {"type": "tunnel","val": True},
-                        # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"}
                     ],
                     "cities": ["suez"]
                 }
-            ]
-        }
+            ],
+        },
+        # {
+        #     "mode": "tunnel"
+        # },
+        # {
+        #     **samiRouteBase,
+        #     "buyCities": ["lisboa"],
+        #     "villages": ["sam"],
+        #     "forceUseSequenceOptions": True,
+        #     "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+        #     "secondSellOptions": [
+        #         {
+        #             "seqs": [
+        #                 {"type": "go", "val": "said"},
+        #                 {"type": "tunnel","val": True},
+        #                 # getBestPriceCity will use sellCityOptions to override the sell city
+        #                 {"type": "getBestPriceCity"},
+        #                 {"type": "goSellCity"},
+        #                 {"type": "sell"}
+        #             ],
+        #             "cities": ["suez"]
+        #         }
+        #     ]
+        # }
         # check passed day or pause
     ]
 ]

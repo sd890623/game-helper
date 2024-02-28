@@ -275,7 +275,7 @@ class Battle:
             maxCrew=getNumberFromString(crewWords.split("/")[1])
             if(actualCrew/maxCrew<0.97):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*firstLineArrowBtn),lambda: self.uwtask.hasSingleLineWordsInArea("recruit", A=self.uwtask.titleArea), 1,2)
-                wait(lambda: self.instance.clickPointV2(1333,410),0)                
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1333,410),2,0)                
                 wait(lambda: self.instance.longerClickPointV2(1350,526),2)
                 wait(lambda: self.instance.clickPointV2(*okBtn),1)
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(*okBtn),lambda: self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea), 1,2,backupFunc=lambda: self.instance.clickPointV2(*self.uwtask.leftTopBackBtn),timeout=10)

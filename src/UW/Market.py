@@ -236,7 +236,7 @@ class Market:
             if(number and int(number)>=25):
                 break
             else:
-                time.sleep(60)
+                time.sleep(30)
                 wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
 
         self.buyProductsInMarket(products)

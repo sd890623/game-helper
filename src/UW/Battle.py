@@ -290,11 +290,17 @@ class Battle:
         self.uwtask.checkForBasicStuck()
 
     def goBackPort(self, town):
+        def backup():
+            if(self.uwtask.hasSingleLineWordsInArea("result",A=[726,230,823,262])):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(723,673),3,2)
+                if(self.uwtask.hasSingleLineWordsInArea("ok",A=[756,597,804,620])):
+                    wait(lambda: self.instance.clickPointV2(632,566),2)
+                    wait(lambda: self.instance.clickPointV2(777,607),2)
         if(self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel)):
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.inWater(),1,1)
         wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),0)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint2),lambda: self.uwtask.inWater(),1,1,backupFunc=self.backupFromDashboardToSea,timeout=10)
-        wait(lambda: self.uwtask.findCityAndClick(town,noExpect=True),0)
+        wait(lambda: self.uwtask.findCityAndClick(town,noExpect=True,backup=backup),0)
         self.quickWaitForCity([town],targetCity=town)
         self.opentimeout=0
 

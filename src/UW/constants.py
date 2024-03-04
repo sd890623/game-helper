@@ -155,7 +155,7 @@ quechuas = {
     "buyCities": ["kuching", "aceh","mogadishu","zanzibar","mozambique","cape","buenos","ushuaia", "valpara", "copia", "tumbes", "lima"],
     "supplyCities": ["lima"],
     "buyProducts": ["coal", "silver","gold"],
-    "buyNotProducts": ["dust"],
+    "buyNotProducts": ["dust","goldware"],
     "checkInnCities": True,
     # "afterVillageSupplyCities": ["acapulco"],
     # (index, val) array
@@ -293,7 +293,7 @@ dailyJobConf = {
     "landingCity": "dongnae",
     "battleFleet": 5,
     "endBattleCity": "davao",
-    "landingTimes": 175,
+    "landingTimes": 150,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
@@ -374,7 +374,7 @@ apacheRouteBase = {
     "villages": ["apac"],
     # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": [{"route": 3, "target": "aden"}],
-    "sellFleet": 7,
+    "sellFleet": 2,
     "useSkillCity": "suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -414,7 +414,7 @@ quechuasRouteBase = {
     "villages": ["quechuas"],
     # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": ['ushuaia', 'cape', 'aden'],
-    "sellFleet": 7,
+    "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -914,6 +914,7 @@ routeLists = [
             "villages": ["sami"],
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
             "secondSellOptions": [
                 {
                     "seqs": [

@@ -66,7 +66,8 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.goLanding()
+        self.sendNotification("found mate")
+        self.startDailyBattle("hag")
         # market.cleanupGoods(["oil"])
         print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
@@ -214,7 +215,7 @@ class UWTask(FrontTask):
         # playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
         
-    def findCityAndClick(self, cityName=None, noExpect=None):
+    def findCityAndClick(self, cityName=None, noExpect=None,backup=None):
         if(cityName==None):
             index=cityNames.index(self.currentCity)
             nextCityName = None
@@ -242,7 +243,7 @@ class UWTask(FrontTask):
 
         if(index==8):
             self.hasSelectedMap=0
-            self.selectCityFromMapAndMove(nextCityName)
+            self.selectCityFromMapAndMove(nextCityName,backup)
         else:
             #click out any message
             wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint),0)
@@ -325,9 +326,10 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
         self.findCityAndClick()
 
-    def selectCityFromMapAndMove(self,cityname):
-        def backup():
+    def selectCityFromMapAndMove(self,cityname,backup=None):
+        def mapBackup():
             self.print("cant move, map again")
+            backup()
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(self.allCityList)),2)
             self.checkForBasicStuck()
             if(self.hasSelectedMap<5):
@@ -350,7 +352,7 @@ class UWTask(FrontTask):
         if not doAndWaitUntilBy(lambda: False, lambda: (self.inWater() or self.inCityList(self.allCityList)),1,1,timeout=30,backupFunc=backup):
             return
         if(self.inWater() and (not self.hasSingleLineWordsInArea(cityname,A=[647,823,791,845]) or self.checkStopped())):
-            backup()
+            mapBackup()
     
     # def checkForDisaster(self):
     #     #click disaster icon
@@ -921,7 +923,7 @@ class UWTask(FrontTask):
         battleInstance=importBattle()(self.simulatorInstance,self)
         self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
-        dailyRare=True
+        dailyRare=False
         for x in range(3):
             self.goToHarbor()
             battleInstance.depart()
@@ -945,7 +947,7 @@ class UWTask(FrontTask):
             def checkNum():
                 num=self.getNumberFromSingleLineInArea(A=[1296,137,1332,157])
                 return num and num>dailyJobConf.get("landingTimes")
-            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=7200)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: checkNum(),timeout=4000)
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1329,291), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
             battleInstance.goBackPort(dailyJobConf.get("landingCity"))
@@ -1283,7 +1285,7 @@ class UWTask(FrontTask):
     # Return tuple (Boolean, updated/original time)
     def checkShouldBattle(self, lastCheckTime,battleCity):
         now=datetime.now()
-        if(lastCheckTime and getTimeDiffInSeconds(lastCheckTime,now)<1800):
+        if(lastCheckTime and getTimeDiffInSeconds(lastCheckTime,now)<900):
             return (True, lastCheckTime)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(170,36),lambda: self.hasSingleLineWordsInArea("company", A=self.titleArea),1,1,timeout=10)

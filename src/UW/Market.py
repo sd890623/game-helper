@@ -142,21 +142,22 @@ class Market:
             #xDiff 225.5
             #yDiff 134
             index=0
-            while (index<12):
-                xDiff=int(index%4*225.5)
-                yDiff=int(index/4)*134
-                index+=1
-                if(simple is False):
-                    # print([310+xDiff,214+yDiff,397+xDiff,230+yDiff])
-                    if(self.uwtask.hasSingleLineWordsInArea("-", A=[310+xDiff,214+yDiff,397+xDiff,230+yDiff], ocrType=2)):
-                        continue
-                if(isArray(types)):
-                    typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
-                    if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
+            if(not simple):
+                while (index<12):
+                    xDiff=int(index%4*225.5)
+                    yDiff=int(index/4)*134
+                    index+=1
+                    if(simple is False):
+                        # print([310+xDiff,214+yDiff,397+xDiff,230+yDiff])
+                        if(self.uwtask.hasSingleLineWordsInArea("-", A=[310+xDiff,214+yDiff,397+xDiff,230+yDiff], ocrType=2)):
+                            continue
+                    if(isArray(types)):
+                        typeOcr=self.uwtask.getSingleLineWordsInArea(A=[274+xDiff,140+yDiff,371+xDiff,162+yDiff])
+                        if(hasOneArrayStringInStringAndNotVeryDifferent(typeOcr,types)):
+                            wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
+                    if(types is None):
                         wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
-                if(types is None):
-                    wait(lambda: self.instance.clickPointV2(self.transactClick[0]+xDiff,self.transactClick[1]+yDiff),0.2,disableWait=True)
-            if(simple):
+            else:
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033,856),3,0)
             wait(lambda: self.instance.clickPointV2(*self.transactPurchaseBtn),1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn),5)

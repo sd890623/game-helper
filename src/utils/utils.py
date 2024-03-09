@@ -4,6 +4,8 @@ from datetime import datetime
 import datetime as dt
 import threading
 import collections.abc
+# from UWTask import UWTask
+# from Battle import Battle
 from datetime import datetime, timedelta
 from strsimpy.damerau import Damerau
 
@@ -21,6 +23,42 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=F
         wait(func, seconds, disableWait)
         times-=1
 
+class Utils:
+    def __init__(self, uwtask, battle) -> None:
+        self.uwtask=uwtask
+        self.battle=battle
+    def useSpecial(self, specialMode):
+        if(specialMode=="battle"):
+            self.uwtask.print("special check from being assult")
+            if(self.uwtask.hasSingleLineWordsInArea("auto",A=[789,856,844,877])):
+                self.battle.useFast()
+                time.sleep(250)
+                doAndWaitUntilBy(lambda: self.battle.exitBattle(),lambda: self.uwtask.inWater(),timeout=30)
+                return True
+            if(self.battle.hasResultsBtn()):
+                doAndWaitUntilBy(lambda: self.battle.exitBattle(),lambda: self.uwtask.inWater(),timeout=30)
+                return True
+        return False
+    def doAndWaitUntilBy(self,func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10,specialMode=None):
+        wait(func, seconds)
+        while(not(untilFunc()) and timeout >0):
+            time.sleep(frequency)
+            timeout-=frequency
+        if(timeout<=0):
+            print("timed out, do backup function")
+            for x in [0,1,2,3]:
+                if(backupFunc):
+                    wait(backupFunc, seconds)
+                else:
+                    wait(func, seconds)
+                if(untilFunc()):
+                    return True
+                if(specialMode):
+                    self.useSpecial(specialMode)
+            return False
+        time.sleep(random.randint(0,1))
+        return True
+    
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10):
     wait(func, seconds)
     while(not(untilFunc()) and timeout >0):
@@ -197,7 +235,7 @@ def isDst():
 def getCentralTime():
     return datetime.now()-timedelta(hours=1)-(timedelta(hours=1) if isDst() else timedelta(hours=0))
 
-stockPairs=[(0,"depleted"),(1,"insufficient"),(2,"recommended"),(3,"abundant")]
+stockPairs=[(0,"depleted"),(1,"insufficient"),(2,"recommended"),(3,"abundant"),(4,"excessive")]
 # return 0, depleted when string not found
 def getStockIdFromString(string):
     if(not string):

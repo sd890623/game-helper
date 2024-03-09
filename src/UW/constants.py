@@ -374,7 +374,7 @@ apacheRouteBase = {
     "villages": ["apac"],
     # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": [{"route": 3, "target": "aden"}],
-    "sellFleet": 2,
+    "sellFleet": 7,
     "useSkillCity": "suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -705,6 +705,7 @@ routeLists = [
         {
             **apacheRouteBase,
             "villages": ["apachewine"],
+            "sellFleet": 7,
             "buyCities": ["natal"],
             "afterSellCities": ["hadiboh", "aceh"],
             "useSkillCity": False,
@@ -719,6 +720,7 @@ routeLists = [
         },
         {
             **apacheRouteBase,
+            "sellFleet": 7,
             "villages": ["apacwine"],
             "buyCities": ["sofala", "ushuaia"],
             "afterSellCities": ["suez"]
@@ -801,6 +803,7 @@ routeLists = [
     [
         {
             **apacheRouteBase,
+            "sellFleet": 2,
             "supplyCities": ["panama"],
             "forceUseSequenceOptions": True,
             "sellCityOptions": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"],
@@ -868,6 +871,7 @@ routeLists = [
         },
         {
             **apacheRouteBase,
+            "sellFleet": 2,
             "villages": ["apac"],
             "supplyCities": ['lima', 'ushuaia', 'cape', 'aden'],
             "useFishingCities": ["ushuaia","cape"],

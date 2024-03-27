@@ -17,17 +17,12 @@ class EVETask:
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
-        childHwndObj=getChildHwndByTitleAndParentHwnd("NemuPlayer",hwnd)
+        childHwndObj=getChildHwndByTitleAndParentHwnd('HD-Player',hwnd)
         self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor= True)
 
     def testTask(self):
-        count = 1
-        playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\"+self.exclamationRedPlayerType+".bmp")
-        while(count>0):
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[5,463,167,489])
-            print(str(count)+" times and x="+str(x))
-            time.sleep(0.1)
-            count+=1
+        doMoreTimesWithWait(lambda: self.simulatorInstance.click_keyboard("B"),20,1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(64,39),20,1)
     
     def closeWindow(self):
         wait(lambda: self.simulatorInstance.click_point(44,26))
@@ -45,7 +40,7 @@ class EVETask:
         
         try:
             findPlayerCountLk.acquire()
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[3,496,171,526])
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[2,714,270,757])
             countOcrArea = [x+14, y-1, x+iconWitdhHeight+27, y+iconWitdhHeight+14]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
             # self.saveImageToFile(countImageBlob)
@@ -106,19 +101,22 @@ class EVETask:
         self.print("新一轮开始了")
         if(not(self.isSafe())):
             self.print("有海盗，蹲站")
-            time.sleep(60+random.randint(0,5))
+            time.sleep(30+random.randint(0,5))
             return
         self.print("开始存货")
         self.stockOre()
         self.print("存货完毕")
         time.sleep(10)
-        if(self.isSafe()):
-            self.print("安全，出发")
-            self.goOut()
-            self.print("到达，开采")
-        else:
-            self.print("有海盗，蹲站")
-            return
+        while(True):
+            if(self.isSafe()):
+                self.print("安全，出发")
+                self.goOut()
+                self.print("到达，开采")
+                break
+            else:
+                self.print("有海盗，蹲站")
+                time.sleep(30+random.randint(0,5))
+                continue
         self.print("采矿等待中")
         self.checkSafeForMinutes(11.2+random.randint(0,10)/10)
         self.print("回家")
@@ -126,16 +124,13 @@ class EVETask:
         self.print("到家")
         time.sleep(30+random.randint(30,60))
 
-
-
     def stockOre(self):
-        wait(lambda: self.simulatorInstance.click_keyboard("B"), 15)
-        wait(lambda: self.simulatorInstance.click_point(89,427,True), 10)
-        wait(lambda: self.simulatorInstance.click_keyboard("E"), 5)
-        wait(lambda: self.simulatorInstance.click_point(98,129,True), 9)
-        wait(lambda: self.simulatorInstance.click_point(380,136,True), 7)
-        wait(lambda: self.simulatorInstance.click_point(961,31), 2)
-        wait(lambda: self.simulatorInstance.click_point(961,31), 2)
+        wait(lambda: self.simulatorInstance.click_keyboard("B"), 10)
+        wait(lambda: self.simulatorInstance.click_point(127,692,True), 10)
+        wait(lambda: self.simulatorInstance.click_keyboard("2"), 5)
+        wait(lambda: self.simulatorInstance.click_point(192,198,True), 9)
+        wait(lambda: self.simulatorInstance.click_point(547,215,True), 7)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1542,42),2)
 
     def isSafe(self):
         return self.findPlayerCountByType(self.exclamationRedPlayerType) < 1 and self.findPlayerCountByType(self.minusRedPlayerType) < 1 and self.findPlayerCountByType(self.whitePlayerType) < 1
@@ -155,16 +150,16 @@ class EVETask:
     def goOut(self):
         minerYDiff=56
         oreSiteCalibrater = random.randint(-2,2)
-        wait(lambda: self.simulatorInstance.click_point(875,180,True), 5)
+        wait(lambda: self.simulatorInstance.click_point(1413,301,True), 5)
         while(self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle"):
             time.sleep(5)
         time.sleep(20)
-        wait(lambda: self.simulatorInstance.click_point(961,350),4)
-        wait(lambda: self.simulatorInstance.click_point(847,17,True))
-        wait(lambda: self.simulatorInstance.click_point(878,376),4)
-        self.print("点矿区y偏移量："+str(oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(855,178+oreSiteCalibrater*minerYDiff),4)
-        wait(lambda: self.simulatorInstance.click_point(653,243+oreSiteCalibrater*minerYDiff,4))
+        wait(lambda: self.simulatorInstance.click_point(1537,502),4)
+        wait(lambda: self.simulatorInstance.click_point(1339,52,True),4)
+        wait(lambda: self.simulatorInstance.click_point(1397,597),4)
+        self.print("点矿区y偏移量:"+str(oreSiteCalibrater))
+        wait(lambda: self.simulatorInstance.click_point(1405,376+oreSiteCalibrater*minerYDiff),4)
+        wait(lambda: self.simulatorInstance.click_point(1087,460+oreSiteCalibrater*minerYDiff,4))
         #点平衡器
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 5)
 

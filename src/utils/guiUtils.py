@@ -320,6 +320,8 @@ class win ():#line:35
         x =position[0] +random .randint (10 ,10 )
         y =position[1] +random .randint (10 ,10 )
         self.new_mousemove(x, y)
+        win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+        time.sleep(1)
 
         if (direction == "up"):
             win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, 120), win32api.MAKELONG(x,y))
@@ -329,13 +331,15 @@ class win ():#line:35
             win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, -120), win32api.MAKELONG(x,y))
             win32api.SendMessage(self.hwnd, win32con.WM_NCHITTEST, 0, win32api.MAKELONG(x,y))
 
-    def click_point (O0000000OOO00000O ,x ,y ,bor =True ):#line:223
+    def click_point (self ,x ,y ,bor =True ):#line:223
         if bor :#line:224
             xRandom =x +random .randint (-5 ,5 )#line:225
             yRandom =y +random .randint (-5 ,5 )#line:226
         long_position = win32api.MAKELONG(xRandom, yRandom)
-        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
-        win32api .SendMessage (O0000000OOO00000O .hwnd ,win32con .WM_LBUTTONUP ,win32con.MK_LBUTTON , long_position);#line:229
+        win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+        time.sleep(1)
+        win32api .PostMessage (self.hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position);#line:228
+        win32api .PostMessage (self.hwnd ,win32con .WM_LBUTTONUP ,None , long_position);#line:229
     def fastClickPointV2(self,x,y,random=False):
         if(random):
             xRandom =x +random .randint (-5 ,5 )
@@ -361,7 +365,7 @@ class win ():#line:35
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
             win32gui.SetForegroundWindow(self .parentHwnd)
             pydirectinput.moveTo(xRandom+left, yRandom+top)
-            time.sleep(0.5)
+            time.sleep(0.5+random.random() * 0.5)
             pydirectinput.leftClick(xRandom+left, yRandom+top)
         except Exception as e:
             print(e)
@@ -435,10 +439,12 @@ class win ():#line:35
         pydirectinput.press("enter")
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233
-    def click_keyboard (O00000OOOOOOOOOO0, keyStroke ):#line:231
+    def click_keyboard (self, keyStroke ):#line:231
         if (getDecimalValueFromKeyStroke(keyStroke)):
-            win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232
-            win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:233
+            win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+            time.sleep(0.5+random.random() * 0.5)
+            win32api .PostMessage (self.hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232
+            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:233
     def send_str (OO0O00000O0O0O0O0 ,OO00000OOOOOOOOO0 ):#line:235
         O0O0OOO0OOOOO0O00 =[ord (OOOOO0O0OO0OO00O0 )for OOOOO0O0OO0OO00O0 in OO00000OOOOOOOOO0 ]#line:236
         for OOO0000OOOOO0OO0O in O0O0OOO0OOOOO0O00 :#line:237

@@ -3,6 +3,8 @@ from cnocr import CnOcr
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-'",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
 numberOcr=CnOcr(cand_alphabet="1234567890()-/,",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
+mixedOcr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-1234567890'",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
+
 def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     targetImage = cv2.imread(imagePath)
     targetHeigh, targetWidth, channel = targetImage.shape
@@ -37,6 +39,8 @@ def getOCRfromImageBlob(imageBlob, ocrType=1):
         ocrInstance=ocr
     elif(ocrType==2):
         ocrInstance=numberOcr
+    elif(ocrType==3):
+        ocrInstance=mixedOcr
     res = ocrInstance.ocr_for_single_line(imageBlob)
     return res
 

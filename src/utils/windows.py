@@ -11,6 +11,16 @@ def get_all_windows():
     win32gui.EnumWindows(lambda hWnd, param: param.append(hWnd), hWnd_list)
     return hWnd_list
 
+def getAllWindowsWithTitles(titles):
+    hwndList = get_all_windows()
+    hwndWithTitle = []
+    for hwnd in hwndList:
+        text = win32gui.GetWindowText(hwnd)
+        className = win32gui.GetClassName(hwnd)
+        if(text in titles):
+            hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
+    return hwndWithTitle
+
 def getAllWindowsWithTitle(title):
     hwndList = get_all_windows()
     hwndWithTitle = []

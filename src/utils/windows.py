@@ -18,6 +18,7 @@ def getAllWindowsWithTitles(titles):
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
         if(text in titles):
+            win32gui.MoveWindow(hwnd, 100, 100, 1280, 720, True)
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
 

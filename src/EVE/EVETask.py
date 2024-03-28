@@ -43,11 +43,12 @@ class EVETask:
         
         try:
             findPlayerCountLk.acquire()
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[3,716,243,754])
-            countOcrArea = [x+20, y-2, x+iconWitdhHeight+27, y+22]
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[3,547,170,572])
+            countOcrArea = [x+20, y-7, x+iconWitdhHeight+27, y+22]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
-            # self.saveImageToFile(countImageBlob)
+            self.saveImageToFile(countImageBlob)
             ocrCount = getOCRfromImageBlob(countImageBlob,2)
+            print(ocrCount)
             findPlayerCountLk.release()
         except Exception as e:
             findPlayerCountLk.release()
@@ -82,11 +83,11 @@ class EVETask:
             return False      
 
     def isPlayerInSite(self):
-        inCenter=self.hasSingleLineWordsInArea("b32",A=[1336,173,1383,203])
+        inCenter=self.hasSingleLineWordsInArea("b32-14",A=[1305,169,1390,198])
         minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
         minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[1050,790,1122,857])
 
-        if (inCenter and not(minerX)):
+        if (inCenter):
             self.print("in")
             return "in"
         elif (minerX and not(inCenter)):
@@ -127,13 +128,17 @@ class EVETask:
         self.print("到家")
         time.sleep(30+random.randint(0,30))
 
+    def w(self,sec=2):
+        time.sleep(sec+random.random()*0.5)
     def stockOre(self):
-        doAndWaitUntilBy(lambda: self.simulatorInstance.click_keyboard("B"), lambda: self.hasSingleLineWordsInArea("x",A=[1525,33,1558,68]),timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.click_keyboard("B"), lambda: self.hasSingleLineWordsInArea("x",A=[1494,28,1532,71]),timeout=15)
+        self.w(4)
         wait(lambda: self.simulatorInstance.click_point(133,694,True), 10)
-        wait(lambda: self.simulatorInstance.click_keyboard("2"), 5)
+        wait(lambda: self.simulatorInstance.click_keyboard("2"), 7)
         wait(lambda: self.simulatorInstance.click_point(155,220,True), 9)
         wait(lambda: self.simulatorInstance.click_point(547,215,True), 7)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(1542,42),3,4)
+        continueWithUntilBy(lambda: self.simulatorInstance.click_point(1542,42), lambda: self.hasSingleLineWordsInArea("b32-14",A=[1305,169,1390,198]))
+        self.w()
 
     def isSafe(self):
         return self.findPlayerCountByType(self.exclamationRedPlayerType) < 1 and self.findPlayerCountByType(self.minusRedPlayerType) < 1 and self.findPlayerCountByType(self.whitePlayerType) < 1
@@ -180,10 +185,13 @@ class EVETask:
         # while(times>0):
         #    wait(lambda: self.simulatorInstance.mouseWheel((1357,190), "up"),2)
         #    times=times-1
+        wait(lambda: self.simulatorInstance.click_point(1148,499,True))
+        wait(lambda: self.simulatorInstance.click_point(1537,502),4)
 
-        wait(lambda: self.simulatorInstance.click_point(1366,105,True),2)
-        wait(lambda: self.simulatorInstance.click_point(1034,214,True),2)
-        wait(lambda: self.simulatorInstance.click_point(716,350,True))
+
+        wait(lambda: self.simulatorInstance.click_point(1347,284,True),2)
+        wait(lambda: self.simulatorInstance.click_point(1065,387,True),2)
+        wait(lambda: self.simulatorInstance.click_point(1148,499,True))
 
         wait(lambda: self.simulatorInstance.click_keyboard("1"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("2"), 1)

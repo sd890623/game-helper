@@ -36,8 +36,8 @@ def runTask(hwnd, index):
 
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,置顶驻地,改变战斗列表为名称排序")
-    # ,
-    allWindowsWithTitle = getAllWindowsWithTitles(["BlueStacks App Player","BlueStacks App Player 1"])
+    # ,,"BlueStacks App Player 1"
+    allWindowsWithTitle = getAllWindowsWithTitles(["BlueStacks App Player"])
     threads = []
     for index,window in enumerate(allWindowsWithTitle):
         threads.append(Thread(target=runTask, name=str(window["hwnd"]), args=(window["hwnd"],index,)))

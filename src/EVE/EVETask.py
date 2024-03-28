@@ -14,6 +14,7 @@ class EVETask:
     simulatorInstance = None
     index = None
     syncBetweenUsers = True
+    homeNameArea=[1038,137,1102,157]
     def __init__(self, hwnd, index):
         self.hwnd = hwnd
         self.index = index
@@ -38,17 +39,16 @@ class EVETask:
 
     def findPlayerCountByType(self,type):
         count = 0
-        iconWitdhHeight = 11
         playerTypeMarkImagePath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\"+type+".bmp")
         
         try:
             findPlayerCountLk.acquire()
-            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[3,547,170,572])
-            countOcrArea = [x+20, y-7, x+iconWitdhHeight+27, y+22]
+            x,y = self.simulatorInstance.window_capture(playerTypeMarkImagePath, A=[6,562,205,584])
+            countOcrArea = [x+18, y-4, x+33, y+18]
             countImageBlob = self.simulatorInstance.output_window_screenshot(A=countOcrArea)
-            self.saveImageToFile(countImageBlob)
+            # self.saveImageToFile(countImageBlob)
             ocrCount = getOCRfromImageBlob(countImageBlob,2)
-            print(ocrCount)
+            # print(ocrCount)
             findPlayerCountLk.release()
         except Exception as e:
             findPlayerCountLk.release()
@@ -83,9 +83,9 @@ class EVETask:
             return False      
 
     def isPlayerInSite(self):
-        inCenter=self.hasSingleLineWordsInArea("b32-14",A=[1305,169,1390,198])
+        inCenter=self.hasSingleLineWordsInArea("b32-14",A=self.homeNameArea)
         minerImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp")
-        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[1050,790,1122,857])
+        minerX,y = self.simulatorInstance.window_capture(minerImgPath, A=[808,608,878,678])
 
         if (inCenter):
             self.print("in")
@@ -131,13 +131,13 @@ class EVETask:
     def w(self,sec=2):
         time.sleep(sec+random.random()*0.5)
     def stockOre(self):
-        doAndWaitUntilBy(lambda: self.simulatorInstance.click_keyboard("B"), lambda: self.hasSingleLineWordsInArea("x",A=[1494,28,1532,71]),timeout=15)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.click_keyboard("B"), lambda: self.hasSingleLineWordsInArea("x",A=[1183,23,1217,56]),timeout=15)
         self.w(4)
-        wait(lambda: self.simulatorInstance.click_point(133,694,True), 10)
+        wait(lambda: self.simulatorInstance.click_point(118,533), 10)
         wait(lambda: self.simulatorInstance.click_keyboard("2"), 7)
-        wait(lambda: self.simulatorInstance.click_point(155,220,True), 9)
-        wait(lambda: self.simulatorInstance.click_point(547,215,True), 7)
-        continueWithUntilBy(lambda: self.simulatorInstance.click_point(1542,42), lambda: self.hasSingleLineWordsInArea("b32-14",A=[1305,169,1390,198]))
+        wait(lambda: self.simulatorInstance.click_point(174,153,True), 9)
+        wait(lambda: self.simulatorInstance.click_point(376,154,True), 7)
+        continueWithUntilBy(lambda: self.simulatorInstance.click_point(1198,33), lambda: self.hasSingleLineWordsInArea("b32-14",A=self.homeNameArea))
         self.w()
 
     def isSafe(self):
@@ -156,18 +156,18 @@ class EVETask:
             self.syncBetweenUsers = True
 
     def goOut(self):
-        minerYDiff=56
+        minerYDiff=44
         oreSiteCalibrater = random.randint(-2,2)
-        wait(lambda: self.simulatorInstance.click_point(1413,301,True), 5)
+        wait(lambda: self.simulatorInstance.click_point(1075,226,True), 5)
         while(self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle"):
             time.sleep(5)
         time.sleep(10)
-        wait(lambda: self.simulatorInstance.click_point(1537,502),4)
-        wait(lambda: self.simulatorInstance.click_point(1339,52,True),4)
-        wait(lambda: self.simulatorInstance.click_point(1397,597),4)
+        wait(lambda: self.simulatorInstance.click_point(1197,394),4)
+        wait(lambda: self.simulatorInstance.click_point(1048,21,True),4)
+        wait(lambda: self.simulatorInstance.click_point(1051,466),4)
         self.print("点矿区y偏移量:"+str(oreSiteCalibrater))
-        wait(lambda: self.simulatorInstance.click_point(1349,285+oreSiteCalibrater*minerYDiff),4)
-        wait(lambda: self.simulatorInstance.click_point(1035,390+oreSiteCalibrater*minerYDiff,4))
+        wait(lambda: self.simulatorInstance.click_point(1055,220+oreSiteCalibrater*minerYDiff),4)
+        wait(lambda: self.simulatorInstance.click_point(819,299+oreSiteCalibrater*minerYDiff,4))
         #点平衡器
         wait(lambda: self.simulatorInstance.click_keyboard("4"), 5)
 
@@ -185,13 +185,13 @@ class EVETask:
         # while(times>0):
         #    wait(lambda: self.simulatorInstance.mouseWheel((1357,190), "up"),2)
         #    times=times-1
-        wait(lambda: self.simulatorInstance.click_point(1148,499,True))
-        wait(lambda: self.simulatorInstance.click_point(1537,502),4)
+        wait(lambda: self.simulatorInstance.click_point(896,389,True))
+        wait(lambda: self.simulatorInstance.click_point(1197,394),4)
 
 
-        wait(lambda: self.simulatorInstance.click_point(1347,284,True),2)
-        wait(lambda: self.simulatorInstance.click_point(1065,387,True),2)
-        wait(lambda: self.simulatorInstance.click_point(1148,499,True))
+        wait(lambda: self.simulatorInstance.click_point(1051,219,True),2)
+        wait(lambda: self.simulatorInstance.click_point(814,300,True),2)
+        wait(lambda: self.simulatorInstance.click_point(896,389,True))
 
         wait(lambda: self.simulatorInstance.click_keyboard("1"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("2"), 1)
@@ -213,7 +213,7 @@ class EVETask:
         
         # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
         # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
-        wait(lambda: self.simulatorInstance.click_point(308,372),4)
+        wait(lambda: self.simulatorInstance.click_point(247,288),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"),2)
         wait(lambda: self.simulatorInstance.click_keyboard("5"), 2)
 

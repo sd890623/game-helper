@@ -320,6 +320,8 @@ class win ():#line:35
         x =position[0] +random .randint (10 ,10 )
         y =position[1] +random .randint (10 ,10 )
         self.new_mousemove(x, y)
+        win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+        time.sleep(1)
 
         if (direction == "up"):
             win32api.PostMessage(self.hwnd, win32con.WM_MOUSEWHEEL, win32api.MAKELONG(0, 120), win32api.MAKELONG(x,y))

@@ -342,7 +342,7 @@ samiRouteBase = {
     "useFishingCities": [],
     "villages": ["sami"],
     "afterVillageBuyCities": [],
-    "supplyCities":["bremen","lisboa","tunis"],
+    "supplyCities":["bremen","seville","tunis"],
     "sellFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
@@ -714,7 +714,7 @@ routeLists = [
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "deokwon"],
+            "buyCities": ["prey", "deokwon","santa"],
             "villages": ["witoto"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malacca", "mogadishu"]
         },
@@ -746,7 +746,7 @@ routeLists = [
          },
         {
             **witotoRouteBase,
-            "buyCities": ["kuching","mozambique"],
+            "buyCities": ["kuching","mozambique","ponta"],
             "villages": ["witot"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malacca", "mogadishu"]
         }
@@ -830,16 +830,21 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svear"],
-            "supplyCities":["bremen","lisboa","tunis"],
+            "supplyCities":["bremen","seville","tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "said"},
                         {"type": "tunnel","val": True},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
                         {"type": "sell"},
+                        {"type": "go", "val": "suez"},
                         {"type": "tunnel"},
                         {"type": "go", "val": "tunis"}
                     ],
@@ -851,7 +856,7 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svea"],
-            "supplyCities":["bremen","lisboa","tunis"],
+            "supplyCities":["bremen","seville","tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
@@ -888,6 +893,7 @@ routeLists = [
             "afterSellCities": ["suez"]
         },
         {
+            "buyCities": ["suez"],
             "mode": "tunnel"
         },
         {
@@ -899,16 +905,17 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "hag"],
+            #"supplyCities": ["malacca", "aden","suez"],
         },
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["malacca"],
+            "supplyCities": ["malacca", "aden","suez"],
         },
-        {
-            **quechuasRouteBase,
-            "buyCities": ["kuching"],
-        },
+        # {
+        #     **quechuasRouteBase,
+        #     "buyCities": ["kuching"],
+        # },
         {
             "mode": "tunnel"
         },
@@ -937,7 +944,7 @@ routeLists = [
         # },
         # {
         #     **samiRouteBase,
-        #     "buyCities": ["lisboa"],
+        #     "buyCities": ["seville"],
         #     "villages": ["sam"],
         #     "forceUseSequenceOptions": True,
         #     "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],

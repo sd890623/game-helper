@@ -24,12 +24,18 @@ def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=F
         times-=1
 
 class Utils:
+    # def __init__(self, uwtask: UWTask, battle: Battle) -> None:
     def __init__(self, uwtask, battle) -> None:
         self.uwtask=uwtask
         self.battle=battle
     def useSpecial(self, specialMode):
         if(specialMode=="battle"):
             self.uwtask.print("special check from being assult")
+            if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):
+                doMoreTimesWithWait(lambda: self.uwtask.simulatorInstance.clickPointV2(1101,696),2,3)
+                time.sleep(30)
+            # if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):
+            #     time.sleep(30)
             if(self.uwtask.hasSingleLineWordsInArea("auto",A=[789,856,844,877])):
                 self.battle.useFast()
                 time.sleep(250)

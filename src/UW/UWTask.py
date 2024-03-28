@@ -66,8 +66,8 @@ class UWTask(FrontTask):
     villageTradeList=copy.copy(villageTradeList)
     
     def testTask(self):
-        self.sendNotification("found mate")
-        self.startDailyBattle("hag")
+        battle=importBattle()(self.simulatorInstance,self)
+        battle.goBackPort("toamasina")
         # market.cleanupGoods(["oil"])
         print(hasOneArrayStringSimilarToString("lawlsswata", ["lawlesswaters","dangerouswaters","safewaters"]))
         self.changeFleet(2)
@@ -215,7 +215,7 @@ class UWTask(FrontTask):
         # playsound("e:\\Workspaces\\Projects\\eveHelper2\\assets\\alert1.mp3")
         #playsound(soundPath)
         
-    def findCityAndClick(self, cityName=None, noExpect=None,backup=lambda: None):
+    def findCityAndClick(self, cityName=None, noExpect=None,backup=None):
         if(cityName==None):
             index=cityNames.index(self.currentCity)
             nextCityName = None
@@ -326,10 +326,11 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2),2,0)
         self.findCityAndClick()
 
-    def selectCityFromMapAndMove(self,cityname,backup=lambda: None):
+    def selectCityFromMapAndMove(self,cityname,backup=None):
         def mapBackup():
             self.print("cant move, map again")
-            backup()
+            if(backup):
+                backup()
             continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),lambda: (self.inWater() or self.inCityList(self.allCityList)),2)
             self.checkForBasicStuck()
             if(self.hasSelectedMap<5):
@@ -338,7 +339,7 @@ class UWTask(FrontTask):
         self.print("select city from map")
         # if not doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15):
         #     return
-        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=8)
+        doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=8,backupFunc=backup)
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(39,97), lambda: self.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
         wait(lambda: self.simulatorInstance.clickPointV2(156,76),1)
         wait(lambda: self.simulatorInstance.clickPointV2(160,76),1)
@@ -817,6 +818,7 @@ class UWTask(FrontTask):
         self.print("do village trade to "+village)
         self.goToVillage(village, villageObject,fishing=villageObject.get("useFishing"))
         doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(44,343), lambda: self.hasSingleLineWordsInArea("barter", A=self.titleArea),2,1,timeout=10)
+        time.sleep(120)
         self.market.barterInVillage(villageObject)
         self.updateDailyConfVal(villageKey,True)
         continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(24,24),lambda: (self.inWater()),2)
@@ -879,9 +881,9 @@ class UWTask(FrontTask):
     def startMerchantQuest(self):
         if(not self.getDailyConfValByKey("merchantQuest")):
             print("go merchant request, TBC")
-            self.changeFleet(2)
             self.gotoCity(dailyJobConf.get("merchatQuestCity"))
             if(self.acceptQuest(["exchange"])):
+                self.changeFleet(4)
                 self.bartingTrade(maticBarterTrade)            
             self.gotoCity(maticBarterTrade.get("sellCity"),express=True)
             self.changeFleet(6,simple=True)
@@ -923,7 +925,26 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
         dailyRare=False
-        for x in range(3):
+        #temp rare daily
+        self.gotoCity("edo",express=True)
+        self.goToHarbor()
+        battleInstance.depart()
+        while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
+            battleInstance.goBackPort("edo")
+            self.goToHarbor()
+            battleInstance.depart()
+        if(not dailyRare):
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(113,671), lambda: self.hasSingleLineWordsInArea("explore", A=[1183,808,1241,828]),2,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(1246,836), lambda: self.hasSingleLineWordsInArea("land", A=[662,847,711,865]),2)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(714,855), lambda: self.hasSingleLineWordsInArea("exploration", A=[645,212,755,239]),2,1)
+            doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(921,664), lambda: self.hasSingleLineWordsInArea("exploration", A=[722,303,825,326]),2,1)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(694,579), lambda: self.hasSingleLineWordsInArea("report", A=[794,215,859,236]),2,timeout=150)
+            continueWithUntilBy(lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon), lambda: self.inWater(),2)
+            dailyRare=True
+            self.gotoCity(dailyJobConf.get("landingCity"),express=True)
+        # end temp rare daily
+            
+        for x in range(4):
             self.goToHarbor()
             battleInstance.depart()
             while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):
@@ -1217,13 +1238,13 @@ class UWTask(FrontTask):
             if(routeObject.get("mode")):
                 if(routeObject.get("mode")=="tunnel"):
                     self.crossTunnel()
-                    self.lastExecuted=getCentralTime()
                 elif(routeObject.get("mode")=="landing"):
                     self.goLanding()
                 elif(routeObject.get("mode")=="battle"):
                     self.startDailyBattle(self.battleCity)
                 elif(routeObject.get("mode")=="merchantQuest"):
                     self.startMerchantQuest()
+                    self.lastExecuted=getCentralTime()
                 elif(routeObject.get("mode")=="reportAndAdvQuest"):
                     self.reportAndAdvQuest()
                 if(routeObject.get("supplyCities")):

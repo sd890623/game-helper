@@ -408,7 +408,7 @@ class Market:
         for (index, val) in villageObject.get("tradeObjects"):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
             num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
-            if(num and num<600):
+            if(num and num<650):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
                 nogoTimes=11
                 while(self.uwtask.isPositionColorSimilarTo(1019,317,(190,255,76)) and nogoTimes>0):
@@ -421,7 +421,7 @@ class Market:
             if(self.uwtask.hasSingleLineWordsInArea("trusting",A=[725,511,815,536])):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(667,594), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
                 break
-            doAndWaitUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
+            continueWithUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,timeout=10)
             if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
                 if(index==villageObject.get("cleanupIndex")):
                     self.uwtask.print("clean up goods, last round")

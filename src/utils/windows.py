@@ -14,10 +14,13 @@ def get_all_windows():
 def getAllWindowsWithTitles(titles):
     hwndList = get_all_windows()
     hwndWithTitle = []
-    for hwnd in hwndList:
+    for index, hwnd in enumerate(hwndList):
+        ownAppIndex=0
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
         if(text in titles):
+            win32gui.MoveWindow(hwnd, 50+ownAppIndex*100, 100, 1280, 735, True)
+            ownAppIndex+=1
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
 

@@ -15,7 +15,7 @@ import datetime as dt
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour>=4 and hour<=11):
+    if(hour>=4 and hour<=9):
         return False
     return True
 
@@ -35,7 +35,7 @@ def runTask(hwnd, index):
             raise(e)
 
 def main():
-    print("开工前todo list: 打开本地列表,v船到广角,置顶驻地,改变战斗列表为名称排序")
+    print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     # ,
     allWindowsWithTitle = getAllWindowsWithTitles(["BlueStacks App Player","BlueStacks App Player 1"])
     threads = []

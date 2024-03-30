@@ -2,6 +2,8 @@ import json
 import os
 
 if __name__ == '__main__':
+    a=["aden","cape", "ushuaia", "lima"]
+    print(a[::-1])
     filePath = os.path.abspath(__file__ + "\\..\\villageTrade.json")
 
     with open(filePath, 'r') as f:

@@ -34,7 +34,7 @@ class Messager:
         # url1=f"https://maker.ifttt.com/trigger/notice_phone/with/key/{token}"
         # url2=f"https://maker.ifttt.com/trigger/notice_mobile_v2/with/key/{token}"
         # url3="https://discord.com/api/webhooks/1209835380694712330/-LPw-QHcefNN7IgiKRe7AEhY7e6ypUS3Z5wzoU-m_Ql_dobysragv6ipcG8EyCNrYTWQ"
-        url4 = "https://rest.clicksend.com/v3/sms/send"
+        url4 = "https://rest.clicksend.com/v3/sms/sendx"
         # discordData={"content": f"{words}"}
         # payload={"value1": words}
         payload = json.dumps({

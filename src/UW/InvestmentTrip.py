@@ -30,25 +30,29 @@ class Investment:
     inn = True
     # Better do winter
     investmentCities = [
-        "saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "reykjav", "narvik","edinburgh"
+        #"saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
+          "reykjav", "narvik","edinburgh"
     ]
-    investmentCities2 = [
-        'quanzhou',
-        'hangzhou',
-        'chongqing',
-        'chang',
-        'yanyun',
-        'jolo',
-        'davao',
-        'banda',
-        'dili',
-        'makassar',
-        'ambon',
-        'surabaya',
-        'pangk',
-        'brunei',
-        'lopburi',
-        'aceh'
+    investmentCitiesy = [
+        # 'quanzhou',
+        # 'hangzhou',
+        # 'chongqing',
+        # 'chang',
+        # 'yanyun',
+        # 'macau',
+        # 'jolo',
+        # 'davao',
+        # 'banda',
+        # 'dili',
+        # 'makassar',
+        # 'ambon',
+        # 'surabaya',
+        # 'pangk',
+        # 'brunei',
+        # 'lopburi',
+        'aceh',
+        'hadiboh',
+        'aden'
     ]
     investmentCities4 = [
         # "unalaska","tacoma",

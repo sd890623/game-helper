@@ -14,7 +14,8 @@ def get_all_windows():
 def getAllWindowsWithTitles(titles,x=1280,y=735):
     hwndList = get_all_windows()
     hwndWithTitle = []
-    for hwnd in hwndList:
+    for index, hwnd in enumerate(hwndList):
+        ownAppIndex=0
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
         if(text in titles):

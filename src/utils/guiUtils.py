@@ -354,8 +354,8 @@ class win ():#line:35
             print(e)
             print("failed to click point")
     
-    def clickPointV2(self,x,y,random=False):
-        if(random):
+    def clickPointV2(self,x,y,randomParam=False):
+        if(randomParam):
             xRandom =x +random .randint (-5 ,5 )
             yRandom =y +random .randint (-5 ,5 )
         else:

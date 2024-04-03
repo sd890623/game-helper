@@ -217,7 +217,7 @@ class EVETask:
         
         # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
         # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
-        wait(lambda: self.simulatorInstance.click_point(247,288),4)
+        wait(lambda: self.simulatorInstance.click_point(245,599),4)
         wait(lambda: self.simulatorInstance.click_keyboard("4"),2)
         wait(lambda: self.simulatorInstance.click_keyboard("5"), 2)
 

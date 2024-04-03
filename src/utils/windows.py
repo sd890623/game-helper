@@ -11,14 +11,14 @@ def get_all_windows():
     win32gui.EnumWindows(lambda hWnd, param: param.append(hWnd), hWnd_list)
     return hWnd_list
 
-def getAllWindowsWithTitles(titles):
+def getAllWindowsWithTitles(titles,x=1280,y=735):
     hwndList = get_all_windows()
     hwndWithTitle = []
     for hwnd in hwndList:
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
         if(text in titles):
-            win32gui.MoveWindow(hwnd, 100, 100, 1280, 735, True)
+            win32gui.MoveWindow(hwnd, 100, 100, x, y, True)
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
 

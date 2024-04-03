@@ -16,11 +16,11 @@ import datetime as dt
 def isWorkHour():
     hour=dt.datetime.now().hour
     if(hour>=4 and hour<=11):
-        return False
+        return True
     return True
 
 def runTask(hwnd, index):
-    task = EVETask(hwnd, index,'HD-Player')
+    task = EVETask(hwnd, index,'TheRender')
     while(True):
         try:
             if(not(isWorkHour())):
@@ -28,7 +28,7 @@ def runTask(hwnd, index):
                 time.sleep(1800)
                 continue
             # task.testTask()
-            task.startMiningTask()
+            task.checkEnemy()
         except Exception as e:
             task.closeWindow()
             print("thread failed, stop")
@@ -37,7 +37,7 @@ def runTask(hwnd, index):
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,置顶驻地,改变战斗列表为名称排序")
     # ,,"BlueStacks App Player 1"
-    allWindowsWithTitle = getAllWindowsWithTitles(["BlueStacks App Player"])
+    allWindowsWithTitle = getAllWindowsWithTitles(["雷电模拟器"],1288,741)
     threads = []
     for index,window in enumerate(allWindowsWithTitle):
         threads.append(Thread(target=runTask, name=str(window["hwnd"]), args=(window["hwnd"],index,)))

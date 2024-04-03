@@ -15,10 +15,10 @@ class EVETask:
     index = None
     syncBetweenUsers = True
     homeNameArea=[1038,137,1102,157]
-    def __init__(self, hwnd, index):
+    def __init__(self, hwnd, index,childTitle):
         self.hwnd = hwnd
         self.index = index
-        childHwndObj=getChildHwndByTitleAndParentHwnd('HD-Player',hwnd)
+        childHwndObj=getChildHwndByTitleAndParentHwnd(childTitle,hwnd)
         self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor= True)
 
     def testTask(self):
@@ -96,7 +96,11 @@ class EVETask:
         else:
             return "middle"
         
-
+    def checkEnemy(self):
+        if(not(self.isSafe())):
+            self.print("回家")
+            self.goHome()
+        time.sleep(7)
     def startMiningTask(self):
         if (self.syncBetweenUsers):
             self.print("账号差异化，等待x*60s")

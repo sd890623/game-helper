@@ -202,20 +202,27 @@ class EVETask:
 
 
     def goHome(self):
-        wait(lambda: self.simulatorInstance.click_keyboard("`"),4)
+        def triggerGoHome():
+            def backup():
+                if(self.hasSingleLineWordsInArea("x",A=[1186,23,1212,55])):
+                    doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1199,35),lambda: not self.hasSingleLineWordsInArea("x",A=[1186,23,1212,55]))
+                    wait(lambda: self.simulatorInstance.click_keyboard("`"))
+            doAndWaitUntilBy(lambda: self.simulatorInstance.click_keyboard("`"),lambda: self.hasSingleLineWordsInArea("b32",A=[34,571,90,589]),backupFunc=backup)
 
-        # homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
-        # homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
+            # homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
+            # homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
 
-        # homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,225,167,526])
-        # if(homeRouteImgX==0 or homeRouteImgY==0):
-        #     homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath2, A=[26,221,171,531])
+            # homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath, A=[26,225,167,526])
+            # if(homeRouteImgX==0 or homeRouteImgY==0):
+            #     homeRouteImgX,homeRouteImgY = self.simulatorInstance.window_capture(homeRouteImgPath2, A=[26,221,171,531])
+            
+            # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
+            # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
+            wait(lambda: self.simulatorInstance.click_point(245,599),4)
+            wait(lambda: self.simulatorInstance.click_keyboard("4"),2)
+            wait(lambda: self.simulatorInstance.click_keyboard("5"), 2)
         
-        # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
-        # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
-        wait(lambda: self.simulatorInstance.click_point(245,599),4)
-        wait(lambda: self.simulatorInstance.click_keyboard("4"),2)
-        wait(lambda: self.simulatorInstance.click_keyboard("5"), 2)
+        doAndWaitUntilBy(lambda: triggerGoHome(),lambda: self.isPlayerInSite()=="in",60,timeout=30)
 
         while(self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle"):
              time.sleep(5)

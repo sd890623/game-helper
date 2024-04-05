@@ -141,7 +141,7 @@ class UWTask(FrontTask):
         if(self.apacheFriendly>90000):
             if(self.craftStock in [1,2,3,4]):
                 # return 10
-                return 11
+                return 12
             elif(self.liquorStock in [1,2,3,4]):
                 return 9
             else:
@@ -944,7 +944,7 @@ class UWTask(FrontTask):
             self.gotoCity(dailyJobConf.get("landingCity"),express=True)
         # end temp rare daily
             
-        for x in range(4):
+        for x in range(3):
             self.goToHarbor()
             battleInstance.depart()
             while(not self.isPositionColorSimilarTo(120,663,(221,226,223)) and not self.isPositionColorSimilarTo(109,671,(86,96,83))):

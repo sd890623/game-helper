@@ -45,7 +45,7 @@ class Utils:
                 doAndWaitUntilBy(lambda: self.battle.exitBattle(),lambda: self.uwtask.inWater(),timeout=30)
                 return True
         return False
-    def doAndWaitUntilBy(self,func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10,specialMode=None):
+    def doAndWaitUntilBy(self,func, untilFunc, seconds = 1, frequency = 4, backupFunc=None,timeout=10,specialMode=None):
         wait(func, seconds)
         while(not(untilFunc()) and timeout >0):
             time.sleep(frequency)
@@ -62,7 +62,7 @@ class Utils:
                 if(specialMode):
                     self.useSpecial(specialMode)
             return False
-        time.sleep(random.randint(0,1))
+        time.sleep(seconds+ random.randint(0,1))
         return True
     
 def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10):

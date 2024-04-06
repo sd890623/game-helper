@@ -444,7 +444,7 @@ class win ():#line:35
             win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
             time.sleep(0.5+random.random() * 0.5)
             win32api .PostMessage (self.hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232
-            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,None ,0 )#line:233
+            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:233
     def send_str (OO0O00000O0O0O0O0 ,OO00000OOOOOOOOO0 ):#line:235
         O0O0OOO0OOOOO0O00 =[ord (OOOOO0O0OO0OO00O0 )for OOOOO0O0OO0OO00O0 in OO00000OOOOOOOOO0 ]#line:236
         for OOO0000OOOOO0OO0O in O0O0OOO0OOOOO0O00 :#line:237

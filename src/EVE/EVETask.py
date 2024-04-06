@@ -19,7 +19,7 @@ class EVETask:
     homeNameArea = [1038, 137, 1102, 157]
 
     # def __init__(self, hwnd, index, childTitle="HD-Player",eveRunner: Runner=None):
-    def __init__(self, hwnd, index, childTitle="HD-Player",eveRunners=[]):
+    def __init__(self, hwnd, index, childTitle="HD-Player",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()]):
         self.hwnd = hwnd
         self.index = index
         self.pauseEvent = eveRunners[0]
@@ -289,7 +289,7 @@ class EVETask:
             lambda: triggerGoHome(),
             lambda: self.isPlayerInSite() == "in",
             60,
-            timeout=30,
+            timeout=60,
         )
 
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":

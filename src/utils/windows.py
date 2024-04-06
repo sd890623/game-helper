@@ -2,7 +2,7 @@ import time
 import win32gui
 import win32con
 import cv2
-import os 
+import os
 import win32api
 
 
@@ -11,17 +11,20 @@ def get_all_windows():
     win32gui.EnumWindows(lambda hWnd, param: param.append(hWnd), hWnd_list)
     return hWnd_list
 
-def getAllWindowsWithTitles(titles,x=1280,y=735):
+
+def getAllWindowsWithTitles(titles, x=1280, y=735):
     hwndList = get_all_windows()
     hwndWithTitle = []
-    for index, hwnd in enumerate(hwndList):
-        ownAppIndex=0
+    ownAppIndex = 0
+    for hwnd in hwndList:
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
-        if(text in titles):
-            win32gui.MoveWindow(hwnd, 100, 100, x, y, True)
+        if text in titles:
+            win32gui.MoveWindow(hwnd, 50 + ownAppIndex * 300, 100, x, y, True)
+            ownAppIndex += 1
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
+
 
 def getAllWindowsWithTitle(title):
     hwndList = get_all_windows()
@@ -29,58 +32,73 @@ def getAllWindowsWithTitle(title):
     for hwnd in hwndList:
         text = win32gui.GetWindowText(hwnd)
         className = win32gui.GetClassName(hwnd)
-        if(text == title):
+        if text == title:
             hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
+
 
 def getWindowHwndObjectById(id):
     hwnds = get_all_windows()
     for hwnd in hwnds:
-        if (hwnd == id):
+        if hwnd == id:
             text = win32gui.GetWindowText(hwnd)
             className = win32gui.GetClassName(hwnd)
             return {"hwnd": hwnd, "title": text, "className": className}
     return None
-def getChildHwndByIdAndParentHwnd(childId,parentHwnd):
+
+
+def getChildHwndByIdAndParentHwnd(childId, parentHwnd):
     hWnd_child_list = []
-    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
+    win32gui.EnumChildWindows(
+        parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list
+    )
     for hwnd in hWnd_child_list:
-        if (childId == hwnd):
+        if childId == hwnd:
             className = win32gui.GetClassName(hwnd)
-            text=win32gui.GetWindowText(hwnd)
-            dimen=win32gui
-            return {"hwnd": hwnd, "title": text, "className": className}    
-    return None
-def getChildHwndByTitleAndParentHwnd(childTitle,parentHwnd):
-    hWnd_child_list = []
-    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
-    for hwnd in hWnd_child_list:
-        text = win32gui.GetWindowText(hwnd)
-        if (text == childTitle):
-            className = win32gui.GetClassName(hwnd)
-            return {"hwnd": hwnd, "title": text, "className": className}    
+            text = win32gui.GetWindowText(hwnd)
+            dimen = win32gui
+            return {"hwnd": hwnd, "title": text, "className": className}
     return None
 
-def getChildHwndByClassAndParentHwnd(childClass,parentHwnd):
+
+def getChildHwndByTitleAndParentHwnd(childTitle, parentHwnd):
     hWnd_child_list = []
-    win32gui.EnumChildWindows(parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list)
+    win32gui.EnumChildWindows(
+        parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list
+    )
+    for hwnd in hWnd_child_list:
+        text = win32gui.GetWindowText(hwnd)
+        if text == childTitle:
+            className = win32gui.GetClassName(hwnd)
+            return {"hwnd": hwnd, "title": text, "className": className}
+    return None
+
+
+def getChildHwndByClassAndParentHwnd(childClass, parentHwnd):
+    hWnd_child_list = []
+    win32gui.EnumChildWindows(
+        parentHwnd, lambda hWnd, param: param.append(hWnd), hWnd_child_list
+    )
     for hwnd in hWnd_child_list:
         text = win32gui.GetClassName(hwnd)
-        if (text == childClass):
+        if text == childClass:
             className = win32gui.GetClassName(hwnd)
-            return {"hwnd": hwnd, "title": text, "className": className}    
+            return {"hwnd": hwnd, "title": text, "className": className}
     return None
+
 
 def getFakeHwndObjectById(id):
     return {"hwnd": id, "title": "text", "className": "className"}
+
 
 def randomMethod():
     print(win32gui.GetWindowText(136319154))
     text = win32gui.GetWindowText(136319154)
     allHwnds = get_all_windows()
     for hwnd in allHwnds:
-        if (win32gui.GetWindowText(hwnd) == text):
+        if win32gui.GetWindowText(hwnd) == text:
             print({"hwnd": hwnd, "text": text})
+
 
 def getImages():
     print("Path at terminal when executing this file")
@@ -95,16 +113,16 @@ def getImages():
 
     print("This file directory and name")
     path, filename = os.path.split(full_path)
-    print(path + ' --> ' + filename + "\n")
+    print(path + " --> " + filename + "\n")
 
     print("This file directory only")
     print(os.path.dirname(full_path))
 
-
     path = os.path.abspath(__file__ + "\\..\\..\\assets\\clickOns\\greenStars.bmp")
     print(path)
-    image =cv2.imread(path)
+    image = cv2.imread(path)
     print(image.shape)
+
 
 # def getWholeScreenshot():
 #     hdesktop = win32gui.GetDesktopWindow()
@@ -137,19 +155,15 @@ def getImages():
 #         im.save("test.png")
 
 
-class FrontWindow():
+class FrontWindow:
     # def __init__(self):
-        
-    def mouseMove(self, x,y):
-        win32api.SetCursorPos((x,y))
-    
-    def mouseClick(self,x,y):
-        self.mouseMove(x,y)
+
+    def mouseMove(self, x, y):
+        win32api.SetCursorPos((x, y))
+
+    def mouseClick(self, x, y):
+        self.mouseMove(x, y)
         time.sleep(0.03)
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0,0,0,0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         time.sleep(0.03)
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0,0,0,0)
-
-
-    
-
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)

@@ -72,7 +72,7 @@ EABuyBM = {
     # ,"tiger'seye"],
     "buyProducts": ["gardenia", "begonia", "sweetolive", "azalea"],
     # ,"quanzhou","hobe","hangzhou","chang","hanyang","jeju","macau",],
-    "buyCities": ["hanyang", "dongnae", "jeju", "hangzhou", "hobe"],
+    "buyCities": ["hanyang", "dongnae", "jeju", "hangzhou", "hobe"], 
     "deductBuyBM": True,
     "checkInnCities": ['sakai', "edo", 'hanyang', 'hangzhou', "dongnae", "jeju", "hobe"],
     "buySupplyCities": [],

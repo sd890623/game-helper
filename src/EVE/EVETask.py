@@ -262,7 +262,7 @@ class EVETask:
                             "x", A=[1186, 23, 1212, 55]
                         ),
                     )
-                    wait(lambda: self.simulatorInstance.click_keyboard("`"))
+                wait(lambda: self.simulatorInstance.click_keyboard("`"))
 
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.click_point(26,189),

@@ -5,33 +5,38 @@ import multiprocessing
 from utils import *
 from windows import *
 
-class Runner():
-    processes=[]
-    allWindowsWithTitle=[]
-    appRunningLabel=None
-    queue=None
-    text=""
-    text_area=None
+
+class Runner:
+    processes = []
+    allWindowsWithTitle = []
+    appRunningLabel = None
+    queue = None
+    text = ""
+    text_area = None
+
     def __init__(self) -> None:
-        self.pauseEvent=multiprocessing.Event()
+        self.pauseEvent = multiprocessing.Event()
         self.queue = multiprocessing.Queue()
 
     def on_reset(self):
         self.on_stop()
         self.on_start()
 
-    def on_start(self):   
+    def on_start(self):
         for index, window in enumerate(self.allWindowsWithTitle):
-            process  = multiprocessing.Process(target=runTask,args=[window["hwnd"],index,[self.pauseEvent,self.queue]])
+            process = multiprocessing.Process(
+                target=runTask,
+                args=[window["hwnd"], index, [self.pauseEvent, self.queue]],
+            )
             process.start()
             self.processes.append(process)
             self.appRunningLabel.config(text="状态：运行中")
 
-    def update_gui_from_queue(self,text_area):
+    def update_gui_from_queue(self, text_area):
         while not self.queue.empty():
-                message = self.queue.get()
-                text_area.insert(tk.END, message + "\n")
-            # Schedule this function to be called again after 100ms
+            message = self.queue.get()
+            text_area.insert(tk.END, message + "\n")
+        # Schedule this function to be called again after 100ms
         root.after(100, self.update_gui_from_queue, text_area)
 
     def on_pause(self):
@@ -40,7 +45,9 @@ class Runner():
             self.pauseEvent.clear()
         else:
             self.pauseEvent.set()
-        self.appRunningLabel.config(text="状态：已暂停" if self.pauseEvent.is_set() else "状态：运行中")
+        self.appRunningLabel.config(
+            text="状态：已暂停" if self.pauseEvent.is_set() else "状态：运行中"
+        )
 
     def on_stop(self):
         # 结束应用程序
@@ -52,21 +59,23 @@ class Runner():
             self.text_area.delete(1.0, tk.END)
             self.appRunningLabel.config(text="状态：停止")
         except NameError:
-            messagebox.showinfo("Notifications","还没启动呢")
+            messagebox.showinfo("Notifications", "还没启动呢")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 创建主窗口
     global root
     root = tk.Tk()
-    runner=Runner()
+    runner = Runner()
 
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
-    # 
-    runner.allWindowsWithTitle = getAllWindowsWithTitles(["MuMu模拟器-1", "MuMu模拟器-2"],1254, 741)
+    #
+    runner.allWindowsWithTitle = getAllWindowsWithTitles(
+        ["MuMu模拟器-1", "MuMu模拟器-2"], 1254, 741
+    )
     runner.processes = []
-    runner.text=""
-    
+    runner.text = ""
+
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     # 计算窗口的x和y坐标，使窗口靠右侧显示

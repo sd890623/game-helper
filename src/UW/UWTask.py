@@ -870,6 +870,7 @@ class UWTask(FrontTask):
             index += 1
             if not infinite and index == 30:
                 return False
+            time.sleep(0.1)
         return True
 
     def buyBlackMarket(self, city):

@@ -165,13 +165,13 @@ class EVETask:
 
     def stockOre(self):
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.click_keyboard("B"),
+            lambda: self.simulatorInstance.click_point(28,118),
             lambda: self.hasSingleLineWordsInArea("x", A=[1183, 23, 1217, 56]),
             timeout=15,
         )
         self.w(4)
         wait(lambda: self.simulatorInstance.click_point(118, 533), 10)
-        wait(lambda: self.simulatorInstance.click_keyboard("2"), 7)
+        wait(lambda: self.simulatorInstance.click_point(924,644), 7)
         wait(lambda: self.simulatorInstance.click_point(174, 153, True), 9)
         wait(lambda: self.simulatorInstance.click_point(376, 154, True), 7)
         continueWithUntilBy(
@@ -222,7 +222,7 @@ class EVETask:
             )
         )
         # 点平衡器
-        wait(lambda: self.simulatorInstance.click_keyboard("4"), 5)
+        wait(lambda: self.simulatorInstance.click_point(1064,644), 5)
 
         duration = 40 + random.randint(0, 5)
         while self.isSafe() and duration > 0:
@@ -245,9 +245,9 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))
 
-        wait(lambda: self.simulatorInstance.click_keyboard("1"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("2"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("3"), 1)
+        wait(lambda: self.simulatorInstance.click_point(848,640), 1)
+        wait(lambda: self.simulatorInstance.click_point(924,644), 1)
+        wait(lambda: self.simulatorInstance.click_point(992,645), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("W"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("E"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("6"), 1)
@@ -262,7 +262,7 @@ class EVETask:
                             "x", A=[1186, 23, 1212, 55]
                         ),
                     )
-                wait(lambda: self.simulatorInstance.click_keyboard("`"))
+                wait(lambda: self.simulatorInstance.click_point(26,192))
 
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.click_point(26,189),
@@ -281,8 +281,8 @@ class EVETask:
             # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
             # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
             wait(lambda: self.simulatorInstance.click_point(245, 599), 4)
-            wait(lambda: self.simulatorInstance.click_keyboard("4"), 2)
-            wait(lambda: self.simulatorInstance.click_keyboard("5"), 2)
+            wait(lambda: self.simulatorInstance.click_point(1059,639), 2)
+            wait(lambda: self.simulatorInstance.click_point(1128,644), 2)
             self.pause()
 
         doAndWaitUntilBy(

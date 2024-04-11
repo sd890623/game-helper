@@ -1050,9 +1050,9 @@ routeLists = [
             "mode": "tunnel"
         },
         {
-            **samiRouteBase,
+            **svearRouteBase,
             "buyCities": ["ponta"],
-            "villages": ["sami"],
+            "villages": ["svear"],
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],

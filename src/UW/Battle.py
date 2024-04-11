@@ -455,6 +455,7 @@ class Battle:
     def goBackPort(self, town):
         def backup():
             self.utils.useSpecial("battle")
+            self.uwtask.simulatorInstance.clickPointV2(1409, 201)
 
         if self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel):
             doAndWaitUntilBy(

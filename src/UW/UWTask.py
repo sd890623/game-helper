@@ -2343,9 +2343,7 @@ class UWTask(FrontTask):
             2,
             16,
         )
-        finishedFirstBattle = self.getDailyConfValByKey("finishedFirstBattle")
-
-        if battleLeft and battleLeft < 7 and finishedFirstBattle:
+        if battleLeft and battleLeft < 1:
             return (False, now)
         else:
             return (True, now)
@@ -2378,7 +2376,6 @@ class UWTask(FrontTask):
             if not foundOpponent:
                 continue
             battle.doBattle()
-            self.updateDailyConfVal("finishedFirstBattle", True)
             if not battle.checkStats(battleCity):
                 continue
             print("repeat battle")

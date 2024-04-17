@@ -76,11 +76,11 @@ class Battle:
             wait(lambda: self.instance.clickPointV2(718, 867))
         if not self.uwtask.hasSingleLineWordsInArea(
             "using", A=[699, 867, 738, 881]
-        ) and self.uwtask.hasSingleLineWordsInArea("fast", A=[699, 848, 739, 866]):
+        ) and self.uwtask.hasSingleLineWordsInArea("fast", A=[703,849,737,864]):
             continueWithUntilBy(
                 lambda: self.instance.clickPointV2(718, 867),
                 lambda: not self.uwtask.hasSingleLineWordsInArea(
-                    "fast", A=[699, 848, 739, 866]
+                    "fast", A=[703,849,737,864]
                 )
                 or self.uwtask.isPositionColorSimilarTo(675, 856, (255, 255, 85)),
             )
@@ -90,6 +90,14 @@ class Battle:
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification = True
 
+    def clickAuto(self):
+        continueWithUntilBy(
+            lambda: self.instance.clickPointV2(825 + randomInt(), 863 + randomInt()),
+            lambda: not self.uwtask.isPositionColorSimilarTo(
+                1374, 106, (235, 235, 235)
+            ),
+            2,
+        )
     def hasResultsBtn(self):
         return (
             self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"])
@@ -231,13 +239,7 @@ class Battle:
                 case _:
                     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
 
-        continueWithUntilBy(
-            lambda: self.instance.clickPointV2(825 + randomInt(), 863 + randomInt()),
-            lambda: not self.uwtask.isPositionColorSimilarTo(
-                1374, 106, (235, 235, 235)
-            ),
-            2,
-        )
+        self.clickAuto()
         time.sleep(15)
         number = self.uwtask.getNumberFromSingleLineInArea(A=[1209, 96, 1237, 112])
         if type(number) == int and number > 30:

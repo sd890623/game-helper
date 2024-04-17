@@ -2343,7 +2343,7 @@ class UWTask(FrontTask):
             2,
             16,
         )
-        if battleLeft and battleLeft < 1:
+        if isinstance(battleLeft,int) and battleLeft < 1:
             return (False, now)
         else:
             return (True, now)

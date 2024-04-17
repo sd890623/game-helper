@@ -17,7 +17,7 @@ import datetime as dt
 
 def isWorkHour():
     hour = dt.datetime.now().hour
-    if hour >= 4 and hour <= 9:
+    if hour >= 5 and hour <= 9:
         return False
     return True
 

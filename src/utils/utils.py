@@ -38,6 +38,7 @@ class Utils:
             #     time.sleep(30)
             if(self.uwtask.hasSingleLineWordsInArea("auto",A=[789,856,844,877])):
                 self.battle.useFast()
+                self.battle.clickAuto()
                 time.sleep(250)
                 doAndWaitUntilBy(lambda: self.battle.exitBattle(),lambda: self.uwtask.inWater(),timeout=30)
                 return True
@@ -162,7 +163,7 @@ def hasOneArrayStringSimilarToString(string, array):
 
 def isWorkHour():
     hour=dt.datetime.now().hour
-    if(hour>=5 and hour<6):
+    if(hour==5):
         return False
     return True
 

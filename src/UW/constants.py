@@ -12,7 +12,7 @@ battleCity = "hag"
 
 # "piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 # opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList = ["pil", "ass", "asa", "aas", "ruthless"]
+opponentsInList = ["pil", "ass", "asa", "aas", "ruthless","rob"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 # add ducunyong as it's double lines, so quick hack,only checked in board
 opponentNames = ["pill", "pil", "ass", "asa",
@@ -1053,6 +1053,7 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["ponta"],
             "villages": ["svear"],
+            "supplyCities":["bremen","seville","tunis"],
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],

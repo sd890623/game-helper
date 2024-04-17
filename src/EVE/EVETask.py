@@ -109,10 +109,10 @@ class EVETask:
             minerImgPath, A=[808, 608, 878, 678]
         )
 
-        if inCenter:
+        if inCenter and not(minerX):
             self.print("in")
             return "in"
-        elif minerX and not (inCenter):
+        elif minerX:
             self.print("out")
             return "out"
         else:
@@ -166,7 +166,7 @@ class EVETask:
     def stockOre(self):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(28,118),
-            lambda: self.hasSingleLineWordsInArea("x", A=[1183, 23, 1217, 56]),
+            lambda: self.hasSingleLineWordsInArea("x", A=[1179,20,1220,60]),
             timeout=15,
         )
         self.w(4)

@@ -58,7 +58,7 @@ class EVETask:
         try:
             findPlayerCountLk.acquire()
             x, y = self.simulatorInstance.window_capture(
-                playerTypeMarkImagePath, A=[6, 562, 205, 584]
+                playerTypeMarkImagePath, A=[4,555,214,580]
             )
             countOcrArea = [x + 18, y - 4, x + 33, y + 18]
             countImageBlob = self.simulatorInstance.output_window_screenshot(
@@ -85,7 +85,7 @@ class EVETask:
             print(e)
             return 1
 
-    def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=3):
+    def hasSingleLineWordsInArea(self, words, A, ocrType=3):
         try:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
             # self.saveImageToFile(screenshotBlob)
@@ -101,7 +101,7 @@ class EVETask:
             return False
 
     def isPlayerInSite(self):
-        inCenter = self.hasSingleLineWordsInArea("b32-14", A=self.homeNameArea)
+        inCenter = self.hasSingleLineWordsInArea("活动", [1064,387,1116,421],4)
         minerImgPath = os.path.abspath(
             __file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp"
         )
@@ -112,7 +112,7 @@ class EVETask:
         if inCenter and not(minerX):
             self.print("in")
             return "in"
-        elif minerX:
+        elif minerX and not(inCenter):
             self.print("out")
             return "out"
         else:
@@ -166,10 +166,10 @@ class EVETask:
     def stockOre(self):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(28,118),
-            lambda: self.hasSingleLineWordsInArea("x", A=[1179,20,1220,60]),
+            lambda: self.hasSingleLineWordsInArea("仓库", [138,23,213,70],4),
             timeout=15,
         )
-        self.w(4)
+        self.w(2)
         wait(lambda: self.simulatorInstance.click_point(118, 533), 10)
         wait(lambda: self.simulatorInstance.click_point(924,644), 7)
         wait(lambda: self.simulatorInstance.click_point(174, 153, True), 9)

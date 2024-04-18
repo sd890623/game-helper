@@ -1069,6 +1069,7 @@ routeLists = [
                     "cities": ["suez"]
                 }
             ],
+            "afterSellCities": ["mogadishu"]
         },
         # {
         #     "mode": "tunnel"

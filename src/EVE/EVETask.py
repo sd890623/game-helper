@@ -106,10 +106,10 @@ class EVETask:
             __file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp"
         )
         minerX, y = self.simulatorInstance.window_capture(
-            minerImgPath, A=[808, 608, 878, 678]
+            minerImgPath, A=[808,609,877,677]
         )
 
-        if inCenter and not(minerX):
+        if inCenter:
             self.print("in")
             return "in"
         elif minerX and not(inCenter):

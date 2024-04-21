@@ -516,7 +516,7 @@ class Market:
         def getUpdateBuyCities():
             updatedCities=list(buyCities)
             for element in villageObject.get("buys"):
-                if(buyFin.get(element["product"])):
+                if(buyFin and buyFin.get(element["product"])):
                    updatedCities=removeArrayElementFromArray(updatedCities,element["cities"])
             return updatedCities
         

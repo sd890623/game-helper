@@ -300,8 +300,8 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"]
 }
 
-checkInnCities = ['lisboa', 'bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo", "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa",
-                  "zanzibar", "mogadishu", "ushuaia", "lima","valpara", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa", "seville", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "tainan", "hobe", "malacca", "gari", "hobart", "soda", "pernambuco", "cayenne"]
+checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo", "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa",
+"zanzibar", "mogadishu", "ushuaia", "lima","valpara", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "tainan","macau", "hobe", "malacca", "gari", "hobart", "soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -995,7 +995,7 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svea"],
-            "supplyCities":["bremen","seville","tunis"],
+            "supplyCities":["bremen","ceuta","tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
@@ -1044,7 +1044,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "hag"],
-            "supplyCities": ["malacca", "aden","suez"],
+            "supplyCities": ["hangzhou","macau","malacca", "aden","suez"],
         },
         {
             "mode": "tunnel"
@@ -1053,7 +1053,7 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["ponta"],
             "villages": ["svear"],
-            "supplyCities":["bremen","seville","tunis"],
+            "supplyCities":["bremen","ceuta","tunis"],
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],

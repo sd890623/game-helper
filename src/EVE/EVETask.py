@@ -11,6 +11,7 @@ class EVETask:
     exclamationRedPlayerType = "EXCLAMATIONREDPLAYERTYPE"
     minusRedPlayerType = "MINUSREDPLAYERTYPE"
     whitePlayerType = "WHITEPLAYERTYPE"
+    lastOreSiteCalibrater=0
 
     hwnd = None
     simulatorInstance = None
@@ -199,9 +200,16 @@ class EVETask:
         if self.isSafe() == False:
             self.syncBetweenUsers = True
 
+
     def goOut(self):
-        minerYDiff = 44
+        def checkGoHome():
+            if self.isSafe() == False:
+                self.syncBetweenUsers = True
+                return True
+        minerYDiff = 65
         oreSiteCalibrater = random.randint(-2, 2)
+        while(oreSiteCalibrater==self.lastOreSiteCalibrater):
+            oreSiteCalibrater = random.randint(-2, 2)
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
@@ -209,6 +217,8 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
         wait(lambda: self.simulatorInstance.click_point(1048, 21, True), 4)
         wait(lambda: self.simulatorInstance.click_point(1051, 466), 4)
+        if (checkGoHome()):
+            return
         self.print("点矿区y偏移量:" + str(oreSiteCalibrater))
         wait(
             lambda: self.simulatorInstance.click_point(
@@ -228,8 +238,7 @@ class EVETask:
         while self.isSafe() and duration > 0:
             time.sleep(5)
             duration -= 5
-        if self.isSafe() == False:
-            self.syncBetweenUsers = True
+        if (checkGoHome()):
             return
 
         # 上滑至顶
@@ -244,6 +253,9 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_point(1051, 219, True), 2)
         wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))
+
+        if (checkGoHome()):
+            return
 
         wait(lambda: self.simulatorInstance.click_point(848,640), 1)
         wait(lambda: self.simulatorInstance.click_point(924,644), 1)
@@ -281,7 +293,6 @@ class EVETask:
             # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
             # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
             wait(lambda: self.simulatorInstance.click_point(245, 599), 4)
-            wait(lambda: self.simulatorInstance.click_point(1059,639), 2)
             wait(lambda: self.simulatorInstance.click_point(1128,644), 2)
             self.pause()
 

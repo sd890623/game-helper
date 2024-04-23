@@ -23,7 +23,8 @@ def isWorkHour():
 
 
 def runTask(hwnd, index):
-    task = EVETask(hwnd, index, "MuMuPlayer")
+    #mode 0 standard, mode 1 for weekly high safety mining
+    task = EVETask(hwnd, index, "MuMuPlayer",mode=0)
     while True:
         try:
             if not (isWorkHour()):

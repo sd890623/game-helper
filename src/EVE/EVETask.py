@@ -20,11 +20,12 @@ class EVETask:
     homeNameArea = [1038, 137, 1102, 157]
 
     # def __init__(self, hwnd, index, childTitle="HD-Player",eveRunner: Runner=None):
-    def __init__(self, hwnd, index, childTitle="HD-Player",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()]):
+    def __init__(self, hwnd, index, childTitle="HD-Player",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
         self.hwnd = hwnd
         self.index = index
         self.pauseEvent = eveRunners[0]
         self.queue=eveRunners[1]
+        self.mode=mode
         childHwndObj = getChildHwndByTitleAndParentHwnd(childTitle, hwnd)
         self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor=True)
 
@@ -171,17 +172,19 @@ class EVETask:
             timeout=15,
         )
         self.w(2)
-        wait(lambda: self.simulatorInstance.click_point(118, 533), 10)
+        wait(lambda: self.simulatorInstance.click_point(118,533), 10)
         wait(lambda: self.simulatorInstance.click_point(924,644), 7)
         wait(lambda: self.simulatorInstance.click_point(174, 153, True), 9)
         wait(lambda: self.simulatorInstance.click_point(376, 154, True), 7)
         continueWithUntilBy(
             lambda: self.simulatorInstance.click_point(1198, 33),
-            lambda: self.hasSingleLineWordsInArea("b32-14", A=self.homeNameArea),
+            lambda: self.hasSingleLineWordsInArea("离站", A=[1144,208,1221,255],ocrType=4),
         )
         self.w()
 
     def isSafe(self):
+        if(self.mode==1):
+            return True
         return (
             self.findPlayerCountByType(self.exclamationRedPlayerType) < 1
             and self.findPlayerCountByType(self.minusRedPlayerType) < 1
@@ -210,6 +213,8 @@ class EVETask:
         oreSiteCalibrater = random.randint(-2, 2)
         while(oreSiteCalibrater==self.lastOreSiteCalibrater):
             oreSiteCalibrater = random.randint(-2, 2)
+        if(self.mode==1):
+            oreSiteCalibrater=-2
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
@@ -278,7 +283,7 @@ class EVETask:
 
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.click_point(26,189),
-                lambda: self.hasSingleLineWordsInArea("b32", A=[34, 571, 90, 589]),
+                lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
                 backupFunc=backup,
                 timeout=15
             )

@@ -125,7 +125,7 @@ apachewine = {
     "barterFleet": 3
 }
 witoto = {
-    "villageName": "witoto",
+    "villageName": "varo",
     "buys": [
         # sequence has to map in game display
         {"product": "noni", "cities": [
@@ -450,7 +450,7 @@ witotoRouteBase = {
     "buyCities": ["prey", "deokwon"],
     "enableVillageTrade": True,
     "useFishingCities": [],
-    "villages": ["witoto"],
+    "villages": ["varo"],
     "afterVillageBuyCities": [],
     "supplyCities": ["elmina", "cape", "toamasina", "pasay", "dongnae"],
     "sellFleet": 7,

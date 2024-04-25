@@ -223,7 +223,7 @@ class MiningTask(EVETask):
             time.sleep(30 + random.randint(0, 5))
             return
         self.print("开始存货")
-        # self.stockOre()
+        self.stockOre()
         self.print("存货完毕")
         time.sleep(10)
         while True:

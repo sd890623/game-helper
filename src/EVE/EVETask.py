@@ -19,8 +19,7 @@ class EVETask:
     syncBetweenUsers = True
     homeNameArea = [1038, 137, 1102, 157]
 
-    # def __init__(self, hwnd, index, childTitle="HD-Player",eveRunner: Runner=None):
-    def __init__(self, hwnd, index, childTitle="HD-Player",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
+    def __init__(self, hwnd, index, childTitle="MuMuPlayer",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
         self.hwnd = hwnd
         self.index = index
         self.pauseEvent = eveRunners[0]
@@ -101,20 +100,25 @@ class EVETask:
         except Exception as e:
             print(e)
             return False
+        
+    def getNumberFromSingleLineInArea(self, A=[0, 0, 0, 0], debug=False):
+        try:
+            screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
+            if (debug == True):
+                self.saveImageToFile(screenshotBlob)
+            return getNumberfromImageBlob(screenshotBlob)
+        except Exception as e:
+            print("fail to get number")
+            return 0
 
     def isPlayerInSite(self):
         inCenter = self.hasSingleLineWordsInArea("活动", [1064,387,1116,421],4)
-        minerImgPath = os.path.abspath(
-            __file__ + "\\..\\..\\..\\assets\\clickOns\\miner.bmp"
-        )
-        minerX, y = self.simulatorInstance.window_capture(
-            minerImgPath, A=[808,609,877,677]
-        )
+        isOut = self.getNumberFromSingleLineInArea([482,589,511,605])==100
 
         if inCenter:
             self.print("in")
             return "in"
-        elif minerX and not(inCenter):
+        elif isOut and not(inCenter):
             self.print("out")
             return "out"
         else:
@@ -130,37 +134,6 @@ class EVETask:
             self.print("安全")
             self.pause()
             time.sleep(7)
-
-    def startMiningTask(self):
-        if self.syncBetweenUsers:
-            self.print("账号差异化，等待x*60s")
-            time.sleep(90 * self.index)
-            self.syncBetweenUsers = not (self.syncBetweenUsers)
-        self.print("新一轮开始了")
-        if not (self.isSafe()):
-            self.print("有海盗，蹲站")
-            time.sleep(30 + random.randint(0, 5))
-            return
-        self.print("开始存货")
-        self.stockOre()
-        self.print("存货完毕")
-        time.sleep(10)
-        while True:
-            if self.isSafe():
-                self.print("安全，出发")
-                self.goOut()
-                self.print("到达，开采")
-                break
-            else:
-                self.print("有海盗，蹲站")
-                time.sleep(30 + random.randint(0, 5))
-                continue
-        self.print("采矿等待中")
-        self.checkSafeForMinutes(11.2 + random.randint(0, 10) / 10)
-        self.print("回家")
-        self.goHome()
-        self.print("到家")
-        time.sleep(30 + random.randint(0, 30))
 
     def w(self, sec=2):
         time.sleep(sec + random.random() * 0.5)
@@ -183,8 +156,6 @@ class EVETask:
         self.w()
 
     def isSafe(self):
-        if(self.mode==1):
-            return True
         return (
             self.findPlayerCountByType(self.exclamationRedPlayerType) < 1
             and self.findPlayerCountByType(self.minusRedPlayerType) < 1
@@ -202,72 +173,6 @@ class EVETask:
             # count+=1
         if self.isSafe() == False:
             self.syncBetweenUsers = True
-
-
-    def goOut(self):
-        def checkGoHome():
-            if self.isSafe() == False:
-                self.syncBetweenUsers = True
-                return True
-        minerYDiff = 65
-        oreSiteCalibrater = random.randint(-2, 2)
-        while(oreSiteCalibrater==self.lastOreSiteCalibrater):
-            oreSiteCalibrater = random.randint(-2, 2)
-        if(self.mode==1):
-            oreSiteCalibrater=-2
-        wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
-        while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(10)
-        wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
-        wait(lambda: self.simulatorInstance.click_point(1048, 21, True), 4)
-        wait(lambda: self.simulatorInstance.click_point(1051, 466), 4)
-        if (checkGoHome()):
-            return
-        self.print("点矿区y偏移量:" + str(oreSiteCalibrater))
-        wait(
-            lambda: self.simulatorInstance.click_point(
-                1055, 220 + oreSiteCalibrater * minerYDiff
-            ),
-            4,
-        )
-        wait(
-            lambda: self.simulatorInstance.click_point(
-                819, 299 + oreSiteCalibrater * minerYDiff, 4
-            )
-        )
-        # 点平衡器
-        wait(lambda: self.simulatorInstance.click_point(1064,644), 5)
-
-        duration = 40 + random.randint(0, 5)
-        while self.isSafe() and duration > 0:
-            time.sleep(5)
-            duration -= 5
-        if (checkGoHome()):
-            return
-
-        # 上滑至顶
-        times = 4
-        # todo solve foreground scroll
-        # while(times>0):
-        #    wait(lambda: self.simulatorInstance.mouseWheel((1357,190), "up"),2)
-        #    times=times-1
-        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
-        wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
-
-        wait(lambda: self.simulatorInstance.click_point(1051, 219, True), 2)
-        wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)
-        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
-
-        if (checkGoHome()):
-            return
-
-        wait(lambda: self.simulatorInstance.click_point(848,640), 1)
-        wait(lambda: self.simulatorInstance.click_point(924,644), 1)
-        wait(lambda: self.simulatorInstance.click_point(992,645), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("W"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("E"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("6"), 1)
 
     def goHome(self):
         def triggerGoHome():
@@ -297,7 +202,11 @@ class EVETask:
 
             # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
             # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
-            wait(lambda: self.simulatorInstance.click_point(245, 599), 4)
+            if(self.mode==2):
+                point=(243,578)
+            else:
+                point=(240,532)
+            wait(lambda: self.simulatorInstance.click_point(*point), 4)
             wait(lambda: self.simulatorInstance.click_point(1128,644), 2)
             self.pause()
 
@@ -310,55 +219,6 @@ class EVETask:
 
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
             time.sleep(5)
-        time.sleep(10)
-
-    def passOre(self):
-        if not (self.isSafe()):
-            self.print("有海盗，蹲站")
-            time.sleep(30)
-            return
-        wait(lambda: self.simulatorInstance.click_point(875, 180, True), 5)
-        while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-        wait(lambda: self.simulatorInstance.click_keyboard("`"), 6)
-        wait(lambda: self.simulatorInstance.click_point(131, 186), 4)
-        wait(lambda: self.simulatorInstance.click_point(204, 231), 4)
-        time.sleep(15)
-        while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-
-        wait(lambda: self.simulatorInstance.click_keyboard("b"), 8)
-
-        wait(lambda: self.simulatorInstance.click_point(102, 147), 4)
-
-        wait(lambda: self.simulatorInstance.click_point(505, 138))
-        wait(lambda: self.simulatorInstance.click_point(905, 93))
-        wait(lambda: self.simulatorInstance.click_point(965, 141))
-        wait(lambda: self.simulatorInstance.click_point(903, 70))
-        wait(lambda: self.simulatorInstance.click_point(967, 245), 4)
-        wait(lambda: self.simulatorInstance.click_keyboard("5"), 4)
-
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-
-        wait(lambda: self.simulatorInstance.click_keyboard("`"), 6)
-        wait(lambda: self.simulatorInstance.click_point(131, 186))
-        wait(lambda: self.simulatorInstance.click_point(204, 355), 5)
-        wait(lambda: self.simulatorInstance.click_point(915, 456))
-
-        time.sleep(15)
-        while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-
-        self.stockOre()
         time.sleep(10)
 
     def saveImageToFile(self, imageBlob):

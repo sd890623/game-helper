@@ -7,6 +7,7 @@ from utils import *
 class MiningTask(EVETask):
     haveChangedToMiningFilter = False
     minedRows = []
+    havePirate=False
 
     def __init__(self, hwnd, index, mode=0):
         super().__init__(hwnd, index, mode=mode)
@@ -14,57 +15,17 @@ class MiningTask(EVETask):
     def isSafe(self):
         if self.mode == 0:
             return super().isSafe()
-        return True
-
-    def passOre(self):
-        if not (self.isSafe()):
-            self.print("有海盗，蹲站")
-            time.sleep(30)
-            return
-        wait(lambda: self.simulatorInstance.click_point(875, 180, True), 5)
-        while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-        wait(lambda: self.simulatorInstance.click_keyboard("`"), 6)
-        wait(lambda: self.simulatorInstance.click_point(131, 186), 4)
-        wait(lambda: self.simulatorInstance.click_point(204, 231), 4)
-        time.sleep(15)
-        while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-
-        wait(lambda: self.simulatorInstance.click_keyboard("b"), 8)
-
-        wait(lambda: self.simulatorInstance.click_point(102, 147), 4)
-
-        wait(lambda: self.simulatorInstance.click_point(505, 138))
-        wait(lambda: self.simulatorInstance.click_point(905, 93))
-        wait(lambda: self.simulatorInstance.click_point(965, 141))
-        wait(lambda: self.simulatorInstance.click_point(903, 70))
-        wait(lambda: self.simulatorInstance.click_point(967, 245), 4)
-        wait(lambda: self.simulatorInstance.click_keyboard("5"), 4)
-
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-        wait(lambda: self.simulatorInstance.click_point(961, 31))
-
-        wait(lambda: self.simulatorInstance.click_keyboard("`"), 6)
-        wait(lambda: self.simulatorInstance.click_point(131, 186))
-        wait(lambda: self.simulatorInstance.click_point(204, 355), 5)
-        wait(lambda: self.simulatorInstance.click_point(915, 456))
-
-        time.sleep(15)
-        while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
-            time.sleep(5)
-        time.sleep(15)
-
-        self.stockOre()
-        time.sleep(10)
-
+        elif self.mode == 1:
+            return True
+        else:
+            if(self.hasSingleLineWordsInArea("探测",[203,162,236,182],4)):
+                wait(lambda: self.simulatorInstance.click_point(26,189),1)
+                self.havePirate=True
+                return False
+            if(self.havePirate):
+                return False
+            return True
+    
     def goOut(self):
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
@@ -220,7 +181,8 @@ class MiningTask(EVETask):
         self.print("新一轮开始了")
         if not (self.isSafe()):
             self.print("有海盗，蹲站")
-            time.sleep(30 + random.randint(0, 5))
+            time.sleep(1800)
+            self.havePirate=False
             return
         self.print("开始存货")
         self.stockOre()

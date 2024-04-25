@@ -6,11 +6,13 @@ from utils import *
 
 class MiningTask(EVETask):
     haveChangedToMiningFilter = False
+    minedRows = []
+
     def __init__(self, hwnd, index, mode=0):
         super().__init__(hwnd, index, mode=mode)
 
     def isSafe(self):
-        if(self.mode==0):
+        if self.mode == 0:
             return super().isSafe()
         return True
 
@@ -68,31 +70,90 @@ class MiningTask(EVETask):
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
         time.sleep(10)
-        if(not self.haveChangedToMiningFilter):
+        if not self.haveChangedToMiningFilter:
             wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
             wait(lambda: self.simulatorInstance.click_point(1048, 21, True), 4)
             wait(lambda: self.simulatorInstance.click_point(1051, 466), 4)
             self.haveChangedToMiningFilter = True
-        if(self.mode==2):
+        else:
+            wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+
+        if self.mode == 2:
             return self.minec70()
         else:
             return self.mineNormal()
 
     def minec70(self):
+        def checkGoHome():
+            if self.isSafe() == False:
+                self.syncBetweenUsers = True
+                return True
+
+        yDiff = 68
+
+        def getCurrentRow():
+            for row in range(6):
+                if row not in self.minedRows:
+                    return row
+
+        row = getCurrentRow()
+        wait(
+            lambda: self.simulatorInstance.click_point(1069, 70 + row * yDiff),
+            4,
+        )
+        wait(
+            lambda: self.simulatorInstance.click_point(814, 163 + row * yDiff),
+            4,
+        )
+        time.sleep(15)
+        if checkGoHome():
+            return
+        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
+        wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+        if self.getNumberFromSingleLineInArea([1071, 359, 1093, 376]) == 70:
+            wait(
+                lambda: self.simulatorInstance.click_point(1056, 351),
+                1,
+            )
+            wait(
+                lambda: self.simulatorInstance.click_point(823, 361),
+                1,
+            )
+            wait(
+                lambda: self.simulatorInstance.click_point(1062, 362),
+                1,
+            )
+            wait(
+                lambda: self.simulatorInstance.click_point(824, 433),
+                1,
+            )
+            wait(
+                lambda: self.simulatorInstance.click_point(1199, 647),
+                20,
+            )
+            if checkGoHome():
+                return
+            wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
+            wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
+            wait(lambda: self.simulatorInstance.click_point(992, 645), 1)
+            wait(lambda: self.simulatorInstance.click_point(1199, 647))
+        else:
+            self.minedRows.append(row)
         return True
-    
+
     def mineNormal(self):
         def checkGoHome():
             if self.isSafe() == False:
                 self.syncBetweenUsers = True
                 return True
+
         minerYDiff = 65
         oreSiteCalibrater = random.randint(-2, 2)
-        while(oreSiteCalibrater==self.lastOreSiteCalibrater):
+        while oreSiteCalibrater == self.lastOreSiteCalibrater:
             oreSiteCalibrater = random.randint(-2, 2)
-        if(self.mode==1):
-            oreSiteCalibrater=-2
-        if (checkGoHome()):
+        if self.mode == 1:
+            oreSiteCalibrater = -2
+        if checkGoHome():
             return
         self.print("点矿区y偏移量:" + str(oreSiteCalibrater))
         wait(
@@ -107,21 +168,15 @@ class MiningTask(EVETask):
             )
         )
         # 点平衡器
-        wait(lambda: self.simulatorInstance.click_point(1064,644), 5)
+        wait(lambda: self.simulatorInstance.click_point(1064, 644), 5)
 
         duration = 40 + random.randint(0, 5)
         while self.isSafe() and duration > 0:
             time.sleep(5)
             duration -= 5
-        if (checkGoHome()):
+        if checkGoHome():
             return
 
-        # 上滑至顶
-        times = 4
-        # todo solve foreground scroll
-        # while(times>0):
-        #    wait(lambda: self.simulatorInstance.mouseWheel((1357,190), "up"),2)
-        #    times=times-1
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))
         wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
 
@@ -129,15 +184,33 @@ class MiningTask(EVETask):
         wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))
 
-        if (checkGoHome()):
+        if checkGoHome():
             return
 
-        wait(lambda: self.simulatorInstance.click_point(848,640), 1)
-        wait(lambda: self.simulatorInstance.click_point(924,644), 1)
-        wait(lambda: self.simulatorInstance.click_point(992,645), 1)
+        wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
+        wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
+        wait(lambda: self.simulatorInstance.click_point(992, 645), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("W"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("E"), 1)
         wait(lambda: self.simulatorInstance.click_keyboard("6"), 1)
+
+    def waitForOreFinish(self):
+        if self.mode == 2:
+            frequency = 5
+            totalSeconds = 30 * 60
+            # count=0
+            while (
+                self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
+                and totalSeconds > 0
+                and self.isSafe()
+            ):
+                time.sleep(frequency)
+                totalSeconds -= frequency
+                # self.print("count:"+str(count))
+                # count+=1
+            return
+        else:
+            self.checkSafeForMinutes(11.2 + random.randint(0, 10) / 10)
 
     def startMiningTask(self):
         if self.syncBetweenUsers:
@@ -150,7 +223,7 @@ class MiningTask(EVETask):
             time.sleep(30 + random.randint(0, 5))
             return
         self.print("开始存货")
-        self.stockOre()
+        # self.stockOre()
         self.print("存货完毕")
         time.sleep(10)
         while True:
@@ -164,8 +237,13 @@ class MiningTask(EVETask):
                 time.sleep(30 + random.randint(0, 5))
                 continue
         self.print("采矿等待中")
-        self.checkSafeForMinutes(11.2 + random.randint(0, 10) / 10)
+        self.waitForOreFinish()
         self.print("回家")
         self.goHome()
         self.print("到家")
         time.sleep(30 + random.randint(0, 30))
+        if(len(self.minedRows)==6):
+            self.print("已经采集完成,sleep for 1hr")
+            time.sleep(3600)
+            self.minedRows=[]
+

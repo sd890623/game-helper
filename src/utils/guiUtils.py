@@ -294,26 +294,25 @@ class win ():#line:35
     def new_mousemove(self, x, y):
         tmp = win32api.MAKELONG(x, y)
         win32api.PostMessage(self.hwnd, win32con.WM_MOUSEMOVE, win32con.MK_LBUTTON, tmp)
-    def moveClickAndDrag(self, position, direction):
+    def moveClickAndDrag(self, position, direction,change):
         x =position[0] +random .randint (10 ,10 )
         y =position[1] +random .randint (10 ,10 )
-        win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONDOWN ,0 ,((y )<<16 |(x )));
+        long_position = win32api.MAKELONG(x, y)
+        win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+        win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position)
         time.sleep(1)
         if (direction == "up"):
-            self.mouse_move(x, y-80)
             time.sleep(1)
-            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y-80 )<<16 |(x )));
+            for step in range(change):
+                win32api.PostMessage(self.hwnd,win32con.WM_MOUSEMOVE,win32con.MK_LBUTTON ,win32api.MAKELONG(x, y-step))
+                time.sleep(0.03)
+            win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONUP ,None ,win32api.MAKELONG(x, y-change))
         elif (direction == "down"):
-            self.mouse_move(x, y+80)
             time.sleep(1)
-            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y+80 )<<16 |(x )));
-    def newClickAndDrag(self, position, direction):
-        x =position[0] +random .randint (10 ,10 )
-        y =position[1] +random .randint (10 ,10 )
-        if (direction == "up"):
-            self.move(x,y,x,y+80)
-        elif (direction == "down"):
-            self.move(x,y,x,y-80)
+            for step in range(change):
+                win32api.PostMessage(self.hwnd,win32con.WM_MOUSEMOVE,win32con.MK_LBUTTON ,win32api.MAKELONG(x, y+step))
+                time.sleep(0.03)
+            win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONUP ,None ,win32api.MAKELONG(x, y+change))
 
     def mouseWheel(self, position, direction):
         win32gui.SetForegroundWindow(self.hwnd)

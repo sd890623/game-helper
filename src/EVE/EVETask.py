@@ -29,10 +29,12 @@ class EVETask:
         self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor=True)
 
     def testTask(self):
-        times = 2
+        times = 1
         # todo solve foreground scroll
         while times > 0:
-            wait(lambda: self.simulatorInstance.mouseWheel((1263, 213), "up"), 1)
+            # battle starts from 2nd one
+            wait(lambda: self.simulatorInstance.click_point(1017,93))
+            self.simulatorInstance.moveClickAndDrag((822,161),'up',150)
             times = times - 1
         doMoreTimesWithWait(lambda: self.simulatorInstance.click_point(64, 39), 20, 1)
     

@@ -18,7 +18,7 @@ class MiningTask(EVETask):
         elif self.mode == 1:
             return True
         else:
-            if(self.hasSingleLineWordsInArea("探测",[203,162,236,182],4)):
+            if((not self.inSite and self.isPositionColorSimilarTo(774,27,(36,36,39))) or self.hasSingleLineWordsInArea("探测",[203,162,236,182],4)):
                 wait(lambda: self.simulatorInstance.click_point(26,189),1)
                 self.havePirate=True
                 return False
@@ -30,6 +30,7 @@ class MiningTask(EVETask):
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
+        self.setInsite(False)
         time.sleep(10)
         if not self.haveChangedToMiningFilter:
             wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)

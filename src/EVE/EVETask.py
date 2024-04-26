@@ -6,12 +6,14 @@ import guiUtils
 import time
 import random
 import multiprocessing
+import math
 
 class EVETask:
     exclamationRedPlayerType = "EXCLAMATIONREDPLAYERTYPE"
     minusRedPlayerType = "MINUSREDPLAYERTYPE"
     whitePlayerType = "WHITEPLAYERTYPE"
     lastOreSiteCalibrater=0
+    inSite=True
 
     hwnd = None
     simulatorInstance = None
@@ -27,6 +29,9 @@ class EVETask:
         self.mode=mode
         childHwndObj = getChildHwndByTitleAndParentHwnd(childTitle, hwnd)
         self.simulatorInstance = guiUtils.win(childHwndObj["hwnd"], bor=True)
+
+    def setInsite(self,val):
+        self.inSite=val
 
     def testTask(self):
         times = 1
@@ -113,6 +118,17 @@ class EVETask:
             print("fail to get number")
             return 0
 
+    def isPositionColorSimilarTo(self, x, y, rgb):
+        positionRGB = self.simulatorInstance.getColorRGBByPosition(x, y)
+        if (not (positionRGB)):
+            return False
+        d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +
+                      (positionRGB[1] - rgb[1]) ** 2 + (positionRGB[2] - rgb[2]) ** 2)
+        if (d < 40):
+            return True
+        else:
+            return False
+        
     def isPlayerInSite(self):
         inCenter = self.hasSingleLineWordsInArea("活动", [1064,387,1116,421],4)
         isOut = self.getNumberFromSingleLineInArea([482,589,511,605])==100
@@ -222,6 +238,7 @@ class EVETask:
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
             time.sleep(5)
         time.sleep(10)
+        self.inSite=True
 
     def saveImageToFile(self, imageBlob):
         screenshotImgPath = os.path.abspath(

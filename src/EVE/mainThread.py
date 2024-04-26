@@ -22,7 +22,7 @@ def isWorkHour():
 
 def runTask(hwnd, index):
     #mode 0 standard, mode 1 for weekly high safety mining, mode 2 for gulan target mining
-    task = MiningTask(hwnd, index,mode=0)
+    task = MiningTask(hwnd, index,mode=2)
     while True:
         try:
             if not (isWorkHour()):
@@ -39,7 +39,7 @@ def runTask(hwnd, index):
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     # ,
-    allWindowsWithTitle = getAllWindowsWithTitles(["MuMu模拟器-1", "MuMu模拟器-2"],1254, 741)
+    allWindowsWithTitle = getAllWindowsWithTitles(["MuMu模拟器-1"],1254, 741)
     threads = []
     for index, window in enumerate(allWindowsWithTitle):
         threads.append(

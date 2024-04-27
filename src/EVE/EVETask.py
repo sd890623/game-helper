@@ -20,6 +20,7 @@ class EVETask:
     index = None
     syncBetweenUsers = True
     homeNameArea = [1038, 137, 1102, 157]
+    stellarisArea=[109,14,245,46]
 
     def __init__(self, hwnd, index, childTitle="MuMuPlayer",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
         self.hwnd = hwnd
@@ -34,6 +35,7 @@ class EVETask:
         self.inSite=val
 
     def testTask(self):
+        self.goToStella("ezc")
         times = 1
         # todo solve foreground scroll
         while times > 0:
@@ -142,6 +144,49 @@ class EVETask:
         else:
             return "middle"
 
+    def goToStella(self,name,waitTime=40):
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(183,30),
+            lambda: self.hasSingleLineWordsInArea("x", [1185,22,1213,54]),
+            timeout=15
+        )
+        self.w(4)
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(67,447),
+            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95]),
+            timeout=15
+        )
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(157,142),
+            lambda: self.hasSingleLineWordsInArea("x", [1187,11,1222,52]),
+            timeout=15
+        )
+        wait(lambda: self.simulatorInstance.click_point(224,28), 1)
+        wait(lambda: self.simulatorInstance.typeWriteV1("ezc"),1)
+        continueWithUntilBy(
+            lambda: self.simulatorInstance.click_point(1059,28),
+            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95]),
+            frequency=10,
+            timeout=15
+        )
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(165,278),
+            lambda: self.hasSingleLineWordsInArea(name, [1014,387,1112,413]),
+            timeout=15
+        )
+        wait(lambda: self.simulatorInstance.click_point(1124,461))
+        wait(lambda: self.simulatorInstance.click_point(26,189))
+        if(self.hasSingleLineWordsInArea("导航确认",[882,334,972,372],4)):
+            wait(lambda: self.simulatorInstance.click_point(1135,536),10)
+        
+        doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1201,34),lambda: self.hasSingleLineWordsInArea(name, A=self.stellarisArea),waitTime,timeout=15)
+
+
+
+
+
+
+
     def checkEnemy(self):
         while True:
             if not self.isSafe():
@@ -192,7 +237,7 @@ class EVETask:
         if self.isSafe() == False:
             self.syncBetweenUsers = True
 
-    def goHome(self):
+    def goHome(self,waitTime=60):
         def triggerGoHome():
             def backup():
                 if self.hasSingleLineWordsInArea("x", A=[1186, 23, 1212, 55]):
@@ -231,7 +276,7 @@ class EVETask:
         doAndWaitUntilBy(
             lambda: triggerGoHome(),
             lambda: self.isPlayerInSite() == "in",
-            60,
+            waitTime,
             timeout=60,
         )
 

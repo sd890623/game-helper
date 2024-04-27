@@ -7,7 +7,8 @@ from utils import *
 class MiningTask(EVETask):
     haveChangedToMiningFilter = False
     minedRows = []
-    havePirate=False
+    otherStellaRows = {"EZC": []}
+    havePirate = False
 
     def __init__(self, hwnd, index, mode=0):
         super().__init__(hwnd, index, mode=mode)
@@ -18,14 +19,16 @@ class MiningTask(EVETask):
         elif self.mode == 1:
             return True
         else:
-            if((not self.inSite and self.isPositionColorSimilarTo(774,27,(36,36,39))) or self.hasSingleLineWordsInArea("探测",[203,162,236,182],4)):
-                wait(lambda: self.simulatorInstance.click_point(26,189),1)
-                self.havePirate=True
+            if (
+                not self.inSite and self.isPositionColorSimilarTo(774, 27, (36, 36, 39))
+            ) or self.hasSingleLineWordsInArea("探测", [203, 162, 236, 182], 4):
+                wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
+                self.havePirate = True
                 return False
-            if(self.havePirate):
+            if self.havePirate:
                 return False
             return True
-    
+
     def goOut(self):
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
@@ -45,6 +48,19 @@ class MiningTask(EVETask):
         else:
             return self.mineNormal()
 
+    def c70GoOut(self):
+        if len(self.minedRows) == 6:
+            self.goToStella("ezc")
+            self.minec70()
+        else:
+            self.goOut()
+
+    def recordMined(self, row):
+        if len(self.minedRows) == 6:
+            self.otherStellaRows["EZC"].append(row)
+        else:
+            self.minedRows.append(row)
+
     def minec70(self):
         def checkGoHome():
             if self.isSafe() == False:
@@ -55,9 +71,17 @@ class MiningTask(EVETask):
 
         def getCurrentRow():
             for row in range(6):
-                if row not in self.minedRows:
+                if row not in (
+                    self.otherStellaRows["EZC"]
+                    if len(self.minedRows) == 6
+                    else self.minedRows
+                ):
                     return row
 
+        wait(
+            lambda: self.simulatorInstance.click_point(1202, 395),
+            4,
+        )
         row = getCurrentRow()
         wait(
             lambda: self.simulatorInstance.click_point(1069, 70 + row * yDiff),
@@ -100,7 +124,7 @@ class MiningTask(EVETask):
             wait(lambda: self.simulatorInstance.click_point(992, 645), 1)
             wait(lambda: self.simulatorInstance.click_point(1199, 647))
         else:
-            self.minedRows.append(row)
+            self.recordMined(row)
         return True
 
     def mineNormal(self):
@@ -183,7 +207,7 @@ class MiningTask(EVETask):
         if not (self.isSafe()):
             self.print("有海盗，蹲站")
             time.sleep(1800)
-            self.havePirate=False
+            self.havePirate = False
             return
         self.print("开始存货")
         self.stockOre()
@@ -192,7 +216,10 @@ class MiningTask(EVETask):
         while True:
             if self.isSafe():
                 self.print("安全，出发")
-                self.goOut()
+                if self.mode == 2:
+                    self.c70GoOut()
+                else:
+                    self.goOut()
                 self.print("到达，开采")
                 break
             else:
@@ -205,8 +232,8 @@ class MiningTask(EVETask):
         self.goHome()
         self.print("到家")
         time.sleep(30 + random.randint(0, 30))
-        if(len(self.minedRows)==6):
+        if len(self.minedRows) == 6 and len(self.otherStellaRows["EZC"]) == 6:
             self.print("已经采集完成,sleep for 1hr")
             time.sleep(3600)
-            self.minedRows=[]
-
+            self.minedRows = []
+            self.otherStellaRows["EZC"] = []

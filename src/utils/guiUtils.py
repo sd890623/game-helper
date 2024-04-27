@@ -20,10 +20,15 @@ def base642Str (OOO0OOOOOOOO0000O ):#line:16
     return OO0O00O0O0OO00O00 .decode ('utf-8')#line:18
 scale =1 #line:21
 
+def get_ascii_mapping(input_string):
+    return [{"key": char, "value": ord(char)} for char in input_string]
+
+ascii_mapping = get_ascii_mapping("ABCDEFGHIJKLMNOPQRSTUVWXYZ-")
+
+
 def getDecimalValueFromKeyStroke (keyStroke):
-    mapping = [{"key": "b", "value": 66}, {"key": "q", "value": 81}, {"key": "w", "value": 87}, {"key": "e", "value": 69}, {"key": "r", "value": 82}, {"key": "t", "value": 84}, {"key": "y", "value": 89}, {"key": "1", "value": 49}, {"key": "2", "value": 50}, {"key": "3", "value": 51}, {"key": "4", "value": 52}, {"key": "5", "value": 53}, {"key": "6", "value": 54}, {"key": "`", "value": 192} ]
-    for object in mapping:
-        if (object["key"] == keyStroke.lower()):
+    for object in ascii_mapping:
+        if (object["key"].lower() == keyStroke.lower()):
             return object["value"]
     return None
 
@@ -438,12 +443,18 @@ class win ():#line:35
         pydirectinput.press("enter")
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233
+    def typeWriteV1(self,strings):
+        if(len(strings) == 0):
+            return
+        for string in list(strings):
+            self.click_keyboard(string)
+            time.sleep(0.5+random.random()*0.5)
     def click_keyboard (self, keyStroke ):#line:231
         if (getDecimalValueFromKeyStroke(keyStroke)):
             win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
             time.sleep(0.5+random.random() * 0.5)
             win32api .PostMessage (self.hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232
-            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:233
+            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,None ,0 )#line:233
     def send_str (OO0O00000O0O0O0O0 ,OO00000OOOOOOOOO0 ):#line:235
         O0O0OOO0OOOOO0O00 =[ord (OOOOO0O0OO0OO00O0 )for OOOOO0O0OO0OO00O0 in OO00000OOOOOOOOO0 ]#line:236
         for OOO0000OOOOO0OO0O in O0O0OOO0OOOOO0O00 :#line:237

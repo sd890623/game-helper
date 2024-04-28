@@ -247,10 +247,11 @@ class EVETask:
                             "x", A=[1186, 23, 1212, 55]
                         ),
                     )
-                wait(lambda: self.simulatorInstance.click_point(26,192))
+                wait(lambda: self.simulatorInstance.click_point(13,187))
+
 
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.click_point(26,189),
+                lambda: self.simulatorInstance.click_point(13,187),
                 lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
                 backupFunc=backup,
                 timeout=15
@@ -265,7 +266,7 @@ class EVETask:
 
             # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
             # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
-            if(self.mode==2):
+            if(self.mode==2 or self.mode==3):
                 point=(243,578)
             else:
                 point=(240,532)

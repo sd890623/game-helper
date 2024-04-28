@@ -42,6 +42,7 @@ class MiningTask(EVETask):
             self.haveChangedToMiningFilter = True
         else:
             wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+        wait(lambda: self.simulatorInstance.click_point(622,604),1)
 
         if self.mode == 2:
             return self.minec70()
@@ -51,6 +52,7 @@ class MiningTask(EVETask):
     def c70GoOut(self):
         if len(self.minedRows) == 6:
             self.goToStella("ezc")
+            wait(lambda: self.simulatorInstance.click_point(622,604),1)
             self.minec70()
         else:
             self.goOut()
@@ -64,6 +66,7 @@ class MiningTask(EVETask):
     def minec70(self):
         def checkGoHome():
             if self.isSafe() == False:
+                self.print("有海盗，回家")
                 self.syncBetweenUsers = True
                 return True
 
@@ -206,7 +209,7 @@ class MiningTask(EVETask):
         self.print("新一轮开始了")
         if not (self.isSafe()):
             self.print("有海盗，蹲站")
-            time.sleep(1800)
+            time.sleep(600)
             self.havePirate = False
             return
         self.print("开始存货")

@@ -13,15 +13,22 @@ class MiningTask(EVETask):
     def __init__(self, hwnd, index, mode=0):
         super().__init__(hwnd, index, mode=mode)
 
+    def testTask(self):
+        self.setInsite(False)
+        print(self.isSafe())
+
+    def checkHasPirateOnBoard(self):
+        secondPositionHavePirate=self.isPositionColorSimilarTo(767,34, (27,29,29)) and self.haveWords([761,104,814,121],4)
+        firstPositionHavePirate=self.isPositionColorSimilarTo(847,54, (27,29,29)) and self.haveWords([845,106,910,121],4)
+        return not self.inSite and (firstPositionHavePirate or secondPositionHavePirate)
+            
     def isSafe(self):
         if self.mode == 0:
             return super().isSafe()
         elif self.mode == 1:
             return True
         else:
-            if (
-                not self.inSite and self.isPositionColorSimilarTo(774, 27, (36, 36, 39))
-            ) or self.hasSingleLineWordsInArea("探测", [203, 162, 236, 182], 4):
+            if self.checkHasPirateOnBoard() or self.hasSingleLineWordsInArea("探测", [203, 162, 236, 182], 4):
                 wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
                 self.havePirate = True
                 return False

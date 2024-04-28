@@ -35,7 +35,7 @@ class EVETask:
         self.inSite=val
 
     def testTask(self):
-        self.goToStella("ezc")
+        self.isSafe()
         times = 1
         # todo solve foreground scroll
         while times > 0:
@@ -110,6 +110,17 @@ class EVETask:
             print(e)
             return False
         
+    def haveWords(self,A,ocrType=3):
+        try:
+            screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
+            ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
+            if len(ocrObj[0]) > 1:
+                return True
+            return False
+        except Exception as e:
+            print(e)
+            return False
+        
     def getNumberFromSingleLineInArea(self, A=[0, 0, 0, 0], debug=False):
         try:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
@@ -126,7 +137,7 @@ class EVETask:
             return False
         d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +
                       (positionRGB[1] - rgb[1]) ** 2 + (positionRGB[2] - rgb[2]) ** 2)
-        if (d < 40):
+        if (d < 20):
             return True
         else:
             return False

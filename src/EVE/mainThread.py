@@ -40,15 +40,17 @@ def getModeFromIndex(name):
     parts = name.split('-')
     winIndex = parts[-1]
     if(winIndex=="1"):
-        return 2
+        return -1
     elif(winIndex=="2"):
-        return 0
+        return 2
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     # ,
     allWindowsWithTitle = getAllWindowsWithTitles(["MuMu模拟器-1","MuMu模拟器-2"],1254, 741)
     threads = []
     for index, window in enumerate(allWindowsWithTitle):
+        if(getModeFromIndex(window["title"])==-1):
+            continue
         threads.append(
             Thread(
                 target=runTask,

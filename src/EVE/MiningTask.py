@@ -18,17 +18,27 @@ class MiningTask(EVETask):
         print(self.isSafe())
 
     def checkHasPirateOnBoard(self):
-        secondPositionHavePirate=self.isPositionColorSimilarTo(767,34, (27,29,29)) and self.haveWords([761,104,814,121],4)
-        firstPositionHavePirate=self.isPositionColorSimilarTo(847,54, (27,29,29)) and self.haveWords([845,106,910,121],4)
+        secondPositionHavePirate = self.isPositionColorSimilarTo(
+            767, 34, (27, 29, 29)
+        ) and self.haveWords([761, 104, 814, 121], 4)
+        firstPositionHavePirate = self.isPositionColorSimilarTo(
+            847, 54, (27, 29, 29)
+        ) and self.haveWords(
+            [845, 106, 910, 121]
+            and (not self.hasSingleLineWordsInArea("富勒", [845, 106, 910, 121], 4)),
+            4,
+        )
         return not self.inSite and (firstPositionHavePirate or secondPositionHavePirate)
-            
+
     def isSafe(self):
         if self.mode == 0:
             return super().isSafe()
         elif self.mode == 1:
             return True
         else:
-            if self.checkHasPirateOnBoard() or self.hasSingleLineWordsInArea("探测", [203, 162, 236, 182], 4):
+            if self.checkHasPirateOnBoard() or self.hasSingleLineWordsInArea(
+                "探测", [203, 162, 236, 182], 4
+            ):
                 wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
                 self.havePirate = True
                 return False
@@ -49,7 +59,7 @@ class MiningTask(EVETask):
             self.haveChangedToMiningFilter = True
         else:
             wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
-        wait(lambda: self.simulatorInstance.click_point(622,604),1)
+        wait(lambda: self.simulatorInstance.click_point(622, 604), 1)
 
         if self.mode == 2:
             return self.minec70()
@@ -59,7 +69,7 @@ class MiningTask(EVETask):
     def c70GoOut(self):
         if len(self.minedRows) == 6:
             self.goToStella("ezc")
-            wait(lambda: self.simulatorInstance.click_point(622,604),1)
+            wait(lambda: self.simulatorInstance.click_point(622, 604), 1)
             self.minec70()
         else:
             self.goOut()
@@ -216,10 +226,10 @@ class MiningTask(EVETask):
         self.print("新一轮开始了")
         if not (self.isSafe()):
             self.print("有海盗，蹲站")
-            if(self.mode==2):
+            if self.mode == 2:
                 time.sleep(600)
             else:
-               time.sleep(30 + random.randint(0, 5))
+                time.sleep(30 + random.randint(0, 5))
             self.havePirate = False
             return
         self.print("开始存货")

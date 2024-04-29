@@ -16,7 +16,7 @@ import datetime as dt
 
 def isWorkHour():
     hour = dt.datetime.now().hour
-    if hour >= 5 and hour <= 9:
+    if hour >= 4 and hour <= 9:
         return False
     return True
 
@@ -40,9 +40,9 @@ def getModeFromIndex(name):
     parts = name.split('-')
     winIndex = parts[-1]
     if(winIndex=="1"):
-        return -1
+        return 0
     elif(winIndex=="2"):
-        return 2
+        return 0
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     # ,

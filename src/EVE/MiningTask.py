@@ -216,7 +216,10 @@ class MiningTask(EVETask):
         self.print("新一轮开始了")
         if not (self.isSafe()):
             self.print("有海盗，蹲站")
-            time.sleep(600)
+            if(self.mode==2):
+                time.sleep(600)
+            else:
+               time.sleep(30 + random.randint(0, 5))
             self.havePirate = False
             return
         self.print("开始存货")

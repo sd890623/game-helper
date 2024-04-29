@@ -101,7 +101,7 @@ class MiningTask(EVETask):
             lambda: self.simulatorInstance.click_point(814, 163 + row * yDiff),
             4,
         )
-        time.sleep(15)
+        time.sleep(20)
         if checkGoHome():
             return
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))

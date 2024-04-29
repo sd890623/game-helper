@@ -115,6 +115,8 @@ class EVETask:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if len(ocrObj[0]) > 1:
+                str = "".join(ocrObj[0])
+                self.print("ocr: "+str)
                 return True
             return False
         except Exception as e:

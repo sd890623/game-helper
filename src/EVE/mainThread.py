@@ -16,7 +16,7 @@ import datetime as dt
 
 def isWorkHour():
     hour = dt.datetime.now().hour
-    if hour >= 4 and hour <= 9:
+    if (hour in [1,2,3,5,6,7,8,9]):
         return False
     return True
 
@@ -40,7 +40,7 @@ def getModeFromIndex(name):
     parts = name.split('-')
     winIndex = parts[-1]
     if(winIndex=="1"):
-        return 0
+        return 2
     elif(winIndex=="2"):
         return 0
 def main():

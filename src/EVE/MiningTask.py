@@ -24,10 +24,8 @@ class MiningTask(EVETask):
         firstPositionHavePirate = self.isPositionColorSimilarTo(
             847, 54, (27, 29, 29)
         ) and self.haveWords(
-            [845, 106, 910, 121]
-            and (not self.hasSingleLineWordsInArea("富勒", [845, 106, 910, 121], 4)),
-            4,
-        )
+            [845, 106, 910, 121], 4) and (not self.hasSingleLineWordsInArea("富勒", [845, 106, 910, 121], 4))
+
         return not self.inSite and (firstPositionHavePirate or secondPositionHavePirate)
 
     def isSafe(self):

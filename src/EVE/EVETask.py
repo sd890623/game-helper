@@ -160,44 +160,38 @@ class EVETask:
     def goToStella(self,name,waitTime=40):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(183,30),
-            lambda: self.hasSingleLineWordsInArea("x", [1185,22,1213,54]),
-            timeout=15
+            lambda: self.hasSingleLineWordsInArea("x", [1185,22,1213,54])
         )
         self.w(4)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(67,447),
-            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95]),
-            timeout=15
+            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95])
         )
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(157,142),
-            lambda: self.hasSingleLineWordsInArea("x", [1187,11,1222,52]),
-            timeout=15
+            lambda: self.hasSingleLineWordsInArea("x", [1187,11,1222,52])
         )
         wait(lambda: self.simulatorInstance.click_point(224,28), 1)
         wait(lambda: self.simulatorInstance.typeWriteV1("ezc"),1)
         continueWithUntilBy(
             lambda: self.simulatorInstance.click_point(1059,28),
             lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95]),
-            frequency=10,
-            timeout=15
+            frequency=10
         )
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(165,278),
-            lambda: self.hasSingleLineWordsInArea(name, [1014,387,1112,413]),
-            timeout=15
+            lambda: self.hasSingleLineWordsInArea(name, [1014,387,1112,413])
         )
         wait(lambda: self.simulatorInstance.click_point(1124,461))
-        wait(lambda: self.simulatorInstance.click_point(26,189))
-        if(self.hasSingleLineWordsInArea("导航确认",[882,334,972,372],4)):
-            wait(lambda: self.simulatorInstance.click_point(1135,536),10)
-        
-        doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(1201,34),lambda: self.hasSingleLineWordsInArea(name, A=self.stellarisArea),waitTime,timeout=15)
-
-
-
-
-
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(1201,34),
+            lambda: not self.hasSingleLineWordsInArea("x", [435,73,464,95])
+        )
+        def clickGo():
+            wait(lambda: self.simulatorInstance.click_point(26,189))
+            if(self.hasSingleLineWordsInArea("导航确认",[882,334,972,372],4)):
+                wait(lambda: self.simulatorInstance.click_point(1135,536),10)
+        doAndWaitUntilBy(clickGo,lambda: self.hasSingleLineWordsInArea(name, A=self.stellarisArea),waitTime,timeout=15)
 
 
     def checkEnemy(self):

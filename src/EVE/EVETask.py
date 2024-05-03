@@ -165,7 +165,7 @@ class EVETask:
         self.w(4)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(67,447),
-            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95])
+            lambda: self.hasSingleLineWordsInArea("x", [423,70,452,98])
         )
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(157,142),
@@ -175,7 +175,7 @@ class EVETask:
         wait(lambda: self.simulatorInstance.typeWriteV1("ezc"),1)
         continueWithUntilBy(
             lambda: self.simulatorInstance.click_point(1059,28),
-            lambda: self.hasSingleLineWordsInArea("x", [435,73,464,95]),
+            lambda: self.hasSingleLineWordsInArea("x", [423,70,452,98]),
             frequency=10
         )
         doAndWaitUntilBy(
@@ -185,7 +185,7 @@ class EVETask:
         wait(lambda: self.simulatorInstance.click_point(1124,461))
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(1201,34),
-            lambda: not self.hasSingleLineWordsInArea("x", [435,73,464,95])
+            lambda: not self.hasSingleLineWordsInArea("x", [423,70,452,98])
         )
         def clickGo():
             wait(lambda: self.simulatorInstance.click_point(26,189))
@@ -260,6 +260,8 @@ class EVETask:
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.click_point(13,187),
                 lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
+                1,
+                1,
                 backupFunc=backup,
                 timeout=15
             )

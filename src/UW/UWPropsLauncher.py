@@ -32,9 +32,10 @@ def run(props):
     task.tradeRouteBuyFin=True
     task.print("检查航海道具；检查船耐久;检查忠诚")
     task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间")
+    task.battleCity=battleCity
 
     if(battleOn):
-        task.battleRoute(battleCity)
+        task.battleRoute(battleCity,battleOnMode=True)
 
     # task.enableSB("malacca",options=[5])
 
@@ -42,7 +43,6 @@ def run(props):
     # kochi: 12d=18min, 18*8/14=10min=600
     task.waitForCityTimeOut=650
     task.battleMode="run"
-    task.battleCity=battleCity
     task.goBM=goBM
     task.focusedBarterTrade= focusedBarterTrade
     task.setRouteOption()

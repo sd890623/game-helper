@@ -1869,6 +1869,8 @@ class UWTask(FrontTask):
         self.print("landing starts")
         self.goLanding()
         self.print("battle starts")
+        self.changeFleet(dailyJobConf.get("battleFleet"))
+        self.gotoCity(battleCity, express=True)
         # deactivate protection
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(38, 205),
@@ -1878,9 +1880,6 @@ class UWTask(FrontTask):
             timeout=6,
         )
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(789, 626), 3, 1)
-
-        self.changeFleet(dailyJobConf.get("battleFleet"))
-        self.gotoCity(battleCity, express=True)
         self.battleRoute(battleCity)
         # activate protection
         continueWithUntilBy(
@@ -2348,7 +2347,7 @@ class UWTask(FrontTask):
         else:
             return (True, now)
 
-    def battleRoute(self, battleCity):
+    def battleRoute(self, battleCity,battleOnMode=False):
         battle = importBattle()(self.simulatorInstance, self)
         lastCheckTime = None
         while True:
@@ -2356,10 +2355,11 @@ class UWTask(FrontTask):
                 if battle.utils.useSpecial("battle"):
                     battle.goBackPort(battleCity)
                 battle.checkInPort(battleCity)
-                checkResult = self.checkShouldBattle(lastCheckTime, battleCity)
-                lastCheckTime = checkResult[1]
-                if not checkResult[0]:
-                    break
+                if(not battleOnMode):
+                    checkResult = self.checkShouldBattle(lastCheckTime, battleCity) 
+                    lastCheckTime = checkResult[1]
+                    if not checkResult[0]:
+                        break
                 if not (isWorkHour()):
                     self.print("not working hour,sleep for 30mins")
                     time.sleep(1800)

@@ -681,6 +681,7 @@ routeLists = [
         },
         # {"mode": "landing"},
         {
+            "buyCities": ["nantes"],
             "mode": "merchantQuest",
             "supplyCities": ["hadiboh", "malacca", "ambon", "ternate"],
             "checkInnCities": True
@@ -1044,7 +1045,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "hag"],
-            "supplyCities": ["hangzhou","macau","malacca", "aden","suez"],
+            "supplyCities": ["nagasaki","hangzhou","macau","malacca", "aden","suez"],
         },
         {
             "mode": "tunnel"

@@ -279,9 +279,10 @@ class EVETask:
                 point=(243,578)
             else:
                 point=(240,532)
-            wait(lambda: self.simulatorInstance.click_point(*point), 4)
-            wait(lambda: self.simulatorInstance.click_point(1053,645), 2)
-            wait(lambda: self.simulatorInstance.click_point(1128,644), 2)
+            wait(lambda: self.simulatorInstance.click_point(*point), 2)
+            self.simulatorInstance.click_point(1053,645)
+            self.simulatorInstance.click_point(1128,644)
+            self.simulatorInstance.click_point(1199,641)
             self.pause()
 
         doAndWaitUntilBy(

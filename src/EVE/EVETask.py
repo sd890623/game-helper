@@ -137,7 +137,7 @@ class EVETask:
             return 0
 
     def isPositionColorSimilarTo(self, x, y, rgb):
-        positionRGB = self.simulatorInstance.getColorRGBByPosition(x, y)
+        positionRGB = self.simulatorInstance.getColorV1(x, y)
         if (not (positionRGB)):
             return False
         d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +

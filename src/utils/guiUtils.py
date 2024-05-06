@@ -280,6 +280,13 @@ class win ():#line:35
                     return True #line:210
         return False #line:212
 
+    def getColorV1(self,x,y):
+        RGBint = win32gui.GetPixel(win32gui.GetWindowDC(self.hwnd), x , y)
+        blue =  RGBint & 255
+        green = (RGBint >> 8) & 255
+        red =   (RGBint >> 16) & 255
+        return (blue, green, red)
+
     def getColorRGBByPosition(self,x,y):
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)

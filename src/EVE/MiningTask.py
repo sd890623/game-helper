@@ -14,7 +14,7 @@ class MiningTask(EVETask):
         super().__init__(hwnd, index, mode=mode)
 
     def testTask(self):
-        self.minec70()
+
         self.setInsite(False)
         print(self.isSafe())
 
@@ -130,9 +130,9 @@ class MiningTask(EVETask):
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.click_point(824, 433),
-                lambda: self.isSafe() == False or self.getNumberFromSingleLineInArea([852,69,872,83])<18,
+                lambda: self.isSafe() == False or self.getNumberFromSingleLineInArea([852,69,872,83]) != 0 and self.getNumberFromSingleLineInArea([852,69,872,83])<18,
                 frequency=2,
-                timeout=60
+                timeout=120
             )
             if checkGoHome():
                 return

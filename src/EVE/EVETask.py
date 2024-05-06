@@ -128,7 +128,10 @@ class EVETask:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
             if (debug == True):
                 self.saveImageToFile(screenshotBlob)
-            return getNumberfromImageBlob(screenshotBlob)
+            num= getNumberfromImageBlob(screenshotBlob)
+            if(num is None):
+                return 0
+            return num
         except Exception as e:
             print("fail to get number")
             return 0

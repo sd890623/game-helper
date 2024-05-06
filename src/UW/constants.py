@@ -290,7 +290,7 @@ dailyJobConf = {
     "buffCity": "davao",
     "basicFleet":2,
     "landingFleet": 8,
-    "landingCity": "dongnae",
+    "landingCity": "hag",
     "battleFleet": 5,
     "endBattleCity": "davao",
     "landingTimes": 150,

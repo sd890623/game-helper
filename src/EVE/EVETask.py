@@ -263,15 +263,15 @@ class EVETask:
                     )
                 wait(lambda: self.simulatorInstance.click_point(13,187))
 
-
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.click_point(13,187),
-                lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
-                1,
-                1,
-                backupFunc=backup,
-                timeout=15
-            )
+            if(self.mode!=2):
+                doAndWaitUntilBy(
+                    lambda: self.simulatorInstance.click_point(13,187),
+                    lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
+                    1,
+                    1,
+                    backupFunc=backup,
+                    timeout=15
+                )
 
             # homeRouteImgPath = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute.bmp")
             # homeRouteImgPath2 = os.path.abspath(__file__ + "\\..\\..\\..\\assets\\clickOns\\homeRoute2.bmp")
@@ -286,7 +286,8 @@ class EVETask:
                 point=(243,578)
             else:
                 point=(240,532)
-            wait(lambda: self.simulatorInstance.click_point(*point), 2)
+            wait(lambda: self.simulatorInstance.click_point(*point), 0.5,disableWait=True)
+            self.simulatorInstance.click_point(13,187)
             self.simulatorInstance.click_point(1053,645)
             self.simulatorInstance.click_point(1128,644)
             self.simulatorInstance.click_point(1199,641)

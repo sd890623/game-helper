@@ -14,14 +14,13 @@ class MiningTask(EVETask):
         super().__init__(hwnd, index, mode=mode)
 
     def testTask(self):
-
+        self.print("回家")
+        self.goHome()
         self.setInsite(False)
         print(self.isSafe())
 
     def checkHasPirateOnBoard(self):
-        secondPositionHavePirate = self.isPositionColorSimilarTo(
-            767, 34, (27, 29, 29)
-        ) and self.haveWords([761, 104, 814, 121], 4)
+        secondPositionHavePirate = self.haveWords([761, 104, 814, 121], 4)
         firstPositionHavePirate = self.isPositionColorSimilarTo(
             847, 54, (27, 29, 29)
         ) and self.haveWords(
@@ -35,10 +34,13 @@ class MiningTask(EVETask):
         elif self.mode == 1:
             return True
         else:
-            if self.checkHasPirateOnBoard() or self.hasSingleLineWordsInArea(
+            if self.hasSingleLineWordsInArea(
                 "探测", [203, 162, 236, 182], 4
             ):
                 wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
+                self.havePirate = True
+                return False
+            if self.checkHasPirateOnBoard():
                 self.havePirate = True
                 return False
             if self.havePirate:
@@ -111,6 +113,13 @@ class MiningTask(EVETask):
             4,
         )
         time.sleep(20)
+        doAndWaitUntilBy(
+            lambda: self.simulatorInstance.click_point(13,187),
+            lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
+            1,
+            1,
+            timeout=15
+            )
         if checkGoHome():
             return
         wait(lambda: self.simulatorInstance.click_point(896, 389, True))
@@ -134,7 +143,8 @@ class MiningTask(EVETask):
                 frequency=2,
                 timeout=120
             )
-            if checkGoHome():
+            if self.havePirate:
+                self.print("有海盗，回家")
                 return
             wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
             wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
@@ -198,7 +208,7 @@ class MiningTask(EVETask):
 
     def waitForOreFinish(self):
         if self.mode == 2:
-            frequency = 5
+            frequency = 3
             totalSeconds = 30 * 60
             # count=0
             while (
@@ -210,6 +220,8 @@ class MiningTask(EVETask):
                 totalSeconds -= frequency
                 # self.print("count:"+str(count))
                 # count+=1
+            if self.havePirate:
+                self.print("有海盗，回家")
             return
         else:
             self.checkSafeForMinutes(11.2 + random.randint(0, 10) / 10)

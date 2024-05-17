@@ -29,7 +29,7 @@ def runTask(hwnd, index,mode=0):
                 print("not working hour,sleep for 30mins")
                 time.sleep(1800)
                 continue
-            task.testTask()
+            # task.testTask()
             task.startMiningTask()
         except Exception as e:
             # task.closeWindow()

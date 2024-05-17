@@ -35,6 +35,7 @@ def run(props):
     task.battleCity=battleCity
 
     if(battleOn):
+        task.setRouteOption()
         task.battleRoute(battleCity,battleOnMode=True)
 
     # task.enableSB("malacca",options=[5])

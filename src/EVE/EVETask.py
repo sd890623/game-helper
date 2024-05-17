@@ -137,14 +137,18 @@ class EVETask:
             return 0
 
     def isPositionColorSimilarTo(self, x, y, rgb):
-        positionRGB = self.simulatorInstance.getColorV1(x, y)
-        if (not (positionRGB)):
-            return False
-        d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +
-                      (positionRGB[1] - rgb[1]) ** 2 + (positionRGB[2] - rgb[2]) ** 2)
-        if (d < 20):
-            return True
-        else:
+        try:
+            positionRGB = self.simulatorInstance.getColorV1(x, y)
+            if (not (positionRGB)):
+                return False
+            d = math.sqrt((positionRGB[0] - rgb[0]) ** 2 +
+                        (positionRGB[1] - rgb[1]) ** 2 + (positionRGB[2] - rgb[2]) ** 2)
+            if (d < 20):
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("fail to get number")
             return False
         
     def isPlayerInSite(self):

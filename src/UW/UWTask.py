@@ -89,7 +89,7 @@ class UWTask(FrontTask):
 
     def testTask(self):
         battle = importBattle()(self.simulatorInstance, self)
-        battle.goBackPort("toamasina")
+        self.goToRoute({"route": 2, "target": "hangzhou"})
         # market.cleanupGoods(["oil"])
         print(
             hasOneArrayStringSimilarToString(
@@ -1702,7 +1702,7 @@ class UWTask(FrontTask):
             self.gotoCity(dailyJobConf.get("landingCity"), express=True)
         # end temp rare daily
 
-        for x in range(3):
+        for x in range(4):
             self.goToHarbor()
             battleInstance.depart()
             while not self.isPositionColorSimilarTo(

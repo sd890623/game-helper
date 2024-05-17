@@ -27,31 +27,34 @@ simuInstance = task.simulatorInstance
 
 class Investment:
     goBM = False
-    inn = True
+    inn = False
     # Better do winter
     investmentCities = [
-        #"saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
-        "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
+        # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen", "edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","ceuta", "montpell","marseille",
+          #"genoa","pisa", "calvi","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "antalya", "lefkosa","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca",
+           "las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tome","luanda","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","masawa", "suez", "jeddah", "hadiboh", "dhofar","muscat", "bidda", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","samarai", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
           "reykjav", "narvik","edinburgh"
     ]
     investmentCitiesy = [
-        # 'quanzhou',
-        # 'hangzhou',
-        # 'chongqing',
-        # 'chang',
-        # 'yanyun',
-        # 'macau',
-        # 'jolo',
-        # 'davao',
-        # 'banda',
-        # 'dili',
-        # 'makassar',
-        # 'ambon',
-        # 'surabaya',
-        # 'pangk',
-        # 'brunei',
-        # 'lopburi',
+        'quanzhou',
+        'hangzhou',
+        'chongqing',
+        'chang',
+        'yanyun',
+        'macau',
+        'jolo',
+        'davao',
+        'banda',
+        'dili',
+        'makassar',
+        'ambon',
+        'surabaya',
+        'banjarmasin',
+        'pangk',
+        'brunei',
+        'lopburi',
         'aceh',
+        'masuli',
         'hadiboh',
         'aden'
     ]
@@ -122,10 +125,10 @@ class Investment:
             task.gotoCity(city, self.investmentCities,express=True)
             if (not city in self.supplyCities):
                 self.investInCity()
-            if (city in self.sellCities):
-                task.sellInCity(city)
-            if (city in self.buyCities):
-                task.buyInCity(self.investmentCities, products=self.buyGoods)
+            # if (city in self.sellCities):
+                # task.sellInCity(city)
+            # if (city in self.buyCities):
+                # task.buyInCity(self.investmentCities, products=self.buyGoods)
             if (self.goBM):
                 task.buyBlackMarket(city)
             if (self.inn):

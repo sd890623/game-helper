@@ -291,6 +291,9 @@ class EVETask:
             self.simulatorInstance.click_point(1053,645)
             self.simulatorInstance.click_point(1128,644)
             self.simulatorInstance.click_point(1199,641)
+            if(self.mode==0):
+                wait(lambda: self.simulatorInstance.click_point(1216,580),1)
+                self.simulatorInstance.click_point(1216,580)
             self.pause()
 
         doAndWaitUntilBy(

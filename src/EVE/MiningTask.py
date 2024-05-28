@@ -180,9 +180,13 @@ class MiningTask(EVETask):
             )
         )
         # 点平衡器
-        wait(lambda: self.simulatorInstance.click_point(1064, 644), 5)
+        self.simulatorInstance.click_point(1053,645)
+        self.simulatorInstance.click_point(1128,644)
+        self.simulatorInstance.click_point(1199,641)
+        wait(lambda: self.simulatorInstance.click_point(1216,580),1)
+        self.simulatorInstance.click_point(1216,580)
 
-        duration = 40 + random.randint(0, 5)
+        duration = 50 + random.randint(0, 5)
         while self.isSafe() and duration > 0:
             time.sleep(5)
             duration -= 5

@@ -6,8 +6,8 @@ from utils import *
 
 class MiningTask(EVETask):
     haveChangedToMiningFilter = False
-    minedRows = []
-    otherStellaRows = {"EZC": []}
+    minedRows = [0,1,2,3,4,5]
+    otherStellaRows = {"9ke": []}
     havePirate = False
 
     def __init__(self, hwnd, index, mode=0):
@@ -69,7 +69,8 @@ class MiningTask(EVETask):
 
     def c70GoOut(self):
         if len(self.minedRows) == 6:
-            self.goToStella("ezc")
+            self.goToStella("9ke")
+            self.setInsite(False)
             wait(lambda: self.simulatorInstance.click_point(622, 604), 1)
             self.minec70()
         else:
@@ -77,7 +78,7 @@ class MiningTask(EVETask):
 
     def recordMined(self, row):
         if len(self.minedRows) == 6:
-            self.otherStellaRows["EZC"].append(row)
+            self.otherStellaRows["9ke"].append(row)
         else:
             self.minedRows.append(row)
 
@@ -93,7 +94,7 @@ class MiningTask(EVETask):
         def getCurrentRow():
             for row in range(6):
                 if row not in (
-                    self.otherStellaRows["EZC"]
+                    self.otherStellaRows["9ke"]
                     if len(self.minedRows) == 6
                     else self.minedRows
                 ):
@@ -245,7 +246,7 @@ class MiningTask(EVETask):
             self.havePirate = False
             return
         self.print("开始存货")
-        self.stockOre()
+        # self.stockOre()
         self.print("存货完毕")
         time.sleep(10)
         while True:
@@ -267,8 +268,8 @@ class MiningTask(EVETask):
         self.goHome()
         self.print("到家")
         time.sleep(30 + random.randint(0, 30))
-        if len(self.minedRows) == 6 and len(self.otherStellaRows["EZC"]) == 6:
+        if len(self.minedRows) == 6 and len(self.otherStellaRows["9ke"]) == 6:
             self.print("已经采集完成,sleep for 1hr")
             time.sleep(3600)
             self.minedRows = []
-            self.otherStellaRows["EZC"] = []
+            self.otherStellaRows["9ke"] = []

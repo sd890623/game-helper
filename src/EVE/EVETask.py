@@ -171,7 +171,7 @@ class EVETask:
         )
         self.w(4)
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.click_point(67,447),
+            lambda: self.simulatorInstance.click_point(69,463),
             lambda: self.hasSingleLineWordsInArea("x", [423,70,452,98])
         )
         doAndWaitUntilBy(
@@ -179,7 +179,7 @@ class EVETask:
             lambda: self.hasSingleLineWordsInArea("x", [1187,11,1222,52])
         )
         wait(lambda: self.simulatorInstance.click_point(224,28), 1)
-        wait(lambda: self.simulatorInstance.typeWriteV1("ezc"),1)
+        wait(lambda: self.simulatorInstance.typeWriteV1("9ke"),1)
         continueWithUntilBy(
             lambda: self.simulatorInstance.click_point(1059,28),
             lambda: self.hasSingleLineWordsInArea("x", [423,70,452,98]),
@@ -306,7 +306,7 @@ class EVETask:
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":
             time.sleep(5)
         time.sleep(10)
-        self.inSite=True
+        self.setInsite(True)
 
     def saveImageToFile(self, imageBlob):
         screenshotImgPath = os.path.abspath(

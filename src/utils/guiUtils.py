@@ -23,7 +23,7 @@ scale =1 #line:21
 def get_ascii_mapping(input_string):
     return [{"key": char, "value": ord(char)} for char in input_string]
 
-ascii_mapping = get_ascii_mapping("ABCDEFGHIJKLMNOPQRSTUVWXYZ-123456")
+ascii_mapping = get_ascii_mapping("ABCDEFGHIJKLMNOPQRSTUVWXYZ-123456789")
 
 
 def getDecimalValueFromKeyStroke (keyStroke):

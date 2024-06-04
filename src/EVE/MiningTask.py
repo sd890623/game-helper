@@ -6,7 +6,7 @@ from utils import *
 
 class MiningTask(EVETask):
     haveChangedToMiningFilter = False
-    minedRows = [0,1,2,3,4,5]
+    minedRows = []
     otherStellaRows = {"9ke": []}
     havePirate = False
 
@@ -214,7 +214,7 @@ class MiningTask(EVETask):
     def waitForOreFinish(self):
         if self.mode == 2:
             frequency = 3
-            totalSeconds = 30 * 60
+            totalSeconds = 28 * 60
             # count=0
             while (
                 self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
@@ -246,7 +246,7 @@ class MiningTask(EVETask):
             self.havePirate = False
             return
         self.print("开始存货")
-        # self.stockOre()
+        self.stockOre()
         self.print("存货完毕")
         time.sleep(10)
         while True:

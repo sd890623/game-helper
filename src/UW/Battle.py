@@ -160,7 +160,7 @@ class Battle:
             yDiff = 75
             return (1161 + int(index % 4 * xDiff), 369 + int(index / 4) * yDiff)
 
-        for x in range(5):
+        for x in range(6):
             while self.uwtask.isPositionColorSimilarTo(
                 39, 135, (184, 0, 0)
             ) or self.uwtask.isPositionColorSimilarTo(112, 127, (219, 29, 36)):

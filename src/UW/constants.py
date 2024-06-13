@@ -1097,5 +1097,127 @@ routeLists = [
         #     ]
         # }
         # check passed day or pause
+    ],
+    #13 svear sami
+    [
+        {
+            **svearRouteBase,
+            "buyCities": ["santa"],
+            "villages": ["svear"],
+            "supplyCities":["bremen","seville","tunis"],
+            "useSkillCity": False,
+            "forceUseSequenceOptions": True,
+            "waitForFashion": False,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+            "secondSellOptions": [
+                {
+                    "seqs": [
+                        {"type": "go", "val": "said"},
+                        {"type": "tunnel","val": True},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
+                        {"type": "sell"},
+                        {"type": "go", "val": "suez"},
+                        {"type": "tunnel"},
+                        {"type": "go", "val": "tunis"}
+                    ],
+                    "cities": ["suez"]
+                }
+            ],
+        },
+        {
+            **svearRouteBase,
+            "buyCities": ["santa"],
+            "villages": ["svea"],
+            "supplyCities":["bremen","seville","tunis"],
+            "useSkillCity": False,
+            "forceUseSequenceOptions": True,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+            "secondSellOptions": [
+                {
+                    "seqs": [
+                        {"type": "go", "val": "said"},
+                        {"type": "tunnel","val": True},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
+                        {"type": "sell"},
+                        {"type": "go", "val": "suez"},
+                        {"type": "tunnel"},
+                        {"type": "go", "val": "tunis"}
+                    ],
+                    "cities": ["suez"]
+                }
+            ],
+        },
+        {
+            "buyCities": ["nantes"],
+            "mode": "merchantQuest",
+            "supplyCities": ["kotte", "manila", "ambon", "ternate"],
+            "checkInnCities": True
+        },
+        {
+            "mode": "battle",
+            "buyCities": ["davao", "hag"],
+            #"supplyCities": ["malacca", "aden","suez"],
+        },
+        {
+            "mode": "reportAndAdvQuest",
+            "buyCities": ["edo","tainan"],
+            "supplyCities": ["malacca", "kotte","suez"],
+        },
+        # {
+        #     **quechuasRouteBase,
+        #     "buyCities": ["kuching"],
+        # },
+        {
+            "mode": "tunnel"
+        },
+        {
+            **samiRouteBase,
+            "buyCities": ["ponta"],
+            "villages": ["sami"],
+            "forceUseSequenceOptions": True,
+            "waitForFashion": False,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+            "secondSellOptions": [
+                {
+                    "seqs": [
+                        {"type": "go", "val": "said"},
+                        {"type": "tunnel","val": True},
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
+                        {"type": "sell"},
+                        {"type": "go", "val": "suez"},
+                        {"type": "tunnel"},
+                        {"type": "go", "val": "tunis"}                    ],
+                    "cities": ["suez"]
+                }
+            ],
+        },
+        {
+            **samiRouteBase,
+            "buyCities": ["seville"],
+            "villages": ["sam"],
+            "forceUseSequenceOptions": True,
+            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
+            "secondSellOptions": [
+                {
+                    "seqs": [
+                        {"type": "go", "val": "said"},
+                        {"type": "tunnel","val": True},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
+                        {"type": "sell"},
+                        {"type": "go", "val": "suez"},
+                        {"type": "tunnel"},
+                        {"type": "go", "val": "tunis"}                        ],
+                    "cities": ["suez"]
+                }
+            ]
+        }
+        # check passed day or pause
     ]
 ]

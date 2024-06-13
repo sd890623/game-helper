@@ -191,9 +191,9 @@ class UWTask(FrontTask):
                 return 8
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 9
+                return 13
             else:
-                return 8
+                return 13
 
     def setRouteOptionFromScreen(self):
         month = self.getSingleLineWordsInArea(A=[1322, 220, 1357, 239])

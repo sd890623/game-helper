@@ -418,7 +418,7 @@ class Market:
 
             doAndWaitUntilBy(lambda: self.instance.clickPointV2(1267,851), lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
             # position tba
-            if(self.uwtask.hasSingleLineWordsInArea("trusting",A=[725,511,815,536])):
+            if(self.uwtask.hasSingleLineWordsInArea("trusting",A=[725,511,815,536]) and not self.uwtask.hasSingleLineWordsInArea("favor",A=[613,512,718,537])):
                 doAndWaitUntilBy(lambda: self.instance.clickPointV2(667,594), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
                 break
             continueWithUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,timeout=10)

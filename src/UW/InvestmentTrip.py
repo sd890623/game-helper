@@ -30,24 +30,22 @@ class Investment:
     inn = False
     # Better do winter
     investmentCities = [
-        # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen", "edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","ceuta", "montpell","marseille",
-          #"genoa","pisa", "calvi","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "antalya", "lefkosa","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca",
-           "las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tome","luanda","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","masawa", "suez", "jeddah", "hadiboh", "dhofar","muscat", "bidda", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","samarai", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
-          "reykjav", "narvik","edinburgh"
+        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","ceuta", "montpell","marseille","genoa","pisa", "calvi","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "antalya", "lefkosa","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tome","luanda","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","masawa", "suez", "jeddah", "hadiboh", "dhofar","muscat", "bidda", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "hobe","tainan","macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
     ]
     investmentCitiesy = [
-        'quanzhou',
-        'hangzhou',
-        'chongqing',
-        'chang',
+        'peking',
         'yanyun',
+        'chang',
+        'chongqing',
+        'hangzhou',
+        'quanzhou',
         'macau',
         'jolo',
         'davao',
+        'ambon',
         'banda',
         'dili',
         'makassar',
-        'ambon',
         'surabaya',
         'banjarmasin',
         'pangk',
@@ -55,6 +53,7 @@ class Investment:
         'lopburi',
         'aceh',
         'masuli',
+        "kochi",
         'hadiboh',
         'aden'
     ]
@@ -81,7 +80,7 @@ class Investment:
         "quanzhou", "nassau"
     ]
     # before going to a city
-    changeFleet = ["nutak"]
+    changeFleet = ["cohasset"]
 
     def investOnce(self, domax=False):
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
@@ -109,7 +108,7 @@ class Investment:
         self.investOnce()
         while (True):
             num = task.getNumberFromSingleLineInArea(A=[260, 787, 285, 800])
-            if (num and num < 750 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
+            if (num and num < 800 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
                 self.investOnce(True)
                 continue
             break

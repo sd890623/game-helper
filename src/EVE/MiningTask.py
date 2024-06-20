@@ -123,8 +123,8 @@ class MiningTask(EVETask):
             )
         if checkGoHome():
             return
-        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
-        wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.closeFilterBtn, True))
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 4)
         if self.getNumberFromSingleLineInArea([1071, 359, 1093, 376]) == 70:
             wait(
                 lambda: self.simulatorInstance.click_point(1056, 351),
@@ -195,12 +195,12 @@ class MiningTask(EVETask):
         if checkGoHome():
             return
 
-        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
-        wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.closeFilterBtn, True))
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 4)
 
         wait(lambda: self.simulatorInstance.click_point(1051, 219, True), 2)
         wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)
-        wait(lambda: self.simulatorInstance.click_point(896, 389, True))
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.closeFilterBtn, True))
 
         if checkGoHome():
             return
@@ -215,7 +215,7 @@ class MiningTask(EVETask):
     def waitForOreFinish(self):
         if self.mode == 2:
             frequency = 3
-            totalSeconds = 15 * 60
+            totalSeconds = 17 * 60
             # count=0
             while (
                 self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)

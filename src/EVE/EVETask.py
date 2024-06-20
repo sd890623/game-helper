@@ -21,6 +21,8 @@ class EVETask:
     syncBetweenUsers = True
     homeNameArea = [1038, 137, 1102, 157]
     stellarisArea=[109,14,245,46]
+    closeFilterBtn=896,383
+    openFilterBtn=1197, 394
 
     def __init__(self, hwnd, index, childTitle="MuMuPlayer",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
         self.hwnd = hwnd

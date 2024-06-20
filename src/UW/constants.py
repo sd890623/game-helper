@@ -709,22 +709,23 @@ routeLists = [
             "villages": ["apachewine"],
             "sellFleet": 7,
             "buyCities": ["natal"],
-            "afterSellCities": ["hadiboh", "aceh"],
+            "afterSellCities": ["hadiboh"],
             "useSkillCity": False,
             "sellCityOptions": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "manbasa", "malindi", "mogadishu"],
             "waitForFashion": False
         },
-        {
-            **witotoRouteBase,
-            "buyCities": ["prey", "deokwon","santa"],
-            "villages": ["witoto"],
-            "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "manila", "kotte"]
-        },
+        # {
+        #     **witotoRouteBase,
+        #     "buyCities": ["prey", "deokwon","santa"],
+        #     "villages": ["witoto"],
+        #     "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "manila", "kotte"]
+        # },
         {
             **apacheRouteBase,
             "sellFleet": 7,
             "villages": ["apacwine"],
             "buyCities": ["sofala", "ushuaia"],
+            "sellCityOptions": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "manbasa", "malindi", "mogadishu"],
             "afterSellCities": ["suez"]
         },
         {
@@ -1105,7 +1106,7 @@ routeLists = [
             "buyCities": ["santa"],
             "villages": ["svear"],
             "supplyCities":["bremen","seville","tunis"],
-            "useSkillCity": False,
+            "useSkillCity": True,
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
@@ -1179,6 +1180,7 @@ routeLists = [
             "buyCities": ["ponta"],
             "villages": ["sami"],
             "forceUseSequenceOptions": True,
+            "useSkillCity": True,
             "waitForFashion": False,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "hadiboh", "dhofar", "muscat", "hormuz", "bidda", "shiraz", "basrah", "baghdad"],
             "secondSellOptions": [

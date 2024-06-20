@@ -191,7 +191,7 @@ class UWTask(FrontTask):
                 return 8
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 13
+                return 9
             else:
                 return 13
 

@@ -54,12 +54,13 @@ class MiningTask(EVETask):
         self.setInsite(False)
         time.sleep(10)
         if not self.haveChangedToMiningFilter:
-            wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
-            wait(lambda: self.simulatorInstance.click_point(1048, 21, True), 4)
-            wait(lambda: self.simulatorInstance.click_point(1051, 466), 4)
-            self.haveChangedToMiningFilter = True
+            wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 2)
+            wait(lambda: self.simulatorInstance.click_point(*EVETask.toggleFilterCategoryBtn, True), 2)
+            wait(lambda: self.simulatorInstance.click_point(1051, 466), 2)
+            # Always need to change filter category
+            # self.haveChangedToMiningFilter = True
         else:
-            wait(lambda: self.simulatorInstance.click_point(1197, 394), 4)
+            wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 4)
         wait(lambda: self.simulatorInstance.click_point(622, 604), 1)
 
         if self.mode == 2:
@@ -123,8 +124,8 @@ class MiningTask(EVETask):
             )
         if checkGoHome():
             return
-        wait(lambda: self.simulatorInstance.click_point(*EVETask.closeFilterBtn, True))
-        wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 4)
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.toggleFilterCategoryBtn, True), 2)
+        wait(lambda: self.simulatorInstance.click_point(1056,534), 2)
         if self.getNumberFromSingleLineInArea([1071, 359, 1093, 376]) == 70:
             wait(
                 lambda: self.simulatorInstance.click_point(1056, 351),
@@ -195,8 +196,8 @@ class MiningTask(EVETask):
         if checkGoHome():
             return
 
-        wait(lambda: self.simulatorInstance.click_point(*EVETask.closeFilterBtn, True))
-        wait(lambda: self.simulatorInstance.click_point(*EVETask.openFilterBtn), 4)
+        wait(lambda: self.simulatorInstance.click_point(*EVETask.toggleFilterCategoryBtn, True), 2)
+        wait(lambda: self.simulatorInstance.click_point(1056,534), 2)
 
         wait(lambda: self.simulatorInstance.click_point(1051, 219, True), 2)
         wait(lambda: self.simulatorInstance.click_point(814, 300, True), 2)

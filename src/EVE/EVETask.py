@@ -23,6 +23,7 @@ class EVETask:
     stellarisArea=[109,14,245,46]
     closeFilterBtn=896,383
     openFilterBtn=1197, 394
+    toggleFilterCategoryBtn=1048, 21
 
     def __init__(self, hwnd, index, childTitle="MuMuPlayer",eveRunners=[multiprocessing.Event(),multiprocessing.Queue()],mode=0):
         self.hwnd = hwnd

@@ -88,9 +88,10 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
+        self.setRouteOption(14)
+        self.startFocusedBartingTrade(1)
         battle = importBattle()(self.simulatorInstance, self)
         self.goToRoute({"route": 2, "target": "hangzhou"})
-        # market.cleanupGoods(["oil"])
         print(
             hasOneArrayStringSimilarToString(
                 "lawlsswata", ["lawlesswaters", "dangerouswaters", "safewaters"]
@@ -191,7 +192,7 @@ class UWTask(FrontTask):
                 return 8
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 9
+                return 14
             else:
                 return 13
 
@@ -1835,10 +1836,7 @@ class UWTask(FrontTask):
             2,
         )
 
-    # this includes landing
-    def startDailyBattle(self, battleCity):
-        if self.getDailyConfValByKey("dailyBattle"):
-            return
+    def getBuff(self):
         buffCity = dailyJobConf.get("buffCity")
         if buffCity:
             self.gotoCity(buffCity, express=True)
@@ -1865,7 +1863,11 @@ class UWTask(FrontTask):
                 2,
                 16,
             )
-
+    # this includes landing
+    def startDailyBattle(self, battleCity):
+        if self.getDailyConfValByKey("dailyBattle"):
+            return
+        self.getBuff()
         self.print("landing starts")
         self.goLanding()
         self.print("battle starts")
@@ -1928,7 +1930,7 @@ class UWTask(FrontTask):
             return
         if villageObject.get("buys"):
             self.print("complex buy until reach certain amount")
-            self.market.buyUntilByConf(villageObject)
+            self.market.buyUntilByConf(villageObject, routeObject)
         else:
             for city in villageObject.get("buyCities"):
                 self.gotoCity(city, self.allCityList, express=True)
@@ -1968,7 +1970,7 @@ class UWTask(FrontTask):
         )
         for city in afterVillageSupplyCities:
             self.gotoCity(city, self.allCityList, express=True)
-        self.market.cleanupGoods(villageObject["buyProducts"])
+        self.market.cleanupGoods(villageObject["buyProducts"], villageObject.get("leaveGoods"))
         self.sellOverload()
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
@@ -2191,7 +2193,10 @@ class UWTask(FrontTask):
                         routeObject.get("fashions"), element.get("cities"), 2
                     )
                     if shouldWaitForFashion:
+                        if(element.get("goToCityForTrade")):
+                            self.gotoCity(element.get("goToCityForTrade"), express=True)
                         self.print("find fashion in 1 hours, wait")
+                        
                         extraMinutes = self.market.fashion.getExtraMinutesByCity(
                             element.get("cities")[0]
                         )
@@ -2231,6 +2236,11 @@ class UWTask(FrontTask):
 
     def startFocusedBartingTrade(self, routeObjIndex: int = 0):
         routeObject = self.routeList[routeObjIndex]
+        def sellWithTypes(sellCity):
+            if(routeObject.get("onlySellTypes")):
+                self.sellInCity(sellCity, types=routeObject.get("onlySellTypes"))
+            else:
+                self.sellInCity(sellCity, simple=True)
         while routeObjIndex is not len(self.routeList):
             if not (isWorkHour()):
                 self.print("not working hour,sleep for 30mins")
@@ -2244,6 +2254,8 @@ class UWTask(FrontTask):
                     self.goLanding()
                 elif routeObject.get("mode") == "battle":
                     self.startDailyBattle(self.battleCity)
+                elif routeObject.get("mode") == "buff":
+                    self.getBuff()
                 elif routeObject.get("mode") == "merchantQuest":
                     self.startMerchantQuest()
                     self.lastExecuted = getCentralTime()
@@ -2255,19 +2267,21 @@ class UWTask(FrontTask):
                         self.checkInn(city, routeObject)
 
             else:
-                self.changeFleet(routeObject.get("buyFleet"))
-                self.bartingTrade(routeObject)
-                self.changeFleet(routeObject.get("sellFleet"))
-                if routeObject.get("afterVillageBuyCities"):
-                    self.changeFleet(routeObject.get("buyFleet"), simple=True)
-                    for city in routeObject["afterVillageBuyCities"]:
-                        self.gotoCity(city, self.allCityList, express=True)
-                        self.buyInCity(
-                            self.allCityList, products=routeObject["buyProducts"]
-                        )
+                # self.changeFleet(routeObject.get("buyFleet"))
+                # self.bartingTrade(routeObject)
+                # self.changeFleet(routeObject.get("sellFleet"))
+                # if routeObject.get("afterVillageBuyCities"):
+                #     self.changeFleet(routeObject.get("buyFleet"), simple=True)
+                #     for city in routeObject["afterVillageBuyCities"]:
+                #         self.gotoCity(city, self.allCityList, express=True)
+                #         self.buyInCity(
+                #             self.allCityList, products=routeObject["buyProducts"]
+                #         )
                 for element in routeObject.get("supplyCities"):
                     if isinstance(element, collections.abc.Mapping):
                         self.goToRoute(element)
+                    elif(element=="tunnel"):
+                        self.crossTunnel(True)
                     else:
                         self.gotoCity(
                             element,
@@ -2293,7 +2307,7 @@ class UWTask(FrontTask):
                         if routeObject.get("useSkillCity"):
                             self.useTradeSkill(inCity=True)
                         self.changeFleet(6, simple=True)
-                        self.sellInCity(sellCity, simple=True)
+                        sellWithTypes(sellCity)
                         self.checkInn(sellCity, routeObject)
                     else:
                         self.sellBySequencedConf(sellCity, element, routeObject)
@@ -2301,7 +2315,7 @@ class UWTask(FrontTask):
                     sellCity = routeObject.get("sellCities")[2]["name"]
                     self.gotoCity(sellCity, self.allCityList, express=True)
                     self.changeFleet(6, simple=True)
-                    self.sellInCity(sellCity, simple=True)
+                    sellWithTypes(sellCity)
                 self.changeFleet(routeObject.get("sellFleet"), simple=True)
                 if routeObject.get("afterSellCities"):
                     for element in routeObject.get("afterSellCities"):

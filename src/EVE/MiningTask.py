@@ -48,6 +48,8 @@ class MiningTask(EVETask):
             return True
 
     def goOut(self):
+        if len(self.minedRows) == 6:
+            self.goToStella("9ke")
         wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
@@ -67,15 +69,6 @@ class MiningTask(EVETask):
             return self.minec70()
         else:
             return self.mineNormal()
-
-    def c70GoOut(self):
-        if len(self.minedRows) == 6:
-            self.goToStella("9ke")
-            self.setInsite(False)
-            wait(lambda: self.simulatorInstance.click_point(622, 604), 1)
-            self.minec70()
-        else:
-            self.goOut()
 
     def recordMined(self, row):
         if len(self.minedRows) == 6:
@@ -254,10 +247,7 @@ class MiningTask(EVETask):
         while True:
             if self.isSafe():
                 self.print("安全，出发")
-                if self.mode == 2:
-                    self.c70GoOut()
-                else:
-                    self.goOut()
+                self.goOut()
                 self.print("到达，开采")
                 break
             else:

@@ -156,7 +156,7 @@ class EVETask:
         
     def isPlayerInSite(self):
         inCenter = self.hasSingleLineWordsInArea("活动", [1064,387,1116,421],4)
-        isOut = self.getNumberFromSingleLineInArea([482,589,511,605])==100
+        isOut = self.getNumberFromSingleLineInArea([525,636,559,653])==100
 
         if inCenter:
             self.print("in")

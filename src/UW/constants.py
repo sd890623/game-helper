@@ -198,19 +198,19 @@ yawuru= {
     "checkInnCities": True,
     "buys": [
         # sequence has to map in game display
-        {"product": "lumber", "cities": [], "targetNum": 300},
+        {"product": "lumber", "cities": [], "targetNum": 200},
         {"product": "gold", "cities": [
-         "samarai", "pinjarra"], "targetNum": 320},
+         "samarai", "pinjarra"], "targetNum": 260},
         {"product": "kris", "cities": [
-            "jayakarta", "surabaya"], "targetNum": 320},
+            "jayakarta", "surabaya"], "targetNum": 260},
 
     ],
     "buyProducts": ["kris", "gold","lumber"],
-    "buyCities": ["jayakarta", "surabaya", "samarai", "pinjarra"],
+    "buyCities": ["samarai", "pinjarra","jayakarta", "surabaya"],
     "supplyCities": ["kakatuwah"],
     "tradeObjects": [(0, 1), (1, 1), (2, 1)],
     "cleanupIndex": 2,
-    "buyStrategy": "",
+    "buyStrategy": "twice",
     "useGemCities": ["samarai"],
     "barterFleet": 3
 }
@@ -326,7 +326,7 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"]
 }
 
-checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo", "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin","jayakarta", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "lima","valpara", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malacca","manila", "kotte","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","panama","soda", "pernambuco", "cayenne"]
+checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo","cohasset" "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin","jayakarta", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "lima","valpara", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malacca","manila", "kotte","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","panama","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -369,7 +369,7 @@ svearWLumberRouteBase = {
     "afterVillageBuyCities": [],
     "supplyCities":["bremen","seville","tunis","said","tunnel",{"route": 2, "target": "hangzhou"}],
     "sellFleet": 2,
-    "useSkillCity": "hangzhou",
+    "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndex": 0,
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
@@ -827,10 +827,10 @@ routeLists = [
             "supplyCities": ["hadiboh", "manila", "ambon", "ternate"],
             "checkInnCities": True
         },
-        {
-            "mode": "battle",
-            "buyCities": ["davao", "hag"],
-        },
+        # {
+        #     "mode": "battle",
+        #     "buyCities": ["davao", "hag"],
+        # },
         {"mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
          },
@@ -1311,18 +1311,16 @@ routeLists = [
     ],
     #14 svear + lumber -> bark painting
     [
-        {
-            **svearWLumberRouteBase,
-            "buyCities": ["santa"],
-            "villages": ["svearWLumber"],
-            "waitForFashion": False
-        },
-        *yawuruRouteBase,
+        # {
+        #     **svearWLumberRouteBase,
+        #     "buyCities": ["santa"],
+        #     "villages": ["svearWLumber"]
+        # },
+        # yawuruRouteBase,
         {
             **svearWLumberRouteBase,
             "buyCities": ["seville"],
-            "villages": ["sveaWLumber"],
-            "waitForFashion": False
+            "villages": ["sveaWLumber"]
         },
         {
             "mode": "buff",
@@ -1331,6 +1329,21 @@ routeLists = [
         {
             **yawuruRouteBase,
             "villages": ["yawur"],
-        }
+        },
+        # {
+        #     "mode": "landing",
+        #     "mode": "new"
+        # }
+        {
+            "buyCities": ["nantes"],
+            "mode": "merchantQuest",
+            "supplyCities": ["kotte", "manila", "ambon", "ternate"],
+            "checkInnCities": True
+        },
+        {
+            "mode": "battle",
+            "buyCities": ["davao", "hag"],
+            #"supplyCities": ["malacca", "aden","suez"],
+        },
     ]
 ]

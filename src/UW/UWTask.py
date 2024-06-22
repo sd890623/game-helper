@@ -192,9 +192,9 @@ class UWTask(FrontTask):
                 return 8
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 14
+                return 9
             else:
-                return 13
+                return 14
 
     def setRouteOptionFromScreen(self):
         month = self.getSingleLineWordsInArea(A=[1322, 220, 1357, 239])
@@ -1340,6 +1340,9 @@ class UWTask(FrontTask):
         if self.hasArrayStringInSingleLineWords(["negotiator"], A=[671, 318, 766, 344]):
             wait(lambda: self.simulatorInstance.clickPointV2(739, 441), 1)
             wait(lambda: self.simulatorInstance.clickPointV2(775, 612), 1)
+        if self.hasArrayStringInSingleLineWords(["revival"], A=[497,321,555,338]):
+            wait(lambda: self.simulatorInstance.clickPointV2(459,463), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(775, 612), 1)
         if self.hasArrayStringInSingleLineWords(["negotiator"], A=[560, 320, 644, 337]):
             wait(lambda: self.simulatorInstance.clickPointV2(603, 513), 1)
             doMoreTimesWithWait(
@@ -1641,24 +1644,7 @@ class UWTask(FrontTask):
             self.gotoCity(dailyJobConf.get("reportAndAdvQuestCity"), express=True)
             self.report()
 
-    def goLanding(self):
-        if self.getDailyConfValByKey("dailyLanding"):
-            return
-        battleInstance = importBattle()(self.simulatorInstance, self)
-        self.gotoCity(dailyJobConf.get("landingCity"), express=True)
-        self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
-        dailyRare = False
-        # temp rare daily
-        self.gotoCity("edo", express=True)
-        self.goToHarbor()
-        battleInstance.depart()
-        while not self.isPositionColorSimilarTo(
-            120, 663, (221, 226, 223)
-        ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
-            battleInstance.goBackPort("edo")
-            self.goToHarbor()
-            battleInstance.depart()
-        if not dailyRare:
+    def doLanding(self,isEverydayLanding=False):
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(113, 671),
                 lambda: self.hasSingleLineWordsInArea(
@@ -1673,7 +1659,7 @@ class UWTask(FrontTask):
                 2,
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(714, 855),
+                lambda: self.simulatorInstance.clickPointV2(714 if isEverydayLanding else 257, 855),
                 lambda: self.hasSingleLineWordsInArea(
                     "exploration", A=[645, 212, 755, 239]
                 ),
@@ -1688,18 +1674,38 @@ class UWTask(FrontTask):
                 2,
                 1,
             )
-            continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(694, 579),
-                lambda: self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]),
-                2,
-                timeout=150,
-            )
-            continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                lambda: self.inWater(),
-                2,
-            )
-            dailyRare = True
+            if(isEverydayLanding):
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(694, 579),
+                    lambda: self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]),
+                    2,
+                    timeout=150,
+                )
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
+                    lambda: self.inWater(),
+                    2,
+                )
+    def goLanding(self, mode=None):
+        if self.getDailyConfValByKey("dailyLanding"):
+            return
+        battleInstance = importBattle()(self.simulatorInstance, self)
+        self.gotoCity(dailyJobConf.get("landingCity"), express=True)
+        self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
+        didEverydayLanding = True
+        # temp rare daily
+        # self.gotoCity("edo", express=True)
+        # self.goToHarbor()
+        # battleInstance.depart()
+        # while not self.isPositionColorSimilarTo(
+        #     120, 663, (221, 226, 223)
+        # ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
+        #     battleInstance.goBackPort("edo")
+        #     self.goToHarbor()
+        #     battleInstance.depart()
+        if not didEverydayLanding:
+            self.doLanding(isEverydayLanding=True)
+            didEverydayLanding = True
             self.gotoCity(dailyJobConf.get("landingCity"), express=True)
         # end temp rare daily
 
@@ -1712,82 +1718,11 @@ class UWTask(FrontTask):
                 battleInstance.goBackPort(dailyJobConf.get("landingCity"))
                 self.goToHarbor()
                 battleInstance.depart()
-            if not dailyRare:
-                doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(113, 671),
-                    lambda: self.hasSingleLineWordsInArea(
-                        "explore", A=[1183, 808, 1241, 828]
-                    ),
-                    2,
-                    1,
-                )
-                continueWithUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1246, 836),
-                    lambda: self.hasSingleLineWordsInArea(
-                        "land", A=[662, 847, 711, 865]
-                    ),
-                    2,
-                )
-                doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(714, 855),
-                    lambda: self.hasSingleLineWordsInArea(
-                        "exploration", A=[645, 212, 755, 239]
-                    ),
-                    2,
-                    1,
-                )
-                doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(921, 664),
-                    lambda: self.hasSingleLineWordsInArea(
-                        "exploration", A=[722, 303, 825, 326]
-                    ),
-                    2,
-                    1,
-                )
-                continueWithUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(694, 579),
-                    lambda: self.hasSingleLineWordsInArea(
-                        "report", A=[794, 215, 859, 236]
-                    ),
-                    2,
-                    timeout=150,
-                )
-                continueWithUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                    lambda: self.inWater(),
-                    2,
-                )
-                dailyRare = True
+            if not didEverydayLanding:
+                self.doLanding(isEverydayLanding=True)
+                didEverydayLanding = True
 
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(113, 671),
-                lambda: self.hasSingleLineWordsInArea(
-                    "explore", A=[1183, 808, 1241, 828]
-                ),
-                2,
-                1,
-            )
-            continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1246, 836),
-                lambda: self.hasSingleLineWordsInArea("land", A=[662, 847, 711, 865]),
-                2,
-            )
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(278, 859),
-                lambda: self.hasSingleLineWordsInArea(
-                    "exploration", A=[645, 212, 755, 239]
-                ),
-                2,
-                1,
-            )
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(921, 664),
-                lambda: self.hasSingleLineWordsInArea(
-                    "exploration", A=[722, 303, 825, 326]
-                ),
-                2,
-                1,
-            )
+            self.doLanding()
 
             def checkNum():
                 num = self.getNumberFromSingleLineInArea(A=[1296, 137, 1332, 157])
@@ -2251,7 +2186,7 @@ class UWTask(FrontTask):
                 if routeObject.get("mode") == "tunnel":
                     self.crossTunnel()
                 elif routeObject.get("mode") == "landing":
-                    self.goLanding()
+                    self.goLanding(mode=routeObject.get("mode"))
                 elif routeObject.get("mode") == "battle":
                     self.startDailyBattle(self.battleCity)
                 elif routeObject.get("mode") == "buff":
@@ -2267,16 +2202,16 @@ class UWTask(FrontTask):
                         self.checkInn(city, routeObject)
 
             else:
-                # self.changeFleet(routeObject.get("buyFleet"))
-                # self.bartingTrade(routeObject)
-                # self.changeFleet(routeObject.get("sellFleet"))
-                # if routeObject.get("afterVillageBuyCities"):
-                #     self.changeFleet(routeObject.get("buyFleet"), simple=True)
-                #     for city in routeObject["afterVillageBuyCities"]:
-                #         self.gotoCity(city, self.allCityList, express=True)
-                #         self.buyInCity(
-                #             self.allCityList, products=routeObject["buyProducts"]
-                #         )
+                self.changeFleet(routeObject.get("buyFleet"))
+                self.bartingTrade(routeObject)
+                self.changeFleet(routeObject.get("sellFleet"))
+                if routeObject.get("afterVillageBuyCities"):
+                    self.changeFleet(routeObject.get("buyFleet"), simple=True)
+                    for city in routeObject["afterVillageBuyCities"]:
+                        self.gotoCity(city, self.allCityList, express=True)
+                        self.buyInCity(
+                            self.allCityList, products=routeObject["buyProducts"]
+                        )
                 for element in routeObject.get("supplyCities"):
                     if isinstance(element, collections.abc.Mapping):
                         self.goToRoute(element)

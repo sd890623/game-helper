@@ -117,7 +117,7 @@ class EVETask:
         try:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if len(ocrObj[0]) > 1:
+            if len(ocrObj[0]) > 1 and '。' not in ocrObj[0]:
                 str = "".join(ocrObj[0])
                 self.print("ocr: "+str)
                 return True

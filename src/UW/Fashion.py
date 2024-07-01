@@ -36,7 +36,7 @@ class Fashion:
         {'name': '远东亚洲', 'zone': -10, 'show': True, 'flag': 0,"zoneMinutes":5},
         {'name': '南太平洋', 'zone': -11, 'show': True, 'flag': 0},
         {'name': '南美洲、西美', 'zone': 0, 'show': True, 'flag': 1},
-        {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1}
+        {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1,"zoneMinutes":10}
     ]
     fashionInfoDict = [
         {'name': '奢华', 'detail': ['工艺品', '辛香料', '香料'], 'interval': 19, 'sn': [8, 3], 'show': True},

@@ -25,7 +25,7 @@ from constants import (
     bartingMonthToRoute,
     opponentsInList,
     maticBarterTrade,
-    checkInnCities,
+    checkInnCities
 )
 
 
@@ -88,7 +88,7 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
-        self.setRouteOption(14)
+        self.newLanding()
         self.startFocusedBartingTrade(1)
         battle = importBattle()(self.simulatorInstance, self)
         self.goToRoute({"route": 2, "target": "hangzhou"})
@@ -185,7 +185,7 @@ class UWTask(FrontTask):
         if self.apacheFriendly > 90000:
             if self.craftStock in [1, 2, 3, 4]:
                 # return 10
-                return 12
+                return 14
             elif self.liquorStock in [1, 2, 3, 4]:
                 return 9
             else:
@@ -228,7 +228,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(
                     self.allCityList, value.get("afterVillageBuyCities")
                 )
-        self.allCityList += ["said"]
+        self.allCityList += ["said","cohasset"]
         self.allCityList += [
             dailyJobConf["merchatQuestCity"],
             dailyJobConf["buffCity"],
@@ -1224,7 +1224,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
         if not doAndWaitUntilBy(
             lambda: False,
-            lambda: (self.inWater() or self.inCityList(self.allCityList)),
+            lambda: self.inWater(),
             1,
             1,
             timeout=30,
@@ -1273,7 +1273,7 @@ class UWTask(FrontTask):
             1,
             timeout=15,
         )
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156, 76), 3, 1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(156, 76), 2, 1)
         shortVillageName = None
         if villageObject and villageObject.get("shortVillageName"):
             shortVillageName = villageObject.get("shortVillageName")
@@ -1677,15 +1677,78 @@ class UWTask(FrontTask):
             if(isEverydayLanding):
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(694, 579),
-                    lambda: self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]),
-                    2,
-                    timeout=150,
+                    lambda: not self.hasSingleLineWordsInArea("stop", A=[1277,284,1318,305]),
+                    3,
+                    timeout=50,
                 )
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
                     lambda: self.inWater(),
                     2,
                 )
+    def newLanding(self):
+        didEverydayLanding = False
+        battleInstance = importBattle()(self.simulatorInstance, self)
+        self.gotoCity(dailyJobConf.get("landingCity"), express=True)
+        self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
+        self.goToHarbor()
+        battleInstance.depart()
+        self.goToVillage("bermuda", None)
+        continueWithUntilBy(
+            lambda: self.simulatorInstance.clickPointV2(24, 24),
+            lambda: (self.inWater()),
+            2,
+        )
+        while not self.isPositionColorSimilarTo(
+            120, 663, (221, 226, 223)
+        ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
+            self.goToVillage("bermuda", None)
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(24, 24),
+                lambda: (self.inWater()),
+                2,
+            )
+        if not didEverydayLanding:
+            self.doLanding(isEverydayLanding=True)
+            didEverydayLanding = True
+        timesOfLanding=4
+        for x in range(4):
+            self.doLanding()
+            def checkNum():
+                num = self.getNumberFromSingleLineInArea(A=[1296, 137, 1332, 157])
+                return num and num > dailyJobConf.get("landingTimes")
+
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(694, 579),
+                lambda: checkNum(),
+                timeout=4500,
+            )
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(1329, 291),
+                lambda: not self.hasSingleLineWordsInArea("stop", A=[1277,284,1318,305]),
+                2,
+                timeout=50,
+            )
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
+                lambda: self.inWater(),
+                2,
+            )
+            self.gotoCity(dailyJobConf.get("landingCity"), express=True)
+            if(x<timesOfLanding-1):
+                self.goToHarbor()
+                battleInstance.depart()
+                self.goToVillage("bermuda", None)
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(24, 24),
+                    lambda: (self.inWater()),
+                    2,
+                )
+        self.changeFleet(2)
+        self.sellOverload()
+        self.updateDailyConfVal("dailyLanding", True)
+
+
     def goLanding(self, mode=None):
         if self.getDailyConfValByKey("dailyLanding"):
             return
@@ -1804,7 +1867,7 @@ class UWTask(FrontTask):
             return
         self.getBuff()
         self.print("landing starts")
-        self.goLanding()
+        # self.goLanding()
         self.print("battle starts")
         self.changeFleet(dailyJobConf.get("battleFleet"))
         self.gotoCity(battleCity, express=True)
@@ -2071,9 +2134,9 @@ class UWTask(FrontTask):
         )
         wampumQty = self.getNumberFromSingleLineInArea(A=[1158, 640, 1171, 658])
         if wampumQty == 4:
-            self.villageTradeList["apache"]["buys"][0]["targetNum"] = 300
-            self.villageTradeList["apache"]["buys"][1]["targetNum"] = 400
-            self.villageTradeList["apache"]["tradeObjects"] = [(0, 2), (1, 2)]
+            self.villageTradeList["apache"]["buys"][0]["targetNum"] = 500
+            self.villageTradeList["apache"]["buys"][1]["targetNum"] = 500
+            self.villageTradeList["apache"]["tradeObjects"] = [(0, 2), (1, 2),(2, 2)]
             self.villageTradeList["apache"]["cleanupIndex"] = 1
 
             self.routeList.insert(1, self.routeList[0])
@@ -2166,16 +2229,17 @@ class UWTask(FrontTask):
                 if routeObject.get("useSkillCity"):
                     self.useTradeSkill(inCity=True)
                 self.changeFleet(6, simple=True)
-                self.sellInCity(sellCity, simple=True)
+                self.sellWithTypes(sellCity, routeObject)
                 self.checkInn(sellCity, routeObject)
 
+    def sellWithTypes(self, sellCity, routeObject):
+        if(routeObject.get("onlySellTypes")):
+            self.sellInCity(sellCity, types=routeObject.get("onlySellTypes"))
+        else:
+            self.sellInCity(sellCity, simple=True)
     def startFocusedBartingTrade(self, routeObjIndex: int = 0):
         routeObject = self.routeList[routeObjIndex]
-        def sellWithTypes(sellCity):
-            if(routeObject.get("onlySellTypes")):
-                self.sellInCity(sellCity, types=routeObject.get("onlySellTypes"))
-            else:
-                self.sellInCity(sellCity, simple=True)
+
         while routeObjIndex is not len(self.routeList):
             if not (isWorkHour()):
                 self.print("not working hour,sleep for 30mins")
@@ -2187,6 +2251,8 @@ class UWTask(FrontTask):
                     self.crossTunnel()
                 elif routeObject.get("mode") == "landing":
                     self.goLanding(mode=routeObject.get("mode"))
+                elif routeObject.get("mode") == "newlanding":
+                    self.newLanding()
                 elif routeObject.get("mode") == "battle":
                     self.startDailyBattle(self.battleCity)
                 elif routeObject.get("mode") == "buff":
@@ -2242,7 +2308,7 @@ class UWTask(FrontTask):
                         if routeObject.get("useSkillCity"):
                             self.useTradeSkill(inCity=True)
                         self.changeFleet(6, simple=True)
-                        sellWithTypes(sellCity)
+                        self.sellWithTypes(sellCity,routeObject)
                         self.checkInn(sellCity, routeObject)
                     else:
                         self.sellBySequencedConf(sellCity, element, routeObject)
@@ -2250,7 +2316,7 @@ class UWTask(FrontTask):
                     sellCity = routeObject.get("sellCities")[2]["name"]
                     self.gotoCity(sellCity, self.allCityList, express=True)
                     self.changeFleet(6, simple=True)
-                    sellWithTypes(sellCity)
+                    self.sellWithTypes(sellCity,routeObject)
                 self.changeFleet(routeObject.get("sellFleet"), simple=True)
                 if routeObject.get("afterSellCities"):
                     for element in routeObject.get("afterSellCities"):

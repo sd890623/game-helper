@@ -45,7 +45,7 @@ def getModeFromIndex(name):
     elif(winIndex=="2"):
         return 0
     elif(winIndex=="3"):
-        return 1
+        return 0
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     # ,

@@ -318,7 +318,7 @@ dailyJobConf = {
     "landingCity": "cohasset",
     "battleFleet": 5,
     "endBattleCity": "davao",
-    "landingTimes": 65,
+    "landingTimes": 78,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
@@ -398,7 +398,7 @@ yawuruRouteBase={
     "useFishingCities": ["panama"],
     "afterVillageBuyCities": [],
     "sellFleet": 2,
-    "supplyCities":["suva","mahina","atuona","panama","tunnel","santo"],
+    "supplyCities":["samarai","mahina","atuona","panama","tunnel","santo"],
     "useSkillCity": "portobelo",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -482,6 +482,7 @@ apacheRouteBase = {
                 {"type": "goSellCity"},
                 {"type": "sell"}
             ],
+            "goToCityForTrade": "mozambique",
             "cities": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "manbasa", "malindi", "mogadishu"]
         }
     ],
@@ -1084,9 +1085,9 @@ routeLists = [
             "afterSellCities":["dover"]
         },
         {
-            **svearRouteBase,
+            **samiRouteBase,
             "buyCities": ["santa"],
-            "villages": ["svea"],
+            "villages": ["sami"],
             "supplyCities":["bremen","ceuta","tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
@@ -1153,9 +1154,9 @@ routeLists = [
             "mode": "newlanding",
         },
         {
-            **svearRouteBase,
+            **samiRouteBase,
             "buyCities": ["ponta"],
-            "villages": ["svear"],
+            "villages": ["sam"],
             "supplyCities":["bremen","ceuta","tunis"],
             "forceUseSequenceOptions": True,
             "useSkillCity": False,

@@ -183,13 +183,13 @@ class UWTask(FrontTask):
 
     def getRouteNoFromApacheStats(self):
         if self.apacheFriendly > 90000:
-            if self.craftStock in [1, 2, 3, 4]:
+            if self.craftStock in [2, 3, 4]:
                 # return 10
-                return 14
-            elif self.liquorStock in [1, 2, 3, 4]:
-                return 9
+                return 12
+            # elif self.liquorStock in [1, 2, 3, 4]:
+            #     return 9
             else:
-                return 8
+                return 14
         else:
             if self.liquorStock in [1, 2, 3, 4]:
                 return 9

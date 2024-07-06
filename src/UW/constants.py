@@ -1133,6 +1133,7 @@ routeLists = [
             "mode": "battle",
             "buyCities": ["davao", "hag"],
             "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
+            "checkInnCities": True
         },
         {
             "buyCities": ["suez"],
@@ -1358,7 +1359,8 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["hag"],
-            "supplyCities": ["malacca", "aden","suez"],
+            "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
+            "checkInnCities": True
         },
         {
             "mode": "tunnel"

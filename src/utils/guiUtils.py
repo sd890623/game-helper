@@ -20,10 +20,15 @@ def base642Str (OOO0OOOOOOOO0000O ):#line:16
     return OO0O00O0O0OO00O00 .decode ('utf-8')#line:18
 scale =1 #line:21
 
+def get_ascii_mapping(input_string):
+    return [{"key": char, "value": ord(char)} for char in input_string]
+
+ascii_mapping = get_ascii_mapping("ABCDEFGHIJKLMNOPQRSTUVWXYZ-123456789")
+
+
 def getDecimalValueFromKeyStroke (keyStroke):
-    mapping = [{"key": "b", "value": 66}, {"key": "q", "value": 81}, {"key": "w", "value": 87}, {"key": "e", "value": 69}, {"key": "r", "value": 82}, {"key": "t", "value": 84}, {"key": "y", "value": 89}, {"key": "1", "value": 49}, {"key": "2", "value": 50}, {"key": "3", "value": 51}, {"key": "4", "value": 52}, {"key": "5", "value": 53}, {"key": "6", "value": 54}, {"key": "`", "value": 192} ]
-    for object in mapping:
-        if (object["key"] == keyStroke.lower()):
+    for object in ascii_mapping:
+        if (object["key"].lower() == keyStroke.lower()):
             return object["value"]
     return None
 
@@ -275,6 +280,13 @@ class win ():#line:35
                     return True #line:210
         return False #line:212
 
+    def getColorV1(self,x,y):
+        RGBint = win32gui.GetPixel(win32gui.GetWindowDC(self.hwnd), x , y)
+        blue =  RGBint & 255
+        green = (RGBint >> 8) & 255
+        red =   (RGBint >> 16) & 255
+        return (blue, green, red)
+
     def getColorRGBByPosition(self,x,y):
         try:
             left, top, right, bot = win32gui.GetWindowRect(self.hwnd)
@@ -294,26 +306,25 @@ class win ():#line:35
     def new_mousemove(self, x, y):
         tmp = win32api.MAKELONG(x, y)
         win32api.PostMessage(self.hwnd, win32con.WM_MOUSEMOVE, win32con.MK_LBUTTON, tmp)
-    def moveClickAndDrag(self, position, direction):
+    def moveClickAndDrag(self, position, direction,change):
         x =position[0] +random .randint (10 ,10 )
         y =position[1] +random .randint (10 ,10 )
-        win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONDOWN ,0 ,((y )<<16 |(x )));
+        long_position = win32api.MAKELONG(x, y)
+        win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
+        win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONDOWN ,win32con.MK_LBUTTON ,long_position)
         time.sleep(1)
         if (direction == "up"):
-            self.mouse_move(x, y-80)
             time.sleep(1)
-            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y-80 )<<16 |(x )));
+            for step in range(change):
+                win32api.PostMessage(self.hwnd,win32con.WM_MOUSEMOVE,win32con.MK_LBUTTON ,win32api.MAKELONG(x, y-step))
+                time.sleep(0.03)
+            win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONUP ,None ,win32api.MAKELONG(x, y-change))
         elif (direction == "down"):
-            self.mouse_move(x, y+80)
             time.sleep(1)
-            win32api .SendMessage (self .hwnd ,win32con .WM_LBUTTONUP ,0 ,((y+80 )<<16 |(x )));
-    def newClickAndDrag(self, position, direction):
-        x =position[0] +random .randint (10 ,10 )
-        y =position[1] +random .randint (10 ,10 )
-        if (direction == "up"):
-            self.move(x,y,x,y+80)
-        elif (direction == "down"):
-            self.move(x,y,x,y-80)
+            for step in range(change):
+                win32api.PostMessage(self.hwnd,win32con.WM_MOUSEMOVE,win32con.MK_LBUTTON ,win32api.MAKELONG(x, y+step))
+                time.sleep(0.03)
+            win32api .PostMessage (self .hwnd ,win32con .WM_LBUTTONUP ,None ,win32api.MAKELONG(x, y+change))
 
     def mouseWheel(self, position, direction):
         win32gui.SetForegroundWindow(self.hwnd)
@@ -439,12 +450,18 @@ class win ():#line:35
         pydirectinput.press("enter")
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYDOWN ,13 ,0 )#line:232
         # win32api .SendMessage (O00000OOOOOOOOOO0 .hwnd ,win32con .WM_KEYUP ,13 ,0 )#line:233
+    def typeWriteV1(self,strings):
+        if(len(strings) == 0):
+            return
+        for string in list(strings):
+            self.click_keyboard(string)
+            time.sleep(0.5+random.random()*0.5)
     def click_keyboard (self, keyStroke ):#line:231
         if (getDecimalValueFromKeyStroke(keyStroke)):
             win32gui.PostMessage(self.hwnd, win32con.WM_ACTIVATE, win32con.WA_CLICKACTIVE, 0)
             time.sleep(0.5+random.random() * 0.5)
             win32api .PostMessage (self.hwnd ,win32con .WM_KEYDOWN ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:232
-            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,getDecimalValueFromKeyStroke(keyStroke) ,0 )#line:233
+            win32api .PostMessage (self.hwnd ,win32con .WM_KEYUP ,None ,0 )#line:233
     def send_str (OO0O00000O0O0O0O0 ,OO00000OOOOOOOOO0 ):#line:235
         O0O0OOO0OOOOO0O00 =[ord (OOOOO0O0OO0OO00O0 )for OOOOO0O0OO0OO00O0 in OO00000OOOOOOOOO0 ]#line:236
         for OOO0000OOOOO0OO0O in O0O0OOO0OOOOO0O00 :#line:237

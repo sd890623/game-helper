@@ -70,8 +70,8 @@ if __name__ == "__main__":
 
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     #
-    runner.allWindowsWithTitle = getAllWindowsWithTitles(
-        ["MuMu模拟器-1", "MuMu模拟器-2"], 1254, 741
+    runner.allWindowsWithTitle = getAllWindowsStartingWithTitles(
+        ["MuMu模拟器"], 1254, 741
     )
     runner.processes = []
     runner.text = ""

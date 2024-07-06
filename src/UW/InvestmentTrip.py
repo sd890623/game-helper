@@ -27,30 +27,34 @@ simuInstance = task.simulatorInstance
 
 class Investment:
     goBM = False
-    inn = True
+    inn = False
     # Better do winter
     investmentCities = [
-        #"saint", "riga", "visby", "beck", "copenhag", "bergen", "bremen", "dublin", "ceuta", "marseille", "pisa", "calvi", "syracuse", "zadar", "ragusa", "candia", "antalya", "beirut", "cairo", "casablanca", "las", "bathurst", "douala", "cape", "natal", "manbasa", "zanzibar","aden", "suez", "jeddah", "massawa", "hadiboh", "dhofar", "bidda", "shiraz", "hormuz", "diu", "kotte", "aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari", "kaka", "dili", "banda", "makassar", "ambon", "makassar", "ternate", "davao","jolo", "manila", "quanzhou", "naha", "chang", "hangzhou", "chongqing", "yanyun", "chang", "peking", "macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "maracaibo","nassau", "nutak", "arviat", "nutak",
-          "reykjav", "narvik","edinburgh"
+        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "antalya", "lefkosa","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "hadiboh", "dhofar","muscat", "bidda", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "hobe","tainan","macau", "pasay", 
+        "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
     ]
     investmentCitiesy = [
-        # 'quanzhou',
-        # 'hangzhou',
-        # 'chongqing',
-        # 'chang',
-        # 'yanyun',
-        # 'macau',
-        # 'jolo',
-        # 'davao',
-        # 'banda',
-        # 'dili',
-        # 'makassar',
-        # 'ambon',
-        # 'surabaya',
-        # 'pangk',
-        # 'brunei',
-        # 'lopburi',
+        'peking',
+        'yanyun',
+        'chang',
+        'chongqing',
+        'hangzhou',
+        'quanzhou',
+        'macau',
+        'jolo',
+        'davao',
+        'ambon',
+        'banda',
+        'dili',
+        'makassar',
+        'surabaya',
+        'banjarmasin',
+        'pangk',
+        'brunei',
+        'lopburi',
         'aceh',
+        'masuli',
+        "kochi",
         'hadiboh',
         'aden'
     ]
@@ -77,7 +81,7 @@ class Investment:
         "quanzhou", "nassau"
     ]
     # before going to a city
-    changeFleet = ["nutak"]
+    changeFleet = ["cohasset"]
 
     def investOnce(self, domax=False):
         doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
@@ -86,7 +90,7 @@ class Investment:
         if (investBtn):
             wait(lambda: simuInstance.clickPointV2(709, 261), 1)
             if (domax):
-                doMoreTimesWithWait(lambda: simuInstance.clickPointV2(864,491),6,0)
+                doMoreTimesWithWait(lambda: simuInstance.clickPointV2(865,388),11,0)
             wait(lambda: simuInstance.clickPointV2(
                 investBtn[0]+30, investBtn[1]+5))
             wait(lambda: simuInstance.clickPointV2(1278, 853), 1)
@@ -105,7 +109,7 @@ class Investment:
         self.investOnce()
         while (True):
             num = task.getNumberFromSingleLineInArea(A=[260, 787, 285, 800])
-            if (num and num < 750 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
+            if (num and num < 800 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
                 self.investOnce(True)
                 continue
             break
@@ -121,10 +125,10 @@ class Investment:
             task.gotoCity(city, self.investmentCities,express=True)
             if (not city in self.supplyCities):
                 self.investInCity()
-            if (city in self.sellCities):
-                task.sellInCity(city)
-            if (city in self.buyCities):
-                task.buyInCity(self.investmentCities, products=self.buyGoods)
+            # if (city in self.sellCities):
+                # task.sellInCity(city)
+            # if (city in self.buyCities):
+                # task.buyInCity(self.investmentCities, products=self.buyGoods)
             if (self.goBM):
                 task.buyBlackMarket(city)
             if (self.inn):

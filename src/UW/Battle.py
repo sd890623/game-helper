@@ -83,6 +83,7 @@ class Battle:
                     "fast", A=[703,849,737,864]
                 )
                 or self.uwtask.isPositionColorSimilarTo(675, 856, (255, 255, 85)),
+                timeout=10
             )
             if self.uwtask.hasSingleLineWordsInArea("purchase", A=[660, 279, 781, 308]):
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(786, 591), 2, 2)
@@ -151,7 +152,7 @@ class Battle:
         centralPos = 716, 454
         openSkillPos = 1270, 786
         openSkilltab = 1387, 656
-        expressskill = 1224, 853
+        expressskill = 1220,851
         waitPos = 1392, 788
 
         def getSkillPosByIndex(index):
@@ -171,7 +172,7 @@ class Battle:
             number = self.uwtask.getNumberFromSingleLineInArea(A=[33, 118, 48, 136])
             match number:
                 case 1:
-                    # No 1 Pao Buff
+                    # No 1 melee Buff
                     wait(lambda: self.instance.longerClickPointV2(*expressskill), 0.5)
 
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
@@ -181,21 +182,21 @@ class Battle:
                     )
                     time.sleep(5)
                 case 2:
-                    wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+                    # wait(lambda: self.instance.clickPointV2(*waitPos), 3)
                     # No 2
-
-                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(8)),0.5)
-                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    # time.sleep(5)
-                case 3:
-                    # open skill #No3 ram buff
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
                     wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
                     doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
+                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
                     )
                     time.sleep(2)
+                case 3:
+                    # open skill #No3 ram buff
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
+                    # doMoreTimesWithWait(
+                    #     lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
+                    # )
+                    # time.sleep(2)
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
@@ -203,16 +204,8 @@ class Battle:
 
                 case 4:
                     # 5  melee Buff
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
-                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # wait(lambda: self.instance.clickPointV2(*openSkilltab),0.5)
-                    # wait(lambda: self.instance.clickPointV2(1272,408),0.5)
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
-                    )
-                    time.sleep(4)
                 case 5:
                     # 5  #ATK
                     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
@@ -222,20 +215,16 @@ class Battle:
 
                 case 6:
                     # open skill
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    )
-                    time.sleep(2)
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
+                    # doMoreTimesWithWait(
+                    #     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
+                    # )
+                    # time.sleep(2)
 
                 case 7:
                     # DEF
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    )
-                    time.sleep(2)
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case _:
                     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
 

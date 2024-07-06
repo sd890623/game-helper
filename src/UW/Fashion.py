@@ -20,6 +20,7 @@ class Fashion:
         {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
         {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]},
         {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
+        {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]}
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0,"zoneMinutes":0},
@@ -35,7 +36,7 @@ class Fashion:
         {'name': '远东亚洲', 'zone': -10, 'show': True, 'flag': 0,"zoneMinutes":5},
         {'name': '南太平洋', 'zone': -11, 'show': True, 'flag': 0},
         {'name': '南美洲、西美', 'zone': 0, 'show': True, 'flag': 1},
-        {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1}
+        {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1,"zoneMinutes":10}
     ]
     fashionInfoDict = [
         {'name': '奢华', 'detail': ['工艺品', '辛香料', '香料'], 'interval': 19, 'sn': [8, 3], 'show': True},

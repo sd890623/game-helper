@@ -24,6 +24,20 @@ def getAllWindowsWithTitles(titles, x=1280, y=735):
                 hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
     return hwndWithTitle
 
+def getAllWindowsStartingWithTitles(titles, x=1280, y=735):
+    hwndList = get_all_windows()
+    hwndWithTitle = []
+    index=0
+    for title in titles:
+        for hwnd in hwndList:
+            text = win32gui.GetWindowText(hwnd)
+            className = win32gui.GetClassName(hwnd)
+            if text.startswith(title):
+                win32gui.MoveWindow(hwnd, 50 + index * 400, 50, x, y, True)
+                index+=1
+                hwndWithTitle.append({"hwnd": hwnd, "title": text, "className": className})
+    return hwndWithTitle
+
 
 def getAllWindowsWithTitle(title):
     hwndList = get_all_windows()

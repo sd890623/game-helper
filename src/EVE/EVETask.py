@@ -117,7 +117,7 @@ class EVETask:
         try:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
-            if len(ocrObj[0]) > 1 and '。' not in ocrObj[0]:
+            if len(ocrObj[0]) > 2 and '。' not in ocrObj[0] and ',' not in ocrObj[0] and '"' not in ocrObj[0]:
                 str = "".join(ocrObj[0])
                 self.print("ocr: "+str)
                 return True
@@ -265,7 +265,7 @@ class EVETask:
                         ),
                     )
                 wait(lambda: self.simulatorInstance.click_point(13,187))
-
+            backup()
             if(self.mode!=2):
                 doAndWaitUntilBy(
                     lambda: self.simulatorInstance.click_point(13,187),
@@ -297,13 +297,15 @@ class EVETask:
             if(self.mode==0):
                 wait(lambda: self.simulatorInstance.click_point(1216,580),1)
                 self.simulatorInstance.click_point(1216,580)
+            if(self.hasSingleLineWordsInArea("x", A=[229,230,258,260])):
+                doAndWaitUntilBy(lambda: self.simulatorInstance.click_point(242,242),lambda: not self.hasSingleLineWordsInArea("x", A=[229,230,258,260]))
             self.pause()
 
         doAndWaitUntilBy(
             lambda: triggerGoHome(),
             lambda: self.isPlayerInSite() == "in",
             waitTime,
-            timeout=60,
+            timeout=120,
         )
 
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":

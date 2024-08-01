@@ -318,14 +318,14 @@ dailyJobConf = {
     "landingCity": "cohasset",
     "battleFleet": 5,
     "endBattleCity": "davao",
-    "landingTimes": 78,
+    "landingTimes": 90,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
     "leaveBattlecity": ["gari", "kakatuwah"]
 }
 
-checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo","cohasset" "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin","jayakarta", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malacca","manila", "kotte","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
+checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "portobelo","cohasset" "trujillo", "hadiboh", "aceh", "pasay", "banjarmasin","jayakarta", "ambon", "ternate", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malacca","manila","brunei","surabaya", "kotte","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -370,7 +370,7 @@ svearWLumberRouteBase = {
     "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 0,
+    "sellPriceIndex": 1,
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "onlySellTypes": ["crafts"],
@@ -816,7 +816,7 @@ routeLists = [
             "afterSellCities": ["suez"]
         },
         {
-            "buyCities": ["suez"],
+            "buyCities": ["said","edo"],
             "mode": "tunnel",
             "supplyCities": ["barcelona"],
         },
@@ -1132,21 +1132,27 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "hag"],
-            "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
+            # "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
             "checkInnCities": True
         },
         {
-            "buyCities": ["suez"],
-            "mode": "tunnel"
+            "mode": "reportAndAdvQuest",
+            "buyCities": ["edo","tainan"],
+            "checkInnCities": True,
+            "supplyCities": ["nagasaki","hangzhou","macau","brunei","surabaya", "kotte","suez"],
         },
+        # {
+        #     "buyCities": ["suez"],
+        #     "mode": "tunnel"
+        # },
+        # {
+        #     "buyCities": ["nantes"],
+        #     "mode": "merchantQuest",
+        #     "supplyCities": [],
+        #     "checkInnCities": True
+        # },
         {
-            "buyCities": ["nantes"],
-            "mode": "merchantQuest",
-            "supplyCities": [],
-            "checkInnCities": True
-        },
-        {
-            "buyCities": ["suez"],
+            "buyCities": ["said"],
             "mode": "tunnel",
             "supplyCities": ["ceuta"],
         },
@@ -1269,7 +1275,7 @@ routeLists = [
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["malacca", "kotte","suez"],
+            "supplyCities": ["brunei","surabaya", "kotte","suez"],
         },
         # {
         #     **quechuasRouteBase,
@@ -1349,21 +1355,61 @@ routeLists = [
         {
             "buyCities": ["cohasset"],
             "mode": "newlanding",
-        },
-        {
-            "buyCities": ["nantes"],
-            "mode": "merchantQuest",
-            "supplyCities": ["kotte", "manila", "ambon", "ternate"],
+            "supplyCities": ["ceuta","said"],
             "checkInnCities": True
         },
+        {
+            "buyCities": ["said"],
+            "mode": "tunnel",
+            "supplyCities": ["kotte", "brunei","surabaya"],
+            "checkInnCities": True
+        },
+        # {
+        #     "buyCities": ["nantes"],
+        #     "mode": "merchantQuest",
+        #     "supplyCities": ["kotte", "manila", "ambon", "ternate"],
+        #     "checkInnCities": True
+        # },
         {
             "mode": "battle",
             "buyCities": ["hag"],
-            "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
+            # "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
             "checkInnCities": True
         },
         {
-            "mode": "tunnel"
+            "mode": "reportAndAdvQuest",
+            "buyCities": ["edo","tainan"],
+            # "supplyCities": ["nagasaki","hangzhou","macau","malacca", "kotte","suez"],
+            "supplyCities": ["nagasaki","hangzhou","macau","brunei","surabaya","kotte"],
+            "checkInnCities": True
+        },
+        {
+            **apacheRouteBase,
+            "sellFleet": 2,
+            "supplyCities": ["panama"],
+            "forceUseSequenceOptions": True,
+            "sellCityOptions": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"],
+            "secondSellOptions": [
+                {
+                    "seqs": [
+                        {"type": "tunnel","val": True},
+                        {"type": "go", "val": "santa"},
+                        {"type": "go", "val": "plymouth"},
+                        {"type": "go", "val": "beck"},
+                        # getBestPriceCity will use sellCityOptions to override the sell city
+                        {"type": "getBestPriceCity"},
+                        {"type": "goSellCity"},
+                        {"type": "sell"}
+                    ],
+                    "cities": ["beck"]
+                }
+            ],
+            "villages": ["apache"],
+            "buyCities": ["natal"],
+            "afterSellCities":["dover"]
         }
+        # {
+        #     "mode": "tunnel"
+        # }
     ]
 ]

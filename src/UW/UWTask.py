@@ -88,6 +88,29 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
+        self.initMarket()
+        self.market.barterInVillage({
+    "villageName": "apache",
+    "buys": [
+        # sequence has to map in game display
+        {"product": "platinum", "cities": [
+            "natal", "sofala", "quelimane"], "targetNum": 522},
+        {"product": "tuberose", "cities": [
+            "kilwa", "zanzibar", "mogadishu"], "targetNum": 600}
+    ],
+    "buyCities": ["natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu"],
+    "supplyCities": ["cape", "ushuaia", "lima", "acapulco"],
+    "buyProducts": ["platinum", "tuberose"],
+    "checkInnCities": True,
+    "afterVillageSupplyCities": ["acapulco"],
+    # (index, val) array
+    "tradeObjects": [(0, 2), (1, 2), (2, 2)],
+    "cleanupIndex": 2,
+    "buyStrategy": "twice",
+    "useGemCities": [],
+    "supplyFleet": 2,
+    "barterFleet": 3
+})
         self.newLanding()
         self.startFocusedBartingTrade(1)
         battle = importBattle()(self.simulatorInstance, self)
@@ -546,6 +569,9 @@ class UWTask(FrontTask):
         if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
             wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
             wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
+            if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
+                wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
+                wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
         if not doAndWaitUntilBy(
             lambda: False,
             lambda: (self.inWater() or self.inCityList(self.allCityList)),
@@ -948,6 +974,9 @@ class UWTask(FrontTask):
                 1,
                 timeout=10,
             )
+            if(self.isPositionColorSimilarTo(621,249, (211,185,78)) and self.isPositionColorSimilarTo(621,328, (211,185,78))):
+                wait(lambda: self.simulatorInstance.clickPointV2(621,249))
+                wait(lambda: self.simulatorInstance.clickPointV2(621,328))
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(714, 669), 3, 1
             )
@@ -1380,7 +1409,7 @@ class UWTask(FrontTask):
             )
         else:
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),
+                lambda: self.simulatorInstance.clickPointV2(1084, 750),
                 lambda: not self.hasSingleLineWordsInArea(
                     "order", A=[735, 253, 801, 280]
                 ),
@@ -1637,7 +1666,7 @@ class UWTask(FrontTask):
             16,
         )
         self.checkInn(dailyJobConf.get("reportAndAdvQuestCity"))
-        # self.changeFleet(dailyJobConf.get("basicFleet"),simple=True)
+        self.changeFleet(dailyJobConf.get("basicFleet"),simple=True)
 
     def reportAndAdvQuest(self):
         if not self.getDailyConfValByKey("reportAndAdvQuest"):
@@ -1675,11 +1704,12 @@ class UWTask(FrontTask):
                 1,
             )
             if(isEverydayLanding):
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(694, 579),2)
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(694, 579),
-                    lambda: not self.hasSingleLineWordsInArea("stop", A=[1277,284,1318,305]),
+                    lambda: self.hasSingleLineWordsInArea("report", A=[792,213,872,236]),
                     3,
-                    timeout=50,
+                    timeout=240,
                 )
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
@@ -1711,8 +1741,8 @@ class UWTask(FrontTask):
         if not didEverydayLanding:
             self.doLanding(isEverydayLanding=True)
             didEverydayLanding = True
-        timesOfLanding=4
-        for x in range(4):
+        timesOfLanding=6
+        for x in range(timesOfLanding):
             self.doLanding()
             def checkNum():
                 num = self.getNumberFromSingleLineInArea(A=[1296, 137, 1332, 157])
@@ -1721,7 +1751,7 @@ class UWTask(FrontTask):
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(694, 579),
                 lambda: checkNum(),
-                timeout=4500,
+                timeout=3900,
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1329, 291),
@@ -2126,7 +2156,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 2, 1)
         # right panel
         self.apacheFriendly = self.getNumberFromSingleLineInArea(
-            A=[1288, 206, 1342, 221]
+            A=[1279,206,1347,222]
         )
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(1356, 153),

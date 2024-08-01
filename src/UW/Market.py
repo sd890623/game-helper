@@ -231,13 +231,14 @@ class Market:
             return
         # if(boughtTick==0):
         #     return
-
-        while(True):
+        times=0
+        while(times<80):
             number=self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96])
             if(number and int(number)>=25):
                 break
             else:
                 time.sleep(30)
+                times+=1
                 wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
 
         self.buyProductsInMarket(products)
@@ -409,11 +410,15 @@ class Market:
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts"),A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,600),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
 
+        if(self.uwtask.isPositionColorSimilarTo(272,786,(147,140,132))):
+            buffer=0
+        else:
+            buffer=3
         for (index, val) in villageObject.get("tradeObjects"):
             def tradeOnce():
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
                 num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
-                if(num and num<650):
+                if(num and num<750):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
                     nogoTimes=11
                     while(self.uwtask.isPositionColorSimilarTo(1019,317,(190,255,76)) and nogoTimes>0):
@@ -425,7 +430,7 @@ class Market:
                 # position tba
                 if(self.uwtask.hasSingleLineWordsInArea("trusting",A=[725,511,815,536]) and not self.uwtask.hasSingleLineWordsInArea("favor",A=[613,512,718,537])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(667,594), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
-                    break
+                    return False
                 continueWithUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,timeout=10)
                 if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
                     if(index==villageObject.get("cleanupIndex")):
@@ -434,15 +439,19 @@ class Market:
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(712,668), lambda: not self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236]) or self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2,timeout=5)
                     if(self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304])):
                         doAndWaitUntilBy(lambda: self.instance.clickPointV2(789,593), lambda: not self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2)
-            
-            while(self.uwtask.isPositionColorSimilarTo(227+val*76,201,())):
-                wait(tradeOnce)
+                return True
+            times=0
+            while(self.uwtask.isPositionColorSimilarTo(272+(index+buffer)*81,786,(147,140,132)) and times<3):
+                if(not tradeOnce()):
+                    break
+                wait(lambda: None)
+                times+=1
 
     def cleanupGoods(self, goods, leaveGoods=[]):
         continueWithUntilBy(lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon), lambda: self.uwtask.hasSingleLineWordsInArea("company", A=[156,22,227,39]),2,15,firstWait=2)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1390,94),lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),1,1,timeout=10)#storage
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(42,339), lambda: self.uwtask.hasSingleLineWordsInArea("storage", A=self.uwtask.titleArea),2,1)
-        index=4
+        index=5
         #first 242,264
         #5th 567,264
         while (index>=0):

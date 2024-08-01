@@ -16,7 +16,7 @@ import datetime as dt
 
 def isWorkHour():
     hour = dt.datetime.now().hour
-    if (hour in [5,6,7,8,9]):
+    if (hour in [1,2,3,4,5,6,7]):
         return False
     return True
 
@@ -46,6 +46,7 @@ def getModeFromIndex(name):
         return 0
     elif(winIndex=="3"):
         return 0
+    
 def main():
     print("开工前todo list: 打开本地列表,v船到广角,驻地最后一个,改变战斗列表为名称排序")
     allWindowsWithTitle = getAllWindowsStartingWithTitles(

@@ -72,15 +72,17 @@ class Battle:
         doAndWaitUntilBy(lambda: exitBattle(), lambda: self.uwtask.inWater(), 5, 2)
 
     def useFast(self):
-        if self.uwtask.hasSingleLineWordsInArea("fre", A=[694, 866, 725, 881]):
-            wait(lambda: self.instance.clickPointV2(718, 867))
+        times=0
+        while self.uwtask.hasSingleLineWordsInArea("fre", A=[698,867,726,881]) and times<20:
+            wait(lambda: self.instance.clickPointV2(731,875))
+            times+=1
         if not self.uwtask.hasSingleLineWordsInArea(
-            "using", A=[699, 867, 738, 881]
-        ) and self.uwtask.hasSingleLineWordsInArea("fast", A=[703,849,737,864]):
+            "using", A=[698,867,740,881]
+        ) and self.uwtask.hasSingleLineWordsInArea("fast", A=[704,851,736,866]):
             continueWithUntilBy(
-                lambda: self.instance.clickPointV2(718, 867),
+                lambda: self.instance.clickPointV2(731,875),
                 lambda: not self.uwtask.hasSingleLineWordsInArea(
-                    "fast", A=[703,849,737,864]
+                    "fast", A=[704,851,736,866]
                 )
                 or self.uwtask.isPositionColorSimilarTo(675, 856, (255, 255, 85)),
                 timeout=10

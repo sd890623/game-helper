@@ -88,6 +88,8 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
+        self.getStockFromType("crafts")
+        self.specialConfUpdate()
         self.initMarket()
         self.market.barterInVillage({
     "villageName": "apache",
@@ -208,14 +210,14 @@ class UWTask(FrontTask):
         if self.apacheFriendly > 90000:
             if self.craftStock in [2, 3, 4]:
                 # return 10
-                return 12
+                return 14
             # elif self.liquorStock in [1, 2, 3, 4]:
             #     return 9
             else:
                 return 14
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 9
+                return 14
             else:
                 return 14
 
@@ -1489,7 +1491,7 @@ class UWTask(FrontTask):
                 # if(village in villageTradeList.keys() and not self.getDailyConfValByKey(village)):
                 if village in self.villageTradeList.keys():
                     return (village, self.villageTradeList.get(village))
-        return None
+        return (None, None)
 
     def getInitialRouteIndex(self):
         self.setCurrentCityFromScreen()
@@ -2133,6 +2135,22 @@ class UWTask(FrontTask):
             routeObjIndex += 1
             routeObject = self.routeList[(routeObjIndex) % len(self.routeList)]
 
+    def getStockFromType(self,type):
+        if(type=="crafts"):
+            A=[1257,723,1292,748]
+        elif(type=="liquor"):
+            A=[1264,487,1288,513]
+        stock=""
+        if(self.hasImageInScreen("excessive", A)):
+            stock="excessive"
+        elif((self.hasImageInScreen("abundant", A))):
+            stock="abundant"
+        elif((self.hasImageInScreen("recommended", A))):
+            stock="recommended"
+        else:
+            stock="insufficient"
+        return getStockIdFromString(stock)
+
     def specialConfUpdate(self):
         self.print("check today's barting")
         doAndWaitUntilBy(
@@ -2154,6 +2172,10 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.typewrite("apache"), 0)
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 2, 1)
+        continueWithUntilBy(
+            lambda: self.simulatorInstance.clickPointV2(1159,158),
+            lambda: (self.hasSingleLineWordsInArea("amity", A=[1114,205,1167,222])),
+        )
         # right panel
         self.apacheFriendly = self.getNumberFromSingleLineInArea(
             A=[1279,206,1347,222]
@@ -2162,7 +2184,8 @@ class UWTask(FrontTask):
             lambda: self.simulatorInstance.clickPointV2(1356, 153),
             lambda: (self.hasSingleLineWordsInArea("trade", A=[1148, 185, 1196, 204])),
         )
-        wampumQty = self.getNumberFromSingleLineInArea(A=[1158, 640, 1171, 658])
+        doMoreTimesWithWait(lambda:self.simulatorInstance.clickPointV2(1186,193),2)
+        wampumQty = self.getNumberFromSingleLineInArea(A=[1168,680,1186,700])
         if wampumQty == 4:
             self.villageTradeList["apache"]["buys"][0]["targetNum"] = 500
             self.villageTradeList["apache"]["buys"][1]["targetNum"] = 500
@@ -2183,15 +2206,12 @@ class UWTask(FrontTask):
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(1336, 191),
             lambda: (
-                self.hasSingleLineWordsInArea("closeout", A=[1215, 219, 1286, 239])
+                self.hasSingleLineWordsInArea("type", A=[1154,290,1198,311])
             ),
         )
-        self.liquorStock = getStockIdFromString(
-            self.getSingleLineWordsInArea(A=[1188, 478, 1300, 501])
-        )
-        self.craftStock = getStockIdFromString(
-            self.getSingleLineWordsInArea(A=[1187, 785, 1301, 811])
-        )
+
+        self.liquorStock = self.getStockFromType("liquor")
+        self.craftStock = self.getStockFromType("crafts")
 
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),

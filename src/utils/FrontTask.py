@@ -1,5 +1,5 @@
 from windows import getChildHwndByTitleAndParentHwnd
-from images import getOCRfromImageBlob, getCoordinateByScreenshotTarget, getOCRfromImageBlobMultiLine, getNumberfromImageBlob
+from images import getOCRfromImageBlob,findImageFromSearchImage, getOCRfromImageBlobMultiLine, getNumberfromImageBlob
 from utils import wait, getDateTimeString, random, hasOneArrayStringInString, isStringSameOrSimilar, hasOneArrayStringSimilarToString
 import guiUtils
 import psutil
@@ -40,8 +40,8 @@ class FrontTask(object):
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug):
                 self.saveImageToFile(screenshotBlob)
-            x, y = getCoordinateByScreenshotTarget(
-                screenshotBlob, imagePath, greyMode)
+            x, y = findImageFromSearchImage(
+                screenshotBlob, imagePath)
 
             if (x and y):
                 # print(x+A[0],y+A[1])

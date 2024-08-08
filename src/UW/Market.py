@@ -401,8 +401,8 @@ class Market:
                 # yDiff=int(index/4)*134
                 index-=1
                 wait(lambda: self.instance.rightClickPointV2(*self.randomPoint),0)
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(540+xDiff,475),2,1)
-                doAndWaitUntilBy(lambda: self.instance.clickPointV2(377,665),lambda: self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
+                # doMoreTimesWithWait(lambda: self.instance.clickPointV2(540+xDiff,475),2,1)
+                doAndWaitUntilBy(lambda: self.instance.clickPointV2(540+xDiff,475),lambda: self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
                 # do not drop some items
                 if(villageObject.get("leaveGoods") and self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("leaveGoods"), A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(650,600),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
@@ -432,7 +432,7 @@ class Market:
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(667,594), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,2,timeout=5)
                     return False
                 continueWithUntilBy(lambda: self.instance.clickPointV2(772,592), lambda: not self.uwtask.hasSingleLineWordsInArea("barter", A=[630,287,705,308]),2,timeout=10)
-                if(self.uwtask.hasSingleLineWordsInArea("sufficient", A=[610,215,716,236])):
+                if(self.uwtask.hasSingleLineWordsInArea("insufficient", A=[612,215,714,236])):
                     if(index==villageObject.get("cleanupIndex")):
                         self.uwtask.print("clean up goods, last round")
                         cleanupGoods()

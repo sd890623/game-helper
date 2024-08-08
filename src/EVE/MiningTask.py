@@ -209,7 +209,8 @@ class MiningTask(EVETask):
     def waitForOreFinish(self):
         if self.mode == 2:
             frequency = 3
-            totalSeconds = 15 * 60
+            # totalSeconds = 11/15 * 60
+            totalSeconds = 15* 60
             # count=0
             while (
                 self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)

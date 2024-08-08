@@ -303,7 +303,7 @@ class Battle:
         # 5TH AREA
         # 1232,601,1399,629
         index = 0
-        while index < 15:
+        while index < 19:
             yDiff = int(index % 11 * 56.2)
             index += 1
             ocrName = self.uwtask.getSingleLineWordsInArea(

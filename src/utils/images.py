@@ -1,5 +1,6 @@
 import cv2
 from cnocr import CnOcr
+import numpy as np
 
 ocr = CnOcr(cand_alphabet="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-'",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
 numberOcr=CnOcr(cand_alphabet="1234567890()-/,",det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
@@ -24,6 +25,37 @@ def getCoordinateByScreenshotTarget(screenshotBlob, imagePath, greyMode=False):
     else :
         return 0 ,0
 
+def findImageFromSearchImage(screenshotBlob, template_image_path, threshold=0.9):
+    # 读取目标图像和搜索图像
+    template_image = cv2.imread(template_image_path)
+
+    # 转换为浮点型图像
+    search_float = np.float32(screenshotBlob)
+    template_float = np.float32(template_image)
+
+    # 执行模板匹配
+    result = cv2.matchTemplate(search_float, template_float, cv2.TM_CCOEFF_NORMED)
+
+    # 获取模板图像的尺寸
+    template_height, template_width = template_image.shape[:2]
+
+    # 找到匹配的最大值及其位置
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+    # 判断是否找到匹配
+    if max_val >= threshold:
+        # 匹配成功
+        top_left = max_loc
+        bottom_right = (top_left[0] + template_width, top_left[1] + template_height)
+
+        # 计算相对位移（相对于搜索图像的左上角）
+        relative_x = top_left[0]
+        relative_y = top_left[1]
+
+        return (relative_x, relative_y)
+    else:
+        # 匹配失败
+        return 0,0
 
 # get grayscale image
 def get_grayscale(image):
@@ -75,3 +107,4 @@ def getNumberfromImageBlob(imageBlob):
     except Exception as e:
         print(e)    
         return None       
+    

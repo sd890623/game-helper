@@ -18,7 +18,7 @@ from constants import (
     villageTradeList,
     cityNames,
     dailyJobConf,
-    witoto,
+    yawuruRouteBase,
     routeLists,
     opponentNames,
     monthToRoute,
@@ -88,6 +88,7 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
+        self.bartingTrade(yawuruRouteBase)
         self.getStockFromType("crafts")
         self.specialConfUpdate()
         self.initMarket()
@@ -210,14 +211,14 @@ class UWTask(FrontTask):
         if self.apacheFriendly > 90000:
             if self.craftStock in [2, 3, 4]:
                 # return 10
-                return 14
+                return 12
             # elif self.liquorStock in [1, 2, 3, 4]:
             #     return 9
             else:
                 return 14
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 14
+                return 9
             else:
                 return 14
 

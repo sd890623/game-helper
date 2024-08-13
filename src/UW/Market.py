@@ -232,11 +232,15 @@ class Market:
         # if(boughtTick==0):
         #     return
         times=0
+        prev_number = 30
         while(times<80):
             number=self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96])
             if(number and int(number)>=25):
                 break
+            elif prev_number == 0 and number and number != 0:
+                break
             else:
+                prev_number = int(number) if number else 0
                 time.sleep(30)
                 times+=1
                 wait(lambda: self.instance.clickPointV2(*self.randomPoint),3)
@@ -495,7 +499,7 @@ class Market:
         self.uwtask.print("find city with best price")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(39,97), lambda: self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
-        highestCity={"city":"suez","price":0}
+        highestCity={"city":cities[0],"price":0}
         # init
         def initClick(city):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)

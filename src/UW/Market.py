@@ -30,11 +30,11 @@ marketBuyData={
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","london","antwerp","calais","plymouth","amsterda",
 # "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
-# "zanzibar","toamasina","manbasa","hadiboh","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
+# "zanzibar","toamasina","manbasa","socotra","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 # "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-# "malacca","palembang","banjarmasin","surabaya","jayakarta",
+# "malacca","palembang","banjarmasin","surabaya","jakarta",
 "pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -488,7 +488,7 @@ class Market:
         def getUpdatedBuyProducts():
             result=list(buyProducts)
             for product in buyProducts:
-                if(buyFin.get(product)):
+                if(buyFin and buyFin.get(product)):
                     result.remove(product)
             return result
 

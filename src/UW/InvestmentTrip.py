@@ -29,10 +29,10 @@ class Investment:
     goBM = False
     inn = True
     # Better do winter
-    investmentCities = [
-        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "lefkosa","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "hadiboh", "dhofar","muscat", "bidda", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jayakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "hobe","tainan","macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
-    ]
     investmentCitiesx = [
+        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","praia", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","cape", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","manbasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "socotra", "dhofar","muscat", "doha", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","kotte","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "hobe","tainan","macau", "pasay", "toamasina", "cape", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
+    ]
+    investmentCities = [
         'peking',
         'yanyun',
         'chang',
@@ -54,7 +54,7 @@ class Investment:
         'aceh',
         'masuli',
         "kochi",
-        'hadiboh',
+        'socotra',
         'aden',
         'toamasina'
     ]
@@ -67,7 +67,7 @@ class Investment:
         "toamasina"
     ]
     shippartsCities = [
-        "visby", "beirut", "cape", "suez", "malacca", "jayakarta", "rio", "aires", "lima", "valpara"
+        "visby", "beirut", "cape", "suez", "malacca", "jakarta", "rio", "aires", "lima", "valpara"
     ]
     buyCities = [
         "saint", "riga", "visby", "beck", "copenhag", "bergen", "dublin", "pisa", "candia", "antalya", "beirut"

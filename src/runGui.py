@@ -69,9 +69,9 @@ if __name__ == '__main__':
     # cityLabel.pack()
 
     # 创建下拉菜单
-    cityOptions = ["narvik", "hag","whanganui","samarai"]
+    cityOptions = ["narvik", "hag","whanganui","samarai","chersky"]
     cityVar = tk.StringVar()
-    cityVar.set(cityOptions[1])  # 设置默认值
+    cityVar.set(cityOptions[4])  # 设置默认值
     cityDropdown = tk.OptionMenu(root, cityVar, *cityOptions)
 
     # 创建一个标签来显示变量的值

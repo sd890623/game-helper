@@ -14,8 +14,8 @@ from UWTask import UWTask
 
 class Fashion:
     cityMapList=[
-        {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","hadiboh","dhofar","muscat","hormuz","bidda","shiraz","basrah","baghdad"]},
-        {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","lefkosa","antalya","candia","trabzon","benghazi"]},
+        {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","socotra","dhofar","muscat","hormuz","doha","shiraz","basrah","baghdad"]},
+        {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","nicosia","antalya","candia","trabzon","benghazi"]},
         {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","manbasa","malindi","mogadishu"]},
         {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
         {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]},

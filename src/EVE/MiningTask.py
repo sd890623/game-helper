@@ -107,7 +107,7 @@ class MiningTask(EVETask):
             lambda: self.simulatorInstance.click_point(814, 163 + row * yDiff),
             4,
         )
-        time.sleep(20)
+        time.sleep(25)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(13,187),
             lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
@@ -155,9 +155,9 @@ class MiningTask(EVETask):
                 return True
 
         minerYDiff = 65
-        oreSiteCalibrater = random.randint(-2, 2)
+        oreSiteCalibrater = random.randint(-2, 1)
         while oreSiteCalibrater == self.lastOreSiteCalibrater:
-            oreSiteCalibrater = random.randint(-2, 2)
+            oreSiteCalibrater = random.randint(-2, 1)
         if self.mode == 1:
             oreSiteCalibrater = -2
         self.lastOreSiteCalibrater=oreSiteCalibrater

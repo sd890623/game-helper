@@ -162,7 +162,7 @@ class Battle:
             yDiff = 75
             return (1161 + int(index % 4 * xDiff), 369 + int(index / 4) * yDiff)
 
-        for x in range(6):
+        for x in range(2):
             while self.uwtask.isPositionColorSimilarTo(
                 39, 135, (184, 0, 0)
             ) or self.uwtask.isPositionColorSimilarTo(112, 127, (219, 29, 36)):
@@ -184,21 +184,21 @@ class Battle:
                     )
                     time.sleep(5)
                 case 2:
-                    # wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+                    wait(lambda: self.instance.clickPointV2(*waitPos), 3)
                     # No 2
+                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
+                    # doMoreTimesWithWait(
+                    #     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
+                    # )
+                    # time.sleep(2)
+                case 3:
+                    # open skill #No3 ram buff
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
                     wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
                     doMoreTimesWithWait(
                         lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
                     )
                     time.sleep(2)
-                case 3:
-                    # open skill #No3 ram buff
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    # doMoreTimesWithWait(
-                    #     lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
-                    # )
-                    # time.sleep(2)
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)

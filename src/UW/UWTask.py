@@ -88,6 +88,7 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
 
     def testTask(self):
+        self.click()
         self.bartingTrade(yawuruRouteBase)
         self.getStockFromType("crafts")
         self.specialConfUpdate()
@@ -158,6 +159,10 @@ class UWTask(FrontTask):
         )
         # print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
+    def click(self):
+        while(True):
+            wait(lambda: self.simulatorInstance.rightClickPointV2(1411,348), 5)
+
     def initMarket(self):
         self.market = importMarket()(self.simulatorInstance, self)
 
@@ -211,14 +216,14 @@ class UWTask(FrontTask):
         if self.apacheFriendly > 90000:
             if self.craftStock in [2, 3, 4]:
                 # return 10
-                return 12
+                return 14
             # elif self.liquorStock in [1, 2, 3, 4]:
             #     return 9
             else:
                 return 14
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 9
+                return 14
             else:
                 return 14
 
@@ -843,13 +848,13 @@ class UWTask(FrontTask):
         self.clickInMenu(["market"], ["market"])
         # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1253,294), lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea) or self.hasSingleLineWordsInArea("skip", A=[1330,5,1384,39]),2,2)
 
-        results = None
+        results = {}
         # buy
         match buyStrategy:
             case "twice":
                 results = market.buyProductsInCityTwice(
                     products, returnResultsLambda=returnResultsLambda
-                )
+                ) or {}
             case "useGem":
                 market.buyProductsInCityTwiceWithGem(products)
             case _:
@@ -1744,7 +1749,7 @@ class UWTask(FrontTask):
         if not didEverydayLanding:
             self.doLanding(isEverydayLanding=True)
             didEverydayLanding = True
-        timesOfLanding=6
+        timesOfLanding=dailyJobConf.get("landingRounds")
         for x in range(timesOfLanding):
             self.doLanding()
             def checkNum():
@@ -1805,7 +1810,7 @@ class UWTask(FrontTask):
             self.gotoCity(dailyJobConf.get("landingCity"), express=True)
         # end temp rare daily
 
-        for x in range(4):
+        for x in range(dailyJobConf.get("landingRounds")):
             self.goToHarbor()
             battleInstance.depart()
             while not self.isPositionColorSimilarTo(
@@ -1898,9 +1903,6 @@ class UWTask(FrontTask):
     def startDailyBattle(self, battleCity):
         if self.getDailyConfValByKey("dailyBattle"):
             return
-        self.getBuff()
-        self.print("landing starts")
-        # self.goLanding()
         self.print("battle starts")
         self.changeFleet(dailyJobConf.get("battleFleet"))
         self.gotoCity(battleCity, express=True)

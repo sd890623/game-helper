@@ -46,7 +46,7 @@ routeList=[
     # [
     #     {**northEuropeStd,
     #     "dumpCrewCities": ["juan"],
-    #     "supplyCities":["london","ceuta","ponta","juan"],
+    #     "supplyCities":["london","ceuta","azores","juan"],
     #     "sellCities":[{"name":"veracruz","types":None}],
     #     },
     #     {
@@ -55,8 +55,8 @@ routeList=[
     #         # "santiago"
     #         "buyCities":["santiago","juan","porlamar","caracas","willemsta","maracaib","cartagen","portobelo"],
     #         "buySupplyCities":[],
-    #         "dumpCrewCities": ["ponta"],
-    #         "supplyCities":["juan","ponta","london"],
+    #         "dumpCrewCities": ["azores"],
+    #         "supplyCities":["juan","azores","london"],
     #         "sellCities":[{"name":"riga","types":["jewelry"]},{"name":"saint","types":None}],
     #     },
     # ],
@@ -165,7 +165,7 @@ routeList=[
 #x triangle
     [
         {**northEuropeQuick,
-            "supplyCities":["ponta","juan"],
+            "supplyCities":["azores","juan"],
         },
         #light
         {
@@ -179,7 +179,7 @@ routeList=[
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
-            {"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
+            {"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
             {"name":"davao","types":"dye"},{"name":"hanyang","types":None}]
         },
         # #harvest
@@ -192,7 +192,7 @@ routeList=[
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
         #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
         # },
         {**EABuyBM},
         {
@@ -221,7 +221,7 @@ routeList=[
             "dumpCrewCities": [],
             "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
             #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"ambon","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"ambon","types":None}],
         },
         # #harvest
         # {
@@ -233,12 +233,12 @@ routeList=[
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","praia","elmina","luanda","cape","toamasina","aceh"],
         #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jayakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
         # },
         {
             #,"clove" ,"benzoin"  ,"feathercrafts"  ,"nutmeg"
             "buyProducts": ["ebony","agarwood","ylang-ylang","musk","mace","mangosteen"],
-            "buyCities":["banda","ambon","ternate","jolo","makassar","banjarmasin","jayakarta","pasay","aceh"],
+            "buyCities":["banda","ambon","ternate","jolo","makassar","banjarmasin","jakarta","pasay","aceh"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],
@@ -260,6 +260,6 @@ northEuropeBM={
     "buySupplyCities":[],
     "dumpCrewCities": ["kochi"],
     "buyStrategy":"once",
-    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","zanzibar","manbasa","aden","hadiboh","muscat"],
+    "supplyCities":["ceuta","bathurst","elmina","luanda","cape","sofala","zanzibar","manbasa","aden","socotra","muscat"],
     "sellCities":[{"name":"kochi","types":None}],
 }

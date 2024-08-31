@@ -86,8 +86,13 @@ class UWTask(FrontTask):
     craftStock = None
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     villageTradeList = copy.copy(villageTradeList)
+    efficientHireInn = True
 
     def testTask(self):
+        self.efficientHireInn=False
+        while(True):
+            self.checkInn("santa")
+            time.sleep(3600)
         self.click()
         self.bartingTrade(yawuruRouteBase)
         self.getStockFromType("crafts")
@@ -959,7 +964,7 @@ class UWTask(FrontTask):
     def checkInn(self, city, routeObject=None):
         if routeObject and not routeObject.get("checkInnCities"):
             return
-        if city not in checkInnCities:
+        if hasOneArrayStringSimilarToString(city,checkInnCities):
             return
         self.clickInMenu(["inn", "lnn", "nn"], ["lnn", "inn"], infinite=True)
         time.sleep(3)
@@ -982,7 +987,7 @@ class UWTask(FrontTask):
                 1,
                 timeout=10,
             )
-            if(self.isPositionColorSimilarTo(621,249, (211,185,78)) and self.isPositionColorSimilarTo(621,328, (211,185,78))):
+            if(self.efficientHireInn and self.isPositionColorSimilarTo(621,249, (211,185,78)) and self.isPositionColorSimilarTo(621,328, (211,185,78))):
                 wait(lambda: self.simulatorInstance.clickPointV2(621,249))
                 wait(lambda: self.simulatorInstance.clickPointV2(621,328))
             doMoreTimesWithWait(

@@ -89,10 +89,10 @@ class UWTask(FrontTask):
     efficientHireInn = True
 
     def testTask(self):
-        self.efficientHireInn=False
-        while(True):
-            self.checkInn("santa")
-            time.sleep(3600)
+        # self.efficientHireInn=False
+        # while(True):
+        #     self.checkInn("santa")
+        #     time.sleep(3600)
         self.click()
         self.bartingTrade(yawuruRouteBase)
         self.getStockFromType("crafts")
@@ -108,7 +108,7 @@ class UWTask(FrontTask):
             "kilwa", "zanzibar", "mogadishu"], "targetNum": 600}
     ],
     "buyCities": ["natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu"],
-    "supplyCities": ["cape", "ushuaia", "lima", "acapulco"],
+    "supplyCities": ["town", "ushuaia", "lima", "acapulco"],
     "buyProducts": ["platinum", "tuberose"],
     "checkInnCities": True,
     "afterVillageSupplyCities": ["acapulco"],
@@ -228,7 +228,7 @@ class UWTask(FrontTask):
                 return 14
         else:
             if self.liquorStock in [1, 2, 3, 4]:
-                return 14
+                return 9
             else:
                 return 14
 
@@ -400,11 +400,8 @@ class UWTask(FrontTask):
             )
             wait(lambda: self.simulatorInstance.clickPointV2(1110, 857), 1)
             wait(lambda: self.simulatorInstance.clickPointV2(1297, 859), 1)
-            doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(*okBtn), 3, 1
-            )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),
+                lambda: self.simulatorInstance.clickPointV2(*okBtn),
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -418,9 +415,8 @@ class UWTask(FrontTask):
                 2,
             )
             wait(lambda: self.simulatorInstance.longerClickPointV2(1350, 526), 2)
-            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 2)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),
+                lambda: self.simulatorInstance.clickPointV2(*okBtn),
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -437,9 +433,8 @@ class UWTask(FrontTask):
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(1020, 671), 2, 1
             )
-            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 2)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),
+                lambda: self.simulatorInstance.clickPointV2(*okBtn),
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -964,7 +959,7 @@ class UWTask(FrontTask):
     def checkInn(self, city, routeObject=None):
         if routeObject and not routeObject.get("checkInnCities"):
             return
-        if hasOneArrayStringSimilarToString(city,checkInnCities):
+        if not hasOneArrayStringSimilarToString(city,checkInnCities):
             return
         self.clickInMenu(["inn", "lnn", "nn"], ["lnn", "inn"], infinite=True)
         time.sleep(3)
@@ -1836,7 +1831,7 @@ class UWTask(FrontTask):
 
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(694, 579),
-                lambda: checkNum(),
+                lambda: checkNum() or self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]) or self.hasSingleLineWordsInArea("info", A=[693,207,741,230]),
                 timeout=4500,
             )
             continueWithUntilBy(

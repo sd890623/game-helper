@@ -175,7 +175,18 @@ def isArray(items):
         return False
     return isinstance(items, collections.abc.Sequence)
 
+# stringA in StringB
 def isStringSameOrSimilar(stringA, stringB):        
+    """
+    参数:
+    stringA (int): 第一个参数的描述。
+    stringB (str): 第二个参数的描述。
+    
+    StringA in StringB
+
+    返回:
+    bool: 
+    """
     if stringA==stringB:
         return True
     elif stringA in stringB: #len(stringA)<7 and 

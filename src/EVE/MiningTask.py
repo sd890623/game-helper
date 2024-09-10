@@ -50,7 +50,9 @@ class MiningTask(EVETask):
     def goOut(self):
         if len(self.minedRows) == 6:
             self.goToStella("9ke")
-        wait(lambda: self.simulatorInstance.click_point(1075, 226, True), 5)
+        #luodanlun 1170,219
+        #xiaopijian 1075, 226
+        wait(lambda: self.simulatorInstance.click_point(1170, 219, True), 5)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
         self.setInsite(False)

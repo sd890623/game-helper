@@ -162,7 +162,7 @@ class Battle:
             yDiff = 75
             return (1161 + int(index % 4 * xDiff), 369 + int(index / 4) * yDiff)
 
-        for x in range(2):
+        for x in range(6):
             while self.uwtask.isPositionColorSimilarTo(
                 39, 135, (184, 0, 0)
             ) or self.uwtask.isPositionColorSimilarTo(112, 127, (219, 29, 36)):
@@ -205,8 +205,12 @@ class Battle:
                     # time.sleep(3)
 
                 case 4:
-                    # 5  melee Buff
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
+                    doMoreTimesWithWait(
+                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
+                    )
+                    time.sleep(2)
+                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                 case 5:
                     # 5  #ATK
@@ -225,8 +229,12 @@ class Battle:
                     # time.sleep(2)
 
                 case 7:
-                    # DEF
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
+                    doMoreTimesWithWait(
+                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
+                    )
+                    time.sleep(2)
+                    #wait(lambda: self.instance.clickPointV2(*waitPos),3)
                 case _:
                     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
 
@@ -281,9 +289,7 @@ class Battle:
     def checkStats(self, town):
         time.sleep(1)
         # 0 SHIP DOWN OR 0 SAILORS
-        if self.uwtask.isPositionColorSimilarTo(
-            241, 69, (246, 219, 37)
-        ) or self.uwtask.isPositionColorSimilarTo(234, 69, (250, 234, 94)):
+        if self.uwtask.hasImageInScreen("shipSunk", A=[85,55,358,92]):
             self.goBackPort(town)
             return False
         return True
@@ -436,7 +442,7 @@ class Battle:
             4,
             2,
             backupFunc=clickAndStockBackup,
-            timeout=30,
+            timeout=120,
         )
         time.sleep(2)
         self.uwtask.checkForDailyPopup(3)

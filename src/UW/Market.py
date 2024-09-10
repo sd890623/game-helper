@@ -29,13 +29,13 @@ marketBuyData={
 }
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","london","antwerp","calais","plymouth","amsterda",
-# "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","cape","sofala","mozambiqu",
-# "zanzibar","toamasina","manbasa","socotra","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
+# "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","town","sofala","mozambiqu",
+# "zanzibar","toamasina","mombasa","socotra","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
 # "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-# "malacca","palembang","banjarmasin","surabaya","jakarta",
-"pasay","macau","quanzhou","hobe","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
+# "malaca","palembang","banjarmasin","surabaya","jakarta",
+"pasay","macau","quanzhou","tamsui","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 BMfile=os.path.abspath(__file__ + "\\..\\blackMarket.json")
@@ -324,7 +324,7 @@ class Market:
                 ):
                     return False
                 itemType=self.uwtask.getSingleLineWordsInArea(A=[276+xDiff,141+yDiff,412+xDiff,163+yDiff])
-                if("deco" in itemType or "design" in itemType or "cape" in itemType):
+                if("deco" in itemType or "design" in itemType or "town" in itemType):
                     return False
                 if(price and price>938):
                     doMoreTimesWithWait(lambda: self.instance.clickPointV2(267+xDiff,165+yDiff),2,0.2,disableWait=True)
@@ -420,6 +420,14 @@ class Market:
             buffer=3
         for (index, val) in villageObject.get("tradeObjects"):
             def tradeOnce():
+                doAndWaitUntilBy(
+                    lambda: self.instance.clickPointV2(44, 93),
+                    lambda: self.uwtask.hasSingleLineWordsInArea("explore", A=self.uwtask.titleArea),
+                )
+                doAndWaitUntilBy(
+                    lambda: self.instance.clickPointV2(44, 343),
+                    lambda: self.uwtask.hasSingleLineWordsInArea("barter", A=self.uwtask.titleArea),
+                )
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
                 num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
                 if(num and num<750):

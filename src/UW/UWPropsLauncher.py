@@ -30,14 +30,14 @@ def run(props):
     # task.targetCity="naples"
 
     task.print("检查航海道具；检查船耐久;检查忠诚")
-    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间,探险工具使用中")
+    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间,探险工具使用中,adv/battle fast,set Sami village")
     task.battleCity=battleCity
 
     if(battleOn):
         task.setRouteOption()
         task.battleRoute(battleCity,battleOnMode=True)
 
-    # task.enableSB("malacca",options=[5])
+    # task.enableSB("malaca",options=[5])
 
     # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
     # kochi: 12d=18min, 18*8/14=10min=600

@@ -36,7 +36,7 @@ def run():
     #Init option
     #Route choice: Must-set 0: mar-May-spring(SEA-Carrebean),1: Jun-Aug-Summer(Carrebean-EA),2: Sep-Oct Aut, Carrebean-EA,3: Winter Nov-Feb, Carrebean-EA
     #4 summer, 5autumn, 6winter 7 spring
-    # task.enableSB("malacca",options=[5])
+    # task.enableSB("malaca",options=[5])
 
     # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
     # kochi: 12d=18min, 18*8/14=10min=600

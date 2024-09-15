@@ -321,11 +321,12 @@ dailyJobConf = {
     "buffCity": "davao",
     "basicFleet":2,
     "landingFleet": 8,
-    "landingCity": "cohasset",
+    "preLandingCity": "edo",
+    "landingCity": "chersky",
     "battleFleet": 1,
-    "endBattleCity": "edo",
+    "endBattleCity": "chersky",
     "landingTimes": 90,
-    "landingRounds": 3,
+    "landingRounds": 4,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
@@ -373,11 +374,11 @@ svearWLumberRouteBase = {
     "useFishingCities": [],
     "villages": ["svearWLumber"],
     "afterVillageBuyCities": [],
-    "supplyCities":["bremen","nantes","tunis","said","tunnel",{"route": 2, "target": "hangzhou"}],
+    "supplyCities":["beck","bremen","nantes","tunis","said","tunnel",{"route": 2, "target": "hangzhou"}],
     "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 1,
+    "sellPriceIndex": 0,
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "onlySellTypes": ["crafts"],
@@ -424,7 +425,7 @@ yawuruRouteBase={
         }
     ],
     "waitHour": 1,
-    "afterSellCities": ["dover","santa"]
+    "afterSellCities": ["santa"]
 }
 
 samiRouteBase = {
@@ -439,7 +440,7 @@ samiRouteBase = {
     "sellFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 0,
+    "sellPriceIndex": 1,
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "secondSellOptions": [
@@ -467,7 +468,7 @@ apacheRouteBase = {
     "villages": ["apac"],
     # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": [{"route": 3, "target": "aden"}],
-    "sellFleet": 7,
+    "sellFleet": 2,
     "useSkillCity": "suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -547,7 +548,7 @@ witotoRouteBase = {
     "villages": ["varo"],
     "afterVillageBuyCities": [],
     "supplyCities": ["elmina", "town", "toamasina", "pasay", "dongnae"],
-    "sellFleet": 7,
+    "sellFleet": 2,
     # "useSkillCity":"suez",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -801,7 +802,7 @@ routeLists = [
         {
             **apacheRouteBase,
             "villages": ["apachewine"],
-            "sellFleet": 7,
+            "sellFleet": 2,
             "buyCities": ["natal"],
             "afterSellCities": ["socotra"],
             "useSkillCity": False,
@@ -816,7 +817,7 @@ routeLists = [
         },
         {
             **apacheRouteBase,
-            "sellFleet": 7,
+            "sellFleet": 2,
             "villages": ["apacwine"],
             "buyCities": ["sofala", "ushuaia"],
             "sellCityOptions": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "mombasa", "malindi", "mogadishu"],
@@ -829,7 +830,7 @@ routeLists = [
         },
         {
             "mode": "battle",
-            "buyCities": ["davao", "guam"],
+            "buyCities": ["davao", "guam","chersky","ezo"],
             # "supplyCities": ["nagasaki","hangzhou","macau","malaca", "ceylon","suez"],
             "checkInnCities": True
         },
@@ -1154,8 +1155,13 @@ routeLists = [
         },
         {
             "mode": "battle",
-            "buyCities": ["davao", "guam"],
+            "buyCities": ["davao", "guam","ezo","chersky"],
             # "supplyCities": ["nagasaki","hangzhou","macau","malaca", "ceylon","suez"],
+            "checkInnCities": True
+        },
+        {
+            "buyCities": ["chersky"],
+            "mode": "landing",
             "checkInnCities": True
         },
         {
@@ -1179,10 +1185,10 @@ routeLists = [
             "mode": "tunnel",
             "supplyCities": ["ceuta"],
         },
-        {
-            "buyCities": ["cohasset"],
-            "mode": "newlanding",
-        },
+        # {
+        #     "buyCities": ["cohasset"],
+        #     "mode": "newlanding",
+        # },
         {
             **samiRouteBase,
             "buyCities": ["azores"],
@@ -1375,13 +1381,14 @@ routeLists = [
             **yawuruRouteBase,
             "buyCities": ["samarai"],
             "villages": ["yawur"],
+            "supplyCities": ["said"],
         },
-        {
-            "buyCities": ["cohasset"],
-            "mode": "newlanding",
-            "supplyCities": ["ceuta","said"],
-            "checkInnCities": True
-        },
+        # {
+        #     "buyCities": ["cohasset"],
+        #     "mode": "newlanding",
+        #     "supplyCities": ["ceuta","said"],
+        #     "checkInnCities": True
+        # },
         {
             "buyCities": ["said"],
             "mode": "tunnel",
@@ -1398,6 +1405,11 @@ routeLists = [
             "mode": "battle",
             "buyCities": ["edo"],
             # "supplyCities": ["edo","hangzhou","macau","malaca", "ceylon","suez"],
+            "checkInnCities": True
+        },
+        {
+            "buyCities": ["chersky"],
+            "mode": "landing",
             "checkInnCities": True
         },
         {

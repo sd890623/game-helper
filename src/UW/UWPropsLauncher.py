@@ -14,6 +14,7 @@ def run(props):
     battleCity=props.get("battleCity")
     goBM=props.get("goBM")
     focusedBarterTrade=props.get("focusedBarterTrade")
+    testMode=props.get("testMode")
     allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
     if (len(allWindowsWithTitle) > 0):
         hwndObject = allWindowsWithTitle[0]
@@ -49,7 +50,8 @@ def run(props):
     # task.playNotification()
 
     #test
-    # task.testTask()
+    if(testMode):
+        task.testTask()
 
     initialRouteIndex=False
     while(initialRouteIndex is False):

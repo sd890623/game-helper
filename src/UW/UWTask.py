@@ -399,12 +399,15 @@ class UWTask(FrontTask):
                 2,
             )
             wait(lambda: self.simulatorInstance.clickPointV2(1110, 857), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1297, 859), 1)
+            def click():
+                wait(lambda: self.simulatorInstance.clickPointV2(1297, 859), 1)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*okBtn),
+                lambda: click,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
+                timeout=10
             )
         # Restore crew
         while self.hasSingleLineWordsInArea("notenoughcrew", A=firstLineArea):
@@ -414,9 +417,11 @@ class UWTask(FrontTask):
                 1,
                 2,
             )
-            wait(lambda: self.simulatorInstance.longerClickPointV2(1350, 526), 2)
+            def click2():
+                wait(lambda: self.simulatorInstance.longerClickPointV2(1350, 526), 2)
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*okBtn),
+                lambda: click2,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -430,11 +435,11 @@ class UWTask(FrontTask):
                 2,
             )
             wait(lambda: self.simulatorInstance.clickPointV2(252, 861), 2)
-            doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(1020, 671), 2, 1
-            )
+            def click3():
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1020, 671), 2, 1)                
+                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*okBtn),
+                lambda:click3,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -496,6 +501,7 @@ class UWTask(FrontTask):
 
         clickAndStock()
         self.print("出海")
+        self.simulatorInstance.longerClickPointV2(*departBtn)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*departBtn),
             lambda: self.inWater(),
@@ -797,15 +803,7 @@ class UWTask(FrontTask):
     # need to provide a city list
     def sellInCity(self, cityName, simple=False, types=None):
         self.print("去超市")
-        doMoreTimesWithWait(
-            lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2), 1, 1
-        )
-        doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1249, 295),
-            lambda: self.hasSingleLineWordsInArea("market", A=self.titleArea),
-            2,
-            2,
-        )
+        self.clickInMenu(["market"], ["market"])
 
         # sell
         self.market.sellGoodsWithMargin(simple, types)
@@ -1758,7 +1756,7 @@ class UWTask(FrontTask):
 
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(694, 579),
-                lambda: checkNum(),
+                lambda: checkNum() or self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]) or self.hasSingleLineWordsInArea("info", A=[693,207,741,230]),
                 timeout=3900,
             )
             continueWithUntilBy(
@@ -1791,40 +1789,26 @@ class UWTask(FrontTask):
         if self.getDailyConfValByKey("dailyLanding"):
             return
         battleInstance = importBattle()(self.simulatorInstance, self)
+        # self.gotoCity(dailyJobConf.get("preLandingCity"), express=True)
+        self.changeFleet(dailyJobConf.get("landingFleet"),simple=True)
         self.gotoCity(dailyJobConf.get("landingCity"), express=True)
-        self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
-        didEverydayLanding = True
-        # temp rare daily
-        # self.gotoCity("edo", express=True)
-        # self.goToHarbor()
-        # battleInstance.depart()
-        # while not self.isPositionColorSimilarTo(
-        #     120, 663, (221, 226, 223)
-        # ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
-        #     battleInstance.goBackPort("edo")
-        #     self.goToHarbor()
-        #     battleInstance.depart()
+
+        didEverydayLanding = False
+        self.goToHarbor()
+        battleInstance.depart()
+        while not self.isPositionColorSimilarTo(
+            120, 663, (221, 226, 223)
+        ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
+            battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+            self.goToHarbor()
+            battleInstance.depart()
         if not didEverydayLanding:
             self.doLanding(isEverydayLanding=True)
             didEverydayLanding = True
-            self.gotoCity(dailyJobConf.get("landingCity"), express=True)
-        # end temp rare daily
+        timesOfLanding=dailyJobConf.get("landingRounds")
 
-        for x in range(dailyJobConf.get("landingRounds")):
-            self.goToHarbor()
-            battleInstance.depart()
-            while not self.isPositionColorSimilarTo(
-                120, 663, (221, 226, 223)
-            ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
-                battleInstance.goBackPort(dailyJobConf.get("landingCity"))
-                self.goToHarbor()
-                battleInstance.depart()
-            if not didEverydayLanding:
-                self.doLanding(isEverydayLanding=True)
-                didEverydayLanding = True
-
+        for x in range(timesOfLanding):
             self.doLanding()
-
             def checkNum():
                 num = self.getNumberFromSingleLineInArea(A=[1296, 137, 1332, 157])
                 return num and num > dailyJobConf.get("landingTimes")
@@ -1832,13 +1816,13 @@ class UWTask(FrontTask):
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(694, 579),
                 lambda: checkNum() or self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]) or self.hasSingleLineWordsInArea("info", A=[693,207,741,230]),
-                timeout=4500,
+                timeout=3900,
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1329, 291),
-                lambda: self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]),
+                lambda: not self.hasSingleLineWordsInArea("stop", A=[1277,284,1318,305]),
                 2,
-                timeout=150,
+                timeout=50,
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
@@ -1846,7 +1830,17 @@ class UWTask(FrontTask):
                 2,
             )
             battleInstance.goBackPort(dailyJobConf.get("landingCity"))
+            if(x<timesOfLanding-1):
+                self.goToHarbor()
+                battleInstance.depart()
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(24, 24),
+                    lambda: (self.inWater()),
+                    2,
+                )
 
+        self.gotoCity(dailyJobConf.get("preLandingCity"), express=True)
+        self.changeFleet(2)
         self.sellOverload()
         self.updateDailyConfVal("dailyLanding", True)
 
@@ -1926,7 +1920,7 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("endBattleCity"))
         self.sellInCity(dailyJobConf.get("endBattleCity"), simple=True)
         self.updateDailyConfVal("dailyBattle", True)
-        self.changeFleet(2)
+        # self.changeFleet(2)
         self.sellOverload()
 
     def crossTunnel(self, goods=False):

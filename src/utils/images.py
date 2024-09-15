@@ -91,9 +91,10 @@ def getOCRfromImageBlobMultiLine(imageBlob, ocrType=1):
 
 def getNumberFromString(str):
     if("," in str):
-        return int(str.replace(",",""))
-    else:
-        return int(str)
+        str=str.replace(",","")
+    if("/" in str):
+        str=str.replace("/","")
+    return int(str)
     
 def getNumberfromImageBlob(imageBlob):
     #gray = get_grayscale(imageBlob)

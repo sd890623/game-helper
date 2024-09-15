@@ -33,6 +33,7 @@ class Battle:
     battleEnd = {"okBtn": [650, 669, 800, 694], "closeBtn": [650, 669, 800, 694]}
     opentimeout = 0
     nameBoardInPrePanel = [61, 163, 157, 190]
+    sunk=False
 
     def __init__(self, instance: win, uwtask: UWTask) -> None:
         self.instance = instance
@@ -251,8 +252,7 @@ class Battle:
 
         continueWithUntilBy(
             lambda: self.instance.rightClickPointV2(*self.randomPoint),
-            lambda: self.hasResultsBtn()
-            or self.uwtask.inCityList(self.uwtask.allCityList),
+            lambda: self.hasResultsBtn(),
             5,
             timeout=480,
         )
@@ -267,10 +267,11 @@ class Battle:
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 5, 3
             )
-
+        if(self.uwtask.getNumberFromSingleLineInArea(A=[683,407,707,428])):
+            self.sunk=True
         doAndWaitUntilBy(
             lambda: self.exitBattle(),
-            lambda: self.uwtask.inWater(),
+            lambda: self.uwtask.inWater() or self.uwtask.inCityList(self.uwtask.allCityList),
             5,
             2,
             backupFunc=backupFunc,
@@ -289,8 +290,9 @@ class Battle:
     def checkStats(self, town):
         time.sleep(1)
         # 0 SHIP DOWN OR 0 SAILORS
-        if self.uwtask.hasImageInScreen("shipSunk", A=[85,55,358,92]):
+        if self.sunk==True or self.uwtask.hasImageInScreen("shipSunk", A=[85,55,358,92]):
             self.goBackPort(town)
+            self.sunk=False
             return False
         return True
 
@@ -420,10 +422,11 @@ class Battle:
                     2,
                 )
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1333, 410), 2, 0)
-                wait(lambda: self.instance.longerClickPointV2(1350, 526), 2)
-                wait(lambda: self.instance.clickPointV2(*okBtn), 1)
+                def click():
+                    wait(lambda: self.instance.longerClickPointV2(1350, 526), 2)
+                    wait(lambda: self.instance.clickPointV2(*okBtn), 1)
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(*okBtn),
+                    lambda: click,
                     lambda: self.uwtask.hasSingleLineWordsInArea(
                         "harbor", A=self.uwtask.titleArea
                     ),
@@ -436,6 +439,7 @@ class Battle:
                 )
 
         self.uwtask.print("出海")
+        self.instance.longerClickPointV2(*departBtn)
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(*departBtn),
             lambda: self.uwtask.inWater(),

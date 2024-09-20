@@ -53,6 +53,8 @@ class MiningTask(EVETask):
         #luodanlun 1170,219
         #xiaopijian 1075, 226
         wait(lambda: self.simulatorInstance.click_point(1170, 219, True), 5)
+        if(self.hasSingleLineWordsInArea("保险提醒",[880,337,972,367],4)):
+            wait(lambda: self.simulatorInstance.click_point(1135,536),10)
         while self.isPlayerInSite() == "in" or self.isPlayerInSite() == "middle":
             time.sleep(5)
         self.setInsite(False)

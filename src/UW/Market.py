@@ -430,7 +430,7 @@ class Market:
                 )
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(227+val*76,201),2,0)
                 num=self.uwtask.getNumberFromSingleLineInArea(A=[1153,154,1183,170])
-                if(num and num<750):
+                if(num and num<1100):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(1259,303), lambda: self.uwtask.hasSingleLineWordsInArea("negotiation", A=[694,245,802,268]),2,2,timeout=5)
                     nogoTimes=11
                     while(self.uwtask.isPositionColorSimilarTo(1019,317,(190,255,76)) and nogoTimes>0):

@@ -403,7 +403,7 @@ class UWTask(FrontTask):
                 wait(lambda: self.simulatorInstance.clickPointV2(1297, 859), 1)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda: click,
+                click,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -421,7 +421,7 @@ class UWTask(FrontTask):
                 wait(lambda: self.simulatorInstance.longerClickPointV2(1350, 526), 2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda: click2,
+                click2,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -439,7 +439,7 @@ class UWTask(FrontTask):
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1020, 671), 2, 1)                
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
-                lambda:click3,
+                click3,
                 lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
                 1,
                 2,
@@ -981,7 +981,7 @@ class UWTask(FrontTask):
                 timeout=10,
             )
             if(self.efficientHireInn and self.isPositionColorSimilarTo(621,249, (211,185,78)) and self.isPositionColorSimilarTo(621,328, (211,185,78))):
-                wait(lambda: self.simulatorInstance.clickPointV2(621,249))
+                # wait(lambda: self.simulatorInstance.clickPointV2(621,249))
                 wait(lambda: self.simulatorInstance.clickPointV2(621,328))
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(714, 669), 3, 1

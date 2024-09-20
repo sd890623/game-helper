@@ -201,6 +201,8 @@ class EVETask:
             wait(lambda: self.simulatorInstance.click_point(26,189))
             if(self.hasSingleLineWordsInArea("导航确认",[882,334,972,372],4)):
                 wait(lambda: self.simulatorInstance.click_point(1135,536),10)
+            if(self.hasSingleLineWordsInArea("保险提醒",[880,337,972,367],4)):
+                wait(lambda: self.simulatorInstance.click_point(1135,536),10)
         doAndWaitUntilBy(clickGo,lambda: self.hasSingleLineWordsInArea(name, A=self.stellarisArea),waitTime,timeout=15)
 
 

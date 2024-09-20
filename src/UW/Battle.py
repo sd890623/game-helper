@@ -424,9 +424,9 @@ class Battle:
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1333, 410), 2, 0)
                 def click():
                     wait(lambda: self.instance.longerClickPointV2(1350, 526), 2)
-                    wait(lambda: self.instance.clickPointV2(*okBtn), 1)
+                    doMoreTimesWithWait(lambda: self.instance.clickPointV2(*okBtn),2)
                 doAndWaitUntilBy(
-                    lambda: click,
+                    click,
                     lambda: self.uwtask.hasSingleLineWordsInArea(
                         "harbor", A=self.uwtask.titleArea
                     ),

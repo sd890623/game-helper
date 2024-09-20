@@ -333,7 +333,7 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"]
 }
 
-checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
+checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "pisa","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "acapulco", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang", "nagasaki","edo", "hangzhou", "quanzhou","tainan","macau", "hobe", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -374,7 +374,7 @@ svearWLumberRouteBase = {
     "useFishingCities": [],
     "villages": ["svearWLumber"],
     "afterVillageBuyCities": [],
-    "supplyCities":["beck","bremen","nantes","tunis","said","tunnel",{"route": 2, "target": "hangzhou"}],
+    "supplyCities":["beck","bremen","plymouth","nantes","beirut","said","tunnel",{"route": 2, "target": "hangzhou"}],
     "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
@@ -406,7 +406,7 @@ yawuruRouteBase={
     "useFishingCities": ["panama"],
     "afterVillageBuyCities": [],
     "sellFleet": 2,
-    "supplyCities":["samarai","mahina","atuona","panama","tunnel","santo"],
+    "supplyCities":["samarai","mahina","atuona","panama","tunnel","royal","santo"],
     "useSkillCity": "portobelo",
     "checkInnCities": True,
     "sellPriceIndex": 0,
@@ -436,7 +436,7 @@ samiRouteBase = {
     "useFishingCities": [],
     "villages": ["sami"],
     "afterVillageBuyCities": [],
-    "supplyCities":["bremen","seville","tunis"],
+    "supplyCities":["bremen","plymouth","seville","tunis"],
     "sellFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
@@ -1381,7 +1381,7 @@ routeLists = [
             **yawuruRouteBase,
             "buyCities": ["samarai"],
             "villages": ["yawur"],
-            "supplyCities": ["said"],
+            "afterSellCities": ["santa","said"]
         },
         # {
         #     "buyCities": ["cohasset"],
@@ -1403,7 +1403,7 @@ routeLists = [
         # },
         {
             "mode": "battle",
-            "buyCities": ["edo"],
+            "buyCities": ["ezo"],
             # "supplyCities": ["edo","hangzhou","macau","malaca", "ceylon","suez"],
             "checkInnCities": True
         },

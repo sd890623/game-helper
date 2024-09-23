@@ -882,10 +882,20 @@ class UWTask(FrontTask):
         if returnResultsLambda:
             return results
 
-    def clickInMenu(self, menuArray, inTitleArray, infinite=False, startIndex=0):
+    def clickInMenu(self, menuArray, inTitleArray, infinite=False, startIndex=0, fallbackIndex=1):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2), 1)
         area = [1232, 251, 1350, 270]
         index = startIndex
+        def runFallback():
+            yDiff = int(fallbackIndex % 15 * 39)
+            doAndWaitUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(1241, 261 + yDiff),
+                lambda: self.hasArrayStringEqualSingleLineWords(
+                    inTitleArray, A=self.titleArea
+                ),
+                2,
+                2,
+            )
         while index < 300:
             yDiff = int(index % 15 * 39)
             if self.hasArrayStringEqualSingleLineWords(
@@ -899,12 +909,14 @@ class UWTask(FrontTask):
                     2,
                     2,
                 )
-                break
+                return True
             index += 1
             if not infinite and index == 30:
+                runFallback()
                 return False
             time.sleep(0.1)
-        return True
+        runFallback()
+        return False
 
     def buyBlackMarket(self, city):
         if not self.goBM:

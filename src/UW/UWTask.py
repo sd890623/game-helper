@@ -86,7 +86,7 @@ class UWTask(FrontTask):
     craftStock = None
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     villageTradeList = copy.copy(villageTradeList)
-    efficientHireInn = True
+    efficientHireInn = False
 
     def testTask(self):
         # self.efficientHireInn=False
@@ -993,7 +993,7 @@ class UWTask(FrontTask):
                 timeout=10,
             )
             if(self.efficientHireInn and self.isPositionColorSimilarTo(621,249, (211,185,78)) and self.isPositionColorSimilarTo(621,328, (211,185,78))):
-                # wait(lambda: self.simulatorInstance.clickPointV2(621,249))
+                wait(lambda: self.simulatorInstance.clickPointV2(621,249))
                 wait(lambda: self.simulatorInstance.clickPointV2(621,328))
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(714, 669), 3, 1

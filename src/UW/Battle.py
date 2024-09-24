@@ -194,12 +194,8 @@ class Battle:
                     # time.sleep(2)
                 case 3:
                     # open skill #No3 ram buff
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    )
-                    time.sleep(2)
+                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
+
                     # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
                     # wait(lambda: self.instance.clickPointV2(*getSkillPosByIndex(6)),0.5)
                     # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
@@ -214,11 +210,11 @@ class Battle:
                     # wait(lambda: self.instance.clickPointV2(*waitPos),3)
 
                 case 5:
-                    # 5  #ATK
-                    wait(lambda: self.instance.clickPointV2(*waitPos), 3)
-                    # wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-                    # doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    # time.sleep(2)
+                    # 5  #CRI
+                    # wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
+                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
+                    time.sleep(2)
 
                 case 6:
                     # open skill

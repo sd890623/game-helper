@@ -166,7 +166,7 @@ class UWTask(FrontTask):
 
     def click(self):
         while(True):
-            wait(lambda: self.simulatorInstance.rightClickPointV2(1411,348), 5)
+            wait(lambda: self.simulatorInstance.rightClickPointV2(1412,340), 5)
 
     def initMarket(self):
         self.market = importMarket()(self.simulatorInstance, self)
@@ -227,7 +227,7 @@ class UWTask(FrontTask):
             else:
                 return 14
         else:
-            if self.liquorStock in [1, 2, 3, 4]:
+            if self.liquorStock in [3, 4]:
                 return 9
             else:
                 return 14
@@ -971,7 +971,7 @@ class UWTask(FrontTask):
             return
         if not hasOneArrayStringSimilarToString(city,checkInnCities):
             return
-        self.clickInMenu(["inn", "lnn", "nn"], ["lnn", "inn"], infinite=True)
+        self.clickInMenu(["inn", "lnn", "nn"], ["lnn", "inn"], infinite=False,fallbackIndex=4)
         time.sleep(3)
         if not self.hasSingleLineWordsInArea("ailable", A=[8, 61, 90, 80]):
             self.sendNotification("found mate")
@@ -1491,7 +1491,7 @@ class UWTask(FrontTask):
             1,
             timeout=10,
         )
-        time.sleep(120)
+        time.sleep(90)
         self.market.barterInVillage(villageObject)
         self.updateDailyConfVal(villageKey, True)
         continueWithUntilBy(

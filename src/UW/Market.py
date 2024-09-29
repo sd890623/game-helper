@@ -503,11 +503,22 @@ class Market:
         return self.uwtask.buyInCity(buyCities, getUpdatedBuyProducts(), buyStrategy=buyStrategy,returnResultsLambda=getUpdatedBuyResults)
 
     def getBestPriceCity(self,routeObject,cities):
-        sellPriceIndex=routeObject.get("sellPriceIndex")
+        sellPriceIndex=0
+        sellPriceIndexByName=routeObject.get("sellPriceIndexByName")
         self.uwtask.print("find city with best price")
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(1409,201), lambda: self.uwtask.hasSingleLineWordsInArea("worldmap", A=self.uwtask.titleArea), 2,1,timeout=15)
         doAndWaitUntilBy(lambda: self.instance.clickPointV2(39,97), lambda: self.uwtask.hasSingleLineWordsInArea("search", A=[131,68,203,90]), 2,1,timeout=15)
         highestCity={"city":cities[0],"price":0}
+        def findPriceIndex():
+            area = [1152,226,1251,249]
+            index = 0
+            while index < 4:
+                yDiff = index *45
+                if(self.uwtask.hasSingleLineWordsInArea(sellPriceIndexByName,A=[area[0], area[1] + yDiff, area[2], area[3] + yDiff])):
+                    return index    
+                index += 1
+            return 0
+        
         # init
         def initClick(city):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(156,76),2,0)
@@ -516,6 +527,7 @@ class Market:
             continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1226,159),2,0)
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1270,196),2,0)
+            sellPriceIndex=findPriceIndex()
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)
             self.instance.send_backspaces()
         initClick("aden")

@@ -4,7 +4,7 @@ import os
 if __name__ == '__main__':
     a=["aden","town", "ushuaia", "lima"]
     print(a[::-1])
-    filePath = os.path.abspath(__file__ + "\\..\\villageTrade.json")
+    filePath = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
     with open(filePath, 'r') as f:
         villageTrade = json.load(f)

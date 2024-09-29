@@ -25,7 +25,8 @@ from constants import (
     bartingMonthToRoute,
     opponentsInList,
     maticBarterTrade,
-    checkInnCities
+    checkInnCities,
+    samiRouteBase
 )
 
 
@@ -94,10 +95,11 @@ class UWTask(FrontTask):
         #     self.checkInn("santa")
         #     time.sleep(3600)
         self.click()
+        self.initMarket()
+        self.market.getBestPriceCity(samiRouteBase,samiRouteBase.get("sellCityOptions"))
         self.bartingTrade(yawuruRouteBase)
         self.getStockFromType("crafts")
         self.specialConfUpdate()
-        self.initMarket()
         self.market.barterInVillage({
     "villageName": "apache",
     "buys": [

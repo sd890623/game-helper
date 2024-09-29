@@ -458,7 +458,7 @@ samiRouteBase = {
     "sellFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 1,
+    "sellPriceIndexByName": "versl",
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "secondSellOptions": [

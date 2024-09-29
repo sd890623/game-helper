@@ -195,6 +195,7 @@ svearWLumber = {
     "barterFleet": 3,
     "barterFirstRoundCount":4
 }
+## yawuru or kalkat
 yaruruOrKalkaOri="kalkat"
 def getYawuruOrKalka(secondVillage=False):
     if(secondVillage):
@@ -344,7 +345,7 @@ dailyJobConf = {
     "battleFleet": 1,
     "endBattleCity": "edo",
     "landingTimes": 90,
-    "landingRounds": 5,
+    "landingRounds": 4,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
@@ -365,7 +366,7 @@ svearRouteBase = {
     "sellFleet": 2,
     "useSkillCity": "suez",
     "checkInnCities": True,
-    "sellPriceIndex": 0,
+    "sellPriceIndexByName": "versl",
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "secondSellOptions": [
@@ -396,7 +397,7 @@ svearWLumberRouteBase = {
     "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 0,
+    "sellPriceIndexByName": "versl",
     "sellCityOptions": ["hangzhou", "macau", "quanzhou", "hobe", "tainan", "yanyun", "peking", "chang", "chongqing"],
     "forceUseSequenceOptions": False,
     "onlySellTypes": ["crafts"],
@@ -427,7 +428,6 @@ yawuruRouteBase={
     "supplyCities":["samarai","mahina","atuona","panama","tunnel","royal","santo"],
     "useSkillCity": "portobelo",
     "checkInnCities": True,
-    "sellPriceIndex": 0,
     "sellCityOptions": ["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"],
     "forceUseSequenceOptions": False,
     "fashions": ["赞助","繁荣"],
@@ -489,7 +489,6 @@ apacheRouteBase = {
     "sellFleet": 2,
     "useSkillCity": "suez",
     "checkInnCities": True,
-    "sellPriceIndex": 0,
     "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "socotra", "dhofar", "muscat", "hormuz", "doha", "shiraz", "basrah", "baghdad"],
     "secondSellOptions": [
         {
@@ -530,7 +529,6 @@ quechuasRouteBase = {
     "sellFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
-    "sellPriceIndex": 0,
     "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "socotra", "dhofar", "muscat", "hormuz", "doha", "shiraz", "basrah", "baghdad"],
     "secondSellOptions": [
         {
@@ -569,7 +567,6 @@ witotoRouteBase = {
     "sellFleet": 2,
     # "useSkillCity":"suez",
     "checkInnCities": True,
-    "sellPriceIndex": 0,
     "sellCityOptions": ["hanyang", "jeju", "dongnae", "yeongil", "deokwon", "edo", "nagasaki", "sakai"],
     "fashions": ["赞助"],
     "waitForFashion": True,
@@ -1379,7 +1376,10 @@ routeLists = [
             "buyCities": ["santa"],
             "villages": ["svearWLumber"]
         },
-        yawuruRouteBase,
+        {
+            **yawuruRouteBase,
+            "buyCities": ["hangzhou"]
+        },
         {
             **svearWLumberRouteBase,
             "buyCities": ["azores"],

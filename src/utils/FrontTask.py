@@ -96,6 +96,9 @@ class FrontTask(object):
 
     def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=1, debug=False):
         try:
+            if(not words):
+                self.print("null words provided")
+                return False
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
                 self.saveImageToFile(screenshotBlob)

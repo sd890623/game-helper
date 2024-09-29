@@ -26,7 +26,8 @@ from constants import (
     opponentsInList,
     maticBarterTrade,
     checkInnCities,
-    samiRouteBase
+    samiRouteBase,
+    sami
 )
 
 
@@ -101,27 +102,8 @@ class UWTask(FrontTask):
         self.getStockFromType("crafts")
         self.specialConfUpdate()
         self.market.barterInVillage({
-    "villageName": "apache",
-    "buys": [
-        # sequence has to map in game display
-        {"product": "platinum", "cities": [
-            "natal", "sofala", "quelimane"], "targetNum": 522},
-        {"product": "tuberose", "cities": [
-            "kilwa", "zanzibar", "mogadishu"], "targetNum": 600}
-    ],
-    "buyCities": ["natal", "sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu"],
-    "supplyCities": ["town", "ushuaia", "lima", "acapulco"],
-    "buyProducts": ["platinum", "tuberose"],
-    "checkInnCities": True,
-    "afterVillageSupplyCities": ["acapulco"],
-    # (index, val) array
-    "tradeObjects": [(0, 2), (1, 2), (2, 2)],
-    "cleanupIndex": 2,
-    "buyStrategy": "twice",
-    "useGemCities": [],
-    "supplyFleet": 2,
-    "barterFleet": 3
-})
+            **sami
+        })
         self.newLanding()
         self.startFocusedBartingTrade(1)
         battle = importBattle()(self.simulatorInstance, self)
@@ -133,25 +115,6 @@ class UWTask(FrontTask):
         )
         self.changeFleet(2)
         self.checkForDailyPopup()
-
-        if self.hasSingleLineWordsInArea("ok", A=[757, 597, 811, 616]):
-            wait(lambda: self.simulatorInstance.clickPointV2(632, 566), 2)
-            wait(lambda: self.simulatorInstance.clickPointV2(777, 607), 2)
-        wait(lambda: self.simulatorInstance.clickPointV2(725, 681), 2)
-        if self.hasSingleLineWordsInArea("yes", A=[1041, 779, 1118, 811]):
-            wait(lambda: self.simulatorInstance.clickPointV2(1072, 789), 2)
-        if self.hasSingleLineWordsInArea("fast", A=[79, 83, 129, 106]):
-            continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(106, 104),
-                lambda: not self.isPositionColorSimilarTo(79, 103, (0, 30, 37)),
-                3,
-                10,
-            )
-            if self.hasSingleLineWordsInArea("purchase", A=[667, 279, 767, 308]):
-                doMoreTimesWithWait(
-                    lambda: self.simulatorInstance.clickPointV2(776, 593), 4, 5
-                )
-
         # screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2()
         # self.saveImageToFile(screenshotBlob, relaPath="\\..\\..\\assets\\screenshots\\UW",filename="test.jpg")
         self.setCurrentCityFromScreen()
@@ -164,7 +127,6 @@ class UWTask(FrontTask):
             ),
             1,
         )
-        # print(self.simulatorInstance.window_capture_v2(playerTypeMarkImagePath, A=[512, 200, 622, 235]))
 
     def click(self):
         while(True):

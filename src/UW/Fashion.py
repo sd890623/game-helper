@@ -20,7 +20,8 @@ class Fashion:
         {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
         {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]},
         {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
-        {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]}
+        {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]},
+        {'name': '南太平洋', "cities":["pinjara","kakatuwah","gari","pirie","hobart"]}
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0,"zoneMinutes":0},
@@ -31,10 +32,10 @@ class Fashion:
         {'name': '东非', 'zone': -5, 'show': True, 'flag': 0, "zoneMinutes":1},
         {'name': '阿拉伯西印度群岛', 'zone': -6, 'show': True, 'flag': 0,"zoneMinutes":3},
         {'name': '东印度群岛&印度支那', 'zone': -7, 'show': True, 'flag': 0},
-        {'name': '南亚', 'zone': -8, 'show': True, 'flag': 0},
+        {'name': '南亚', 'zone': -8, 'show': True, 'flag': 4},
         {'name': '东亚', 'zone': -9, 'show': True, 'flag': 0,"zoneMinutes":4},
         {'name': '远东亚洲', 'zone': -10, 'show': True, 'flag': 0,"zoneMinutes":5},
-        {'name': '南太平洋', 'zone': -11, 'show': True, 'flag': 0},
+        {'name': '南太平洋', 'zone': -11, 'show': True, 'flag': 6},
         {'name': '南美洲、西美', 'zone': 0, 'show': True, 'flag': 1},
         {'name': '北美、东美、加勒比', 'zone': -1, 'show': True, 'flag': 1,"zoneMinutes":10}
     ]
@@ -60,7 +61,8 @@ class Fashion:
     def get_hour(self):
         # 设置目标时间（注意Python中时区的处理方式）
         target = datetime(2023, 1, 24, 0, 0, 0) + timedelta(hours=1)+ (timedelta(hours=1) if self.isDst() else timedelta(hours=0))  # 假设目标时间为GMT+9
-        # 获取当前时间
+        # 获取当前时间aden
+        
         today = datetime.now()
         # 计算时间差，并转换为小时
         hours_difference = (today - target).total_seconds() / 3600

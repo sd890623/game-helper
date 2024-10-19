@@ -98,10 +98,11 @@ class EVETask:
             print(e)
             return 1
 
-    def hasSingleLineWordsInArea(self, words, A, ocrType=3):
+    def hasSingleLineWordsInArea(self, words, A, ocrType=3,debug=False):
         try:
             screenshotBlob = self.simulatorInstance.output_window_screenshot(A)
-            # self.saveImageToFile(screenshotBlob)
+            if(debug):
+                self.saveImageToFile(screenshotBlob)
             ocrObj = getOCRfromImageBlob(screenshotBlob, ocrType)
             if len(ocrObj[0]) == 0:
                 return False

@@ -80,6 +80,21 @@ EABuyBM = {
     "supplyCities": [],
     "sellCities": [],
 }
+
+## yawuru or kalkat
+yaruruOrKalkaOri="yawuru"
+def getYawuruOrKalka(secondVillage=False):
+    if(secondVillage):
+        return yaruruOrKalkaOri[:-1]
+    return yaruruOrKalkaOri
+
+## witoto or varo
+witotoOrVaro="witoto"
+def getWitotoOrVaro(secondVillage=False):
+    if(secondVillage):
+        return witotoOrVaro[:-1]
+    return witotoOrVaro
+
 apache = {
     "villageName": "apache",
     "buys": [
@@ -126,7 +141,7 @@ apachewine = {
     "barterFleet": 3
 }
 witoto = {
-    "villageName": "varo",
+    "villageName": getWitotoOrVaro(),
     "buys": [
         # sequence has to map in game display
         {"product": "noni", "cities": [
@@ -152,15 +167,16 @@ witoto = {
 }
 quechuas = {
     "villageName": "quechuas",
-    "buyCities": ["kuching", "aceh","mogadishu","zanzibar","mozambique","town","buenos","ushuaia", "valpara", "copia", "tumbes", "lima"],
+    "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","town","buenos","ushuaia","valpara", "copia", "tumbes", "lima"],
+    # "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","mogadishu","zanzibar","kilwa","town","bahia","rio","buenos","ushuaia","valpara", "copia","acapulco","lima"],
     "supplyCities": ["lima"],
     "buyProducts": ["coal", "silver","gold"],
-    "buyNotProducts": ["dust","goldware"],
+    "buyNotProducts": ["golddust","goldware"],
     "checkInnCities": True,
-    # "afterVillageSupplyCities": ["acapulco"],
+    "afterVillageSupplyCities": ["lima"],
     # (index, val) array
-    "tradeObjects": [(0, 0), (1, 0), (2, 0)],
-    "cleanupIndex": 2,
+    "tradeObjects": [(0, 0), (1, 0), (2, 0),(3, 0)],
+    "cleanupIndex": 3,
     "buyStrategy": "useGem",
     "useGemCities": ["kuching","copia"],
     "supplyFleet": 2,
@@ -195,12 +211,6 @@ svearWLumber = {
     "barterFleet": 3,
     "barterFirstRoundCount":4
 }
-## yawuru or kalkat
-yaruruOrKalkaOri="kalkat"
-def getYawuruOrKalka(secondVillage=False):
-    if(secondVillage):
-        return yaruruOrKalkaOri[:-1]
-    return yaruruOrKalkaOri
 
 yawuru= {
     "villageName": getYawuruOrKalka(),
@@ -265,29 +275,15 @@ villageTradeList = {
     "apachwine": apachewine,
     "apacwine": apachewine,
     "witoto": witoto,
-    "witot": witoto,
+    "witot": {
+        **witoto,
+        "villageName": getWitotoOrVaro(True)
+    },
     "quechuas": quechuas,
-    "quechua": quechuas,
-    "varo": {
-        "villageName": "varo",
-        "buys": [
-            {"product": "benzoin", "cities": [
-                "sofala", "quelimane"], "targetNum": 500},
-            {"product": "noni", "cities": [
-                "kilwa", "zanzibar", "mogadishu"], "targetNum": 500},
-            {"product": "mangosteen", "cities": [
-                "kilwa", "zanzibar", "mogadishu"], "targetNum": 250}
-        ],
-        "buyCities": ["prey", "kuching", "jakarta", "malaca", "pasay"],
-        "supplyCities": ["aceh", "toamasina", "town", "soda", "pernambuco", "cayenne"],
-        "buyProducts": ["benzoin", "noni", "mangosteen"],
-        "afterVillageSupplyCities": ["cayenne"],
-        # (index, val) array
-        "tradeObjects": [(0, 2), (1, 2), (2, 2)],
-        "cleanupIndex": 2,
-        "buyStrategy": "twice",
-        "useGemCities": [],
-        "barterFleet": 4
+    "quechua": {
+        **quechuas,
+        "tradeObjects": [(0, 0), (1, 0), (2, 0)],
+        "cleanupIndex": 2
     },
     "svear": svear,
     "svea": {
@@ -345,7 +341,7 @@ dailyJobConf = {
     "battleFleet": 1,
     "endBattleCity": "edo",
     "landingTimes": 90,
-    "landingRounds": 4,
+    "landingRounds": 2,
     "reportAndAdvQuestCity": "edo",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
@@ -524,7 +520,6 @@ quechuasRouteBase = {
     "enableVillageTrade": True,
     "useFishingCities": ["ushuaia","town"],
     "villages": ["quechuas"],
-    # "afterVillageBuyCities": ["acapulco"],
     "supplyCities": ['ushuaia', 'town', 'aden'],
     "sellFleet": 2,
     "useSkillCity": False,
@@ -561,7 +556,7 @@ witotoRouteBase = {
     "buyCities": ["prey", "deokwon"],
     "enableVillageTrade": True,
     "useFishingCities": [],
-    "villages": ["varo"],
+    "villages": ["witoto"],
     "afterVillageBuyCities": [],
     "supplyCities": ["elmina", "town", "toamasina", "pasay", "dongnae"],
     "sellFleet": 2,
@@ -826,7 +821,7 @@ routeLists = [
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "deokwon","santa"],
+            "buyCities": ["prey", "deokwon","santa","hangzhou"],
             "villages": ["witoto"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "manila", "ceylon"]
         },
@@ -931,64 +926,11 @@ routeLists = [
         }
         # check passed day or pause
     ],
-    # 11 crafts+bark+chocolate+pipe
+    # 11 pipe pipe
     [
         {
-            **apacheRouteBase,
-            "sellFleet": 2,
-            "supplyCities": ["panama"],
-            "forceUseSequenceOptions": True,
-            "sellCityOptions": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"],
-            "secondSellOptions": [
-                {
-                    "seqs": [
-                        {"type": "tunnel","val": True},
-                        {"type": "go", "val": "santa"},
-                        {"type": "go", "val": "plymouth"},
-                        {"type": "go", "val": "beck"},
-                        # getBestPriceCity will use sellCityOptions to override the sell city
-                        {"type": "getBestPriceCity"},
-                        {"type": "goSellCity"},
-                        {"type": "sell"}
-                    ],
-                    "cities": ["beck"]
-                }
-            ],
-            "villages": ["apache"],
-            "buyCities": ["natal"],
-            "afterSellCities":["dover"]
-        },
-        {
             **svearRouteBase,
             "buyCities": ["santa"],
-            "villages": ["svear"],
-            "supplyCities":["bremen","seville","tunis"],
-            "useSkillCity": False,
-            "forceUseSequenceOptions": True,
-            "waitForFashion": False,
-            "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "socotra", "dhofar", "muscat", "hormuz", "doha", "shiraz", "basrah", "baghdad"],
-            "secondSellOptions": [
-                {
-                    "seqs": [
-                        {"type": "go", "val": "said"},
-                        {"type": "tunnel","val": True},
-                        # getBestPriceCity will use sellCityOptions to override the sell city
-                        {"type": "getBestPriceCity"},
-                        {"type": "goSellCity"},
-                        {"type": "sell"},
-                        {"type": "go", "val": "suez"},
-                        {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}
-                    ],
-                    "cities": ["suez"]
-                }
-            ],
-        },
-        {
-            **svearRouteBase,
-            "buyCities": ["santa"],
-            "villages": ["svea"],
-            "supplyCities":["bremen","seville","tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
             "sellCityOptions": ["suez", "jeddah", "massawa", "aden", "socotra", "dhofar", "muscat", "hormuz", "doha", "shiraz", "basrah", "baghdad"],
@@ -1005,24 +947,15 @@ routeLists = [
                     "cities": ["suez"]
                 }
             ],
+            "afterSellCities": ["ceylon"]
         },
         {
-            **apacheRouteBase,
-            "sellFleet": 2,
-            "villages": ["apac"],
-            "supplyCities": ['lima', 'ushuaia', 'town', 'aden'],
-            "useFishingCities": ["ushuaia","town"],
-            "secondSellOptions": [
-                {
-                    "seqs": [
-                        {"type": "goSellCity"},
-                        {"type": "sell"}
-                    ],
-                    "cities": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "mombasa", "malindi", "mogadishu"]
-                }
-            ],
-            "buyCities": ["sofala"],
-            "afterSellCities": ["suez"]
+            **quechuasRouteBase,
+            "buyCities": ["kuching"],
+        },
+        {
+            **quechuasRouteBase,
+            "buyCities": ["kuching"],
         },
         {
             "buyCities": ["suez"],
@@ -1044,10 +977,7 @@ routeLists = [
             "buyCities": ["edo","tainan"],
             "supplyCities": ["malaca", "ceylon","suez"],
         },
-        # {
-        #     **quechuasRouteBase,
-        #     "buyCities": ["kuching"],
-        # },
+
         {
             "mode": "tunnel"
         },
@@ -1415,7 +1345,7 @@ routeLists = [
         # },
         {
             "mode": "battle",
-            "buyCities": ["ezo"],
+            "buyCities": ["chersky"],
             # "supplyCities": ["edo","hangzhou","macau","malaca", "ceylon","suez"],
             "checkInnCities": True
         },
@@ -1427,9 +1357,20 @@ routeLists = [
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["nagasaki","hangzhou","macau","malaca", "ceylon","suez"],
+            "supplyCities": ["nagasaki","hangzhou","macau","malaca"],
             # "supplyCities": ["nagasaki","hangzhou","macau","brunei","surabaya","ceylon"],
             "checkInnCities": True
+        },
+        {
+            **quechuasRouteBase,
+            "buyCities": ["kuching"],
+            "afterSellCities": ["ceylon"]
+
+        },
+        {
+            **quechuasRouteBase,
+            "villages": ["quechua"],
+            "buyCities": ["kuching"]
         },
         # {
         #     **apacheRouteBase,
@@ -1457,7 +1398,8 @@ routeLists = [
         #     "afterSellCities":["dover"]
         # }
         {
+            "buyCities": ["suez"],
             "mode": "tunnel"
-        }
+        },
     ]
 ]

@@ -9,6 +9,7 @@ class MiningTask(EVETask):
     minedRows = []
     otherStellaRows = {"9ke": []}
     havePirate = False
+    bigWhale = False
 
     def __init__(self, hwnd, index, mode=0):
         super().__init__(hwnd, index, mode=mode)
@@ -159,15 +160,16 @@ class MiningTask(EVETask):
                 return True
 
         minerYDiff = 65
-        oreSiteCalibrater = random.randint(-2, 1)
-        while oreSiteCalibrater == self.lastOreSiteCalibrater:
-            oreSiteCalibrater = random.randint(-2, 1)
+        oreSiteCalibrater = random.randint(-2, 2)
+        while oreSiteCalibrater == self.lastOreSiteCalibrater or (oreSiteCalibrater==-2 and self.hasSingleLineWordsInArea("卫星",[1041,70,1157,103],4)) or (oreSiteCalibrater==2 and not self.hasSingleLineWordsInArea("小行",[1125,337,1165,362],4)):
+            oreSiteCalibrater = random.randint(-2, 2)
         if self.mode == 1:
             oreSiteCalibrater = -2
         self.lastOreSiteCalibrater=oreSiteCalibrater
         if checkGoHome():
             return
         self.print("点矿区y偏移量:" + str(oreSiteCalibrater))
+
         wait(
             lambda: self.simulatorInstance.click_point(
                 1055, 220 + oreSiteCalibrater * minerYDiff
@@ -203,12 +205,12 @@ class MiningTask(EVETask):
         if checkGoHome():
             return
 
-        wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
-        wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
-        wait(lambda: self.simulatorInstance.click_point(992, 645), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("W"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("E"), 1)
-        wait(lambda: self.simulatorInstance.click_keyboard("6"), 1)
+        wait(lambda: self.simulatorInstance.click_point(848, 640), 2)
+        wait(lambda: self.simulatorInstance.click_point(924, 644), 2)
+        wait(lambda: self.simulatorInstance.click_point(992, 645), 2)
+        if(self.bigWhale):
+            wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
+            wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
 
     def waitForOreFinish(self):
         if self.mode == 2:
@@ -229,7 +231,10 @@ class MiningTask(EVETask):
                 self.print("有海盗，回家")
             return
         else:
-            self.checkSafeForMinutes(11.2 + random.randint(0, 10) / 10)
+            duration=11.2
+            if(self.bigWhale):
+                duration=30
+            self.checkSafeForMinutes(duration + random.randint(0, 10) / 10)
 
     def startMiningTask(self):
         if self.syncBetweenUsers:

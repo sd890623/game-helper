@@ -30,8 +30,8 @@ def run(props):
     # task.shipBuilding(options=[12,12],city="ceuta", times=1)
     # task.targetCity="naples"
 
-    task.print("检查航海道具；检查船耐久;检查忠诚")
-    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间,探险工具使用中,adv/battle fast,set Sami village")
+    task.print("检查航海道具；检查船耐久;检查忠诚；检查屏幕设置；")
+    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间,探险工具使用中,adv/battle fast,set Sami village,no goods in cargo")
     task.battleCity=battleCity
 
     if(battleOn):

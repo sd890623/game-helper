@@ -145,6 +145,8 @@ class UWTask(FrontTask):
             if len(ocrObj[0]) == 0:
                 return False
             str = "".join(ocrObj[0])
+            if('water' in str.lower()):
+                return False
             self.print(" ocred city: " + str)
             if cityList == None:
                 cityList = cityNames
@@ -153,27 +155,6 @@ class UWTask(FrontTask):
                     self.currentCity = city
                     return True
             return False
-        except Exception as e:
-            print(e)
-            return False
-
-    def inCity(self, cityName):
-        try:
-            screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(
-                A=self.inTownCityNameArea
-            )
-            # self.saveImageToFile(screenshotBlob)
-            ocrObj = getOCRfromImageBlob(screenshotBlob)
-            if len(ocrObj[0]) == 0:
-                return False
-            str = "".join(ocrObj[0])
-            self.print(" ocred city: " + str)
-
-            if isStringSameOrSimilar(cityName, str.lower()):
-                self.currentCity = cityName
-                return True
-            else:
-                return False
         except Exception as e:
             print(e)
             return False
@@ -528,8 +509,7 @@ class UWTask(FrontTask):
             1,
             timeout=15,
         )
-        wait(lambda: self.simulatorInstance.clickPointV2(156, 76), 1)
-        wait(lambda: self.simulatorInstance.clickPointV2(160, 76), 1)
+        wait(lambda: self.simulatorInstance.clickPointV2(259, 76), 1)
         wait(lambda: self.simulatorInstance.typewrite(cityname), 0)
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 2, 1)
@@ -539,7 +519,7 @@ class UWTask(FrontTask):
             lambda: (
                 self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304])
                 or self.inWater()
-                or self.inCityList(self.allCityList)
+                or self.inCityList([cityname])
             ),
             5,
             firstWait=15,
@@ -786,7 +766,7 @@ class UWTask(FrontTask):
 
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.inCity(cityName),
+            lambda: self.inCityList([cityName]),
             3,
             2,
             backupFunc=backup,
@@ -897,7 +877,7 @@ class UWTask(FrontTask):
 
             continueWithUntilByWithBackup(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                lambda: self.inCity(city),
+                lambda: self.inCityList([city]),
                 2,
                 15,
                 backupFunc=backup,
@@ -939,7 +919,7 @@ class UWTask(FrontTask):
         time.sleep(3)
         if not self.hasSingleLineWordsInArea("ailable", A=[8, 61, 90, 80]):
             self.sendNotification("found mate")
-            time.sleep(1200)
+            time.sleep(100)
         if not self.isPositionColorSimilarTo(1407, 651, (179, 179, 179)):
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(32, 143),
@@ -965,7 +945,7 @@ class UWTask(FrontTask):
 
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.inCity(city),
+            lambda: self.inCityList([city]),
             2,
             16,
         )
@@ -1005,7 +985,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(746, 610), 1)
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.inCity(city),
+            lambda: self.inCityList([city]),
             2,
             16,
         )
@@ -1648,7 +1628,7 @@ class UWTask(FrontTask):
             16,
         )
         self.checkInn(dailyJobConf.get("reportAndAdvQuestCity"))
-        self.changeFleet(dailyJobConf.get("basicFleet"),simple=True)
+        self.changeFleet(dailyJobConf.get("basicFleet"))
 
     def reportAndAdvQuest(self):
         if not self.getDailyConfValByKey("reportAndAdvQuest"):
@@ -1865,7 +1845,7 @@ class UWTask(FrontTask):
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                lambda: self.inCity(buffCity),
+                lambda: self.inCityList([buffCity]),
                 2,
                 16,
             )
@@ -1896,7 +1876,7 @@ class UWTask(FrontTask):
         self.gotoCity(dailyJobConf.get("endBattleCity"))
         self.sellInCity(dailyJobConf.get("endBattleCity"), simple=True)
         self.updateDailyConfVal("dailyBattle", True)
-        # self.changeFleet(2)
+        self.changeFleet(2,simple=True)
         self.sellOverload()
 
     def crossTunnel(self, goods=False):
@@ -1904,7 +1884,7 @@ class UWTask(FrontTask):
         if goods:
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1332, 579),
-                lambda: self.isPositionColorSimilarTo(1188, 583, (87, 218, 36)),
+                lambda: self.isPositionColorSimilarTo(1188,582, (85,184,43)),
                 2,
             )
 
@@ -1977,7 +1957,7 @@ class UWTask(FrontTask):
         self.sellOverload()
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.inCity(self.currentCity),
+            lambda: self.inCityList([self.currentCity]),
             2,
             16,
         )
@@ -2376,7 +2356,7 @@ class UWTask(FrontTask):
         battleLeft = self.getNumberFromSingleLineInArea(A=[596, 325, 614, 344])
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.inCity(battleCity),
+            lambda: self.inCityList([battleCity]),
             2,
             16,
         )

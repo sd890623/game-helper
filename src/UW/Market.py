@@ -257,7 +257,7 @@ class Market:
         self.buyProductsInMarket(products)
 
     def bargin(self,multiTimes=False):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),self.uwtask.getDailyConfValByKey("negoTimes") or 5,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             if(multiTimes):

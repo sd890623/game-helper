@@ -18,7 +18,7 @@ class Fashion:
         {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","nicosia","antalya","candia","trabzon","benghazi"]},
         {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","mombasa","malindi","mogadishu"]},
         {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
-        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","hobe","tainan","yanyun","peking","chang","chongqing"]},
+        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","tamsui","tainan","yanyun","peking","chang","chongqing"]},
         {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
         {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]},
         {'name': '南太平洋', "cities":["pinjara","kakatuwah","gari","pirie","hobart"]}

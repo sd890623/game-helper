@@ -89,6 +89,7 @@ class UWTask(FrontTask):
     dailyConfFile = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
     villageTradeList = copy.copy(villageTradeList)
     efficientHireInn = False
+    dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
         # self.efficientHireInn=False
@@ -165,8 +166,8 @@ class UWTask(FrontTask):
     def getRouteNoFromApacheStats(self):
         if self.apacheFriendly > 90000:
             if self.craftStock in [2, 3, 4]:
-                # return 10
-                return 14
+                return 12
+                # return 14
             # elif self.liquorStock in [1, 2, 3, 4]:
             #     return 9
             else:
@@ -523,7 +524,7 @@ class UWTask(FrontTask):
             ),
             5,
             firstWait=15,
-            backup=mapBackup
+            backupFunc=mapBackup
         )
         if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
             wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
@@ -1370,7 +1371,7 @@ class UWTask(FrontTask):
                 ),
                 2,
             )
-        else:
+        if(self.hasSingleLineWordsInArea("order", A=[735, 253, 801, 280])):
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1084, 750),
                 lambda: not self.hasSingleLineWordsInArea(
@@ -1684,6 +1685,7 @@ class UWTask(FrontTask):
         battleInstance = importBattle()(self.simulatorInstance, self)
         self.gotoCity(dailyJobConf.get("landingCity"), express=True)
         self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
+        self.checkInn(dailyJobConf.get("landingCity"))
         self.goToHarbor()
         battleInstance.depart()
         self.goToVillage("bermuda", None)
@@ -2389,6 +2391,35 @@ class UWTask(FrontTask):
                     self.updateDailyConfVal("acceptedDailyBattleQuest", True)
                 battle.leavePort()
             self.checkForGiftAndReceive()
+            # Special check of landing item in north pole
+            if(not self.dailyCheckedBattlePlaceLanding):
+                while not self.isPositionColorSimilarTo(
+                    120, 663, (221, 226, 223)
+                ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
+                    battle.goBackPort(battleCity)
+                    self.goToHarbor()
+                    battle.depart()
+                self.doLanding()
+                def checkNum():
+                    num = self.getNumberFromSingleLineInArea(A=[1296, 137, 1332, 157])
+                    return num and num > 1
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(694, 579),
+                    lambda: checkNum() or self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]) or self.hasSingleLineWordsInArea("info", A=[693,207,741,230]),
+                    timeout=3900,
+                )
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(1329, 291),
+                    lambda: not self.hasSingleLineWordsInArea("stop", A=[1277,284,1318,305]),
+                    2,
+                    timeout=50,
+                )
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
+                    lambda: self.inWater(),
+                    2,
+                )
+                self.dailyCheckedBattlePlaceLanding=True
             foundOpponent = battle.findOpponentOrReturn(
                 opponentsInList, opponentNames, battleCity
             )

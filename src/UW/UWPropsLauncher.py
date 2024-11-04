@@ -30,8 +30,8 @@ def run(props):
     # task.shipBuilding(options=[12,12],city="ceuta", times=1)
     # task.targetCity="naples"
 
-    task.print("检查航海道具；检查船耐久;检查忠诚；检查屏幕设置；")
-    task.print("检查探险工具超1000；检查装备栏空余;检查道具多于3格，钓鱼，检查市场购买勾，时间,探险工具使用中,adv/battle fast,set Sami village,no goods in cargo")
+    task.print("每日检查： 仓清空，市场购买勾，时间可用，检查道具多于3格")
+    task.print("特别检查：检查航海道具；检查船耐久;检查忠诚；检查屏幕设置；检查探险工具超1000;钓鱼，探险工具使用中,adv/battle fast,set Sami village")
     task.battleCity=battleCity
 
     if(battleOn):
@@ -57,10 +57,10 @@ def run(props):
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()
     while(True):
-        if(not(isWorkHour())):
-            task.print("not working hour,sleep for 30mins")
-            time.sleep(1800)
-            continue
+        # if(not(isWorkHour())):
+        #     task.print("not working hour,sleep for 30mins")
+        #     time.sleep(1800)
+        #     continue
         if(focusedBarterTrade):
             while(task.lastExecuted is not None and (getCentralTime().day == task.lastExecuted.day)):
                 time.sleep(60)

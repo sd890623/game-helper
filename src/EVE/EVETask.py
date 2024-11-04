@@ -224,14 +224,14 @@ class EVETask:
     def stockOre(self):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.click_point(28,118),
-            lambda: self.hasSingleLineWordsInArea("仓库", [138,23,213,70],4),
+            lambda: self.hasSingleLineWordsInArea("矿石舱", [78,522,152,556],4),
             timeout=15,
         )
-        self.w(2)
+        self.w()
         wait(lambda: self.simulatorInstance.click_point(118,533), 10)
-        wait(lambda: self.simulatorInstance.click_point(924,644), 7)
-        wait(lambda: self.simulatorInstance.click_point(174, 153, True), 9)
-        wait(lambda: self.simulatorInstance.click_point(376, 154, True), 7)
+        wait(lambda: self.simulatorInstance.click_point(924,644), 10)
+        wait(lambda: self.simulatorInstance.click_point(174, 153, True), 10)
+        wait(lambda: self.simulatorInstance.click_point(376, 154, True), 5)
         continueWithUntilBy(
             lambda: self.simulatorInstance.click_point(1198, 33),
             lambda: self.hasSingleLineWordsInArea("离站", A=[1144,208,1221,255],ocrType=4),
@@ -249,7 +249,7 @@ class EVETask:
         frequency = 10
         totalSeconds = mins * 60
         # count=0
-        while self.isSafe() and totalSeconds > 0:
+        while self.isSafe() and totalSeconds > 0 and self.getNumberFromSingleLineInArea(A=[0,143,24,159])!=100:
             time.sleep(frequency)
             totalSeconds -= frequency
             # self.print("count:"+str(count))
@@ -268,7 +268,6 @@ class EVETask:
                         ),
                     )
                 wait(lambda: self.simulatorInstance.click_point(13,187))
-            backup()
             if(self.mode!=2):
                 doAndWaitUntilBy(
                     lambda: self.simulatorInstance.click_point(13,187),
@@ -289,11 +288,11 @@ class EVETask:
             # self.print("回家点击："+ str(homeRouteImgX+168) +", "+ str(homeRouteImgY+13))
             # wait(lambda: self.simulatorInstance.click_point(homeRouteImgX+168,homeRouteImgY+10),4)
             if(self.mode==2 or self.mode==3):
-                point=(243,578)
+                point=(243,584)
             else:
                 point=(240,532)
             wait(lambda: self.simulatorInstance.click_point(*point), 0.5,disableWait=True)
-            self.simulatorInstance.click_point(13,187)
+            self.simulatorInstance.click_point(23,184)
             self.simulatorInstance.click_point(1053,645)
             self.simulatorInstance.click_point(1128,644)
             self.simulatorInstance.click_point(1199,641)

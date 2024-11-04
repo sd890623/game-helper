@@ -214,7 +214,7 @@ class MiningTask(EVETask):
 
     def waitForOreFinish(self):
         if self.mode == 2:
-            frequency = 3
+            frequency = 1
             # totalSeconds = 11/15 * 60
             totalSeconds = 15* 60
             # count=0
@@ -247,7 +247,7 @@ class MiningTask(EVETask):
             if self.mode == 2:
                 time.sleep(600)
             else:
-                time.sleep(30 + random.randint(0, 5))
+                time.sleep(600 + random.randint(0, 5))
             self.havePirate = False
             return
         self.print("开始存货")
@@ -269,7 +269,7 @@ class MiningTask(EVETask):
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(30 + random.randint(0, 30))
+        time.sleep(30 + random.randint(0, 10))
         if len(self.minedRows) == 6 and len(self.otherStellaRows["9ke"]) == 6:
             self.print("已经采集完成,sleep for 1hr")
             time.sleep(3600)

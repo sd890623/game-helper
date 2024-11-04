@@ -198,7 +198,7 @@ routeList=[
         {
             #,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
             "buyProducts": ["gardenia","begoniaflower","sweetolive","azalea","tiger'seye","chinesetea","agarwood","ylang-ylang"],
-            "buyCities":["shuri","hobe","hangzhou","xi'an","hanyang","jeju"],
+            "buyCities":["shuri","tamsui","hangzhou","xi'an","hanyang","jeju"],
             "buySupplyCities":[],
             "buyStrategy":"twice",
             "dumpCrewCities": [],

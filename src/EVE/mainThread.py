@@ -24,7 +24,7 @@ def runTask(hwnd, index,mode=0):
     #mode 0 standard, mode 1 for weekly high safety mining, mode 2 for gulan target mining
     task = MiningTask(hwnd, index,mode)
     # BigWhale
-    task.bigWhale=True
+    task.bigWhale=False
     while True:
         try:
             if not (isWorkHour()):

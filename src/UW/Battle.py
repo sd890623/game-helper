@@ -485,7 +485,7 @@ class Battle:
         )
         self.uwtask.goToHarbor()
         self.depart()
-        if getHour() in [21, 22, 23, 24, 0, 1, 2]:
+        if (getHour() in [21, 22, 23, 24, 0, 1, 2] and self.uwtask.getDailyConfValByKey("dailyCheckedBattlePlaceLanding")):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(39, 695), 2, 4)
 
     def findOpponentOrReturn(self, opponentsInList, opponents, town):

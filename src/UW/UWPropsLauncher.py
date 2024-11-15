@@ -57,10 +57,10 @@ def run(props):
     while(initialRouteIndex is False):
         initialRouteIndex=task.getInitialRouteIndex()
     while(True):
-        # if(not(isWorkHour())):
-        #     task.print("not working hour,sleep for 30mins")
-        #     time.sleep(1800)
-        #     continue
+        if(not(isWorkHour())):
+            task.print("not working hour,sleep for 30mins")
+            time.sleep(1800)
+            continue
         if(focusedBarterTrade):
             while(task.lastExecuted is not None and (getCentralTime().day == task.lastExecuted.day)):
                 time.sleep(60)

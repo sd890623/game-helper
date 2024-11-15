@@ -205,13 +205,13 @@ svearWLumber = {
     "leaveGoods": ["lumber"],
     "buyProducts": ["candle", "matchlock", "iron", "lron", "birch","lumber"],
     # (index, val) array
-    "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-    # "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    # "tradeObjects": [(0, 0), (1, 1), (2, 1)],
+    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
     "cleanupIndex": 2,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 3,
-    # "barterFirstRoundCount":4
+    "barterFirstRoundCount":4
 }
 
 yawuru= {
@@ -350,8 +350,8 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"],
     "negoTimes": 4
 }
-
-checkInnCities = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "palma","pisa","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal","toamasina","sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang","dongnae","jeju","sakai", "nagasaki", "hangzhou", "quanzhou","tainan","macau", "tamsui", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
+checkInnCities=[]
+checkInnCitiesBack = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "palma","pisa","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal","toamasina","sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang","dongnae","jeju","sakai", "nagasaki", "hangzhou", "quanzhou","tainan","macau", "tamsui", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -410,7 +410,7 @@ svearWLumberRouteBase = {
         }
     ],
     "fashions": ["赞助"],
-    "waitForFashion": True,
+    "waitForFashion": False,
     "waitHour": 1,
     "afterSellCities": []
 }

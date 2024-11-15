@@ -2392,7 +2392,7 @@ class UWTask(FrontTask):
                 battle.leavePort()
             self.checkForGiftAndReceive()
             # Special check of landing item in north pole
-            if(not self.dailyCheckedBattlePlaceLanding):
+            if(not self.getDailyConfValByKey("dailyCheckedBattlePlaceLanding")):
                 while not self.isPositionColorSimilarTo(
                     120, 663, (221, 226, 223)
                 ) and not self.isPositionColorSimilarTo(109, 671, (86, 96, 83)):
@@ -2406,7 +2406,7 @@ class UWTask(FrontTask):
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(694, 579),
                     lambda: checkNum() or self.hasSingleLineWordsInArea("report", A=[794, 215, 859, 236]) or self.hasSingleLineWordsInArea("info", A=[693,207,741,230]),
-                    timeout=3900,
+                    timeout=200,
                 )
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(1329, 291),
@@ -2419,7 +2419,7 @@ class UWTask(FrontTask):
                     lambda: self.inWater(),
                     2,
                 )
-                self.dailyCheckedBattlePlaceLanding=True
+                self.updateDailyConfVal("dailyCheckedBattlePlaceLanding",True)
             foundOpponent = battle.findOpponentOrReturn(
                 opponentsInList, opponentNames, battleCity
             )

@@ -415,8 +415,8 @@ class Market:
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts"),A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,600),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
 
-        if(self.uwtask.isPositionColorSimilarTo(271,787,(148,141,133))):
-            buffer=0
+        if(self.uwtask.isPositionColorSimilarTo(229,782,(147,140,132))):
+            buffer=0 
         else:
             buffer=villageObject.get("barterFirstRoundCount") or 3
         for (index, val) in villageObject.get("tradeObjects"):

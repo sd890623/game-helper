@@ -258,23 +258,23 @@ class EVETask:
             self.syncBetweenUsers = True
 
     def goHome(self,waitTime=60):
+        def mayCloseQuestWindow():
+            if self.hasSingleLineWordsInArea("x", A=[1186, 23, 1212, 55]):
+                doAndWaitUntilBy(
+                    lambda: self.simulatorInstance.click_point(1199, 35),
+                    lambda: not self.hasSingleLineWordsInArea(
+                        "x", A=[1186, 23, 1212, 55]
+                    ),
+                )
+            wait(lambda: self.simulatorInstance.click_point(13,187))
         def triggerGoHome():
-            def backup():
-                if self.hasSingleLineWordsInArea("x", A=[1186, 23, 1212, 55]):
-                    doAndWaitUntilBy(
-                        lambda: self.simulatorInstance.click_point(1199, 35),
-                        lambda: not self.hasSingleLineWordsInArea(
-                            "x", A=[1186, 23, 1212, 55]
-                        ),
-                    )
-                wait(lambda: self.simulatorInstance.click_point(13,187))
             if(self.mode!=2):
                 doAndWaitUntilBy(
                     lambda: self.simulatorInstance.click_point(13,187),
                     lambda: self.hasSingleLineWordsInArea("x", A=[229,230,258,260]),
                     1,
                     1,
-                    backupFunc=backup,
+                    backupFunc=mayCloseQuestWindow,
                     timeout=15
                 )
 
@@ -308,6 +308,7 @@ class EVETask:
             lambda: self.isPlayerInSite() == "in",
             waitTime,
             timeout=120,
+            backupFunc=lambda: (mayCloseQuestWindow(), triggerGoHome())
         )
 
         while self.isPlayerInSite() == "out" or self.isPlayerInSite() == "middle":

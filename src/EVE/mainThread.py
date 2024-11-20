@@ -16,8 +16,8 @@ import datetime as dt
 
 def isWorkHour():
     hour = dt.datetime.now().hour
-    # if (hour in [1,2,3,4,5,6,7]):
-    #     return False
+    if (hour in [4,5,6,7]):
+        return False
     return True
 
 def runTask(hwnd, index,mode=0):

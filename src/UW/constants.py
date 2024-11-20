@@ -824,7 +824,7 @@ routeLists = [
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "deokwon","santa","hangzhou"],
+            "buyCities": ["prey", "deokwon","santa","hangzhou","acapulco"],
             "villages": ["witoto"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "manila", "ceylon"]
         },
@@ -1053,7 +1053,7 @@ routeLists = [
                 }
             ],
             "villages": ["apache"],
-            "buyCities": ["natal"],
+            "buyCities": ["natal","acapulco"],
             "afterSellCities":["dover","nantes"]
         },
         {

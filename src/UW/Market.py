@@ -415,7 +415,7 @@ class Market:
                 if(self.uwtask.hasArrayStringInSingleLineWords(villageObject.get("buyProducts"),A=[651,423,786,448])):
                     doAndWaitUntilBy(lambda: self.instance.clickPointV2(786,600),lambda: not self.uwtask.hasSingleLineWordsInArea("discardgoods", A=self.errorMsgTitleArea),1,1,timeout=5)
 
-        if(self.uwtask.isPositionColorSimilarTo(229,782,(147,140,132))):
+        if(self.uwtask.isPositionColorSimilarTo(273,784,(147,140,132))):
             buffer=0 
         else:
             buffer=villageObject.get("barterFirstRoundCount") or 3
@@ -454,7 +454,8 @@ class Market:
                         doAndWaitUntilBy(lambda: self.instance.clickPointV2(789,593), lambda: not self.uwtask.hasSingleLineWordsInArea("notice", A=[681,284,757,304]),2,2)
                 return True
             times=0
-            while(self.uwtask.isPositionColorSimilarTo(272+(index+buffer)*81,786,(147,140,132)) and times<3):
+            while(self.uwtask.isPositionColorSimilarTo(273+(index+buffer)*81,784,(147,140,132)) and times<3):
+                self.uwtask.print("empty slot in "+str(index+buffer)+", barter, times "+ str(times))
                 if(not tradeOnce()):
                     break
                 wait(lambda: None)

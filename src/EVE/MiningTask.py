@@ -213,13 +213,18 @@ class MiningTask(EVETask):
             wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
 
     def waitForOreFinish(self):
+        def checkOre(totalSeconds):
+            if totalSeconds%10==0:
+                return self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
+            else:
+                return True
         if self.mode == 2:
             frequency = 1
             # totalSeconds = 11/15 * 60
             totalSeconds = 15* 60
             # count=0
             while (
-                self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
+                checkOre(totalSeconds)
                 and totalSeconds > 0
                 and self.isSafe()
             ):

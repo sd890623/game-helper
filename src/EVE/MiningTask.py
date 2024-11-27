@@ -25,7 +25,7 @@ class MiningTask(EVETask):
         firstPositionHavePirate = self.isPositionColorSimilarTo(
             847, 54, (27, 29, 29)
         ) and self.haveWords(
-            [845, 106, 910, 121], 4) and (not self.hasSingleLineWordsInArea("富勒", [845, 106, 910, 121], 4))
+            [845, 106, 910, 121], 4)# and (not self.hasSingleLineWordsInArea("富勒", [845, 106, 910, 121], 4))
 
         return not self.inSite and (firstPositionHavePirate or secondPositionHavePirate)
 
@@ -35,12 +35,12 @@ class MiningTask(EVETask):
         elif self.mode == 1:
             return True
         else:
-            if self.hasSingleLineWordsInArea(
-                "探测", [203, 162, 236, 182], 4
-            ):
-                wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
-                self.havePirate = True
-                return False
+            # if self.hasSingleLineWordsInArea(
+            #     "探测", [203, 162, 236, 182], 4
+            # ):
+            #     wait(lambda: self.simulatorInstance.click_point(26, 189), 1)
+            #     self.havePirate = True
+            #     return False
             if self.checkHasPirateOnBoard():
                 self.havePirate = True
                 return False
@@ -219,7 +219,7 @@ class MiningTask(EVETask):
             else:
                 return True
         if self.mode == 2:
-            frequency = 1
+            frequency = 2
             # totalSeconds = 11/15 * 60
             totalSeconds = 15* 60
             # count=0

@@ -350,7 +350,7 @@ dailyJobConf = {
     "leaveBattlecity": ["gari", "kakatuwah"],
     "negoTimes": 4
 }
-checkInnCities=[]
+checkInnCities=["pisa","genoa"]
 checkInnCitiesBack = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "palma","pisa","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal","toamasina","sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang","dongnae","jeju","sakai", "nagasaki", "hangzhou", "quanzhou","tainan","macau", "tamsui", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {

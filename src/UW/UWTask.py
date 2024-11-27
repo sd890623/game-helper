@@ -1861,7 +1861,7 @@ class UWTask(FrontTask):
         self.gotoCity(battleCity, express=True)
         # deactivate protection
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(38, 205),
+            lambda: self.simulatorInstance.clickPointV2(59,351),
             lambda: self.hasSingleLineWordsInArea("protection", A=[699, 258, 799, 280]),
             2,
             1,
@@ -1871,8 +1871,8 @@ class UWTask(FrontTask):
         self.battleRoute(battleCity)
         # activate protection
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(38, 205),
-            lambda: self.isPositionColorSimilarTo(38, 205, (162, 255, 113)),
+            lambda: self.simulatorInstance.clickPointV2(59,351),
+            lambda: self.isPositionColorSimilarTo(59,351, (162, 255, 113)),
             5,
             timeout=10,
         )

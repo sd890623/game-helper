@@ -106,8 +106,8 @@ class win ():#line:35
         winDc =win32gui .GetWindowDC (self .hwnd )#line:66
         mfcDc =win32ui .CreateDCFromHandle (winDc )#line:67
         saveDc =mfcDc .CreateCompatibleDC ()#line:68
-        saveBitMap =win32ui .CreateBitmap ()#line:69
-        saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )#line:70
+        saveBitMap =win32ui .CreateBitmap ()
+        saveBitMap.CreateCompatibleBitmap (mfcDc ,targetWidth ,targetHeight )
         saveDc .SelectObject (saveBitMap )#line:71
 
         saveDc .BitBlt ((0 ,0 ),(targetWidth ,targetHeight ),mfcDc ,(A [0 ],A [1 ]),win32con .SRCCOPY )#line:74
@@ -115,11 +115,12 @@ class win ():#line:35
         O0O00OOOOO0OOO00O =saveBitMap .GetBitmapBits (True )#line:78
         OOOO00O0O0OO00000 =Image .frombuffer ('RGB',(OOOOO0OOO00OOOOO0 ['bmWidth'],OOOOO0OOO00OOOOO0 ['bmHeight']),O0O00OOOOO0OOO00O ,'raw','BGRX',0 ,1 )#line:81
         OOO00OOOOO0OO0O00 =cv2 .cvtColor (np .asarray (OOOO00O0O0OO00000 ),cv2 .COLOR_RGB2BGR )#line:82
-
-        mfcDc.DeleteDC()
+        
         saveDc.DeleteDC()
-        win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
+        mfcDc.DeleteDC()
         win32gui.ReleaseDC (self.hwnd ,winDc)#line:114
+        # saveBitMap.DeleteObject()
+        win32gui.DeleteObject (saveBitMap.GetHandle())#line:111
 
         return OOO00OOOOO0OO0O00
 

@@ -45,7 +45,7 @@ NEEASupplySell = {
     "useSkillCity": None,
     "checkInnCities": True,
     "sellCities": [{"name": "pasay", "types": "BM"},
-                   # {"name":"malaca","types":"BM"},{"name":"palembang","types":"BM"},
+                   # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
                    # {"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
                    {"name": "tamsui", "types": "supply"}, {"name": "yanyun", "types": None}]
 }
@@ -100,7 +100,7 @@ apache = {
     "buys": [
         # sequence has to map in game display
         {"product": "platinum", "cities": [
-            "natal", "sofala", "quelimane"], "targetNum": 522},
+            "natal", "sofala", "quelimane"], "targetNum": 542},
         {"product": "tuberose", "cities": [
             "kilwa", "zanzibar", "mogadishu"], "targetNum": 600}
     ],
@@ -147,12 +147,12 @@ witoto = {
         {"product": "noni", "cities": [
             "kuching", "jakarta", "makassar"], "targetNum": 400},
         {"product": "mangosteen", "cities": [
-            "malaca", "aceh"], "targetNum": 200},
+            "malacca", "aceh"], "targetNum": 200},
         {"product": "benzoin", "cities": [
-            "prey", "malaca", "pasay"], "targetNum": 450}
+            "prey", "malacca", "pasay"], "targetNum": 450}
     ],
     "useFishing": True,
-    "buyCities": ["prey", "kuching", "malaca", "jakarta", "makassar", "pasay", "aceh"],
+    "buyCities": ["prey", "kuching", "malacca", "jakarta", "makassar", "pasay", "aceh"],
     "supplyCities": ["aceh", "toamasina", "town", "soda", "pernambuco", "cayenne"],
     "buyProducts": ["noni", "mangosteen", "benzoin"],
     "checkInnCities": True,
@@ -167,8 +167,8 @@ witoto = {
 }
 quechuas = {
     "villageName": "quechuas",
-    # "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","town","buenos","ushuaia","valpara", "copia", "tumbes", "lima"],
-    "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","mogadishu","zanzibar","kilwa","town","bahia","rio","buenos","ushuaia","valpara", "copia","acapulco","lima"],
+    "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","town","buenos","ushuaia","valpara", "copia", "tumbes", "lima"],
+    # "buyCities": ["kuching", "aceh","mogadishu","zanzibar","kilwa","mozambique","mogadishu","zanzibar","kilwa","town","bahia","rio","buenos","ushuaia","valpara", "copia","acapulco","lima"],
     "supplyCities": ["lima"],
     "buyProducts": ["coal", "silver","gold"],
     "buyNotProducts": ["golddust","goldware"],
@@ -189,7 +189,7 @@ svear = {
     "buyCities": ["santa", "seville", "dublin", "amsterda"],
     "checkInnCities": True,
     "supplyCities": ["visby"],
-    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch"],
+    "buyProducts": ["candle", "matchlock", "iron", "lron"],
     # (index, val) array
     "tradeObjects": [(0, 0), (1, 1), (2, 1)],
     "cleanupIndex": 2,
@@ -199,7 +199,7 @@ svear = {
 }
 svearWLumber = {
     "villageName": "svear",
-    "buyCities": ["santa", "seville", "dublin", "amsterda","oslo","riga"],
+    "buyCities": ["santa", "barcelona","seville", "dublin", "amsterda","oslo","riga"],
     "checkInnCities": True,
     "supplyCities": ["visby"],
     "leaveGoods": ["lumber"],
@@ -207,7 +207,7 @@ svearWLumber = {
     # (index, val) array
     # "tradeObjects": [(0, 0), (1, 1), (2, 1)],
     "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
-    "cleanupIndex": 2,
+    "cleanupIndex": 3,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 3,
@@ -241,12 +241,26 @@ sami = {
     "buyCities": ["santa", "seville", "dublin", "amsterda"],
     "supplyCities": ["bergen"],
     "buyProducts": ["candle", "matchlock", "iron", "lron"],
-    "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-    "cleanupIndex": 2,
+    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    "cleanupIndex": 3,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 7,
-    "barterFirstRoundCount":3
+    "barterFirstRoundCount":4
+}
+samiWLumber = {
+    "villageName": "sami",
+    "shortVillageName": "s",
+    "buyCities": ["santa", "barcelona","seville", "dublin", "amsterda","oslo","riga"],
+    "supplyCities": ["bergen"],
+    "leaveGoods": ["lumber"],
+    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch","lumber"],
+    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    "cleanupIndex": 3,
+    "buyStrategy": "",
+    "useGemCities": ["santa"],
+    "barterFleet": 7,
+    "barterFirstRoundCount":4
 }
 villageTradeList = {
     "turk": {
@@ -289,19 +303,24 @@ villageTradeList = {
     },
     "svear": svear,
     "svea": {
-        **svear,
-        "villageName": "svea"
+        **svear
     },
     "svearWLumber": svearWLumber,
     "sveaWLumber": {
         **svearWLumber,
-        "villageName": "svea",
         "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-        "cleanupIndex": 2,
+        "cleanupIndex": 2
     },
     "sami": sami,
     "sam": {
         **sami,
+        "villageName": "sam",
+        "tradeObjects": [(0, 0), (1, 1), (2, 1)],
+        "cleanupIndex": 2
+    },
+    "samiWLumber": samiWLumber,
+    "samWLumber": {
+        **samiWLumber,
         "villageName": "sam",
         "tradeObjects": [(0, 0), (1, 1), (2, 1)],
         "cleanupIndex": 2
@@ -348,10 +367,10 @@ dailyJobConf = {
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "gari"],
     "leaveBattlecity": ["gari", "kakatuwah"],
-    "negoTimes": 4
+    "negoTimes": 35
 }
 checkInnCities=["pisa","genoa"]
-checkInnCitiesBack = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "palma","pisa","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal","toamasina","sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang","dongnae","jeju","sakai", "nagasaki", "hangzhou", "quanzhou","tainan","macau", "tamsui", "malaca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
+checkInnCitiesBack = ['bathurst', "elmina", "aden", 'sierra', "barcelona", "marseille", "palma","pisa","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "socotra", "aceh", "pasay", "banjarmasin","jakarta", "natal","toamasina","sofala", "quelimane", "mozambique", "kilwa", "zanzibar", "mogadishu", "ushuaia", "copia", "tumbes", "nantes", "arguin", "genoa", "pisa", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "hanyang","dongnae","jeju","sakai", "nagasaki", "hangzhou", "quanzhou","tainan","macau", "tamsui", "malacca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","samarai","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -453,7 +472,7 @@ samiRouteBase = {
     "useFishingCities": [],
     "villages": ["sami"],
     "afterVillageBuyCities": [],
-    "supplyCities":["nantes","ceuta","palma","genoa","pisa","cairo"],
+    "supplyCities":["nantes","genoa","pisa","said","tunnel",{"route": 2, "target": "hangzhou"}],
     "sellFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
@@ -475,7 +494,36 @@ samiRouteBase = {
     "waitHour": 1,
     "afterSellCities": []
 }
-
+samiWLumberRouteBase = {
+    "buyProducts": [],
+    "buyFleet": 4,
+    "buyCities": ["santa"],
+    "enableVillageTrade": True,
+    "useFishingCities": [],
+    "villages": ["samiWLumber"],
+    "afterVillageBuyCities": [],
+    "supplyCities":["nantes","genoa","pisa","said","tunnel",{"route": 2, "target": "hangzhou"}],
+    "sellFleet": 7,
+    "useSkillCity": False,
+    "checkInnCities": True,
+    "sellPriceIndexByName": "versl",
+    "sellCityOptions": ["hangzhou", "macau", "quanzhou", "tamsui", "tainan", "yanyun", "peking", "chang", "chongqing"],
+    "forceUseSequenceOptions": False,
+    "onlySellTypes": ["crafts"],
+    "secondSellOptions": [
+        {
+            "seqs": [
+                {"type": "goSellCity"},
+                {"type": "sell"}
+            ],
+            "cities": ["hanyang", "jeju", "edo", "nagasaki", "dongnae", "yeongil", "deokwon", "sakai"]
+        }
+    ],
+    "fashions": ["赞助"],
+    "waitForFashion": False,
+    "waitHour": 1,
+    "afterSellCities": []
+}
 apacheRouteBase = {
     "buyProducts": [],
     "buyFleet": 4,
@@ -569,7 +617,7 @@ witotoRouteBase = {
     "fashions": ["赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": ["hanyang", "tainan", "malaca", "mogadishu"]
+    "afterSellCities": ["hanyang", "tainan", "malacca", "mogadishu"]
 }
 routeLists = [
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
@@ -587,8 +635,8 @@ routeLists = [
             "buyStrategy": "twice",
             "dumpCrewCities": [],
             "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "toamasina", "pasay"],
-            # "sellCities":[{"name":"malaca","types":["liquor"]},{"name":"pasay","types":None}],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malaca", "types": "BM"}, {"name": "macau", "types": ["placeholder"]}, {"name": "chang", "types": None}, {"name": "hanyang", "types": "BM"}, {"name": "jeju", "types": "BM"}, {"name": "palembang", "types": "BM"}, {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {"name": "banjarmasin", "types": ["placeholder"]}],
+            # "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"pasay","types":None}],
+            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "macau", "types": ["placeholder"]}, {"name": "chang", "types": None}, {"name": "hanyang", "types": "BM"}, {"name": "jeju", "types": "BM"}, {"name": "palembang", "types": "BM"}, {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {"name": "banjarmasin", "types": ["placeholder"]}],
             "sellFleet": 2,
         },
         {
@@ -614,7 +662,7 @@ routeLists = [
             "buySupplyCities": [],
             "dumpCrewCities": [],
             "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "toamasina", "pasay"],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malaca", "types": "BM"}, {"name": "palembang", "types": "BM"},
+            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
                            {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
                                "name": "banjarmasin", "types": "BM"},
                            {"name": "davao", "types": ["dye"]}, {"name": "tamsui", "types": [
@@ -647,7 +695,7 @@ routeLists = [
             "buySupplyCities": [],
             "dumpCrewCities": [],
             "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "toamasina", "pasay"],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malaca", "types": "BM"}, {"name": "palembang", "types": "BM"},
+            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
                            {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
                                "name": "banjarmasin", "types": "BM"},
                            {"name": "davao", "types": ["dye", "jewelry"]}, {
@@ -677,7 +725,7 @@ routeLists = [
             "dumpCrewCities": [],
             "sellFleet": 2,
             "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "toamasina", "pasay"],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malaca", "types": "BM"}, {"name": "palembang", "types": "BM"},
+            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
                            {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
                                "name": "banjarmasin", "types": "BM"},
                            {"name": "tamsui", "types": ["placeholder"]}, {
@@ -844,7 +892,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "guam","chersky","ezo"],
-            # "supplyCities": ["nagasaki","hangzhou","macau","malaca", "ceylon","suez"],
+            # "supplyCities": ["nagasaki","hangzhou","macau","malacca", "ceylon","suez"],
             "checkInnCities": True
         },
         {
@@ -876,7 +924,7 @@ routeLists = [
         # },
         {
             **witotoRouteBase,
-            "buyCities": ["kuching","mozambique","azores","jakarta"],
+            "buyCities": ["kuching","mozambique","azores","jakarta","brunei"],
             "villages": ["witot"],
             "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "manila", "ceylon"]
         }
@@ -894,7 +942,7 @@ routeLists = [
             **witotoRouteBase,
             "buyCities": ["prey", "deokwon"],
             "villages": ["witoto"],
-            "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malaca", "ceylon"]
+            "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malacca", "ceylon"]
         },
         {
             **apacheRouteBase,
@@ -925,7 +973,7 @@ routeLists = [
             **witotoRouteBase,
             "buyCities": ["kuching"],
             "villages": ["witot"],
-            "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malaca", "ceylon"]
+            "afterSellCities": ["hanyang", "nagasaki", "quanzhou", "banjarmasin", "malacca", "ceylon"]
         }
         # check passed day or pause
     ],
@@ -973,12 +1021,12 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "guam"],
-            #"supplyCities": ["malaca", "aden","suez"],
+            #"supplyCities": ["malacca", "aden","suez"],
         },
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["malaca", "ceylon","suez"],
+            "supplyCities": ["malacca", "ceylon","suez"],
         },
 
         {
@@ -1104,7 +1152,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "guam","ezo","chersky"],
-            # "supplyCities": ["nagasaki","hangzhou","macau","malaca", "ceylon","suez"],
+            # "supplyCities": ["nagasaki","hangzhou","macau","malacca", "ceylon","suez"],
             "checkInnCities": True
         },
         # {
@@ -1116,7 +1164,7 @@ routeLists = [
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
             "checkInnCities": True,
-            "supplyCities": ["sakai","nagasaki","hanyang","macau","brunei","surabaya", "ceylon","suez"],
+            "supplyCities": ["sakai","dongnae","ceylon","suez"],
         },
         {
             "buyCities": ["suez"],
@@ -1134,9 +1182,9 @@ routeLists = [
             "mode": "newlanding",
         },
         {
-            **svearWLumberRouteBase,
+            **samiRouteBase,
             "buyCities": ["azores"],
-            "villages": ["svearWLumber"]
+            "villages": ["samiWLumber"]
         },
         {
             **yawuruRouteBase,
@@ -1267,7 +1315,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["davao", "guam"],
-            #"supplyCities": ["malaca", "aden","suez"],
+            #"supplyCities": ["malacca", "aden","suez"],
         },
         {
             "mode": "reportAndAdvQuest",
@@ -1331,9 +1379,9 @@ routeLists = [
     #14 svear + lumber -> bark painting
     [
         {
-            **svearWLumberRouteBase,
+            **samiWLumberRouteBase,
             "buyCities": ["santa"],
-            "villages": ["svearWLumber"],
+            "villages": ["samiWLumber"],
             "useSkillCity": True
         },
         {
@@ -1342,9 +1390,9 @@ routeLists = [
             "useSkillCity": True
         },
         {
-            **svearWLumberRouteBase,
+            **samiWLumberRouteBase,
             "buyCities": ["azores"],
-            "villages": ["sveaWLumber"],
+            "villages": ["samWLumber"],
             "useSkillCity": True
         },
         {
@@ -1379,7 +1427,7 @@ routeLists = [
         {
             "mode": "battle",
             "buyCities": ["chersky"],
-            # "supplyCities": ["edo","hangzhou","macau","malaca", "ceylon","suez"],
+            # "supplyCities": ["edo","hangzhou","macau","malacca", "ceylon","suez"],
             "checkInnCities": True
         },
         # {
@@ -1390,7 +1438,7 @@ routeLists = [
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["edo","tainan"],
-            "supplyCities": ["sakai","nagasaki","dongnae","jeju","hanyang","macau","malaca"],
+            "supplyCities": ["sakai","malacca"],
             # "supplyCities": ["nagasaki","hangzhou","macau","brunei","surabaya","ceylon"],
             "checkInnCities": True
         },
@@ -1404,7 +1452,7 @@ routeLists = [
         {
             **quechuasRouteBase,
             "villages": ["quechua"],
-            "buyCities": ["kuching"],
+            "buyCities": ["brunei"],
             "useSkillCity": True
         },
         # {

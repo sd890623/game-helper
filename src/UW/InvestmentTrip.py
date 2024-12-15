@@ -31,8 +31,7 @@ class Investment:
     inn = True
     # Better do winter
     investmentCities = [
-        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","mombasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "socotra", "dhofar","muscat", "doha", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","ceylon","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malaca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari",
-        "kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "tamsui",
+        "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","mombasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "socotra", "dhofar","muscat", "doha", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi","ceylon","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "tamsui",
         "tainan","macau", "pasay", "toamasina", "town", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
     ]
     investmentCitiesy = [
@@ -60,8 +59,12 @@ class Investment:
         'masuli',
         "kochi",
         'socotra',
+        'toamasina',
         'aden',
-        'toamasina'
+        'suez',
+        'tunnel',
+        'nicosia',
+        'montpell'
     ]
     investmentCities4 = [
         # "unalaska","tacoma",
@@ -71,7 +74,7 @@ class Investment:
     supplyCities = [
     ]
     shippartsCities = [
-        "visby", "beirut", "town", "suez", "malaca", "jakarta", "rio", "aires", "lima", "valpara"
+        "visby", "beirut", "town", "suez", "malacca", "jakarta", "rio", "aires", "lima", "valpara"
     ]
     buyCities = [
         "saint", "riga", "visby", "beck", "copenhag", "bergen", "dublin", "pisa", "candia", "antalya", "beirut"
@@ -132,6 +135,9 @@ class Investment:
         for index, city in enumerate(self.investmentCities):
             if (city in self.changeFleet):
                 task.changeFleet(7)
+            if(city=="tunnel"):
+                task.crossTunnel(goods=False)
+                continue
             task.gotoCity(city, self.investmentCities,express=True)
             if(isStringSameOrSimilar(city, "varna")):
                 task.sendNotification("reached checkpoint")

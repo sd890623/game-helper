@@ -274,7 +274,7 @@ class MiningTask(EVETask):
         self.print("回家")
         self.goHome()
         self.print("到家")
-        time.sleep(30 + random.randint(0, 10))
+        time.sleep(60 + random.randint(0, 10))
         if len(self.minedRows) == 6 and len(self.otherStellaRows["9ke"]) == 6:
             self.print("已经采集完成,sleep for 1hr")
             time.sleep(3600)

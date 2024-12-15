@@ -166,7 +166,7 @@ class UWTask(FrontTask):
     def getRouteNoFromApacheStats(self):
         if self.apacheFriendly > 90000:
             if self.craftStock in [2, 3, 4]:
-                return 12
+                return 14
                 # return 14
             # elif self.liquorStock in [1, 2, 3, 4]:
             #     return 9
@@ -1861,7 +1861,7 @@ class UWTask(FrontTask):
         self.gotoCity(battleCity, express=True)
         # deactivate protection
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(59,351),
+            lambda: self.simulatorInstance.clickPointV2(55,234),
             lambda: self.hasSingleLineWordsInArea("protection", A=[699, 258, 799, 280]),
             2,
             1,
@@ -1871,8 +1871,8 @@ class UWTask(FrontTask):
         self.battleRoute(battleCity)
         # activate protection
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(59,351),
-            lambda: self.isPositionColorSimilarTo(59,351, (162, 255, 113)),
+            lambda: self.simulatorInstance.clickPointV2(55,234),
+            lambda: self.isPositionColorSimilarTo(55,234, (137,253,103)),
             5,
             timeout=10,
         )

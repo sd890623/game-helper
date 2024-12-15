@@ -136,8 +136,8 @@ routeList=[
     #     #     "buySupplyCities":[],
     #     #     "dumpCrewCities": [],
     #     #     "supplyCities":["juan","verde","elmina","luanda","town","mozambiqu","toamasina","aceh"],
-    #     #     #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
-    #     #     "sellCities":[{"name":"malaca","types":["liquor"]},{"name":"palembang","types":None}],
+    #     #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+    #     #     "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
     #     # },
     #     #harvest
     #     {
@@ -148,12 +148,12 @@ routeList=[
     #         "buyStrategy":"twice",
     #         "dumpCrewCities": [],
     #         "supplyCities":["juan","verde","elmina","luanda","town","toamasina","aceh"],
-    #         #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
-    #         "sellCities":[{"name":"malaca","types":["liquor"]},{"name":"palembang","types":None}],
+    #         #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+    #         "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"palembang","types":None}],
     #     },
     #     {
     #         "buyProducts": ["mangosteen","agarwood","ylang-ylang","benzoin","musk","blacktea","turquoise","ruby","sapphire","aventurin","jasmine"],
-    #         "buyCities":["aceh","pasay","malaca"],
+    #         "buyCities":["aceh","pasay","malacca"],
     #         "buySupplyCities":[],
     #         "buyStrategy":"twice",
     #         "dumpCrewCities": ["mozambiqu"],
@@ -177,7 +177,7 @@ routeList=[
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","verde","elmina","luanda","town","toamasina","aceh"],
-            #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
             "sellCities":[{"name":"pasay","types":"BM"},{"name":"palembang","types":"BM"},
             {"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
             {"name":"davao","types":"dye"},{"name":"hanyang","types":None}]
@@ -191,8 +191,8 @@ routeList=[
         #     "buyStrategy":"twice",
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","verde","elmina","luanda","town","toamasina","aceh"],
-        #     #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malaca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
         # },
         {**EABuyBM},
         {
@@ -220,8 +220,8 @@ routeList=[
             "buySupplyCities":[],
             "dumpCrewCities": [],
             "supplyCities":["juan","verde","elmina","luanda","town","toamasina","aceh"],
-            #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
-            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malaca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"ambon","types":None}],
+            #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+            "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":["liquor"]},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},{"name":"ambon","types":None}],
         },
         # #harvest
         # {
@@ -232,8 +232,8 @@ routeList=[
         #     "buyStrategy":"twice",
         #     "dumpCrewCities": [],
         #     "supplyCities":["juan","verde","elmina","luanda","town","toamasina","aceh"],
-        #     #"sellCities":[{"name":"malaca","types":["liquor"]},{"name":"aceh","types":None}],
-        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malaca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
+        #     #"sellCities":[{"name":"malacca","types":["liquor"]},{"name":"aceh","types":None}],
+        #     "sellCities":[{"name":"pasay","types":"BM"},{"name":"malacca","types":"BM"},{"name":"hanoi","types":None},{"name":"palembang","types":"BM"},{"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"}],
         # },
         {
             #,"clove" ,"benzoin"  ,"feathercrafts"  ,"nutmeg"

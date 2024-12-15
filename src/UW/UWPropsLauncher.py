@@ -38,7 +38,7 @@ def run(props):
         task.setRouteOption()
         task.battleRoute(battleCity,battleOnMode=True)
 
-    # task.enableSB("malaca",options=[5])
+    # task.enableSB("malacca",options=[5])
 
     # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
     # kochi: 12d=18min, 18*8/14=10min=600

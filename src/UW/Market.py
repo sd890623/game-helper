@@ -34,7 +34,7 @@ hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamb
 # "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
 # "alexandria","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
-# "malaca","palembang","banjarmasin","surabaya","jakarta",
+# "malacca","palembang","banjarmasin","surabaya","jakarta",
 "pasay","macau","quanzhou","tamsui","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
 capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
@@ -257,12 +257,12 @@ class Market:
         self.buyProductsInMarket(products)
 
     def bargin(self,multiTimes=False):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),self.uwtask.getDailyConfValByKey("negoTimes") or 5,0)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint),5,0)
         if(self.uwtask.hasSingleLineWordsInArea("es", A=[981,768,1177,817])):
             time.sleep(1)
             if(multiTimes):
                 #click yes
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),3,10)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),self.uwtask.getDailyConfValByKey("negoTimes") or 5,1)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 

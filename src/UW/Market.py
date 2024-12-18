@@ -13,6 +13,7 @@ import time
 from datetime import date
 from UWTask import UWTask
 from Fashion import Fashion
+from constants import dailyJobConf
 
 marketBuyData={
     "kokkola":["amber"],
@@ -262,7 +263,7 @@ class Market:
             time.sleep(1)
             if(multiTimes):
                 #click yes
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),self.uwtask.getDailyConfValByKey("negoTimes") or 5,1)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.uwtask.inScreenConfirmYesButton),dailyJobConf.get("negoTimes") or 5,1)
             #wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1076,715),6, 0.5)
 

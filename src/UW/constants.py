@@ -864,7 +864,7 @@ routeLists = [
             **apacheRouteBase,
             "villages": ["apachewine"],
             "sellFleet": 2,
-            "buyCities": ["natal"],
+            "buyCities": ["natal","acapulco"],
             "afterSellCities": ["socotra"],
             "useSkillCity": False,
             "sellCityOptions": ["quelimane", "mozambique", "toamasina", "kilwa", "zanzibar", "mombasa", "malindi", "mogadishu"],

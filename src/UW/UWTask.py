@@ -54,14 +54,17 @@ class UWTask(FrontTask):
     rightCatePoint2 = 1290, 90
     rightCatePoint3 = 1342, 88
 
-    titleArea = [50, 9, 301, 46]
-    rightTopTownIcon = 1402, 25
+    titleArea = [41,8,307,43]
+    rightTopTownIcon = 1406,24
     leftTopBackBtn = 23, 26
-    inTownCityNameArea = [121, 20, 262, 46]
+    inTownCityNameArea = [111,17,248,42]
     inScreenConfirmYesButton = 1083, 794
     enterCityButton = 1202, 837
-    outSeaWaterTitle = [79, 17, 268, 47]
+    outSeaWaterTitle = [74,12,249,42]
     randomPoint = 1084, 628
+    mapIcon = 1411,173
+    noticeTitleArea=[687,289,752,309]
+    noticeOK=766,583
     # VM screen size: 1440x900
 
     syncBetweenUsers = True
@@ -173,13 +176,13 @@ class UWTask(FrontTask):
             else:
                 return 14
         else:
-            if self.liquorStock in [3, 4]:
+            if self.liquorStock in [2,3, 4]:
                 return 9
             else:
                 return 14
 
     def setRouteOptionFromScreen(self):
-        month = self.getSingleLineWordsInArea(A=[1322, 220, 1357, 239])
+        month = self.getSingleLineWordsInArea(A=[1336,198,1368,216])
         if self.focusedBarterTrade:
             mapping = bartingMonthToRoute
             if self.apacheFriendly:
@@ -310,7 +313,7 @@ class UWTask(FrontTask):
                         firstPosi[0], firstPosi[1] + int(index * 58.3)
                     ),
                     lambda: self.hasSingleLineWordsInArea(
-                        nextCityName, A=[647, 823, 791, 845]
+                        nextCityName, A=[658,831,787,850]
                     ),
                     3,
                     30,
@@ -423,7 +426,7 @@ class UWTask(FrontTask):
 
     def inWater(self):
         return self.hasArrayStringEqualSingleLineWords(
-            ["lawlesswaters", "dangerouswaters", "safewaters", "lawless", "safe"],
+            ["lawlesswaters", "dangerouswaters", "safewaters", "lawless", "safe", "lales"],
             A=self.outSeaWaterTitle,
         )
 
@@ -496,7 +499,7 @@ class UWTask(FrontTask):
         # if not doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15):
         #     return
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1409, 201),
+            lambda: self.simulatorInstance.clickPointV2(*self.mapIcon),
             lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea),
             2,
             1,
@@ -510,15 +513,15 @@ class UWTask(FrontTask):
             1,
             timeout=15,
         )
-        wait(lambda: self.simulatorInstance.clickPointV2(259, 76), 1)
+        wait(lambda: self.simulatorInstance.clickPointV2(146,69), 1)
         wait(lambda: self.simulatorInstance.typewrite(cityname), 0)
         wait(lambda: self.simulatorInstance.send_enter(), 0)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 2, 1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(110,93), 2, 1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint), 1)
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(717, 860),
+            lambda: self.simulatorInstance.clickPointV2(718,864),
             lambda: (
-                self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304])
+                self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea)
                 or self.inWater()
                 or self.inCityList([cityname])
             ),
@@ -526,12 +529,12 @@ class UWTask(FrontTask):
             firstWait=15,
             backupFunc=mapBackup
         )
-        if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
-            wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
-            if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
-                wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
-                wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
+        if self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea):
+            wait(lambda: self.simulatorInstance.clickPointV2(642,555), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.noticeOK), 10)
+            if self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea):
+                wait(lambda: self.simulatorInstance.clickPointV2(642,555), 1)
+                wait(lambda: self.simulatorInstance.clickPointV2(*self.noticeOK), 10)
         if not doAndWaitUntilBy(
             lambda: False,
             lambda: (self.inWater() or self.inCityList([cityname])),
@@ -542,7 +545,7 @@ class UWTask(FrontTask):
         ):
             return
         if self.inWater() and (
-            not self.hasSingleLineWordsInArea(cityname, A=[647, 823, 791, 845])
+            not self.hasSingleLineWordsInArea(cityname, A=[658,831,787,850])
             or self.checkStopped()
         ):
             mapBackup()
@@ -830,12 +833,12 @@ class UWTask(FrontTask):
 
     def clickInMenu(self, menuArray, inTitleArray, infinite=False, startIndex=0, fallbackIndex=1):
         wait(lambda: self.simulatorInstance.clickPointV2(*self.rightCatePoint2), 1)
-        area = [1232, 251, 1350, 270]
+        area = [1252,227,1347,245]
         index = startIndex
         def runFallback():
-            yDiff = int(fallbackIndex % 15 * 39)
+            yDiff = int(fallbackIndex % 15 * 35)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1241, 261 + yDiff),
+                lambda: self.simulatorInstance.clickPointV2(1252, 240 + yDiff),
                 lambda: self.hasArrayStringEqualSingleLineWords(
                     inTitleArray, A=self.titleArea
                 ),
@@ -843,12 +846,12 @@ class UWTask(FrontTask):
                 2,
             )
         while index < 300:
-            yDiff = int(index % 15 * 39)
+            yDiff = int(index % 15 * 35)
             if self.hasArrayStringEqualSingleLineWords(
                 menuArray, A=[area[0], area[1] + yDiff, area[2], area[3] + yDiff]
             ):
                 doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1241, 261 + yDiff),
+                    lambda: self.simulatorInstance.clickPointV2(1252, 240  + yDiff),
                     lambda: self.hasArrayStringEqualSingleLineWords(
                         inTitleArray, A=self.titleArea
                     ),
@@ -998,7 +1001,7 @@ class UWTask(FrontTask):
         for x in range(0, 1):
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                lambda: self.hasSingleLineWordsInArea("company", A=[156, 22, 227, 39]),
+                lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
                 2,
                 15,
                 firstWait=2,
@@ -1012,21 +1015,21 @@ class UWTask(FrontTask):
             )  # ship
             # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,timeout=10)#assign
             # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,timeout=10)#settings
-            y = int(152 + int(62 * (fleetNo - 1)))
+            y = int(118 + int(56 * (fleetNo - 1)))
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(116, y), 2, 1
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1306, 850),
-                lambda: self.hasSingleLineWordsInArea("target", A=[718, 328, 782, 353]),
+                lambda: self.hasSingleLineWordsInArea("target", A=[661,328,779,352]),
                 1,
                 1,
                 timeout=10,
             )  # apply
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(780, 554),
+                lambda: self.simulatorInstance.clickPointV2(780,551),
                 lambda: not self.hasSingleLineWordsInArea(
-                    "target", A=[718, 328, 782, 353]
+                    "target", A=[661,328,779,352]
                 ),
                 1,
                 1,
@@ -1045,14 +1048,14 @@ class UWTask(FrontTask):
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
                     lambda: self.hasSingleLineWordsInArea(
-                        "company", A=[151, 19, 227, 37]
+                        "company", A=[143,17,206,36]
                     ),
                     2,
                     1,
                     firstWait=2,
                 )
                 doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1244, 107),
+                    lambda: self.simulatorInstance.clickPointV2(1265,101),
                     lambda: self.hasSingleLineWordsInArea(
                         "managefleet", A=self.titleArea
                     ),
@@ -1060,18 +1063,18 @@ class UWTask(FrontTask):
                     1,
                 )
                 continueWithUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1344, 850),
+                    lambda: self.simulatorInstance.clickPointV2(1379,858),
                     lambda: self.hasSingleLineWordsInArea(
-                        "redistribute", A=[637, 214, 751, 236]
+                        "redistribute", A=[644,238,797,258]
                     ),
                     1,
                     15,
                 )  # redistributeCrew
                 doMoreTimesWithWait(
-                    lambda: self.simulatorInstance.clickPointV2(456, 663), 3, 1
+                    lambda: self.simulatorInstance.clickPointV2(488,645), 3, 1
                 )  # distributeMin
                 wait(lambda: self.simulatorInstance.clickPointV2(1026, 672), 1)  # apply
-                wait(lambda: self.simulatorInstance.clickPointV2(778, 609), 1)  # ok
+                wait(lambda: self.simulatorInstance.clickPointV2(780,591), 1)  # ok
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
                     lambda: self.inCityList(self.allCityList),
@@ -1172,7 +1175,7 @@ class UWTask(FrontTask):
         self.sendMessage("UW", "reached city of " + cityname)
 
     def checkStopped(self):
-        return self.getNumberFromSingleLineInArea(A=[1174, 133, 1197, 150]) == 0
+        return self.getNumberFromSingleLineInArea(A=[1194,120,1228,136]) == 0
 
     def goToRoute(self, element):
         def backup():
@@ -1191,7 +1194,7 @@ class UWTask(FrontTask):
         city = element["target"]
         self.print("select route from map")
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1409, 201),
+            lambda: self.simulatorInstance.clickPointV2(*self.mapIcon),
             lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea),
             2,
             1,
@@ -1203,18 +1206,18 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(116, y), 3, 1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint), 1)
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(717, 860),
+            lambda: self.simulatorInstance.clickPointV2(718,864),
             lambda: (
-                self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304])
+                self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea)
                 or self.inWater()
                 or self.inCityList(self.allCityList)
             ),
             5,
             firstWait=15,
         )
-        if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
-            wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
+        if self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea):
+            wait(lambda: self.simulatorInstance.clickPointV2(642,555), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.noticeOK), 10)
         if not doAndWaitUntilBy(
             lambda: False,
             lambda: self.inWater(),
@@ -1225,7 +1228,7 @@ class UWTask(FrontTask):
         ):
             return
         if self.inWater() and (
-            not self.hasSingleLineWordsInArea(city, A=[647, 823, 791, 845])
+            not self.hasSingleLineWordsInArea(city, A=[658,831,787,850])
             or self.checkStopped()
         ):
             backup()
@@ -1252,7 +1255,7 @@ class UWTask(FrontTask):
         # if not doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1409,201), lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea), 2,1,timeout=15):
         #     return
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1409, 201),
+            lambda: self.simulatorInstance.clickPointV2(*self.mapIcon),
             lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea),
             2,
             1,
@@ -1280,18 +1283,18 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 3, 1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint), 1)
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(717, 860),
+            lambda: self.simulatorInstance.clickPointV2(718,864),
             lambda: (
-                self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304])
+                self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea)
                 or self.inWater()
                 or self.inCityList(self.allCityList)
             ),
             5,
             firstWait=15,
         )
-        if self.hasSingleLineWordsInArea("notice", A=[683, 278, 756, 304]):
-            wait(lambda: self.simulatorInstance.clickPointV2(634, 568), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(794, 599), 10)
+        if self.hasSingleLineWordsInArea("notice", A=self.noticeTitleArea):
+            wait(lambda: self.simulatorInstance.clickPointV2(642,555), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.noticeOK), 10)
         if not doAndWaitUntilBy(
             lambda: False,
             lambda: (
@@ -1806,7 +1809,7 @@ class UWTask(FrontTask):
     def sellOverload(self):
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.hasSingleLineWordsInArea("company", A=[156, 22, 227, 39]),
+            lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
             2,
             15,
             firstWait=2,
@@ -2093,15 +2096,15 @@ class UWTask(FrontTask):
 
     def getStockFromType(self,type):
         if(type=="crafts"):
-            A=[1257,723,1292,748]
+            A=[1279,668,1308,695]
         elif(type=="liquor"):
-            A=[1264,487,1288,513]
+            A=[1280,450,1309,476]
         stock=""
-        if(self.hasImageInScreen("excessive", A)):
+        if(self.hasImageInScreen("excessive", A,threshold=0.95)):
             stock="excessive"
-        elif((self.hasImageInScreen("abundant", A))):
+        elif(self.hasImageInScreen("abundant", A,threshold=0.95)):
             stock="abundant"
-        elif((self.hasImageInScreen("recommended", A))):
+        elif(self.hasImageInScreen("recommended", A,threshold=0.95)):
             stock="recommended"
         else:
             stock="insufficient"
@@ -2110,7 +2113,7 @@ class UWTask(FrontTask):
     def specialConfUpdate(self):
         self.print("check today's barting")
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1409, 201),
+            lambda: self.simulatorInstance.clickPointV2(*self.mapIcon),
             lambda: self.hasSingleLineWordsInArea("worldmap", A=self.titleArea),
             2,
             1,
@@ -2129,19 +2132,19 @@ class UWTask(FrontTask):
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(114, 109), 2, 1)
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1159,158),
-            lambda: (self.hasSingleLineWordsInArea("amity", A=[1114,205,1167,222])),
+            lambda: self.simulatorInstance.clickPointV2(1191,141),
+            lambda: (self.hasSingleLineWordsInArea("amity", A=[1149,188,1192,205])),
         )
         # right panel
         self.apacheFriendly = self.getNumberFromSingleLineInArea(
-            A=[1279,206,1347,222]
+            A=[1292,189,1351,203]
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1356, 153),
-            lambda: (self.hasSingleLineWordsInArea("trade", A=[1148, 185, 1196, 204])),
+            lambda: self.simulatorInstance.clickPointV2(1366,142),
+            lambda: (self.hasSingleLineWordsInArea("trade", A=[1177,169,1220,185])),
         )
-        doMoreTimesWithWait(lambda:self.simulatorInstance.clickPointV2(1186,193),2)
-        wampumQty = self.getNumberFromSingleLineInArea(A=[1168,680,1186,700])
+        doMoreTimesWithWait(lambda:self.simulatorInstance.clickPointV2(1217,175),2)
+        wampumQty = self.getNumberFromSingleLineInArea(A=[1198,622,1211,634])
         if wampumQty == 4:
             self.villageTradeList["apache"]["buys"][0]["targetNum"] = 500
             self.villageTradeList["apache"]["buys"][1]["targetNum"] = 500
@@ -2160,9 +2163,9 @@ class UWTask(FrontTask):
             self.villageTradeList = copy.copy(villageTradeList)
 
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1336, 191),
+            lambda: self.simulatorInstance.clickPointV2(1335,174),
             lambda: (
-                self.hasSingleLineWordsInArea("type", A=[1154,290,1198,311])
+                self.hasSingleLineWordsInArea("type", A=[1181,261,1222,281])
             ),
         )
 
@@ -2344,7 +2347,7 @@ class UWTask(FrontTask):
             return (True, lastCheckTime)
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.hasSingleLineWordsInArea("company", A=[156, 22, 227, 39]),
+            lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
             2,
             15,
             firstWait=2,

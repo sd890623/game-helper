@@ -33,7 +33,7 @@ class FrontTask(object):
     def sendNotification(self, text):
         self.messager.sendNotification(getDateTimeString()+": "+text)
 
-    def hasImageInScreen(self, imageName, A=[0, 0, 0, 0], greyMode=False, debug=False):
+    def hasImageInScreen(self, imageName, A=[0, 0, 0, 0], greyMode=False, debug=False,threshold=0.9):
         imagePath = os.path.abspath(
             __file__ + "\\..\\..\\..\\assets\\UWClickons\\"+imageName+".bmp")
         try:
@@ -41,7 +41,7 @@ class FrontTask(object):
             if (debug):
                 self.saveImageToFile(screenshotBlob)
             x, y = findImageFromSearchImage(
-                screenshotBlob, imagePath)
+                screenshotBlob, imagePath, threshold=threshold)
 
             if (x and y):
                 # print(x+A[0],y+A[1])

@@ -30,9 +30,9 @@ class Battle:
     randomPoint = 507, 783
     lastCallTime = 0
     haveSentBattleFinNotification = False
-    battleEnd = {"okBtn": [650, 669, 800, 694], "closeBtn": [650, 669, 800, 694]}
+    battleEnd = {"okBtn": [685,649,765,669], "closeBtn": [685,649,765,669]}
     opentimeout = 0
-    nameBoardInPrePanel = [61, 163, 157, 190]
+    nameBoardInPrePanel = [57,147,141,171]
     sunk=False
 
     def __init__(self, instance: win, uwtask: UWTask) -> None:
@@ -74,43 +74,43 @@ class Battle:
 
     def useFast(self):
         times=0
-        while self.uwtask.hasSingleLineWordsInArea("fre", A=[698,867,726,881]) and times<20:
-            wait(lambda: self.instance.clickPointV2(731,875))
+        while self.uwtask.hasSingleLineWordsInArea("免费", A=[698,867,726,881]) and times<20:
+            wait(lambda: self.instance.clickPointV2(715,865))
             times+=1
         if not self.uwtask.hasSingleLineWordsInArea(
-            "using", A=[698,867,740,881]
-        ) and self.uwtask.hasSingleLineWordsInArea("fast", A=[704,851,736,866]):
+            "使用", A=[699,868,743,883]
+        ) and self.uwtask.hasSingleLineWordsInArea("快速", A=[700,856,738,870]):
             continueWithUntilBy(
-                lambda: self.instance.clickPointV2(731,875),
+                lambda: self.instance.clickPointV2(715,865),
                 lambda: not self.uwtask.hasSingleLineWordsInArea(
-                    "fast", A=[704,851,736,866]
+                    "快速", A=[700,856,738,870]
                 )
-                or self.uwtask.isPositionColorSimilarTo(675, 856, (255, 255, 85)),
+                or self.uwtask.isPositionColorSimilarTo(675, 856, (62,79,51)),
                 timeout=10
             )
-            if self.uwtask.hasSingleLineWordsInArea("purchase", A=[660, 279, 781, 308]):
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(786, 591), 2, 2)
+            if self.uwtask.hasSingleLineWordsInArea("购买", A=self.uwtask.noticeTitleArea):
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(785,586), 2, 2)
                 if self.haveSentBattleFinNotification == False:
                     self.uwtask.sendNotification(f"Battle finished")
                     self.haveSentBattleFinNotification = True
 
     def clickAuto(self):
         continueWithUntilBy(
-            lambda: self.instance.clickPointV2(825 + randomInt(), 863 + randomInt()),
+            lambda: self.instance.clickPointV2(804 + randomInt(), 866 + randomInt()),
             lambda: not self.uwtask.isPositionColorSimilarTo(
-                1374, 106, (235, 235, 235)
+                1304,34, (255,255,255)
             ),
             2,
         )
     def hasResultsBtn(self):
         return (
-            self.uwtask.hasSingleLineWordsInArea("ok", A=self.battleEnd["okBtn"])
+            self.uwtask.hasSingleLineWordsInArea("确定", A=self.battleEnd["okBtn"])
             or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"])
             or self.uwtask.hasSingleLineWordsInArea("discard", A=[679, 667, 757, 682])
         )
 
     def exitBattle(self):
-        doMoreTimesWithWait(lambda: self.instance.clickPointV2(723, 673), 3, 2)
+        doMoreTimesWithWait(lambda: self.instance.clickPointV2(723,657), 3, 2)
         if self.uwtask.hasSingleLineWordsInArea("ok", A=[756, 597, 804, 620]):
             wait(lambda: self.instance.clickPointV2(632, 566), 2)
             wait(lambda: self.instance.clickPointV2(777, 607), 2)
@@ -118,12 +118,12 @@ class Battle:
     def doBattle(self):
         x = 0
         continueWithUntilBy(
-            lambda: self.instance.clickPointV2(56, 152),
-            lambda: not self.uwtask.isPositionColorSimilarTo(56, 152, (255, 255, 255)),
+            lambda: self.instance.clickPointV2(27,144),
+            lambda: not self.uwtask.isPositionColorSimilarTo(27,144, (255, 255, 255)),
             1,
             10,
         )
-        while x < 5:
+        while x < 4:
             wait(lambda: self.instance.clickPointV2(1074, 797), 0.6)
             wait(lambda: self.instance.clickPointV2(654, 588), 0.6)
             x += 1
@@ -139,7 +139,7 @@ class Battle:
         doAndWaitUntilBy(
             lambda: False,
             lambda: self.uwtask.hasSingleLineWordsInArea(
-                "auto", A=[789, 856, 844, 877]
+                "托管", A=[786,860,831,882]
             ),
             1,
             1,
@@ -152,11 +152,9 @@ class Battle:
         print("in battle")
         self.useFast()
 
-        centralPos = 716, 454
-        openSkillPos = 1270, 786
-        openSkilltab = 1387, 656
-        expressskill = 1220,851
-        waitPos = 1392, 788
+        centralPos = 712,457
+        expressskill = 1232,858
+        waitPos = 1399,798
 
         def getSkillPosByIndex(index):
             xDiff = 76.3
@@ -164,15 +162,15 @@ class Battle:
             return (1161 + int(index % 4 * xDiff), 369 + int(index / 4) * yDiff)
 
         for x in range(6):
-            while self.uwtask.isPositionColorSimilarTo(
-                39, 135, (184, 0, 0)
-            ) or self.uwtask.isPositionColorSimilarTo(112, 127, (219, 29, 36)):
+            while not self.uwtask.isPositionColorSimilarTo(
+                29,112, (0,155,0)
+            ):
                 print("foe's turn, wait for 5s")
                 time.sleep(5)
-            if self.uwtask.isPositionColorSimilarTo(1182, 830, (59, 59, 59)):
-                wait(lambda: self.instance.clickPointV2(*waitPos), 3)
-                continue
-            number = self.uwtask.getNumberFromSingleLineInArea(A=[33, 118, 48, 136])
+            # if self.uwtask.isPositionColorSimilarTo(1182, 830, (59, 59, 59)):
+            #     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+            #     continue
+            number = self.uwtask.getNumberFromSingleLineInArea(A=[28,105,42,122])
             match number:
                 case 1:
                     # No 1 melee Buff
@@ -238,14 +236,14 @@ class Battle:
 
         self.clickAuto()
         time.sleep(15)
-        number = self.uwtask.getNumberFromSingleLineInArea(A=[1209, 96, 1237, 112])
-        if type(number) == int and number > 30:
-            wait(
-                lambda: self.instance.clickPointV2(
-                    825 + randomInt(), 863 + randomInt()
-                ),
-                0.5,
-            )
+        # number = self.uwtask.getNumberFromSingleLineInArea(A=[1209, 96, 1237, 112])
+        # if type(number) == int and number > 30:
+        #     wait(
+        #         lambda: self.instance.clickPointV2(
+        #             825 + randomInt(), 863 + randomInt()
+        #         ),
+        #         0.5,
+        #     )
 
         continueWithUntilBy(
             lambda: self.instance.rightClickPointV2(*self.randomPoint),
@@ -303,13 +301,13 @@ class Battle:
             self.lastCallTime = now
 
     def selectOpponentInList(self, opponentsInList):
-        firstPosi = (1286, 344)
-        area = [1236, 326, 1362, 345]
-        # 5TH AREA
-        # 1232,601,1399,629
+        firstPosi = (1299,312)
+        area = [1257,292,1376,314]
+        # 8TH AREA
+        # 1257,642,1378,663
         index = 0
         while index < 19:
-            yDiff = int(index % 11 * 56.2)
+            yDiff = int(index % 12 * 50)
             index += 1
             ocrName = self.uwtask.getSingleLineWordsInArea(
                 A=[area[0], area[1] + yDiff, area[2], area[3] + yDiff], debug=False
@@ -326,29 +324,20 @@ class Battle:
                     0.5,
                     disableWait=True,
                 )
-                if self.uwtask.hasSingleLineWordsInArea(
-                    "pirate", A=[667, 831, 787, 855]
-                ):
-                    wait(lambda: self.instance.clickPointV2(39, 695), 0)
-                    continue
-                else:
-                    time.sleep(1)
-                    if self.uwtask.hasSingleLineWordsInArea(
-                        "pirate", A=[1187, 129, 1396, 159]
-                    ) and not self.uwtask.hasSingleLineWordsInArea(
-                        "ruthless", A=[1187, 129, 1396, 159]
-                    ):
-                        continueWithUntilBy(
-                            lambda: self.instance.clickPointV2(
-                                *self.uwtask.rightTopTownIcon
-                            ),
-                            lambda: self.uwtask.inWater(),
-                            1,
-                            30,
-                        )
-                        continue
-                    else:
-                        return True
+                # if not self.uwtask.hasArrayStringInSingleLineWords(
+                #     opponentsInList, A=[1215,115,1359,144]
+                # ):
+                #     continueWithUntilBy(
+                #         lambda: self.instance.clickPointV2(
+                #             *self.uwtask.rightTopTownIcon
+                #         ),
+                #         lambda: self.uwtask.inWater(),
+                #         1,
+                #         30,
+                #     )
+                #     continue
+                # else:
+                return True
         return False
 
     def quickWaitForCity(self, cityList=None, targetCity=None):
@@ -360,7 +349,7 @@ class Battle:
         def backupFunc():
             self.utils.useSpecial("battle")
             self.uwtask.checkForDailyPopup(5)
-            if self.uwtask.hasSingleLineWordsInArea("huamei", A=[62, 132, 165, 158]):
+            if self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel,ocrType=1):
                 continueWithUntilBy(
                     lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon),
                     lambda: self.uwtask.inWater(),
@@ -386,9 +375,9 @@ class Battle:
         self.uwtask.clickEnterCityButton()
 
     def depart(self):
-        firstLineArrowBtn = 1401, 500
-        okBtn = 752, 607
-        departBtn = 1287, 655
+        secondLineArrowBtn = 1405,499
+        okBtn = 785,591
+        departBtn = 1368,646
 
         def clickAndStock():
             wait(lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 0.2)
@@ -397,35 +386,35 @@ class Battle:
         def clickAndStockBackup():
             self.uwtask.checkForDailyPopup()
             wait(lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 0.2)
-            if self.uwtask.hasSingleLineWordsInArea("harbor", A=self.uwtask.titleArea):
+            if self.uwtask.hasSingleLineWordsInArea("出港所", A=self.uwtask.titleArea):
                 self.uwtask.restock()
                 self.instance.clickPointV2(*departBtn)
 
         clickAndStock()
-        if self.uwtask.hasSingleLineWordsInArea("crewsize", A=[1200, 490, 1276, 514]):
+        if self.uwtask.hasSingleLineWordsInArea("船员", A=[1225,490,1286,508]):
             crewWords = self.uwtask.getSingleLineWordsInArea(
-                A=[1273, 492, 1374, 513], ocrType=2
+                A=[1286,490,1386,510], ocrType=2
             )
 
             actualCrew = getNumberFromString(crewWords.split("/")[0])
             maxCrew = getNumberFromString(crewWords.split("/")[1])
             if actualCrew / maxCrew < 0.97:
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(*firstLineArrowBtn),
+                    lambda: self.instance.clickPointV2(*secondLineArrowBtn),
                     lambda: self.uwtask.hasSingleLineWordsInArea(
-                        "recruit", A=self.uwtask.titleArea
+                        "招募", A=self.uwtask.titleArea
                     ),
                     1,
                     2,
                 )
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1333, 410), 2, 0)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(1370,367), 2, 0)
                 def click():
-                    wait(lambda: self.instance.longerClickPointV2(1350, 526), 2)
+                    wait(lambda: self.instance.longerClickPointV2(1318,471), 2)
                     doMoreTimesWithWait(lambda: self.instance.clickPointV2(*okBtn),2)
                 doAndWaitUntilBy(
                     click,
                     lambda: self.uwtask.hasSingleLineWordsInArea(
-                        "harbor", A=self.uwtask.titleArea
+                        "出港所", A=self.uwtask.titleArea
                     ),
                     1,
                     2,
@@ -457,7 +446,7 @@ class Battle:
             self.utils.useSpecial("battle")
             self.uwtask.simulatorInstance.clickPointV2(*self.uwtask.mapIcon)
 
-        if self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel):
+        if self.uwtask.hasSingleLineWordsInArea("huamei", A=self.nameBoardInPrePanel,ocrType=1):
             doAndWaitUntilBy(
                 lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon),
                 lambda: self.uwtask.inWater(),
@@ -486,7 +475,7 @@ class Battle:
         self.uwtask.goToHarbor()
         self.depart()
         if (getHour() in [21, 22, 23, 24, 0, 1, 2] and self.uwtask.getDailyConfValByKey("dailyCheckedBattlePlaceLanding")):
-            doMoreTimesWithWait(lambda: self.instance.clickPointV2(39, 695), 2, 4)
+            doMoreTimesWithWait(lambda: self.instance.clickPointV2(43,716), 2, 4)
 
     def findOpponentOrReturn(self, opponentsInList, opponents, town):
         wait(lambda: self.instance.clickPointV2(*self.uwtask.rightCatePoint3), 0)
@@ -505,13 +494,13 @@ class Battle:
             return False
         timeout = 20
         combatScreenOpened = self.uwtask.hasSingleLineWordsInArea(
-            "huamei", A=self.nameBoardInPrePanel
+            "huamei", A=self.nameBoardInPrePanel,ocrType=1
         )
         if not combatScreenOpened:
             wait(lambda: False, 1)
         while timeout > 0 and not combatScreenOpened:
             if self.uwtask.hasSingleLineWordsInArea(
-                "huamei", A=self.nameBoardInPrePanel
+                "huamei", A=self.nameBoardInPrePanel,ocrType=1
             ):
                 break
             if self.uwtask.checkStopped():
@@ -521,7 +510,7 @@ class Battle:
         if timeout == 0:
             wait(lambda: self.instance.clickPointV2(720, 862), 2)
             if self.uwtask.hasSingleLineWordsInArea(
-                "huamei", A=self.nameBoardInPrePanel
+                "huamei", A=self.nameBoardInPrePanel,ocrType=1
             ):
                 doAndWaitUntilBy(
                     lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon),
@@ -532,18 +521,18 @@ class Battle:
             return self.findOpponentOrReturn(opponentsInList, opponents, town)
 
         def clickIntoBattle():
-            self.instance.clickPointV2(683, 829)
+            self.instance.clickPointV2(682,833)
             # for small boss, enable only when required. Might cause stop of ship as 2nd click clicks after screen goes to sea.
             # self.instance.clickPointV2(726,820)
 
         if self.uwtask.hasArrayStringInSingleLineWords(
-            opponents, A=[1187, 129, 1396, 159]
+            opponents, A=[1215,115,1359,144]
         ):  # and not self.uwtask.hasSingleLineWordsInArea("pirate",A=[1187,129,1396,159])):
-            self.uwtask.print("opened")
+            self.uwtask.print("准备开战")
             return continueWithUntilBy(
                 lambda: clickIntoBattle(),
                 lambda: self.uwtask.hasSingleLineWordsInArea(
-                    "combat", A=[684, 15, 746, 32]
+                    "战斗", A=[685,12,759,30]
                 ),
                 3,
                 timeout=10,

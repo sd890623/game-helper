@@ -64,7 +64,7 @@ class FrontTask(object):
             wait(lambda: self.simulatorInstance.clickPointV2(
                 position[0]+int(targetWidth/2), position[1]+int(targetHeigh/2)), 2)
 
-    def getSingleLineWordsInArea(self, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def getSingleLineWordsInArea(self, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
@@ -79,7 +79,7 @@ class FrontTask(object):
             print(e)
             return ""
 
-    def getMultiLineWordsInArea(self, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def getMultiLineWordsInArea(self, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
@@ -94,7 +94,7 @@ class FrontTask(object):
             print(e)
             return ""
 
-    def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             if(not words):
                 self.print("null words provided")
@@ -113,7 +113,7 @@ class FrontTask(object):
             print(e)
             return False
 
-    def hasArrayStringEqualSingleLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def hasArrayStringEqualSingleLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
@@ -129,7 +129,7 @@ class FrontTask(object):
             print(e)
             return False
 
-    def hasArrayStringInSingleLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def hasArrayStringInSingleLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):
@@ -155,7 +155,7 @@ class FrontTask(object):
             print("fail to get number")
             return False
 
-    def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=1, debug=False):
+    def hasArrayStringEqualMultiLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:
             screenshotBlob = self.simulatorInstance.outputWindowScreenshotV2(A)
             if (debug == True):

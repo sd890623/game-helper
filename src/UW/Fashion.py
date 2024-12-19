@@ -14,11 +14,11 @@ from UWTask import UWTask
 
 class Fashion:
     cityMapList=[
-        {'name': '阿拉伯西印度群岛',"cities":["suez","jeddah","massawa","aden","socotra","dhofar","muscat","hormuz","doha","shiraz","basrah","baghdad"]},
-        {'name': '东地中海',"cities":["alexandria","cairo","said","jaffa","beirut","nicosia","antalya","candia","trabzon","benghazi"]},
-        {'name': '东非',"cities":["quelimane","mozambique","toamasina","kilwa","zanzibar","mombasa","malindi","mogadishu"]},
-        {'name': '远东亚洲', "cities":["hanyang","jeju","dongnae","yeongil","deokwon"]},
-        {'name': '东亚', "cities":["hangzhou","macau","quanzhou","tamsui","tainan","yanyun","peking","chang","chongqing"]},
+        {'name': '阿拉伯西印度群岛',"cities":["苏伊士","吉达","马萨瓦","亚丁","索科特拉","杜法尔","马斯喀特","霍尔木兹","多哈","设拉子","巴士拉","巴格达"]},
+        {'name': '东地中海',"cities":["亚历山德","cairo","塞得港","jaffa","beirut","nicosia","antalya","candia","trabzon","benghazi"]},
+        {'name': '东非',"cities":["克利马内","莫桑比克","塔玛塔夫","基尔瓦","桑给巴尔","蒙巴萨","马林迪","摩加迪沙"]},
+        {'name': '远东亚洲', "cities":["汉阳","济州","东莱","迎日","德源"]},
+        {'name': '东亚', "cities":["杭州","澳门","泉州","淡水","安平","燕云","北京","长安","重庆"]},
         {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
         {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]},
         {'name': '南太平洋', "cities":["pinjara","kakatuwah","gari","pirie","hobart"]}
@@ -115,4 +115,4 @@ class Fashion:
 if __name__ == '__main__':
     print(getCentralTime())
     fashion=Fashion(None,None)
-    print(fashion.getFashionsByCity("suez",5))
+    print(fashion.getFashionsByCity("苏伊士",5))

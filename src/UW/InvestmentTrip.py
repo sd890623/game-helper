@@ -31,19 +31,19 @@ class Investment:
     inn = True
     # Better do winter
     investmentCities = [
-        # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","mombasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "socotra", "dhofar","muscat", "doha", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi",
-        "ceylon","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "tamsui",
-        "tainan","macau", "pasay", "toamasina", "town", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
+        # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "南特","bordeaux","santa","ceuta", "montpell","marseille","热那亚","比萨", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "塞得港","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "纳塔尔", "索法拉","克利马内","莫桑比克","基尔瓦", "桑给巴尔","蒙巴萨","马林迪","摩加迪沙","亚丁","马萨瓦","苏伊士", "吉达", "索科特拉", "杜法尔","马斯喀特", "多哈", "巴士拉","巴格达","设拉子", "霍尔木兹", "diu", "goa","kozhi","kochi",
+        "ceylon","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","泉州", "naha",  "杭州", "重庆", "燕云", "长安", "北京", "淡水",
+        "安平","澳门", "pasay", "塔玛塔夫", "town", "bahia", "aires", "乌斯怀亚", "valpara", "利马", "tumbes", "阿卡普尔科", "guatemala", "panama", "copiap", "乌斯怀亚", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "纳尔维克","edinburgh"
     ]
     investmentCitiesy = [
-        'peking',
-        'yanyun',
-        'chang',
-        'chongqing',
-        'hangzhou',
-        'quanzhou',
-        'tamsui',
-        'macau',
+        '北京',
+        '燕云',
+        '长安',
+        '重庆',
+        '杭州',
+        '泉州',
+        '淡水',
+        '澳门',
         'jolo',
         'davao',
         'ternate',
@@ -59,34 +59,34 @@ class Investment:
         'aceh',
         'masuli',
         "kochi",
-        'socotra',
-        'toamasina',
-        'aden',
-        'suez',
+        '索科特拉',
+        '塔玛塔夫',
+        '亚丁',
+        '苏伊士',
         'tunnel',
         'nicosia',
         'montpell'
     ]
     investmentCities4 = [
         # "unalaska","tacoma",
-        "ohlone", "acapulco", "guatemala", "panama"
+        "ohlone", "阿卡普尔科", "guatemala", "panama"
     ]
     # investmentCities=investmentCitiesArray[investmentRoute]
     supplyCities = [
     ]
     shippartsCities = [
-        "visby", "beirut", "town", "suez", "malacca", "jakarta", "rio", "aires", "lima", "valpara"
+        "visby", "beirut", "town", "苏伊士", "malacca", "jakarta", "rio", "aires", "利马", "valpara"
     ]
     buyCities = [
-        "saint", "riga", "visby", "beck", "copenhag", "bergen", "dublin", "pisa", "candia", "antalya", "beirut"
-        "quanzhou", "naha", "hangzhou", "chongqing", "yanyun", "chang", "peking"
+        "saint", "riga", "visby", "beck", "copenhag", "bergen", "dublin", "比萨", "candia", "antalya", "beirut"
+        "泉州", "naha", "杭州", "重庆", "燕云", "长安", "北京"
     ]
     buyGoods = [
         "vodka", "felt", "paper", "feather", "amber", "aquavit", "twohand", "whisky", "velvet", "western", "oakmoss", "narcissus", "civet", "damascus",
         "chinesetea", "huzhoubrush", "ancientbone", "gardenia", "bingata", "ramiefabric", "sweetolive", "shaoxingwine", "blueandwhite", "blackvineg", "musa", "staranise", "beanpaste", "chinesepainting", "guqin", "sanjiegun", "firelance","shu"
     ]
     sellCities = [
-        "quanzhou", "nassau"
+        "泉州", "nassau"
     ]
     # before going to a city
     changeFleet = ["cohasset"]

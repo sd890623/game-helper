@@ -24,20 +24,20 @@ marketBuyData={
     # "kokkola":[""],
     "montpel":["garnet"],
     "marseille":["garnet","etchings","cannon","bronzeStatue","perfume"],
-    "genoa":["glasswork","oilPainting","etchings","cannon"],
-    "pisa":["marbleStatue","cannon"],
+    "热那亚":["glasswork","oilPainting","etchings","cannon"],
+    "比萨":["marbleStatue","cannon"],
     "sasari":["garnet"],
 }
 
 hasBMCities=["kokkola","saint","stockhol","visby","beck","copenhag","oslo","hamburg","bremen","london","antwerp","calais","plymouth","amsterda",
-# "bristol","dublin","edinburgh","nantes","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","town","sofala","mozambiqu",
-# "zanzibar","toamasina","mombasa","socotra","aden","jeddah","muscat","hormuz","basrah","baghdad","goa","kozhikod",
-# "algiers","valencia","barcelona","montpellie","marseille","geona","pisa","calvi","tunis","syracuse","ragusa",
-# "alexandria","cairo","candia","athens","thessaloni","constantino",
+# "bristol","dublin","edinburgh","南特","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","town","索法拉","mozambiqu",
+# "桑给巴尔","塔玛塔夫","蒙巴萨","索科特拉","亚丁","吉达","马斯喀特","霍尔木兹","巴士拉","巴格达","goa","kozhikod",
+# "algiers","valencia","barcelona","montpellie","marseille","geona","比萨","calvi","tunis","syracuse","ragusa",
+# "亚历山德","cairo","candia","athens","thessaloni","constantino",
 # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
 # "malacca","palembang","banjarmasin","surabaya","jakarta",
-"pasay","macau","quanzhou","tamsui","hangzhou","peking","hanyang","jeju","chang","chongqing","edo","nagasaki","dongnae"]
-capitals=["london","amsterda","lisboa","seville","constantino","hanyang","peking","edo"]
+"pasay","澳门","泉州","淡水","杭州","北京","汉阳","济州","长安","重庆","江户","长崎","东莱"]
+capitals=["london","amsterda","lisboa","seville","constantino","汉阳","北京","江户"]
 coinPath = os.path.abspath(__file__ + "\\..\\..\\assets\\UWClickons\\"+"coinInBuy"+".bmp")
 BMfile=os.path.abspath(__file__ + "\\..\\blackMarket.json")
 class Market:
@@ -534,7 +534,7 @@ class Market:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,73),2,0)
             self.instance.send_backspaces()
             return sellPriceIndex
-        sellPriceIndex=initClick("aden")
+        sellPriceIndex=initClick("亚丁")
         sellPriceIndex=initClick("seville")
 
         for city in cities:

@@ -2,7 +2,7 @@ import json
 import os
 
 if __name__ == '__main__':
-    a=["aden","town", "ushuaia", "lima"]
+    a=["亚丁","town", "乌斯怀亚", "利马"]
     print(a[::-1])
     filePath = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 

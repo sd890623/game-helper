@@ -13,7 +13,9 @@ import requests #line:12
 import easyocr #line:13
 import pydirectinput
 import pyautogui
+import pyperclip
 from PIL import Image #line:23
+
 
 def base642Str (OOO0OOOOOOOO0000O ):#line:16
     OO0O00O0O0OO00O00 =base64 .b64encode (OOO0OOOOOOOO0000O )#line:17
@@ -442,6 +444,11 @@ class win ():#line:35
 
     def typewrite(self, words):
         pydirectinput.typewrite(words)
+
+    def chineseTypeWrite(self, words):
+        pyperclip.copy(words)
+        time.sleep(0.5)
+        pyautogui.hotkey("ctrl", "v")
 
     def send_backspaces(self):
         for i in range(0,10):

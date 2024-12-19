@@ -73,7 +73,7 @@ if __name__ == '__main__':
     # cityLabel.pack()
 
     # 创建下拉菜单
-    cityOptions = ["narvik", "guam","whanganui","samarai","chersky"]
+    cityOptions = ["纳尔维克", "关岛","旺加努伊","萨马赖","切尔斯基"]
     cityVar = tk.StringVar()
     cityVar.set(cityOptions[4])  # 设置默认值
     cityDropdown = tk.OptionMenu(root, cityVar, *cityOptions)

@@ -525,7 +525,7 @@ class Market:
         # init
         def initClick(city):
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,76),1,0)
-            wait(lambda: self.instance.typewrite(city),0)
+            wait(lambda: self.instance.chineseTypeWrite(city),0)
             wait(lambda: self.instance.send_enter(),0)
             continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(1226,159),2,0)
@@ -539,7 +539,7 @@ class Market:
 
         for city in cities:
             doMoreTimesWithWait(lambda: self.instance.clickPointV2(259,76),1,0)
-            wait(lambda: self.instance.typewrite(city),0)
+            wait(lambda: self.instance.chineseTypeWrite(city),0)
             wait(self.instance.send_enter,0)
             continueWithUntilBy(lambda: self.instance.clickPointV2(114,109),lambda: (self.uwtask.hasSingleLineWordsInArea("city",A=[1221,67,1263,95])),frequency=1,timeout=10)
             yDiff=sellPriceIndex*45

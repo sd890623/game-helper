@@ -34,6 +34,7 @@ class Battle:
     opentimeout = 0
     nameBoardInPrePanel = [57,147,141,171]
     sunk=False
+    skillShip=[4,6,1]
 
     def __init__(self, instance: win, uwtask: UWTask) -> None:
         self.instance = instance
@@ -98,7 +99,7 @@ class Battle:
         continueWithUntilBy(
             lambda: self.instance.clickPointV2(804 + randomInt(), 866 + randomInt()),
             lambda: not self.uwtask.isPositionColorSimilarTo(
-                1304,34, (255,255,255)
+                1353,33, (255,255,255)
             ),
             2,
         )
@@ -119,7 +120,7 @@ class Battle:
         x = 0
         continueWithUntilBy(
             lambda: self.instance.clickPointV2(27,144),
-            lambda: not self.uwtask.isPositionColorSimilarTo(27,144, (255, 255, 255)),
+            lambda: not self.uwtask.isPositionColorSimilarTo(57,146, (244,244,243)),
             1,
             10,
         )
@@ -156,6 +157,17 @@ class Battle:
         expressskill = 1232,858
         waitPos = 1399,798
 
+        def useSkill(shipNo):
+            if(shipNo in self.skillShip):
+                wait(lambda: self.instance.longerClickPointV2(*expressskill), 0.5)
+                doMoreTimesWithWait(
+                    lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
+                )
+                time.sleep(5)
+            else:
+                wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+
+
         def getSkillPosByIndex(index):
             xDiff = 76.3
             yDiff = 75
@@ -171,85 +183,22 @@ class Battle:
             #     wait(lambda: self.instance.clickPointV2(*waitPos), 3)
             #     continue
             number = self.uwtask.getNumberFromSingleLineInArea(A=[28,105,42,122])
-            match number:
-                case 1:
-                    # No 1 melee Buff
-                    wait(lambda: self.instance.longerClickPointV2(*expressskill), 0.5)
-
-                    # wait(lambda: self.instance.clickPointV2(*openSkillPos),0.5)
-                    # wait(lambda: self.instance.clickPointV2(1260,332),0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
-                    )
-                    time.sleep(5)
-                case 2:
-                    wait(lambda: self.instance.clickPointV2(*waitPos), 3)
-                    # No 2
-                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    # doMoreTimesWithWait(
-                    #     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    # )
-                    # time.sleep(2)
-                case 3:
-                    # open skill #No3 ram buff
-                    # wait(lambda: self.instance.clickPointV2(*waitPos),3)
-
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    )
-                    time.sleep(2)
-
-                case 4:
-                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    # doMoreTimesWithWait(
-                    #     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    # )
-                    # time.sleep(2)
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-
-                case 5:
-                    # 5  #CRI
-                    # wait(lambda: self.instance.clickPointV2(*waitPos), 3)
-                    wait(lambda: self.instance.clickPointV2(*expressskill),0.5)
-                    doMoreTimesWithWait(lambda: self.instance.longerClickPointV2(*centralPos),2,0.5)
-                    time.sleep(2)
-
-                case 6:
-                    # open skill
-                    wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                    # wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    # doMoreTimesWithWait(
-                    #     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    # )
-                    # time.sleep(2)
-
-                case 7:
-                    wait(lambda: self.instance.clickPointV2(*expressskill), 0.5)
-                    doMoreTimesWithWait(
-                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
-                    )
-                    time.sleep(2)
-                    #wait(lambda: self.instance.clickPointV2(*waitPos),3)
-                case _:
-                    wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+            useSkill(number)
 
         self.clickAuto()
         time.sleep(15)
-        # number = self.uwtask.getNumberFromSingleLineInArea(A=[1209, 96, 1237, 112])
-        # if type(number) == int and number > 30:
-        #     wait(
-        #         lambda: self.instance.clickPointV2(
-        #             825 + randomInt(), 863 + randomInt()
-        #         ),
-        #         0.5,
-        #     )
+        number = self.uwtask.getNumberFromSingleLineInArea(A=[1345,85,1368,98])
+        if type(number) == int and number > 30:
+            wait(
+                lambda: self.instance.clickPointV2(804 + randomInt(), 866 + randomInt()),
+                0.5,
+            )
 
         continueWithUntilBy(
             lambda: self.instance.rightClickPointV2(*self.randomPoint),
             lambda: self.hasResultsBtn(),
             5,
-            timeout=480,
+            timeout=20,
         )
 
         def backupFunc():
@@ -521,7 +470,7 @@ class Battle:
             return self.findOpponentOrReturn(opponentsInList, opponents, town)
 
         def clickIntoBattle():
-            self.instance.clickPointV2(682,833)
+            self.instance.clickPointV2(698,815)
             # for small boss, enable only when required. Might cause stop of ship as 2nd click clicks after screen goes to sea.
             # self.instance.clickPointV2(726,820)
 

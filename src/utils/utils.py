@@ -36,7 +36,9 @@ class Utils:
                 time.sleep(30)
             # if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):
             #     time.sleep(30)
-            if(self.uwtask.hasSingleLineWordsInArea("自动",A=[695,856,744,882])):
+            if(self.uwtask.hasSingleLineWordsInArea(
+                "托管", A=[786,860,831,882]
+            )):
                 self.battle.useFast()
                 self.battle.clickAuto()
                 time.sleep(250)

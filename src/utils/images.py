@@ -86,6 +86,10 @@ def getOCRfromImageBlobMultiLine(imageBlob, ocrType=1):
         ocrInstance=ocr
     elif(ocrType==2):
         ocrInstance=numberOcr
+    elif(ocrType==3):
+        ocrInstance=mixedOcr
+    elif(ocrType==4):
+        ocrInstance=chineseOcr
     res = ocrInstance.ocr(imageBlob)
     return res
 

@@ -64,6 +64,7 @@ class UWTask(FrontTask):
     randomPoint = 1084, 628
     mapIcon = 1411,173
     noticeTitleArea=[666,287,780,313]
+    largerNoticeTitleArea=[688,262,756,361]
     noticeOK=766,583
     hideNoticeTick=700,557
     # VM screen size: 1440x900
@@ -96,8 +97,7 @@ class UWTask(FrontTask):
     dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
-        self.simulatorInstance.chineseTypeWrite("锦")
-        self.gotoCity("杭州",express=True)
+        self.checkForGiftAndReceive()
         # self.efficientHireInn=False
         # while(True):
         #     self.checkInn("santa")
@@ -699,8 +699,10 @@ class UWTask(FrontTask):
         if self.isPositionColorSimilarTo(1224,9, (253,72,54)):
             wait(lambda: self.simulatorInstance.clickPointV2(1207,27), 1)
             wait(lambda: self.simulatorInstance.clickPointV2(436,636), 1)
+            if(self.hasArrayStringEqualMultiLineWords(["通知"], A=self.largerNoticeTitleArea)):
+                wait(lambda: self.simulatorInstance.clickPointV2(771,585))
             doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(*self.randomPoint), 2, 0.2
+                lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton), 2, 0.2
             )
 
     def checkForDailyPopup(self, delay=0):
@@ -1534,12 +1536,13 @@ class UWTask(FrontTask):
                 lambda: self.hasSingleLineWordsInArea(
                     "更新", A=[679,288,768,309]
                 ),
+                1,1
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(773,594),
                 lambda: not self.hasSingleLineWordsInArea(
                     "更新", A=[679,288,768,309]
-                ),
+                ),1,1
             )
             x += 1
         continueWithUntilBy(

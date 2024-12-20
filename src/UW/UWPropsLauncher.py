@@ -14,6 +14,7 @@ def run(props):
     battleCity=props.get("battleCity")
     goBM=props.get("goBM")
     focusedBarterTrade=props.get("focusedBarterTrade")
+    plainTradeTrade=props.get("plainTradeTrade")
     testMode=props.get("testMode")
     allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
     if (len(allWindowsWithTitle) > 0):
@@ -70,9 +71,12 @@ def run(props):
             initialRouteIndex=task.getInitialRouteIndex()
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
             task.initialRun=False
-        else:
-            task.startTradeRoute(initialRouteIndex if task.initialRun else 0)
+        elif(plainTradeTrade):
+            task.setRouteOption(3)
+            task.startTradeRoute()
             task.initialRun=False
+        else:
+            
             task.startMerchantQuest()
             task.startDailyBattle(battleCity)
         # task.startJourney()

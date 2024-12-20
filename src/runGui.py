@@ -3,8 +3,8 @@ from tkinter import messagebox
 from UW import UWPropsLauncher
 import multiprocessing
 
-def run_task(battleOn,battleCity,goBM,focusedBarterTrade,testMode):
-    UWPropsLauncher.run({"battleOn": battleOn,"battleCity": battleCity, "goBM": goBM, "focusedBarterTrade": focusedBarterTrade, "testMode": testMode})
+def run_task(battleOn,battleCity,goBM,focusedBarterTrade,plainTradeTrade, testMode):
+    UWPropsLauncher.run({"battleOn": battleOn,"battleCity": battleCity, "goBM": goBM, "focusedBarterTrade": focusedBarterTrade,"plainTradeTrade": plainTradeTrade, "testMode": testMode})
 
 def onBattleCheckbox():
     # 根据复选框1的状态显示或隐藏下拉菜单
@@ -17,7 +17,7 @@ def onBattleCheckbox():
 
 def on_confirm():   
     global process
-    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get(),goBMVar.get(),focusedBarterTradeVar.get(), testVar.get()))
+    process  = multiprocessing.Process(target=run_task, args=(battleVar.get(),cityVar.get(),goBMVar.get(),focusedBarterTradeVar.get(),plainTradeTradeVar.get(), testVar.get()))
     process.start()
     appRunningLabel.config(text="状态：active")
 
@@ -61,9 +61,13 @@ if __name__ == '__main__':
     goBMCheckbox = tk.Checkbutton(root, text="开启黑店", variable=goBMVar)
     goBMCheckbox.pack()
 
-    focusedBarterTradeVar = tk.BooleanVar(value=True)
+    focusedBarterTradeVar = tk.BooleanVar(value=False)
     focusedBarterTradeCheckbox = tk.Checkbutton(root, text="高级换货", variable=focusedBarterTradeVar)
     focusedBarterTradeCheckbox.pack()
+
+    plainTradeTradeVar = tk.BooleanVar(value=True)
+    plainTradeTradeCheckbox = tk.Checkbutton(root, text="平货", variable=plainTradeTradeVar)
+    plainTradeTradeCheckbox.pack()
 
     testVar = tk.BooleanVar()
     testCheckbox = tk.Checkbutton(root, text="Test模式", variable=testVar)

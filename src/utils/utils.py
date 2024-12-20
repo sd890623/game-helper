@@ -11,7 +11,7 @@ from strsimpy.damerau import Damerau
 
 stringDist = Damerau().distance
 
-def wait(func, seconds = 3,disableWait=False):
+def wait(func, seconds = 2,disableWait=False):
     func()
     if(not(disableWait)):
         time.sleep(seconds+random.uniform(0,1))

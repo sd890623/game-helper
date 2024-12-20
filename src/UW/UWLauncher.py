@@ -27,7 +27,7 @@ def run():
     # task.targetCity="naples"
     task.setRouteOption(6)
 
-    task.tradeRouteBuyFin=True
+    task.firstBuyFin=True
     task.print("抗浪;删除到达城市;调最大仓;检查道具少,检查黑市可买")
     task.print("提示：检查物品栏，长距旅行开启蓝旗;检查防灾物品；检查船耐久；设置免税港;设置水手最少数;檢查港口語言;检查市场购买勾")
 

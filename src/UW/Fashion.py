@@ -21,12 +21,14 @@ class Fashion:
         {'name': '东亚', "cities":["杭州","澳门","泉州","淡水","安平","燕云","北京","长安","重庆"]},
         {'name': '北海', "cities":["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]},
         {'name': '北美、东美、加勒比', "cities":["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"]},
-        {'name': '南太平洋', "cities":["pinjara","kakatuwah","gari","pirie","hobart"]}
+        {'name': '南太平洋', "cities":["pinjara","kakatuwah","gari","pirie","hobart"]},
+        {'name': '大西洋&西地中海', "cities":["热那亚", "比萨","拿坡里", "锡拉库萨","威尼斯", "安科纳","第里雅斯特", "扎达尔","拉古萨"]}
+
     ]
     mapList = [
         {'name': '北海', 'zone': 0, 'show': True, 'flag': 0,"zoneMinutes":0},
         {'name': '东地中海', 'zone': -1, 'show': True, 'flag': 0, "zoneMinutes":1},
-        {'name': '大西洋&西地中海', 'zone': -2, 'show': True, 'flag': 0},
+        {'name': '大西洋&西地中海', 'zone': -2, 'show': True, 'flag': 0,"zoneMinutes":0},
         {'name': '西非', 'zone': -3, 'show': True, 'flag': 0},
         {'name': '南非', 'zone': -4, 'show': True, 'flag': 0},
         {'name': '东非', 'zone': -5, 'show': True, 'flag': 0, "zoneMinutes":1},

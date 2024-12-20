@@ -211,7 +211,7 @@ class Battle:
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 5, 3
             )
-        if(self.uwtask.getNumberFromSingleLineInArea(A=[683,407,707,428])):
+        if(self.uwtask.getNumberFromSingleLineInArea(A=[687,416,709,434])):
             self.sunk=True
         doAndWaitUntilBy(
             lambda: self.exitBattle(),
@@ -234,7 +234,7 @@ class Battle:
     def checkStats(self, town):
         time.sleep(1)
         # 0 SHIP DOWN OR 0 SAILORS
-        if self.sunk==True or self.uwtask.hasImageInScreen("shipSunk", A=[85,55,358,92]):
+        if self.sunk==True or self.uwtask.hasImageInScreen("shipSunk", A=[109,45,335,87]):
             self.goBackPort(town)
             self.sunk=False
             return False

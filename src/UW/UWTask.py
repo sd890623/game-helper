@@ -97,7 +97,7 @@ class UWTask(FrontTask):
     dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
-        self.checkForGiftAndReceive()
+        self.gotoCity("杭州",express=True)
         # self.efficientHireInn=False
         # while(True):
         #     self.checkInn("santa")
@@ -336,62 +336,64 @@ class UWTask(FrontTask):
 
     def restock(self):
         self.print("补给")
-        okBtn = 752, 607
-        firstLineArea = [1201, 490, 1380, 514]
-        firstLineArrowBtn = 1405, 500
+        okBtn = 776,594
+        secondLineArea = [1227,487,1388,511]
+        secondArrowBtn = 1408,495
+        thirdLineArea = [1225,522,1352,541]
+        thirdArrowBtn=1407,527
         # Repair ship
         while self.hasSingleLineWordsInArea(
-            "notenoughdurability", A=[1202, 518, 1362, 543]
+            "不足", A=thirdLineArea
         ):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1403, 528),
-                lambda: self.hasSingleLineWordsInArea("repair", A=self.titleArea),
+                lambda: self.simulatorInstance.clickPointV2(*thirdArrowBtn),
+                lambda: self.hasSingleLineWordsInArea("修理", A=self.titleArea),
                 1,
                 2,
             )
-            wait(lambda: self.simulatorInstance.clickPointV2(1110, 857), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1136,859), 1)
             def click():
-                wait(lambda: self.simulatorInstance.clickPointV2(1297, 859), 1)
+                wait(lambda: self.simulatorInstance.clickPointV2(1340,864), 1)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
                 click,
-                lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
+                lambda: self.hasSingleLineWordsInArea("出港所", A=self.titleArea),
                 1,
                 2,
                 timeout=10
             )
         # Restore crew
-        while self.hasSingleLineWordsInArea("notenoughcrew", A=firstLineArea):
+        while self.hasSingleLineWordsInArea("不足", A=secondLineArea):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),
-                lambda: self.hasSingleLineWordsInArea("recruitcrew", A=self.titleArea),
+                lambda: self.simulatorInstance.clickPointV2(*secondArrowBtn),
+                lambda: self.hasSingleLineWordsInArea("船员", A=self.titleArea),
                 1,
                 2,
             )
             def click2():
-                wait(lambda: self.simulatorInstance.longerClickPointV2(1350, 526), 2)
+                wait(lambda: self.simulatorInstance.longerClickPointV2(1334,472), 2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
                 click2,
-                lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
+                lambda: self.hasSingleLineWordsInArea("出港所", A=self.titleArea),
                 1,
                 2,
             )
         # Remove extra crew
-        if self.hasSingleLineWordsInArea("maxcrew", A=firstLineArea):
+        if self.hasSingleLineWordsInArea("过多", A=secondLineArea):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*firstLineArrowBtn),
-                lambda: self.hasSingleLineWordsInArea("recruitcrew", A=self.titleArea),
+                lambda: self.simulatorInstance.clickPointV2(*secondArrowBtn),
+                lambda: self.hasSingleLineWordsInArea("船员", A=self.titleArea),
                 1,
                 2,
             )
-            wait(lambda: self.simulatorInstance.clickPointV2(252, 861), 2)
+            wait(lambda: self.simulatorInstance.clickPointV2(1206,367), 2)
             def click3():
-                doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1020, 671), 2, 1)                
+                wait(lambda: self.simulatorInstance.longerClickPointV2(1334,472), 2)
                 doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn),2)
             doAndWaitUntilBy(
                 click3,
-                lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
+                lambda: self.hasSingleLineWordsInArea("出港所", A=self.titleArea),
                 1,
                 2,
             )
@@ -421,7 +423,7 @@ class UWTask(FrontTask):
             wait(lambda: self.simulatorInstance.clickPointV2(725, 672), 1)  # ok
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),
-                lambda: self.hasSingleLineWordsInArea("harbor", A=self.titleArea),
+                lambda: self.hasSingleLineWordsInArea("出港所", A=self.titleArea),
                 1,
                 2,
             )
@@ -987,11 +989,13 @@ class UWTask(FrontTask):
             2,
             1,
         )
-        if self.isPositionColorSimilarTo(449, 67, (253, 53, 51)):
-            wait(lambda: self.simulatorInstance.clickPointV2(394, 84), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1039, 861), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(1294, 522), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(746, 610), 1)
+        if self.isPositionColorSimilarTo(403,61, (254,70,54)):
+            wait(lambda: self.simulatorInstance.clickPointV2(364,70), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(1073,868), 1)
+            doAndWaitUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(1257,462),
+                lambda: self.hasArrayStringEqualMultiLineWords(["通知"], A=self.largerNoticeTitleArea))
+            wait(lambda: self.simulatorInstance.clickPointV2(778,594), 1)
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
             lambda: self.inCityList([city]),
@@ -2383,7 +2387,7 @@ class UWTask(FrontTask):
             if not self.inWater():
                 if battle.utils.useSpecial("battle"):
                     battle.goBackPort(battleCity)
-                # battle.checkInPort(battleCity)
+                battle.checkInPort(battleCity)
                 if(not battleOnMode):
                     checkResult = self.checkShouldBattle(lastCheckTime, battleCity) 
                     lastCheckTime = checkResult[1]

@@ -12,11 +12,11 @@ battleCity = "关岛"
 
 # "piratefleet", "assau": ganzi, pillage: banzi, robber: paomen"rob",  ,"assa","rob" ,"assa"
 # opponentNames=["lag","illag","llag","pil","assa","asau"]
-opponentsInList = ["奇袭","掠夺","强盗"]
+opponentsInList = ["奇袭", "掠夺", "强盗"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 # add ducunyong as it's double lines, so quick hack,only checked in board
-opponentNames = ["奇袭","掠夺","强盗"]
-blackListForBattle = ['piz', 'zpi', 'robeyn', 'masa', 'roberts']
+opponentNames = ["奇袭", "掠夺", "强盗"]
+blackListForBattle = ["piz", "zpi", "robeyn", "masa", "roberts"]
 # rob: "rob",
 # 汉阳 chowta ass, chenziyu pirate fleet, shiyang ass
 # 淡水 azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -30,27 +30,86 @@ maticBarterTrade = {
     "villages": ["turk"],
     "buyCities": ["南特", "arguin", "marseille", "热那亚", "algiers", "tunis"],
     "enableVillageTrade": True,
-    "sellCity": "塞得港"
+    "sellCity": "塞得港",
 }
 NEEASupplySell = {
     # "jewllery","tourmaline" ,"handcanno", "flannel","amber"
-    "buyProducts": ["amber", "twohand", "felt", "gobelin", "steel", "vodka", "aquavit", "gin", "whisky", "tapestry", "western", "westerncann", "saffron", "azulejo", "almond"],
-    "buyCities": ["stockhol", "visby", "beck", "copenhag", "bergen", "edinburgh", "groningen", "amsterda", "london", "dover", "antwerp", "calais", "bristol", "南特", "bordeaux", "porto", "seville", "laga", "marseil", "热那亚", "seville", "laga", "marseil", "热那亚", "seville", "laga", "marseil", "热那亚"],
+    "buyProducts": [
+        "amber",
+        "twohand",
+        "felt",
+        "gobelin",
+        "steel",
+        "vodka",
+        "aquavit",
+        "gin",
+        "whisky",
+        "tapestry",
+        "western",
+        "westerncann",
+        "saffron",
+        "azulejo",
+        "almond",
+    ],
+    "buyCities": [
+        "stockhol",
+        "visby",
+        "beck",
+        "copenhag",
+        "bergen",
+        "edinburgh",
+        "groningen",
+        "amsterda",
+        "london",
+        "dover",
+        "antwerp",
+        "calais",
+        "bristol",
+        "南特",
+        "bordeaux",
+        "porto",
+        "seville",
+        "laga",
+        "marseil",
+        "热那亚",
+        "seville",
+        "laga",
+        "marseil",
+        "热那亚",
+        "seville",
+        "laga",
+        "marseil",
+        "热那亚",
+    ],
     "buySupplyCities": [],
     "dumpCrewCities": [""],
     "enableVillageTrade": True,
     "villages": ["日耳曼", "sami", "svea", "sam"],
-    "supplyCities": ["seville", "比萨", "热那亚", "bathurst", "sierra", "luanda", "capetown", "塔玛塔夫", "pasay", "杭州"],
+    "supplyCities": [
+        "seville",
+        "比萨",
+        "热那亚",
+        "bathurst",
+        "sierra",
+        "luanda",
+        "capetown",
+        "塔玛塔夫",
+        "帕赛",
+        "杭州",
+    ],
     "useSkillCity": None,
     "checkInnCities": True,
-    "sellCities": [{"name": "pasay", "types": "BM"},
-                   # {"name":"malacca","types":"BM"},{"name":"palembang","types":"BM"},
-                   # {"name":"jakarta","types":"BM"},{"name":"surabaya","types":"BM"},{"name":"banjarmasin","types":"BM"},
-                   {"name": "淡水", "types": "supply"}, {"name": "燕云", "types": None}]
+    "sellCities": [
+        {"name": "帕赛", "types": "BM"},
+        # {"name":"马六甲","types":"BM"},{"name":"巨港","types":"BM"},
+        # {"name":"雅加达","types":"BM"},{"name":"泗水","types":"BM"},{"name":"马辰","types":"BM"},
+        {"name": "淡水", "types": "supply"},
+        {"name": "燕云", "types": None},
+    ],
 }
 EADoubleBuy = {
     "buyFleet": 4,
-    "buyProducts": ["日本画","中国画"],
+    "buyProducts": ["日本画", "中国画"],
     "buyCities": ["北京", "重庆", "长崎", "江户"],
     "buySupplyCities": [],
     "buyStrategy": "twice",
@@ -58,25 +117,45 @@ EADoubleBuy = {
     "transportFleet": 2,
     "supplyCities": [{"route": 4, "target": "热那亚"}],
     "sellPriceIndexByName": "中国画",
-    "sellCityOptions": ["热那亚", "比萨","拿坡里", "锡拉库萨","威尼斯", "安科纳","第里雅斯特", "扎达尔","拉古萨"],
-    "fashions": ["赞助","流行"],
+    "sellCityOptions": [
+        "热那亚",
+        "比萨",
+        "拿坡里",
+        "锡拉库萨",
+        "威尼斯",
+        "安科纳",
+        "第里雅斯特",
+        "扎达尔",
+        "拉古萨",
+    ],
+    "fashions": ["赞助", "流行"],
     "waitForFashion": True,
-    "waitHour": 1
+    "waitHour": 1,
 }
 EuropeDoubleBuy = {
     "buyFleet": 4,
-    "buyProducts": ["花窗玻璃","镜子"],
-    "buyCities": ["马赛", "卡利亚里", "威尼斯", "雅斯特","安科纳"],
+    "buyProducts": ["花窗玻璃", "镜子"],
+    "buyCities": ["马赛", "卡利亚里", "威尼斯", "雅斯特", "安科纳"],
     "buySupplyCities": [],
     "buyStrategy": "twice",
     "dumpCrewCities": [],
     "transportFleet": 2,
-    "supplyCities": ["塞得港","tunnel","锡兰","嘉定","杭州"],
+    "supplyCities": ["塞得港", "tunnel", "锡兰", "嘉定", "杭州"],
     "sellPriceIndexByName": "花窗玻璃",
-    "sellCityOptions": ["杭州","澳门","泉州","淡水","安平","燕云","北京","长安","重庆"],
-    "fashions": ["赞助","流行"],
+    "sellCityOptions": [
+        "杭州",
+        "澳门",
+        "泉州",
+        "淡水",
+        "安平",
+        "燕云",
+        "北京",
+        "长安",
+        "重庆",
+    ],
+    "fashions": ["赞助", "流行"],
     "waitForFashion": True,
-    "waitHour": 1
+    "waitHour": 1,
 }
 EABuyBM = {
     "buyFleet": 4,
@@ -85,9 +164,9 @@ EABuyBM = {
     # ,"tiger'seye"],
     "buyProducts": ["gardenia", "begonia", "sweetolive", "azalea"],
     # ,"泉州","淡水","杭州","长安","汉阳","济州","澳门",],
-    "buyCities": ["汉阳", "东莱", "济州", "杭州", "淡水"], 
+    "buyCities": ["汉阳", "东莱", "济州", "杭州", "淡水"],
     "deductBuyBM": True,
-    "checkInnCities": ['堺', "江户", '汉阳', '杭州', "东莱", "济州", "淡水"],
+    "checkInnCities": ["堺", "江户", "汉阳", "杭州", "东莱", "济州", "淡水"],
     "buySupplyCities": [],
     "dumpCrewCities": [],
     "supplyCities": [],
@@ -95,41 +174,61 @@ EABuyBM = {
 }
 
 ## yawuru or kalkat
-yaruruOrKalkaOri="yawuru"
+yaruruOrKalkaOri = "yawuru"
+
+
 def getYawuruOrKalka(secondVillage=False):
-    if(secondVillage):
+    if secondVillage:
         return yaruruOrKalkaOri[:-1]
     return yaruruOrKalkaOri
 
+
 ## witoto or varo
-witotoOrVaro="witoto"
+witotoOrVaro = "witoto"
+
+
 def getWitotoOrVaro(secondVillage=False):
-    if(secondVillage):
+    if secondVillage:
         return witotoOrVaro[:-1]
     return witotoOrVaro
+
 
 apache = {
     "villageName": "阿帕奇",
     "buys": [
         # sequence has to map in game display
-        {"product": "白金", "cities": [
-            "纳塔尔", "索法拉", "克利马内"], "targetNum": 542},
-        {"product": "夜来香", "cities": [
-            "基尔瓦", "桑给巴尔", "摩加迪沙"], "targetNum": 600}
+        {
+            "product": "白金",
+            "cities": ["纳塔尔", "索法拉", "克利马内"],
+            "targetNum": 542,
+        },
+        {
+            "product": "夜来香",
+            "cities": ["基尔瓦", "桑给巴尔", "摩加迪沙"],
+            "targetNum": 600,
+        },
     ],
-    "buyCities": ["纳塔尔", "索法拉", "克利马内", "莫桑比克", "基尔瓦", "桑给巴尔", "摩加迪沙"],
+    "buyCities": [
+        "纳塔尔",
+        "索法拉",
+        "克利马内",
+        "莫桑比克",
+        "基尔瓦",
+        "桑给巴尔",
+        "摩加迪沙",
+    ],
     "supplyCities": ["开普敦", "乌斯怀亚", "利马", "阿卡普尔科"],
     "buyProducts": ["白金", "夜来香"],
     "checkInnCities": True,
     "afterVillageSupplyCities": ["阿卡普尔科"],
     # (index, val) array
-    "tradeObjects": [(0, 2), (1, 2), (2, 2),(3,2)],
+    "tradeObjects": [(0, 2), (1, 2), (2, 2), (3, 2)],
     "cleanupIndex": 3,
     "buyStrategy": "twice",
     "useGemCities": [],
     "supplyFleet": 2,
     "barterFleet": 3,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 
 apachewine = {
@@ -139,7 +238,28 @@ apachewine = {
     #     {"product":"silver","cities":[],"targetNum":402},
     #     {"product":"coral","cities":[],"targetNum":600}
     # ],
-    "buyCities": ["索法拉", "克利马内", "capetown", "tom","verde", "las", "santo", "trujillo", "portobelo", "santo", "bahia", "tom", "verde", "las", "bahia", "buenos", "乌斯怀亚", "copia", "guate", "阿卡普尔科"],
+    "buyCities": [
+        "索法拉",
+        "克利马内",
+        "capetown",
+        "tom",
+        "verde",
+        "las",
+        "santo",
+        "trujillo",
+        "portobelo",
+        "santo",
+        "bahia",
+        "tom",
+        "verde",
+        "las",
+        "bahia",
+        "buenos",
+        "乌斯怀亚",
+        "copia",
+        "guate",
+        "阿卡普尔科",
+    ],
     "supplyCities": ["阿卡普尔科"],
     "buyProducts": ["silver", "coral"],
     "buyNotProducts": ["work"],
@@ -151,22 +271,27 @@ apachewine = {
     "buyStrategy": "useGem",
     "useGemCities": ["tom"],
     "supplyFleet": 2,
-    "barterFleet": 3
+    "barterFleet": 3,
 }
 witoto = {
     "villageName": getWitotoOrVaro(),
     "buys": [
         # sequence has to map in game display
-        {"product": "noni", "cities": [
-            "kuching", "jakarta", "makassar"], "targetNum": 400},
-        {"product": "mangosteen", "cities": [
-            "malacca", "aceh"], "targetNum": 200},
-        {"product": "benzoin", "cities": [
-            "prey", "malacca", "pasay"], "targetNum": 450}
+        {
+            "product": "noni",
+            "cities": ["古晋", "雅加达", "makassar"],
+            "targetNum": 400,
+        },
+        {"product": "mangosteen", "cities": ["马六甲", "亚齐"], "targetNum": 200},
+        {
+            "product": "benzoin",
+            "cities": ["嘉定", "马六甲", "帕赛"],
+            "targetNum": 450,
+        },
     ],
     "useFishing": True,
-    "buyCities": ["prey", "kuching", "malacca", "jakarta", "makassar", "pasay", "aceh"],
-    "supplyCities": ["aceh", "塔玛塔夫", "开普敦", "soda", "pernambuco", "cayenne"],
+    "buyCities": ["嘉定", "古晋", "马六甲", "雅加达", "makassar", "帕赛", "亚齐"],
+    "supplyCities": ["亚齐", "塔玛塔夫", "开普敦", "soda", "pernambuco", "cayenne"],
     "buyProducts": ["noni", "mangosteen", "benzoin"],
     "checkInnCities": True,
     "afterVillageSupplyCities": ["cayenne"],
@@ -176,25 +301,39 @@ witoto = {
     "buyStrategy": "once",
     "useGemCities": [],
     "supplyFleet": 2,
-    "barterFleet": 3
+    "barterFleet": 3,
 }
 quechuas = {
     "villageName": "quechuas",
-    "buyCities": ["kuching", "aceh","摩加迪沙","桑给巴尔","基尔瓦","莫桑比克","开普敦","buenos","乌斯怀亚","valpara", "copia", "tumbes", "利马"],
-    # "buyCities": ["kuching", "aceh","摩加迪沙","桑给巴尔","基尔瓦","莫桑比克","摩加迪沙","桑给巴尔","基尔瓦","开普敦","bahia","rio","buenos","乌斯怀亚","valpara", "copia","阿卡普尔科","利马"],
+    "buyCities": [
+        "古晋",
+        "亚齐",
+        "摩加迪沙",
+        "桑给巴尔",
+        "基尔瓦",
+        "莫桑比克",
+        "开普敦",
+        "buenos",
+        "乌斯怀亚",
+        "valpara",
+        "copia",
+        "tumbes",
+        "利马",
+    ],
+    # "buyCities": ["古晋", "亚齐","摩加迪沙","桑给巴尔","基尔瓦","莫桑比克","摩加迪沙","桑给巴尔","基尔瓦","开普敦","bahia","rio","buenos","乌斯怀亚","valpara", "copia","阿卡普尔科","利马"],
     "supplyCities": ["利马"],
-    "buyProducts": ["coal", "silver","gold"],
-    "buyNotProducts": ["golddust","goldware"],
+    "buyProducts": ["coal", "silver", "gold"],
+    "buyNotProducts": ["golddust", "goldware"],
     "checkInnCities": True,
     "afterVillageSupplyCities": ["利马"],
     # (index, val) array
-    "tradeObjects": [(0, 0), (1, 0), (2, 0),(3, 0)],
+    "tradeObjects": [(0, 0), (1, 0), (2, 0), (3, 0)],
     "cleanupIndex": 3,
     "buyStrategy": "useGem",
-    "useGemCities": ["kuching","copia"],
+    "useGemCities": ["古晋", "copia"],
     "supplyFleet": 2,
     "barterFleet": 3,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 
 svear = {
@@ -208,45 +347,51 @@ svear = {
     "cleanupIndex": 2,
     "buyStrategy": "",
     "useGemCities": ["santa"],
-    "barterFleet": 3
+    "barterFleet": 3,
 }
 svearWLumber = {
     "villageName": "日耳曼",
-    "buyCities": ["santa", "barcelona","seville", "dublin", "amsterda","oslo","riga"],
+    "buyCities": [
+        "santa",
+        "barcelona",
+        "seville",
+        "dublin",
+        "amsterda",
+        "oslo",
+        "riga",
+    ],
     "checkInnCities": True,
     "supplyCities": ["visby"],
     "leaveGoods": ["lumber"],
-    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch","lumber"],
+    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch", "lumber"],
     # (index, val) array
     # "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    "tradeObjects": [(0, 0), (1, 0), (2, 1), (3, 1)],
     "cleanupIndex": 3,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 3,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 
-yawuru= {
+yawuru = {
     "villageName": getYawuruOrKalka(),
     "checkInnCities": True,
     "buys": [
         # sequence has to map in game display
         {"product": "lumber", "cities": [], "targetNum": 170},
-        {"product": "gold", "cities": [
-         "萨马赖", "pinjarra"], "targetNum": 260},
-        {"product": "kris", "cities": [
-            "jakarta", "surabaya"], "targetNum": 260}
+        {"product": "gold", "cities": ["萨马赖", "平哈拉"], "targetNum": 260},
+        {"product": "kris", "cities": ["雅加达", "泗水"], "targetNum": 260},
     ],
-    "buyProducts": ["kris", "gold","lumber"],
-    "buyCities": ["萨马赖", "pinjarra","jakarta", "surabaya"],
+    "buyProducts": ["kris", "gold", "lumber"],
+    "buyCities": ["萨马赖", "平哈拉", "雅加达", "泗水"],
     "supplyCities": ["kakatuwah"],
-    "tradeObjects": [(0, 1), (1, 1), (2, 1),(3, 1)],
+    "tradeObjects": [(0, 1), (1, 1), (2, 1), (3, 1)],
     "cleanupIndex": 3,
     "buyStrategy": "twice",
     "useGemCities": ["萨马赖"],
     "barterFleet": 3,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 sami = {
     "villageName": "sami",
@@ -254,26 +399,34 @@ sami = {
     "buyCities": ["santa", "seville", "dublin", "amsterda"],
     "supplyCities": ["bergen"],
     "buyProducts": ["candle", "matchlock", "iron", "lron"],
-    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    "tradeObjects": [(0, 0), (1, 0), (2, 1), (3, 1)],
     "cleanupIndex": 3,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 7,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 samiWLumber = {
     "villageName": "sami",
     "shortVillageName": "s",
-    "buyCities": ["santa", "barcelona","seville", "dublin", "amsterda","oslo","riga"],
+    "buyCities": [
+        "santa",
+        "barcelona",
+        "seville",
+        "dublin",
+        "amsterda",
+        "oslo",
+        "riga",
+    ],
     "supplyCities": ["bergen"],
     "leaveGoods": ["lumber"],
-    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch","lumber"],
-    "tradeObjects": [(0, 0), (1, 0), (2, 1),(3,1)],
+    "buyProducts": ["candle", "matchlock", "iron", "lron", "birch", "lumber"],
+    "tradeObjects": [(0, 0), (1, 0), (2, 1), (3, 1)],
     "cleanupIndex": 3,
     "buyStrategy": "",
     "useGemCities": ["santa"],
     "barterFleet": 7,
-    "barterFirstRoundCount":4
+    "barterFirstRoundCount": 4,
 }
 villageTradeList = {
     "turk": {
@@ -287,56 +440,43 @@ villageTradeList = {
         "cleanupIndex": 1,
         "buyStrategy": "useGem",
         "useGemCities": ["arguin"],
-        "barterFleet": 3
+        "barterFleet": 3,
     },
     "apache": apache,
-    "apach": {
-        **apache,
-        "tradeObjects": [(0, 2), (1, 2), (2, 2)],
-        "cleanupIndex": 2
-    },
-    "apac": {
-        **apache,
-        "tradeObjects": [(0, 2), (1, 2), (2, 2)],
-        "cleanupIndex": 2
-    },
+    "apach": {**apache, "tradeObjects": [(0, 2), (1, 2), (2, 2)], "cleanupIndex": 2},
+    "apac": {**apache, "tradeObjects": [(0, 2), (1, 2), (2, 2)], "cleanupIndex": 2},
     "apachewine": apachewine,
     "apachwine": apachewine,
     "apacwine": apachewine,
     "witoto": witoto,
-    "witot": {
-        **witoto,
-        "villageName": getWitotoOrVaro(True)
-    },
+    "witot": {**witoto, "villageName": getWitotoOrVaro(True)},
     "quechuas": quechuas,
     "quechua": {
         **quechuas,
         "tradeObjects": [(0, 0), (1, 0), (2, 0)],
-        "cleanupIndex": 2
+        "cleanupIndex": 2,
     },
     "svear": svear,
-    "svea": {
-        **svear
-    },
+    "svea": {**svear},
     "svearWLumber": svearWLumber,
     "sveaWLumber": {
         **svearWLumber,
         "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-        "cleanupIndex": 2
+        "cleanupIndex": 2,
     },
     "sami": sami,
     "sam": {
         **sami,
         "villageName": "sam",
         "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-        "cleanupIndex": 2
+        "cleanupIndex": 2,
     },
     "samiWLumber": samiWLumber,
     "samWLumber": {
         **samiWLumber,
         "villageName": "sam",
         "tradeObjects": [(0, 0), (1, 1), (2, 1)],
-        "cleanupIndex": 2
+        "cleanupIndex": 2,
     },
     "yawuru": yawuru,
     "yawur": {
@@ -344,7 +484,7 @@ villageTradeList = {
         "villageName": getYawuruOrKalka(True),
         "tradeObjects": [(0, 1), (1, 1), (2, 1)],
         "cleanupIndex": 2,
-    }
+    },
 }
 
 # Init option
@@ -353,22 +493,36 @@ villageTradeList = {
 # v1 trade mapping
 monthToRoute = {
     "3": 7,
-    "4": 7, "5": 7, "6": 4,
-    "7": 4, "8": 4, "9": 5,
-    "10": 5, "11": 5, "12": 6,
-    "1": 6, "2": 6
+    "4": 7,
+    "5": 7,
+    "6": 4,
+    "7": 4,
+    "8": 4,
+    "9": 5,
+    "10": 5,
+    "11": 5,
+    "12": 6,
+    "1": 6,
+    "2": 6,
 }
 bartingMonthToRoute = {
     "3": 9,
-    "4": 9, "5": 9, "6": 9,
-    "7": 9, "8": 9, "9": 9,
-    "10": 9, "11": 9, "12": 9,
-    "1": 9, "2": 9
+    "4": 9,
+    "5": 9,
+    "6": 9,
+    "7": 9,
+    "8": 9,
+    "9": 9,
+    "10": 9,
+    "11": 9,
+    "12": 9,
+    "1": 9,
+    "2": 9,
 }
 dailyJobConf = {
     "merchatQuestCity": "南特",
     "buffCity": "davao",
-    "basicFleet":2,
+    "basicFleet": 2,
     "landingFleet": 5,
     "preLandingCity": "cohasset",
     "landingCity": "cohasset",
@@ -378,12 +532,86 @@ dailyJobConf = {
     "landingRounds": 2,
     "reportAndAdvQuestCity": "江户",
     "battleQuest": True,
-    "gotoBattlecity": ["kakatuwah", "gari"],
-    "leaveBattlecity": ["gari", "kakatuwah"],
-    "negoTimes": 35
+    "gotoBattlecity": ["kakatuwah", "芬瑟岛"],
+    "leaveBattlecity": ["芬瑟岛", "kakatuwah"],
+    "negoTimes": 35,
 }
-checkInnCities=["比萨","热那亚"]
-checkInnCitiesBack = ['bathurst', "elmina", "亚丁", 'sierra', "barcelona", "marseille", "palma","比萨","cairo","beirut", "saint", "plymouth","beck","amsterda","dover","visby", "santo", "royal","portobelo","cohasset" "trujillo","panama", "索科特拉", "aceh", "pasay", "banjarmasin","jakarta", "纳塔尔","塔玛塔夫","索法拉", "克利马内", "莫桑比克", "基尔瓦", "桑给巴尔", "摩加迪沙", "乌斯怀亚", "copia", "tumbes", "南特", "arguin", "热那亚", "比萨", "algiers", "tunis", "santa","ceuta", "dublin", "amsterda", "bremen", "汉阳","东莱","济州","堺", "长崎", "杭州", "泉州","安平","澳门", "淡水", "malacca","manila","brunei","surabaya", "ceylon","gari", "pinjarra","萨马赖","hobart", "suva","mahina","atuona","soda", "pernambuco", "cayenne"]
+checkInnCities = ["比萨", "热那亚"]
+checkInnCitiesBack = [
+    "bathurst",
+    "elmina",
+    "亚丁",
+    "sierra",
+    "barcelona",
+    "marseille",
+    "palma",
+    "比萨",
+    "cairo",
+    "beirut",
+    "saint",
+    "plymouth",
+    "beck",
+    "amsterda",
+    "dover",
+    "visby",
+    "santo",
+    "royal",
+    "portobelo",
+    "cohasset" "trujillo",
+    "panama",
+    "索科特拉",
+    "亚齐",
+    "帕赛",
+    "马辰",
+    "雅加达",
+    "纳塔尔",
+    "塔玛塔夫",
+    "索法拉",
+    "克利马内",
+    "莫桑比克",
+    "基尔瓦",
+    "桑给巴尔",
+    "摩加迪沙",
+    "乌斯怀亚",
+    "copia",
+    "tumbes",
+    "南特",
+    "arguin",
+    "热那亚",
+    "比萨",
+    "algiers",
+    "tunis",
+    "santa",
+    "ceuta",
+    "dublin",
+    "amsterda",
+    "bremen",
+    "汉阳",
+    "东莱",
+    "济州",
+    "堺",
+    "长崎",
+    "杭州",
+    "泉州",
+    "安平",
+    "澳门",
+    "淡水",
+    "马六甲",
+    "manila",
+    "文莱",
+    "泗水",
+    "锡兰",
+    "芬瑟岛",
+    "平哈拉",
+    "萨马赖",
+    "霍巴特",
+    "suva",
+    "mahina",
+    "atuona",
+    "soda",
+    "pernambuco",
+    "cayenne",
+]
 
 svearRouteBase = {
     "buyProducts": [],
@@ -393,27 +621,41 @@ svearRouteBase = {
     "useFishingCities": [],
     "villages": ["svear"],
     "afterVillageBuyCities": [],
-    "supplyCities":["bremen","seville","tunis","塞得港","tunnel",{"route": 2, "target": "杭州"}],
+    "supplyCities": [
+        "bremen",
+        "seville",
+        "tunis",
+        "塞得港",
+        "tunnel",
+        {"route": 2, "target": "杭州"},
+    ],
     "transportFleet": 2,
     "useSkillCity": "苏伊士",
     "checkInnCities": True,
     "sellPriceIndexByName": "versl",
-    "sellCityOptions": ["杭州", "澳门", "泉州", "淡水", "安平", "燕云", "北京", "长安", "重庆"],
+    "sellCityOptions": [
+        "杭州",
+        "澳门",
+        "泉州",
+        "淡水",
+        "安平",
+        "燕云",
+        "北京",
+        "长安",
+        "重庆",
+    ],
     "forceUseSequenceOptions": False,
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
-            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"]
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"],
         }
     ],
     "sellCities": [{"name": "苏伊士", "types": None}],
     "fashions": ["赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": []
+    "afterSellCities": [],
 }
 
 svearWLumberRouteBase = {
@@ -424,57 +666,109 @@ svearWLumberRouteBase = {
     "useFishingCities": [],
     "villages": ["svearWLumber"],
     "afterVillageBuyCities": [],
-    "supplyCities":["beck","bremen","plymouth","南特","palma","热那亚","比萨","cairo","塞得港","tunnel",{"route": 2, "target": "杭州"}],
+    "supplyCities": [
+        "beck",
+        "bremen",
+        "plymouth",
+        "南特",
+        "palma",
+        "热那亚",
+        "比萨",
+        "cairo",
+        "塞得港",
+        "tunnel",
+        {"route": 2, "target": "杭州"},
+    ],
     "transportFleet": 2,
     "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndexByName": "versl",
-    "sellCityOptions": ["杭州", "澳门", "泉州", "淡水", "安平", "燕云", "北京", "长安", "重庆"],
+    "sellCityOptions": [
+        "杭州",
+        "澳门",
+        "泉州",
+        "淡水",
+        "安平",
+        "燕云",
+        "北京",
+        "长安",
+        "重庆",
+    ],
     "forceUseSequenceOptions": False,
     "onlySellTypes": ["crafts"],
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
-            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"]
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"],
         }
     ],
     "fashions": ["赞助"],
     "waitForFashion": False,
     "waitHour": 1,
-    "afterSellCities": []
+    "afterSellCities": [],
 }
 
-yawuruRouteBase={
+yawuruRouteBase = {
     "buyProducts": [],
     "buyFleet": 4,
-    "buyCities": ["jakarta"],
+    "buyCities": ["雅加达"],
     "villages": ["yawuru"],
     "enableVillageTrade": True,
     "useFishingCities": ["panama"],
     "afterVillageBuyCities": [],
     "transportFleet": 2,
-    "supplyCities":["萨马赖","atuona","panama","tunnel","royal","santo"],
+    "supplyCities": ["萨马赖", "atuona", "panama", "tunnel", "royal", "santo"],
     "useSkillCity": "portobelo",
     "checkInnCities": True,
-    "sellCityOptions": ["santo","veracruz","rida","trujillo","portobelo","cartagena","maracaibo","willemstad","caracas","porlamar","juan","santiago","royal","southside","havana","nassau"],
+    "sellCityOptions": [
+        "santo",
+        "veracruz",
+        "rida",
+        "trujillo",
+        "portobelo",
+        "cartagena",
+        "maracaibo",
+        "willemstad",
+        "caracas",
+        "porlamar",
+        "juan",
+        "santiago",
+        "royal",
+        "southside",
+        "havana",
+        "nassau",
+    ],
     "forceUseSequenceOptions": False,
-    "fashions": ["赞助","繁荣"],
+    "fashions": ["赞助", "流行"],
     "waitForFashion": True,
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
             "goToCityForTrade": "hamburg",
-            "cities": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"]
+            "cities": [
+                "beck",
+                "saint",
+                "kokkola",
+                "riga",
+                "stockhol",
+                "gda",
+                "visby",
+                "copenhag",
+                "oslo",
+                "bergen",
+                "edinburgh",
+                "hamburg",
+                "bremen",
+                "groningen",
+                "amsterda",
+                "london",
+                "dover",
+                "antwerp",
+            ],
         }
     ],
     "waitHour": 1,
-    "afterSellCities": ["santa"]
+    "afterSellCities": ["santa"],
 }
 
 samiRouteBase = {
@@ -485,27 +779,41 @@ samiRouteBase = {
     "useFishingCities": [],
     "villages": ["sami"],
     "afterVillageBuyCities": [],
-    "supplyCities":["南特","热那亚","比萨","塞得港","tunnel",{"route": 2, "target": "杭州"}],
+    "supplyCities": [
+        "南特",
+        "热那亚",
+        "比萨",
+        "塞得港",
+        "tunnel",
+        {"route": 2, "target": "杭州"},
+    ],
     "transportFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndexByName": "versl",
-    "sellCityOptions": ["杭州", "澳门", "泉州", "淡水", "安平", "燕云", "北京", "长安", "重庆"],
+    "sellCityOptions": [
+        "杭州",
+        "澳门",
+        "泉州",
+        "淡水",
+        "安平",
+        "燕云",
+        "北京",
+        "长安",
+        "重庆",
+    ],
     "forceUseSequenceOptions": False,
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
-            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"]
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"],
         }
     ],
     "sellCities": [{"name": "苏伊士", "types": None}],
     "fashions": ["赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": []
+    "afterSellCities": [],
 }
 samiWLumberRouteBase = {
     "buyProducts": [],
@@ -515,27 +823,41 @@ samiWLumberRouteBase = {
     "useFishingCities": [],
     "villages": ["samiWLumber"],
     "afterVillageBuyCities": [],
-    "supplyCities":["南特","热那亚","比萨","塞得港","tunnel",{"route": 2, "target": "杭州"}],
+    "supplyCities": [
+        "南特",
+        "热那亚",
+        "比萨",
+        "塞得港",
+        "tunnel",
+        {"route": 2, "target": "杭州"},
+    ],
     "transportFleet": 7,
     "useSkillCity": False,
     "checkInnCities": True,
     "sellPriceIndexByName": "versl",
-    "sellCityOptions": ["杭州", "澳门", "泉州", "淡水", "安平", "燕云", "北京", "长安", "重庆"],
+    "sellCityOptions": [
+        "杭州",
+        "澳门",
+        "泉州",
+        "淡水",
+        "安平",
+        "燕云",
+        "北京",
+        "长安",
+        "重庆",
+    ],
     "forceUseSequenceOptions": False,
     "onlySellTypes": ["crafts"],
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
-            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"]
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+            "cities": ["汉阳", "济州", "江户", "长崎", "东莱", "迎日", "德源", "堺"],
         }
     ],
     "fashions": ["赞助"],
     "waitForFashion": False,
     "waitHour": 1,
-    "afterSellCities": []
+    "afterSellCities": [],
 }
 apacheRouteBase = {
     "buyProducts": [],
@@ -549,35 +871,67 @@ apacheRouteBase = {
     "transportFleet": 2,
     "useSkillCity": "苏伊士",
     "checkInnCities": True,
-    "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+    "sellCityOptions": [
+        "苏伊士",
+        "吉达",
+        "马萨瓦",
+        "亚丁",
+        "索科特拉",
+        "杜法尔",
+        "马斯喀特",
+        "霍尔木兹",
+        "多哈",
+        "设拉子",
+        "巴士拉",
+        "巴格达",
+    ],
     "secondSellOptions": [
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
-            ],
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
             "goToCityForTrade": "莫桑比克",
-            "cities": ["克利马内", "莫桑比克", "塔玛塔夫", "基尔瓦", "桑给巴尔", "蒙巴萨", "马林迪", "摩加迪沙"]
+            "cities": [
+                "克利马内",
+                "莫桑比克",
+                "塔玛塔夫",
+                "基尔瓦",
+                "桑给巴尔",
+                "蒙巴萨",
+                "马林迪",
+                "摩加迪沙",
+            ],
         }
     ],
     "fashions": ["奢华", "赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": ["苏伊士"]
+    "afterSellCities": ["苏伊士"],
 }
 
 quechuasRouteBase = {
     "buyProducts": [],
     "buyFleet": 4,
-    "buyCities": ["kuching"],
+    "buyCities": ["古晋"],
     "enableVillageTrade": True,
-    "useFishingCities": ["乌斯怀亚","开普敦"],
+    "useFishingCities": ["乌斯怀亚", "开普敦"],
     "villages": ["quechuas"],
-    "supplyCities": ['乌斯怀亚', 'town', '亚丁'],
+    "supplyCities": ["乌斯怀亚", "town", "亚丁"],
     "transportFleet": 2,
     "useSkillCity": True,
     "checkInnCities": True,
-    "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+    "sellCityOptions": [
+        "苏伊士",
+        "吉达",
+        "马萨瓦",
+        "亚丁",
+        "索科特拉",
+        "杜法尔",
+        "马斯喀特",
+        "霍尔木兹",
+        "多哈",
+        "设拉子",
+        "巴士拉",
+        "巴格达",
+    ],
     "secondSellOptions": [
         {
             "seqs": [
@@ -586,32 +940,49 @@ quechuasRouteBase = {
                 {"type": "goSellCity"},
                 {"type": "sell"},
                 {"type": "go", "val": "塞得港"},
-                {"type": "tunnel"}
+                {"type": "tunnel"},
             ],
-            "cities": ["亚历山德", "cairo", "塞得港", "jaffa", "beirut", "nicosia", "antalya", "candia", "trabzon", "benghazi"]
+            "cities": [
+                "亚历山德",
+                "cairo",
+                "塞得港",
+                "jaffa",
+                "beirut",
+                "nicosia",
+                "antalya",
+                "candia",
+                "trabzon",
+                "benghazi",
+            ],
         },
         {
-            "seqs": [
-                {"type": "goSellCity"},
-                {"type": "sell"}
+            "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+            "cities": [
+                "克利马内",
+                "莫桑比克",
+                "塔玛塔夫",
+                "基尔瓦",
+                "桑给巴尔",
+                "蒙巴萨",
+                "马林迪",
+                "摩加迪沙",
             ],
-            "cities": ["克利马内", "莫桑比克", "塔玛塔夫", "基尔瓦", "桑给巴尔", "蒙巴萨", "马林迪", "摩加迪沙"]
-        }
+        },
     ],
     "fashions": ["奢华", "赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": ["苏伊士"]
+    "afterSellCities": ["苏伊士"],
 }
 witotoRouteBase = {
     "buyProducts": [],
     "buyFleet": 4,
-    "buyCities": ["prey", "德源"],
+    "buyCities": ["嘉定", "德源"],
     "enableVillageTrade": True,
     "useFishingCities": [],
     "villages": ["witoto"],
     "afterVillageBuyCities": [],
-    "supplyCities": ["elmina", "开普敦", "塔玛塔夫", "pasay", "东莱"],
+    "supplyCities": ["elmina", "开普敦", "塔玛塔夫", "帕赛", "东莱"],
     "transportFleet": 2,
     # "useSkillCity":"苏伊士",
     "checkInnCities": True,
@@ -619,13 +990,12 @@ witotoRouteBase = {
     "fashions": ["赞助"],
     "waitForFashion": True,
     "waitHour": 1,
-    "afterSellCities": ["汉阳", "安平", "malacca", "摩加迪沙"]
+    "afterSellCities": ["汉阳", "安平", "马六甲", "摩加迪沙"],
 }
 routeLists = [
     # northEu liquor Dec-Feb(Inc)Winter+, mar-May(Spring)STD, Jun-(Summer)-
     # EA: Perfume: Dec-Feb(Winter),STD, Mar-May(Spring)-, Jun-(Summer)Aug STD,Sep-Nov(Autumn)++
     # Carrebean: Nov-May: Liquor,Lux+    Jun-Oct: Dye,Gem+
-
     # 0 SEA-Carrebean  mar-May-spring
     [
         # harvest
@@ -636,22 +1006,70 @@ routeLists = [
             "buySupplyCities": [],
             "buyStrategy": "twice",
             "dumpCrewCities": [],
-            "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "塔玛塔夫", "pasay"],
-            # "sellCities":[{"name":"malacca","types":["liquor"]},{"name":"pasay","types":None}],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "澳门", "types": ["placeholder"]}, {"name": "长安", "types": None}, {"name": "汉阳", "types": "BM"}, {"name": "济州", "types": "BM"}, {"name": "palembang", "types": "BM"}, {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {"name": "banjarmasin", "types": ["placeholder"]}],
+            "supplyCities": [
+                "juan",
+                "verde",
+                "elmina",
+                "luanda",
+                "capetown",
+                "塔玛塔夫",
+                "帕赛",
+            ],
+            # "sellCities":[{"name":"马六甲","types":["liquor"]},{"name":"帕赛","types":None}],
+            "sellCities": [
+                {"name": "帕赛", "types": "BM"},
+                {"name": "马六甲", "types": "BM"},
+                {"name": "澳门", "types": ["pl亚齐older"]},
+                {"name": "长安", "types": None},
+                {"name": "汉阳", "types": "BM"},
+                {"name": "济州", "types": "BM"},
+                {"name": "巨港", "types": "BM"},
+                {"name": "雅加达", "types": "BM"},
+                {"name": "泗水", "types": "BM"},
+                {"name": "马辰", "types": ["pl亚齐older"]},
+            ],
             "transportFleet": 2,
         },
         {
             # blueprint 1 perfume to spice
             "buyFleet": 4,
-            "buyProducts": ["ebony", "agarwood", "ylang-ylang", "musk", "mace", "kris", "mangosteen"],
-            "buyCities": ["banda", "ambon", "ternate", "jolo", "makassar", "banjarmasin", "jakarta", "pasay", "aceh"],
+            "buyProducts": [
+                "ebony",
+                "agarwood",
+                "ylang-ylang",
+                "musk",
+                "mace",
+                "kris",
+                "mangosteen",
+            ],
+            "buyCities": [
+                "banda",
+                "ambon",
+                "ternate",
+                "jolo",
+                "makassar",
+                "马辰",
+                "雅加达",
+                "帕赛",
+                "亚齐",
+            ],
             "buySupplyCities": [],
             "buyStrategy": "twice",
             "dumpCrewCities": [],
-            "supplyCities": ["pasay", "塔玛塔夫", "开普敦", "pernambuco", "cayenne", "caracas"],
+            "supplyCities": [
+                "帕赛",
+                "塔玛塔夫",
+                "开普敦",
+                "pernambuco",
+                "cayenne",
+                "caracas",
+            ],
             "useSkillCity": "rida",
-            "sellCities": [{"name": "rida", "types": ["perfume", "dye"]}, {"name": "veracruz", "types": "BM"}, {"name": "southside", "types": None}],
+            "sellCities": [
+                {"name": "rida", "types": ["perfume", "dye"]},
+                {"name": "veracruz", "types": "BM"},
+                {"name": "southside", "types": None},
+            ],
             "transportFleet": 2,
         },
     ],
@@ -659,17 +1077,37 @@ routeLists = [
     [
         {
             "buyProducts": ["opal", "tequila", "pineapple", "logwood"],
-            "buyCities": ["southside", "roya", "willemstad", "porlamar", "caracas", "juan"],
+            "buyCities": [
+                "southside",
+                "roya",
+                "willemstad",
+                "porlamar",
+                "caracas",
+                "juan",
+            ],
             "buyStrategy": "twice",
             "buySupplyCities": [],
             "dumpCrewCities": [],
-            "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "塔玛塔夫", "pasay"],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
-                           {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
-                               "name": "banjarmasin", "types": "BM"},
-                           {"name": "davao", "types": ["dye"]}, {"name": "淡水", "types": [
-                               "placeholder"]}, {"name": "长安", "types": None}
-                           ]
+            "supplyCities": [
+                "juan",
+                "verde",
+                "elmina",
+                "luanda",
+                "capetown",
+                "塔玛塔夫",
+                "帕赛",
+            ],
+            "sellCities": [
+                {"name": "帕赛", "types": "BM"},
+                {"name": "马六甲", "types": "BM"},
+                {"name": "巨港", "types": "BM"},
+                {"name": "雅加达", "types": "BM"},
+                {"name": "泗水", "types": "BM"},
+                {"name": "马辰", "types": "BM"},
+                {"name": "davao", "types": ["dye"]},
+                {"name": "淡水", "types": ["pl亚齐older"]},
+                {"name": "长安", "types": None},
+            ],
         },
         # {
         #     **NEEASupplySell,
@@ -682,57 +1120,119 @@ routeLists = [
         EABuyBM,
         {
             **EADoubleBuy,
-            "supplyCities": ["澳门", "pasay", "塔玛塔夫", "开普敦", "pernambuco", "cayenne", "caracas"],
+            "supplyCities": [
+                "澳门",
+                "帕赛",
+                "塔玛塔夫",
+                "开普敦",
+                "pernambuco",
+                "cayenne",
+                "caracas",
+            ],
             "useSkillCity": "maracaibo",
-            "sellCities": [{"name": "maracaibo", "types": None}, {"name": "veracruz", "types": "BM"}],
-        }
+            "sellCities": [
+                {"name": "maracaibo", "types": None},
+                {"name": "veracruz", "types": "BM"},
+            ],
+        },
     ],
-
     # 2 Autumn Sep-Oct, Carrebean-EA, EA-perfume+, Carrebean-dey+ (Nov EA+, carrebean dye-, luxury+)
     [
         {
             "buyProducts": ["opal", "tequila", "pineapple", "logwood"],
-            "buyCities": ["southside", "roya", "willemstad", "porlamar", "caracas", "juan"],
+            "buyCities": [
+                "southside",
+                "roya",
+                "willemstad",
+                "porlamar",
+                "caracas",
+                "juan",
+            ],
             "buyStrategy": "twice",
             "buySupplyCities": [],
             "dumpCrewCities": [],
-            "supplyCities": ["juan", "verde", "elmina", "luanda", "capetown", "塔玛塔夫", "pasay"],
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
-                           {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
-                               "name": "banjarmasin", "types": "BM"},
-                           {"name": "davao", "types": ["dye", "jewelry"]}, {
-                               "name": "淡水", "types": ["placeholder"]}, {"name": "长安", "types": None}
-                           ]
+            "supplyCities": [
+                "juan",
+                "verde",
+                "elmina",
+                "luanda",
+                "capetown",
+                "塔玛塔夫",
+                "帕赛",
+            ],
+            "sellCities": [
+                {"name": "帕赛", "types": "BM"},
+                {"name": "马六甲", "types": "BM"},
+                {"name": "巨港", "types": "BM"},
+                {"name": "雅加达", "types": "BM"},
+                {"name": "泗水", "types": "BM"},
+                {"name": "马辰", "types": "BM"},
+                {"name": "davao", "types": ["dye", "jewelry"]},
+                {"name": "淡水", "types": ["pl亚齐older"]},
+                {"name": "长安", "types": None},
+            ],
         },
         EABuyBM,
         {
             **EADoubleBuy,
             # ,"goryeoceladon","chinesepainting","easterncannon" ,"tiger'seye",
-            "buyProducts": ["gardenia", "sweetolive", "azalea", "chinesetea", "agarwood", "ylang-ylang"],
+            "buyProducts": [
+                "gardenia",
+                "sweetolive",
+                "azalea",
+                "chinesetea",
+                "agarwood",
+                "ylang-ylang",
+            ],
             "buyCities": ["naha", "杭州", "长安", "汉阳"],
-            "supplyCities": ["澳门", "pasay", "塔玛塔夫", "开普敦", "pernambuco", "cayenne", "caracas"],
+            "supplyCities": [
+                "澳门",
+                "帕赛",
+                "塔玛塔夫",
+                "开普敦",
+                "pernambuco",
+                "cayenne",
+                "caracas",
+            ],
             "useSkillCity": "maracaibo",
-            "sellCities": [{"name": "maracaibo", "types": None}, {"name": "veracruz", "types": "BM"}],
+            "sellCities": [
+                {"name": "maracaibo", "types": None},
+                {"name": "veracruz", "types": "BM"},
+            ],
         },
     ],
-
     # 3 Winter Nov-Feb, Carrebean-EA, EA-perfume->, Carrebean-luxury+ (Nov EA+, carrebean dye-, luxury+)
     [
         {
             **EADoubleBuy,
-            "sellCities": [{"name": "pasay", "types": "BM"}, {"name": "malacca", "types": "BM"}, {"name": "palembang", "types": "BM"},
-                           {"name": "jakarta", "types": "BM"}, {"name": "surabaya", "types": "BM"}, {
-                               "name": "banjarmasin", "types": "BM"},
-                           {"name": "淡水", "types": ["placeholder"]}, {
-                "name": "长安", "types": None}
-            ]
+            "sellCities": [
+                {"name": "帕赛", "types": "BM"},
+                {"name": "马六甲", "types": "BM"},
+                {"name": "巨港", "types": "BM"},
+                {"name": "雅加达", "types": "BM"},
+                {"name": "泗水", "types": "BM"},
+                {"name": "马辰", "types": "BM"},
+                {"name": "淡水", "types": ["pl亚齐older"]},
+                {"name": "长安", "types": None},
+            ],
         },
         {
             **EADoubleBuy,
-            "supplyCities": ["马赛", "pasay", "塔玛塔夫", "开普敦", "pernambuco", "cayenne", "caracas"],
+            "supplyCities": [
+                "马赛",
+                "帕赛",
+                "塔玛塔夫",
+                "开普敦",
+                "pernambuco",
+                "cayenne",
+                "caracas",
+            ],
             "useSkillCity": "maracaibo",
-            "sellCities": [{"name": "maracaibo", "types": None}, {"name": "veracruz", "types": "BM"}],
-        }
+            "sellCities": [
+                {"name": "maracaibo", "types": None},
+                {"name": "veracruz", "types": "BM"},
+            ],
+        },
     ],
     # 4 Summer Jun-Aug, NorthE-EA
     [
@@ -740,16 +1240,51 @@ routeLists = [
             **NEEASupplySell,
             "buyFleet": 4,
             "buyStrategy": "twice",
-            "buyProducts": ["twohand", "lilyof", "felt", "gobelin", "woodenshoe", "steel", "vodka", "aquavit", "gin", "whisky", "tapestry", "western", "westerncann", "saffron", "azulejo", "almond"],
-            "buyCities": ["hamburg", "bremen", "london", "dover", "den", "antwerp", "bristol", "bordeaux", "seville", "laga"],
+            "buyProducts": [
+                "twohand",
+                "lilyof",
+                "felt",
+                "gobelin",
+                "woodenshoe",
+                "steel",
+                "vodka",
+                "aquavit",
+                "gin",
+                "whisky",
+                "tapestry",
+                "western",
+                "westerncann",
+                "saffron",
+                "azulejo",
+                "almond",
+            ],
+            "buyCities": [
+                "hamburg",
+                "bremen",
+                "london",
+                "dover",
+                "den",
+                "antwerp",
+                "bristol",
+                "bordeaux",
+                "seville",
+                "laga",
+            ],
             "transportFleet": 2,
         },
         # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["chinesepainting", "shubrocade", "candycraft", "amethyst", "yosegi", "sweetolive"],
-            "buyProductsAfterSupplyCities": ["长安", "江户", "长崎", "堺", "杭州"]
-        }
+            "buyProductsAfterSupply": [
+                "chinesepainting",
+                "shubrocade",
+                "candycraft",
+                "amethyst",
+                "yosegi",
+                "sweetolive",
+            ],
+            "buyProductsAfterSupplyCities": ["长安", "江户", "长崎", "堺", "杭州"],
+        },
     ],
     # 5 Autumn Sep-Nov, NE-EA, EA-perfume+
     [
@@ -757,17 +1292,51 @@ routeLists = [
             **NEEASupplySell,
             "buyFleet": 4,
             "buyStrategy": "twice",
-            "buyProducts": ["twohand", "lilyof", "felt", "gobelin", "woodenshoe", "steel", "vodka", "aquavit", "gin", "whisky", "tapestry", "western", "westerncann", "saffron", "azulejo", "almond"],
-            "buyCities": ["bremen", "london", "dover", "den", "antwerp", "bristol", "bordeaux", "seville", "laga"],
+            "buyProducts": [
+                "twohand",
+                "lilyof",
+                "felt",
+                "gobelin",
+                "woodenshoe",
+                "steel",
+                "vodka",
+                "aquavit",
+                "gin",
+                "whisky",
+                "tapestry",
+                "western",
+                "westerncann",
+                "saffron",
+                "azulejo",
+                "almond",
+            ],
+            "buyCities": [
+                "bremen",
+                "london",
+                "dover",
+                "den",
+                "antwerp",
+                "bristol",
+                "bordeaux",
+                "seville",
+                "laga",
+            ],
             "transportFleet": 2,
         },
         # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProducts": ["gardenia", "sweetolive", "azalea", "chinesetea", "agarwood", "ylang-ylang"],
+            "buyProducts": [
+                "gardenia",
+                "sweetolive",
+                "azalea",
+                "chinesetea",
+                "agarwood",
+                "ylang-ylang",
+            ],
             "buyProductsAfterSupply": [],
             "buyCities": ["naha", "杭州", "长安", "汉阳"],
-        }
+        },
     ],
     # 6 Winter Dec-Feb, NE-EA, EA-perfume->, liquor+
     [
@@ -775,16 +1344,47 @@ routeLists = [
             **NEEASupplySell,
             "buyFleet": 4,
             "buyStrategy": "twice",
-            "buyProducts": ["twohand", "lilyof", "gobelin", "steel", "vodka", "gin", "whisky", "tapestry", "western", "westerncann", "saffron", "azulejo", "almond"],
-            "buyCities": ["saint", "stockhol", "visby", "riga", "edinburgh", "groningen", "amsterda", "london", "dover"],
+            "buyProducts": [
+                "twohand",
+                "lilyof",
+                "gobelin",
+                "steel",
+                "vodka",
+                "gin",
+                "whisky",
+                "tapestry",
+                "western",
+                "westerncann",
+                "saffron",
+                "azulejo",
+                "almond",
+            ],
+            "buyCities": [
+                "saint",
+                "stockhol",
+                "visby",
+                "riga",
+                "edinburgh",
+                "groningen",
+                "amsterda",
+                "london",
+                "dover",
+            ],
             "transportFleet": 2,
         },
         # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProductsAfterSupply": ["chinesepainting", "shubrocade", "candycraft", "amethyst", "yosegi", "sweetolive"],
-            "buyProductsAfterSupplyCities": ["长安", "江户", "长崎", "堺", "杭州"]
-        }
+            "buyProductsAfterSupply": [
+                "chinesepainting",
+                "shubrocade",
+                "candycraft",
+                "amethyst",
+                "yosegi",
+                "sweetolive",
+            ],
+            "buyProductsAfterSupplyCities": ["长安", "江户", "长崎", "堺", "杭州"],
+        },
     ],
     # 7 Spring Dec-Feb, NE-EA, EA-perfume->, liquor+
     [
@@ -792,17 +1392,63 @@ routeLists = [
             **NEEASupplySell,
             "buyFleet": 4,
             "buyStrategy": "twice",
-            "buyProducts": ["twohand", "lilyof", "gobelin", "steel", "vodka", "gin", "whisky", "tapestry", "western", "westerncann", "saffron", "azulejo", "almond"],
-            "buyCities": ["saint", "stockhol", "visby", "riga", "edinburgh", "groningen", "amsterda", "london", "dover", "santa"],
+            "buyProducts": [
+                "twohand",
+                "lilyof",
+                "gobelin",
+                "steel",
+                "vodka",
+                "gin",
+                "whisky",
+                "tapestry",
+                "western",
+                "westerncann",
+                "saffron",
+                "azulejo",
+                "almond",
+            ],
+            "buyCities": [
+                "saint",
+                "stockhol",
+                "visby",
+                "riga",
+                "edinburgh",
+                "groningen",
+                "amsterda",
+                "london",
+                "dover",
+                "santa",
+            ],
             "transportFleet": 2,
         },
         # EABuyBM,
         {
             **EADoubleBuy,
-            "buyProducts": ["begonia", "tiger'seye", "gardenia", "sweetolive", "azalea", "chinesetea", "agarwood", "ylang-ylang", "chinesepainting", "shubrocade", "easterncannon", "goryeo"],
-            "buyProductsAfterSupply": ["horseback", "japanesepainting", "candycraft", "amethyst", "nishijin", "yosegi", "sweetolive"],
-            "buyProductsAfterSupplyCities": ["江户", "长崎", "堺", "杭州"]
-        }
+            "buyProducts": [
+                "begonia",
+                "tiger'seye",
+                "gardenia",
+                "sweetolive",
+                "azalea",
+                "chinesetea",
+                "agarwood",
+                "ylang-ylang",
+                "chinesepainting",
+                "shubrocade",
+                "easterncannon",
+                "goryeo",
+            ],
+            "buyProductsAfterSupply": [
+                "horseback",
+                "japanesepainting",
+                "candycraft",
+                "amethyst",
+                "nishijin",
+                "yosegi",
+                "sweetolive",
+            ],
+            "buyProductsAfterSupplyCities": ["江户", "长崎", "堺", "杭州"],
+        },
     ],
     # svear+witoto， #8
     [
@@ -810,19 +1456,29 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svear"],
-            "afterSellCities": ["泉州"]
+            "afterSellCities": ["泉州"],
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "德源"],
+            "buyCities": ["嘉定", "德源"],
             "villages": ["witoto"],
-            "afterSellCities": ["汉阳", "长崎","泉州", "manila", "ceylon","塔玛塔夫", "开普敦", "soda", "bathurst"]
+            "afterSellCities": [
+                "汉阳",
+                "长崎",
+                "泉州",
+                "manila",
+                "锡兰",
+                "塔玛塔夫",
+                "开普敦",
+                "soda",
+                "bathurst",
+            ],
         },
         {
             **svearRouteBase,
             "buyCities": ["seville", "杭州"],
             "villages": ["svea"],
-            "afterSellCities": ["长崎","泉州", "manila", "亚丁", "苏伊士"]
+            "afterSellCities": ["长崎", "泉州", "manila", "亚丁", "苏伊士"],
         },
         {
             "buyCities": ["苏伊士"],
@@ -834,22 +1490,28 @@ routeLists = [
             "buyCities": ["南特"],
             "mode": "merchantQuest",
             "supplyCities": ["索科特拉", "manila"],
-            "checkInnCities": True
+            "checkInnCities": True,
         },
         {
             "mode": "battle",
             "buyCities": ["davao"],
         },
-        {
-            "mode": "reportAndAdvQuest",
-            "buyCities": ["江户"]
-         },
+        {"mode": "reportAndAdvQuest", "buyCities": ["江户"]},
         {
             **witotoRouteBase,
-            "buyCities": ["kuching"],
+            "buyCities": ["古晋"],
             "villages": ["witot"],
-            "afterSellCities": ["汉阳", "长崎","泉州", "manila", "塔玛塔夫", "开普敦", "soda", "bathurst"]
-        }
+            "afterSellCities": [
+                "汉阳",
+                "长崎",
+                "泉州",
+                "manila",
+                "塔玛塔夫",
+                "开普敦",
+                "soda",
+                "bathurst",
+            ],
+        },
     ],
     # wine+witoto #9
     [
@@ -858,25 +1520,43 @@ routeLists = [
             **apacheRouteBase,
             "villages": ["apachewine"],
             "transportFleet": 2,
-            "buyCities": ["纳塔尔","阿卡普尔科"],
+            "buyCities": ["纳塔尔", "阿卡普尔科"],
             "afterSellCities": ["索科特拉"],
             "useSkillCity": False,
-            "sellCityOptions": ["克利马内", "莫桑比克", "塔玛塔夫", "基尔瓦", "桑给巴尔", "蒙巴萨", "马林迪", "摩加迪沙"],
-            "waitForFashion": False
+            "sellCityOptions": [
+                "克利马内",
+                "莫桑比克",
+                "塔玛塔夫",
+                "基尔瓦",
+                "桑给巴尔",
+                "蒙巴萨",
+                "马林迪",
+                "摩加迪沙",
+            ],
+            "waitForFashion": False,
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "德源","santa","杭州","阿卡普尔科"],
+            "buyCities": ["嘉定", "德源", "santa", "杭州", "阿卡普尔科"],
             "villages": ["witoto"],
-            "afterSellCities": ["汉阳", "长崎", "泉州", "manila", "ceylon"]
+            "afterSellCities": ["汉阳", "长崎", "泉州", "manila", "锡兰"],
         },
         {
             **apacheRouteBase,
             "transportFleet": 2,
             "villages": ["apacwine"],
             "buyCities": ["索法拉", "乌斯怀亚"],
-            "sellCityOptions": ["克利马内", "莫桑比克", "塔玛塔夫", "基尔瓦", "桑给巴尔", "蒙巴萨", "马林迪", "摩加迪沙"],
-            "afterSellCities": ["ceylon", "manila", "davao"]
+            "sellCityOptions": [
+                "克利马内",
+                "莫桑比克",
+                "塔玛塔夫",
+                "基尔瓦",
+                "桑给巴尔",
+                "蒙巴萨",
+                "马林迪",
+                "摩加迪沙",
+            ],
+            "afterSellCities": ["锡兰", "manila", "davao"],
         },
         {
             "mode": "buff",
@@ -885,15 +1565,23 @@ routeLists = [
         },
         {
             "mode": "battle",
-            "buyCities": ["davao", "关岛","切尔斯基","ezo"],
-            # "supplyCities": ["长崎","杭州","澳门","malacca", "ceylon","苏伊士"],
-            "checkInnCities": True
+            "buyCities": ["davao", "关岛", "切尔斯基", "ezo"],
+            # "supplyCities": ["长崎","杭州","澳门","马六甲", "锡兰","苏伊士"],
+            "checkInnCities": True,
         },
         {
             "mode": "reportAndAdvQuest",
-            "buyCities": ["江户","安平","萨马赖"],
+            "buyCities": ["江户", "安平", "萨马赖"],
             "checkInnCities": True,
-            "supplyCities": ["长崎","杭州","澳门","brunei","surabaya", "ceylon","苏伊士"],
+            "supplyCities": [
+                "长崎",
+                "杭州",
+                "澳门",
+                "文莱",
+                "泗水",
+                "锡兰",
+                "苏伊士",
+            ],
         },
         {
             "buyCities": ["苏伊士"],
@@ -903,25 +1591,32 @@ routeLists = [
         {
             "buyCities": ["cohasset"],
             "mode": "newlanding",
-            "supplyCities": ["ceuta","塞得港"]
+            "supplyCities": ["ceuta", "塞得港"],
         },
         {
             "buyCities": ["塞得港"],
             "mode": "tunnel",
-            "supplyCities": ["ceylon"],
+            "supplyCities": ["锡兰"],
         },
         # {
-        #     "buyCities": ["南特","seville","santa","jakarta"],
+        #     "buyCities": ["南特","seville","santa","雅加达"],
         #     "mode": "merchantQuest",
         #     "supplyCities": ["索科特拉", "manila", "ambon", "ternate"],
         #     "checkInnCities": True
         # },
         {
             **witotoRouteBase,
-            "buyCities": ["kuching","莫桑比克","azores","jakarta","brunei"],
+            "buyCities": ["古晋", "莫桑比克", "azores", "雅加达", "文莱"],
             "villages": ["witot"],
-            "afterSellCities": ["汉阳", "长崎", "泉州", "banjarmasin", "manila", "ceylon"]
-        }
+            "afterSellCities": [
+                "汉阳",
+                "长崎",
+                "泉州",
+                "马辰",
+                "manila",
+                "锡兰",
+            ],
+        },
         # check passed day or pause
     ],
     # 10 crafts+witoto
@@ -930,19 +1625,26 @@ routeLists = [
             **apacheRouteBase,
             "villages": ["apache"],
             "buyCities": ["纳塔尔"],
-            "afterSellCities": ["索科特拉", "aceh"]
+            "afterSellCities": ["索科特拉", "亚齐"],
         },
         {
             **witotoRouteBase,
-            "buyCities": ["prey", "德源"],
+            "buyCities": ["嘉定", "德源"],
             "villages": ["witoto"],
-            "afterSellCities": ["汉阳", "长崎", "泉州", "banjarmasin", "malacca", "ceylon"]
+            "afterSellCities": [
+                "汉阳",
+                "长崎",
+                "泉州",
+                "马辰",
+                "马六甲",
+                "锡兰",
+            ],
         },
         {
             **apacheRouteBase,
             "villages": ["apach"],
             "buyCities": ["索法拉", "乌斯怀亚"],
-            "afterSellCities": ["苏伊士"]
+            "afterSellCities": ["苏伊士"],
         },
         {
             "buyCities": ["苏伊士"],
@@ -953,22 +1655,27 @@ routeLists = [
         {
             "buyCities": ["南特"],
             "mode": "merchantQuest",
-            "supplyCities": ["ceylon", "manila", "ambon", "ternate"],
-            "checkInnCities": True
+            "supplyCities": ["锡兰", "manila", "ambon", "ternate"],
+            "checkInnCities": True,
         },
         {
             "mode": "battle",
             "buyCities": ["davao", "关岛"],
         },
-        {"mode": "reportAndAdvQuest",
-            "buyCities": ["江户"]
-         },
+        {"mode": "reportAndAdvQuest", "buyCities": ["江户"]},
         {
             **witotoRouteBase,
-            "buyCities": ["kuching"],
+            "buyCities": ["古晋"],
             "villages": ["witot"],
-            "afterSellCities": ["汉阳", "长崎", "泉州", "banjarmasin", "malacca", "ceylon"]
-        }
+            "afterSellCities": [
+                "汉阳",
+                "长崎",
+                "泉州",
+                "马辰",
+                "马六甲",
+                "锡兰",
+            ],
+        },
         # check passed day or pause
     ],
     # 11 pipe pipe
@@ -978,71 +1685,91 @@ routeLists = [
             "buyCities": ["santa"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
-                        {"type": "sell"}
+                        {"type": "sell"},
                     ],
-                    "cities": ["苏伊士"]
+                    "cities": ["苏伊士"],
                 }
             ],
-            "afterSellCities": ["ceylon"]
+            "afterSellCities": ["锡兰"],
         },
         {
             **quechuasRouteBase,
-            "buyCities": ["kuching"],
+            "buyCities": ["古晋"],
         },
         {
             **quechuasRouteBase,
-            "buyCities": ["kuching"],
+            "buyCities": ["古晋"],
         },
-        {
-            "buyCities": ["苏伊士"],
-            "mode": "tunnel"
-        },
+        {"buyCities": ["苏伊士"], "mode": "tunnel"},
         {
             "buyCities": ["南特"],
             "mode": "merchantQuest",
-            "supplyCities": ["ceylon", "manila", "ambon", "ternate"],
-            "checkInnCities": True
+            "supplyCities": ["锡兰", "manila", "ambon", "ternate"],
+            "checkInnCities": True,
         },
         {
             "mode": "battle",
             "buyCities": ["davao", "关岛"],
-            #"supplyCities": ["malacca", "亚丁","苏伊士"],
+            # "supplyCities": ["马六甲", "亚丁","苏伊士"],
         },
         {
             "mode": "reportAndAdvQuest",
-            "buyCities": ["江户","安平"],
-            "supplyCities": ["malacca", "ceylon","苏伊士"],
+            "buyCities": ["江户", "安平"],
+            "supplyCities": ["马六甲", "锡兰", "苏伊士"],
         },
-
-        {
-            "mode": "tunnel"
-        },
+        {"mode": "tunnel"},
         {
             **samiRouteBase,
             "buyCities": ["azores"],
             "villages": ["sami"],
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
-                        {"type": "sell"}
+                        {"type": "sell"},
                     ],
-                    "cities": ["苏伊士"]
+                    "cities": ["苏伊士"],
                 }
             ],
         },
@@ -1071,32 +1798,51 @@ routeLists = [
         # }
         # check passed day or pause
     ],
-    #12 express daily
-     [
+    # 12 express daily
+    [
         {
             **apacheRouteBase,
             "transportFleet": 2,
             "supplyCities": ["panama"],
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["beck","saint","kokkola","riga","stockhol", "gda","visby", "copenhag","oslo", "bergen", "edinburgh", "hamburg","bremen","groningen", "amsterda", "london", "dover", "antwerp"],
+            "sellCityOptions": [
+                "beck",
+                "saint",
+                "kokkola",
+                "riga",
+                "stockhol",
+                "gda",
+                "visby",
+                "copenhag",
+                "oslo",
+                "bergen",
+                "edinburgh",
+                "hamburg",
+                "bremen",
+                "groningen",
+                "amsterda",
+                "london",
+                "dover",
+                "antwerp",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         {"type": "go", "val": "santa"},
                         {"type": "go", "val": "plymouth"},
                         {"type": "go", "val": "beck"},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
-                        {"type": "sell"}
+                        {"type": "sell"},
                     ],
-                    "cities": ["beck"]
+                    "cities": ["beck"],
                 }
             ],
             "villages": ["apache"],
-            "buyCities": ["纳塔尔","阿卡普尔科"],
-            "afterSellCities":["dover","南特"]
+            "buyCities": ["纳塔尔", "阿卡普尔科"],
+            "afterSellCities": ["dover", "南特"],
         },
         {
             **samiRouteBase,
@@ -1104,39 +1850,58 @@ routeLists = [
             "villages": ["sami"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
-                        {"type": "sell"}
+                        {"type": "sell"},
                     ],
-                    "cities": ["苏伊士"]
+                    "cities": ["苏伊士"],
                 }
             ],
-            "afterSellCities": ["摩加迪沙"]
+            "afterSellCities": ["摩加迪沙"],
         },
         {
             **apacheRouteBase,
             "transportFleet": 2,
             "villages": ["apach"],
-            "supplyCities": ['利马', '乌斯怀亚', 'town', '亚丁'],
-            "useFishingCities": ["乌斯怀亚","开普敦"],
+            "supplyCities": ["利马", "乌斯怀亚", "town", "亚丁"],
+            "useFishingCities": ["乌斯怀亚", "开普敦"],
             "secondSellOptions": [
                 {
-                    "seqs": [
-                        {"type": "goSellCity"},
-                        {"type": "sell"}
+                    "seqs": [{"type": "goSellCity"}, {"type": "sell"}],
+                    "cities": [
+                        "克利马内",
+                        "莫桑比克",
+                        "塔玛塔夫",
+                        "基尔瓦",
+                        "桑给巴尔",
+                        "蒙巴萨",
+                        "马林迪",
+                        "摩加迪沙",
                     ],
-                    "cities": ["克利马内", "莫桑比克", "塔玛塔夫", "基尔瓦", "桑给巴尔", "蒙巴萨", "马林迪", "摩加迪沙"]
                 }
             ],
             "buyCities": ["索法拉"],
-            "afterSellCities": ["ceylon", "manila", "davao"]
+            "afterSellCities": ["锡兰", "manila", "davao"],
         },
         {
             "mode": "buff",
@@ -1145,9 +1910,9 @@ routeLists = [
         },
         {
             "mode": "battle",
-            "buyCities": ["davao", "关岛","ezo","切尔斯基"],
-            # "supplyCities": ["长崎","杭州","澳门","malacca", "ceylon","苏伊士"],
-            "checkInnCities": True
+            "buyCities": ["davao", "关岛", "ezo", "切尔斯基"],
+            # "supplyCities": ["长崎","杭州","澳门","马六甲", "锡兰","苏伊士"],
+            "checkInnCities": True,
         },
         # {
         #     "buyCities": ["切尔斯基"],
@@ -1156,9 +1921,9 @@ routeLists = [
         # },
         {
             "mode": "reportAndAdvQuest",
-            "buyCities": ["江户","安平"],
+            "buyCities": ["江户", "安平"],
             "checkInnCities": True,
-            "supplyCities": ["堺","东莱","ceylon","苏伊士"],
+            "supplyCities": ["堺", "东莱", "锡兰", "苏伊士"],
         },
         {
             "buyCities": ["苏伊士"],
@@ -1175,16 +1940,12 @@ routeLists = [
             "buyCities": ["cohasset"],
             "mode": "newlanding",
         },
-        {
-            **samiRouteBase,
-            "buyCities": ["azores"],
-            "villages": ["samiWLumber"]
-        },
+        {**samiRouteBase, "buyCities": ["azores"], "villages": ["samiWLumber"]},
         {
             **yawuruRouteBase,
             "buyCities": ["杭州"],
             "useSkillCity": False,
-            "afterSellCities": ["santa","sierra","开普敦"]
+            "afterSellCities": ["santa", "sierra", "开普敦"],
         },
         # {
         #     **samiRouteBase,
@@ -1210,15 +1971,14 @@ routeLists = [
         # },
         # {
         #     **quechuasRouteBase,
-        #     "buyCities": ["kuching"],
-        #     "afterSellCities": ["ceylon"],
+        #     "buyCities": ["古晋"],
+        #     "afterSellCities": ["锡兰"],
         #     "useSkillCity": True
-
         # },
         # {
         #     **quechuasRouteBase,
         #     "villages": ["quechua"],
-        #     "buyCities": ["kuching"],
+        #     "buyCities": ["古晋"],
         #     "useSkillCity": False,
         #     "afterSellCities": ["摩加迪沙"]
         # },
@@ -1247,31 +2007,44 @@ routeLists = [
         # }
         # check passed day or pause
     ],
-    #13 svear sami
+    # 13 svear sami
     [
         {
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svear"],
-            "supplyCities":["bremen","seville","tunis"],
+            "supplyCities": ["bremen", "seville", "tunis"],
             "useSkillCity": True,
             "forceUseSequenceOptions": True,
             "waitForFashion": False,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"},
                         {"type": "go", "val": "苏伊士"},
                         {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}
+                        {"type": "go", "val": "tunis"},
                     ],
-                    "cities": ["苏伊士"]
+                    "cities": ["苏伊士"],
                 }
             ],
         },
@@ -1279,50 +2052,61 @@ routeLists = [
             **svearRouteBase,
             "buyCities": ["santa"],
             "villages": ["svea"],
-            "supplyCities":["bremen","seville","tunis"],
+            "supplyCities": ["bremen", "seville", "tunis"],
             "useSkillCity": False,
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"},
                         {"type": "go", "val": "苏伊士"},
                         {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}
+                        {"type": "go", "val": "tunis"},
                     ],
-                    "cities": ["苏伊士"]
+                    "cities": ["苏伊士"],
                 }
             ],
         },
         {
             "buyCities": ["南特"],
             "mode": "merchantQuest",
-            "supplyCities": ["ceylon", "manila", "ambon", "ternate"],
-            "checkInnCities": True
+            "supplyCities": ["锡兰", "manila", "ambon", "ternate"],
+            "checkInnCities": True,
         },
         {
             "mode": "battle",
             "buyCities": ["davao", "关岛"],
-            #"supplyCities": ["malacca", "亚丁","苏伊士"],
+            # "supplyCities": ["马六甲", "亚丁","苏伊士"],
         },
         {
             "mode": "reportAndAdvQuest",
-            "buyCities": ["江户","安平"],
-            "supplyCities": ["brunei","surabaya", "ceylon","苏伊士"],
+            "buyCities": ["江户", "安平"],
+            "supplyCities": ["文莱", "泗水", "锡兰", "苏伊士"],
         },
         # {
         #     **quechuasRouteBase,
-        #     "buyCities": ["kuching"],
+        #     "buyCities": ["古晋"],
         # },
-        {
-            "mode": "tunnel"
-        },
+        {"mode": "tunnel"},
         {
             **samiRouteBase,
             "buyCities": ["azores"],
@@ -1330,19 +2114,33 @@ routeLists = [
             "forceUseSequenceOptions": True,
             "useSkillCity": True,
             "waitForFashion": False,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"},
                         {"type": "go", "val": "苏伊士"},
                         {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}                    ],
-                    "cities": ["苏伊士"]
+                        {"type": "go", "val": "tunis"},
+                    ],
+                    "cities": ["苏伊士"],
                 }
             ],
         },
@@ -1351,43 +2149,53 @@ routeLists = [
             "buyCities": ["seville"],
             "villages": ["sam"],
             "forceUseSequenceOptions": True,
-            "sellCityOptions": ["苏伊士", "吉达", "马萨瓦", "亚丁", "索科特拉", "杜法尔", "马斯喀特", "霍尔木兹", "多哈", "设拉子", "巴士拉", "巴格达"],
+            "sellCityOptions": [
+                "苏伊士",
+                "吉达",
+                "马萨瓦",
+                "亚丁",
+                "索科特拉",
+                "杜法尔",
+                "马斯喀特",
+                "霍尔木兹",
+                "多哈",
+                "设拉子",
+                "巴士拉",
+                "巴格达",
+            ],
             "secondSellOptions": [
                 {
                     "seqs": [
                         {"type": "go", "val": "塞得港"},
-                        {"type": "tunnel","val": True},
+                        {"type": "tunnel", "val": True},
                         # getBestPriceCity will use sellCityOptions to override the sell city
                         {"type": "getBestPriceCity"},
                         {"type": "goSellCity"},
                         {"type": "sell"},
                         {"type": "go", "val": "苏伊士"},
                         {"type": "tunnel"},
-                        {"type": "go", "val": "tunis"}                        ],
-                    "cities": ["苏伊士"]
+                        {"type": "go", "val": "tunis"},
+                    ],
+                    "cities": ["苏伊士"],
                 }
-            ]
-        }
+            ],
+        },
         # check passed day or pause
     ],
-    #14 svear + lumber -> bark painting
+    # 14 svear + lumber -> bark painting
     [
         {
             **samiWLumberRouteBase,
             "buyCities": ["santa"],
             "villages": ["samiWLumber"],
-            "useSkillCity": True
+            "useSkillCity": True,
         },
-        {
-            **yawuruRouteBase,
-            "buyCities": ["杭州"],
-            "useSkillCity": True
-        },
+        {**yawuruRouteBase, "buyCities": ["杭州"], "useSkillCity": True},
         {
             **samiWLumberRouteBase,
             "buyCities": ["azores"],
             "villages": ["samWLumber"],
-            "useSkillCity": True
+            "useSkillCity": True,
         },
         {
             "mode": "buff",
@@ -1398,31 +2206,31 @@ routeLists = [
             "buyCities": ["萨马赖"],
             "villages": ["yawur"],
             "afterSellCities": ["santa"],
-            "useSkillCity": True
+            "useSkillCity": True,
         },
         {
             "buyCities": ["cohasset"],
             "mode": "newlanding",
-            "supplyCities": ["ceuta","塞得港"],
-            "checkInnCities": True
+            "supplyCities": ["ceuta", "塞得港"],
+            "checkInnCities": True,
         },
         {
             "buyCities": ["塞得港"],
             "mode": "tunnel",
-            "supplyCities": ["ceylon", "brunei","surabaya","江户"],
-            "checkInnCities": True
+            "supplyCities": ["锡兰", "文莱", "泗水", "江户"],
+            "checkInnCities": True,
         },
         # {
         #     "buyCities": ["南特"],
         #     "mode": "merchantQuest",
-        #     "supplyCities": ["ceylon", "manila", "ambon", "ternate"],
+        #     "supplyCities": ["锡兰", "manila", "ambon", "ternate"],
         #     "checkInnCities": True
         # },
         {
             "mode": "battle",
             "buyCities": ["切尔斯基"],
-            # "supplyCities": ["江户","杭州","澳门","malacca", "ceylon","苏伊士"],
-            "checkInnCities": True
+            # "supplyCities": ["江户","杭州","澳门","马六甲", "锡兰","苏伊士"],
+            "checkInnCities": True,
         },
         # {
         #     "buyCities": ["切尔斯基"],
@@ -1431,23 +2239,22 @@ routeLists = [
         # },
         {
             "mode": "reportAndAdvQuest",
-            "buyCities": ["江户","安平"],
-            "supplyCities": ["堺","malacca"],
-            # "supplyCities": ["长崎","杭州","澳门","brunei","surabaya","ceylon"],
-            "checkInnCities": True
+            "buyCities": ["江户", "安平"],
+            "supplyCities": ["堺", "马六甲"],
+            # "supplyCities": ["长崎","杭州","澳门","文莱","泗水","锡兰"],
+            "checkInnCities": True,
         },
         {
             **quechuasRouteBase,
-            "buyCities": ["kuching"],
-            "afterSellCities": ["ceylon"],
-            "useSkillCity": True
-
+            "buyCities": ["古晋"],
+            "afterSellCities": ["锡兰"],
+            "useSkillCity": True,
         },
         {
             **quechuasRouteBase,
             "villages": ["quechua"],
-            "buyCities": ["brunei"],
-            "useSkillCity": True
+            "buyCities": ["文莱"],
+            "useSkillCity": True,
         },
         # {
         #     **apacheRouteBase,
@@ -1474,9 +2281,6 @@ routeLists = [
         #     "buyCities": ["纳塔尔"],
         #     "afterSellCities":["dover"]
         # }
-        {
-            "buyCities": ["苏伊士"],
-            "mode": "tunnel"
-        },
-    ]
+        {"buyCities": ["苏伊士"], "mode": "tunnel"},
+    ],
 ]

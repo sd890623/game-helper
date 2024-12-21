@@ -39,7 +39,7 @@ simuInstance = task.simulatorInstance
 class Investment:
     goBM = False
     inn = True
-    # Better do winter
+    # Better do wi
     investmentCities = [
         # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "南特","bordeaux","santa","ceuta", "montpell","marseille","热那亚","比萨", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "塞得港","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "纳塔尔", "索法拉","克利马内","莫桑比克","基尔瓦", "桑给巴尔","蒙巴萨","马林迪","摩加迪沙","亚丁","马萨瓦","苏伊士", "吉达", "索科特拉", "杜法尔","马斯喀特", "多哈", "巴士拉","巴格达","设拉子", "霍尔木兹", "diu", "goa","kozhi","kochi",
         "锡兰",
@@ -61,8 +61,8 @@ class Investment:
         "马辰",
         "平哈拉",
         "皮里港",
-        "hobart",
-        "gari",
+        "霍巴特",
+        "芬瑟岛",
         "kaka",
         "dili",
         "banda",

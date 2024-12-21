@@ -102,29 +102,32 @@ class UWTask(FrontTask):
     onlyUseBuyFleetBuy = False
 
     def testTask(self):
-        self.changeFleet(4)
         routeObject = {
             "buyFleet": 4,
-            "buyProducts": ["锦"],
-            "buyCities": ["马赛", "卡利亚里", "威尼斯", "雅斯特", "安科纳"],
+            "buyProducts": ["日本画", "中国画"],
+            "buyCities": ["北京", "重庆", "长崎", "江户"],
             "buySupplyCities": [],
             "buyStrategy": "twice",
             "dumpCrewCities": [],
             "transportFleet": 2,
-            "supplyCities": ["塞得港", "tunnel", "锡兰", "嘉定", "杭州"],
-            "sellPriceIndexByName": "锦",
+            "supplyCities": [{"route": 4, "target": "热那亚"}],
+            "sellPriceIndexByName": "中国画",
             "sellCityOptions": [
-                "切尔斯基",
-                "澳门",
-                "泉州",
-                "淡水",
-                "安平",
-                "燕云",
-                "北京",
-                "长安",
-                "重庆",
+                "热那亚",
+                "比萨",
+                "拿坡里",
+                "锡拉库萨",
+                "威尼斯",
+                "安科纳",
+                "第里雅斯特",
+                "扎达尔",
+                "拉古萨",
             ],
+            "fashions": ["赞助", "流行"],
+            "waitForFashion": True,
+            "waitHour": 1,
         }
+        self.getSellCity(routeObject)
         self.market.getBestPriceCity(routeObject, routeObject.get("sellCityOptions"))
 
         self.checkForDailyPopup()
@@ -1395,65 +1398,65 @@ class UWTask(FrontTask):
         self.print("到达村庄")
 
     def useTradeSkill(self, inCity=False):
-        openButton = (48, 684) if inCity else (48, 636)
+        skillMenuArea = (668, 275, 770, 298) if inCity else [735, 253, 801, 280]
+        openButton = (40, 703) if inCity else (40, 660)
+        okBtn = 781, 591
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*openButton),
-            lambda: self.hasSingleLineWordsInArea("order", A=[735, 253, 801, 280]),
-            2,
+            lambda: self.hasSingleLineWordsInArea("命令", A=skillMenuArea),
+            1,
         )
-        if self.hasArrayStringInSingleLineWords(
-            ["talker", "seeker", "expertise"], A=[787, 317, 888, 340]
-        ):
-            wait(lambda: self.simulatorInstance.clickPointV2(831, 476), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(775, 612), 1)
-        if self.hasArrayStringInSingleLineWords(["negotiator"], A=[671, 318, 766, 344]):
-            wait(lambda: self.simulatorInstance.clickPointV2(739, 441), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(775, 612), 1)
+        if self.hasArrayStringInSingleLineWords(["话术"], A=[781, 330, 877, 353]):
+            wait(lambda: self.simulatorInstance.clickPointV2(853, 492), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 1)
+        if self.hasArrayStringInSingleLineWords(["谈判"], A=[692, 332, 748, 352]):
+            wait(lambda: self.simulatorInstance.clickPointV2(734, 492), 1)
+            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 1)
         if self.hasArrayStringInSingleLineWords(["revival"], A=[497, 321, 555, 338]):
             wait(lambda: self.simulatorInstance.clickPointV2(459, 463), 1)
-            wait(lambda: self.simulatorInstance.clickPointV2(775, 612), 1)
-        if self.hasArrayStringInSingleLineWords(["negotiator"], A=[560, 320, 644, 337]):
+            wait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 1)
+        if self.hasArrayStringInSingleLineWords(["谈判"], A=[560, 320, 644, 337]):
             wait(lambda: self.simulatorInstance.clickPointV2(603, 513), 1)
-            doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(775, 612), 2
-            )
-        if self.hasArrayStringInSingleLineWords(["sales"], A=[346, 320, 380, 337]):
+            doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(*okBtn), 1)
+        if self.hasArrayStringInSingleLineWords(["今井"], A=[353, 328, 441, 349]):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(354, 515),
-                lambda: self.hasSingleLineWordsInArea("notice", A=[681, 269, 760, 295]),
-                2,
-            )
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(784, 606),
-                lambda: not self.hasSingleLineWordsInArea(
-                    "notice", A=[681, 269, 760, 295]
+                lambda: self.simulatorInstance.clickPointV2(414, 479),
+                lambda: self.hasArrayStringEqualMultiLineWords(
+                    ["通知"], A=self.largerNoticeTitleArea
                 ),
-                2,
+                1,
+            )
+            doAndWaitUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(*okBtn),
+                lambda: not self.hasArrayStringEqualMultiLineWords(
+                    ["通知"], A=self.largerNoticeTitleArea
+                ),
+                1,
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*openButton),
-                lambda: self.hasSingleLineWordsInArea("order", A=[735, 253, 801, 280]),
-                2,
+                lambda: self.hasSingleLineWordsInArea("命令", A=skillMenuArea),
+                1,
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(600, 506),
-                lambda: self.hasSingleLineWordsInArea("notice", A=[681, 269, 760, 295]),
-                2,
+                lambda: self.simulatorInstance.clickPointV2(650, 491),
+                lambda: self.hasArrayStringEqualMultiLineWords(
+                    ["通知"], A=self.largerNoticeTitleArea
+                ),
+                1,
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(784, 606),
-                lambda: not self.hasSingleLineWordsInArea(
-                    "notice", A=[681, 269, 760, 295]
+                lambda: not self.hasArrayStringEqualMultiLineWords(
+                    ["通知"], A=self.largerNoticeTitleArea
                 ),
-                2,
+                1,
             )
-        if self.hasSingleLineWordsInArea("order", A=[735, 253, 801, 280]):
+        if self.hasSingleLineWordsInArea("命令", A=skillMenuArea):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1084, 750),
-                lambda: not self.hasSingleLineWordsInArea(
-                    "order", A=[735, 253, 801, 280]
-                ),
-                2,
+                lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),
+                lambda: not self.hasSingleLineWordsInArea("命令", A=skillMenuArea),
+                1,
             )
 
     def shouldFinishTradeAndChangeFleet(self, routeObject):

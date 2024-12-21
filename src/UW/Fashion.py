@@ -181,7 +181,7 @@ class Fashion:
             "show": True,
         },
         {
-            "name": "繁荣",
+            "name": "流行",
             "detail": ["贵金属", "艺术作品", "宝石"],
             "interval": 17,
             "sn": [4, 1],

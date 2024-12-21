@@ -739,7 +739,7 @@ yawuruRouteBase = {
         "nassau",
     ],
     "forceUseSequenceOptions": False,
-    "fashions": ["赞助", "繁荣"],
+    "fashions": ["赞助", "流行"],
     "waitForFashion": True,
     "secondSellOptions": [
         {

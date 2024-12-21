@@ -198,7 +198,7 @@ class Battle:
             lambda: self.instance.rightClickPointV2(*self.randomPoint),
             lambda: self.hasResultsBtn(),
             5,
-            timeout=20,
+            timeout=400,
         )
 
         def backupFunc():

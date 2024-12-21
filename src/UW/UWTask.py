@@ -247,7 +247,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(
                     self.allCityList, value.get("afterVillageBuyCities")
                 )
-        self.allCityList += ["塞得港", "cohasset"]
+        self.allCityList += ["塞得港", "科哈塞特"]
         self.allCityList += [
             dailyJobConf["merchatQuestCity"],
             dailyJobConf["buffCity"],

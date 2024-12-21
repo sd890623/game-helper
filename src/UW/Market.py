@@ -28,12 +28,12 @@ from Fashion import Fashion
 from constants import dailyJobConf
 
 marketBuyData = {
-    "kokkola": ["amber"],
-    "saint": ["chrysoberyl", "tourmaline"],
-    "gda": ["tourmaline", "amber"],
+    "科科拉": ["amber"],
+    "圣彼得堡": ["chrysoberyl", "tourmaline"],
+    "但泽": ["tourmaline", "amber"],
     "copenhagen": ["amber", "chrysoberyl"],
     "oslo": ["flax", "feather"],
-    # "kokkola":[""],
+    # "科科拉":[""],
     "montpel": ["garnet"],
     "marseille": ["garnet", "etchings", "cannon", "bronzeStatue", "perfume"],
     "热那亚": ["glasswork", "oilPainting", "etchings", "cannon"],
@@ -42,11 +42,11 @@ marketBuyData = {
 }
 
 hasBMCities = [
-    "kokkola",
-    "saint",
-    "stockhol",
-    "visby",
-    "beck",
+    "科科拉",
+    "圣彼得堡",
+    "斯德哥尔摩",
+    "维斯比",
+    "卢贝克",
     "copenhag",
     "oslo",
     "hamburg",
@@ -56,11 +56,11 @@ hasBMCities = [
     "calais",
     "plymouth",
     "amsterda",
-    # "bristol","dublin","edinburgh","南特","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","town","索法拉","mozambiqu",
+    # "bristol","dublin","爱丁堡","南特","bordeaux","porto","lisboa","faro","seville","ceuta","laga","bathurst","elmina","luanda","开普敦","索法拉","mozambiqu",
     # "桑给巴尔","塔玛塔夫","蒙巴萨","索科特拉","亚丁","吉达","马斯喀特","霍尔木兹","巴士拉","巴格达","goa","kozhikod",
     # "algiers","valencia","barcelona","montpellie","marseille","geona","比萨","calvi","tunis","syracuse","ragusa",
     # "亚历山德","cairo","candia","athens","thessaloni","constantino",
-    # "roya","santiago","caracas","trujil","veracruz","rida","santo","portobelo",
+    # "roya","圣地亚哥","加拉卡斯","trujil","韦拉克鲁斯","梅里达","圣多明各","波多贝罗",
     # "马六甲","巨港","马辰","泗水","雅加达",
     "帕赛",
     "澳门",
@@ -464,7 +464,7 @@ class Market:
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(1000, 83),
             lambda: self.uwtask.hasSingleLineWordsInArea(
-                "stock", A=[730, 271, 797, 297]
+                "斯德哥尔摩", A=[730, 271, 797, 297]
             ),
             2,
             1,
@@ -472,7 +472,7 @@ class Market:
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(767, 611),
             lambda: not self.uwtask.hasSingleLineWordsInArea(
-                "stock", A=[730, 271, 797, 297]
+                "斯德哥尔摩", A=[730, 271, 797, 297]
             ),
             2,
             1,
@@ -544,7 +544,7 @@ class Market:
                 or ("highcombat" in productName and "highest" not in productName)
                 or
                 #  "tanjaq" in productName or
-                #  "largefrigate" in productName or "hind" in productName or "bermuda" in productName or
+                #  "largef里加te" in productName or "hind" in productName or "bermuda" in productName or
                 #  "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or
@@ -588,7 +588,7 @@ class Market:
                 itemType = self.uwtask.getSingleLineWordsInArea(
                     A=[276 + xDiff, 141 + yDiff, 412 + xDiff, 163 + yDiff]
                 )
-                if "deco" in itemType or "design" in itemType or "town" in itemType:
+                if "deco" in itemType or "design" in itemType or "开普敦" in itemType:
                     return False
                 if price and price > 938:
                     doMoreTimesWithWait(

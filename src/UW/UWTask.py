@@ -99,6 +99,7 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
     efficientHireInn = False
     dailyCheckedBattlePlaceLanding = False
+    onlyUseBuyFleetBuy = False
 
     def testTask(self):
         self.changeFleet(4)
@@ -1465,6 +1466,9 @@ class UWTask(FrontTask):
                     products=routeObject["buyProducts"],
                     buyStrategy=routeObject.get("buyStrategy"),
                 )
+                if self.onlyUseBuyFleetBuy:
+                    self.secondBuyFin = True
+                    return True
                 return False
             if self.firstBuyFin and not self.secondBuyFin:
                 return False
@@ -2212,7 +2216,7 @@ class UWTask(FrontTask):
                 time.sleep(1000)
                 continue
 
-            # self.changeFleet(routeObject.get('buyFleet'))
+            self.changeFleet(routeObject.get("buyFleet"))
             self.firstBuyFin = False
             self.secondBuyFin = False
             self.print("出发买东西城市")

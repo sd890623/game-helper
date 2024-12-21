@@ -34,7 +34,7 @@ class Battle:
     opentimeout = 0
     nameBoardInPrePanel = [57,147,141,171]
     sunk=False
-    skillShip=[4,6,1]
+    skillShip=[4,6,1,3]
 
     def __init__(self, instance: win, uwtask: UWTask) -> None:
         self.instance = instance
@@ -161,11 +161,11 @@ class Battle:
             if(shipNo in self.skillShip):
                 wait(lambda: self.instance.longerClickPointV2(*expressskill), 0.5)
                 doMoreTimesWithWait(
-                    lambda: self.instance.longerClickPointV2(*centralPos), 3, 0.5
+                    lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
                 )
-                time.sleep(5)
+                time.sleep(2)
             else:
-                wait(lambda: self.instance.clickPointV2(*waitPos), 3)
+                wait(lambda: self.instance.clickPointV2(*waitPos), 2)
 
 
         def getSkillPosByIndex(index):

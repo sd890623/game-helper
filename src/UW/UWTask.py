@@ -69,6 +69,7 @@ class UWTask(FrontTask):
     hideNoticeTick=700,557
     searchClick=217,68
     openSearchBar=35,83
+    menuCompany=201,17,263,38
     # VM screen size: 1440x900
 
     syncBetweenUsers = True
@@ -100,6 +101,7 @@ class UWTask(FrontTask):
     dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
+        self.changeFleet(4)
         routeObject={
     "buyFleet": 4,
     "buyProducts": ["锦"],
@@ -1026,35 +1028,35 @@ class UWTask(FrontTask):
         for x in range(0, 1):
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-                lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
+                lambda: self.hasSingleLineWordsInArea("船队", A=self.menuCompany),
                 2,
                 15,
                 firstWait=2,
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1170, 188),
-                lambda: self.hasSingleLineWordsInArea("placement", A=self.titleArea),
+                lambda: self.simulatorInstance.clickPointV2(1203,162),
+                lambda: self.hasSingleLineWordsInArea("分配", A=self.titleArea),
                 1,
                 1,
                 timeout=10,
             )  # ship
             # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1069,90),lambda: self.hasSingleLineWordsInArea("settings", A=[991,123,1058,145]),1,1,timeout=10)#assign
-            # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("placement", A=[637,215,735,237]),1,1,timeout=10)#settings
+            # doAndWaitUntilBy(lambda: self.simulatorInstance.clickPointV2(1022,138),lambda: self.hasSingleLineWordsInArea("分配", A=[637,215,735,237]),1,1,timeout=10)#settings
             y = int(118 + int(56 * (fleetNo - 1)))
             doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(116, y), 2, 1
+                lambda: self.simulatorInstance.clickPointV2(99, y), 2, 1
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1306, 850),
-                lambda: self.hasSingleLineWordsInArea("target", A=[661,328,779,352]),
+                lambda: self.simulatorInstance.clickPointV2(1319,855),
+                lambda: self.hasSingleLineWordsInArea("对象", A=[668,339,771,360]),
                 1,
                 1,
                 timeout=10,
             )  # apply
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(780,551),
+                lambda: self.simulatorInstance.clickPointV2(773,545),
                 lambda: not self.hasSingleLineWordsInArea(
-                    "target", A=[661,328,779,352]
+                    "对象", A=[668,339,771,360]
                 ),
                 1,
                 1,
@@ -1073,16 +1075,16 @@ class UWTask(FrontTask):
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
                     lambda: self.hasSingleLineWordsInArea(
-                        "company", A=[143,17,206,36]
+                        "船队", A=self.menuCompany
                     ),
                     2,
                     1,
                     firstWait=2,
                 )
                 doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1265,101),
+                    lambda: self.simulatorInstance.clickPointV2(1265,106),
                     lambda: self.hasSingleLineWordsInArea(
-                        "managefleet", A=self.titleArea
+                        "舰队", A=self.titleArea
                     ),
                     2,
                     1,
@@ -1090,16 +1092,16 @@ class UWTask(FrontTask):
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(1379,858),
                     lambda: self.hasSingleLineWordsInArea(
-                        "redistribute", A=[644,238,797,258]
+                        "分配", A=[669,235,770,259]
                     ),
                     1,
                     15,
-                )  # redistributeCrew
+                )
+                # redistributeCrew
                 doMoreTimesWithWait(
-                    lambda: self.simulatorInstance.clickPointV2(488,645), 3, 1
-                )  # distributeMin
-                wait(lambda: self.simulatorInstance.clickPointV2(1026, 672), 1)  # apply
-                wait(lambda: self.simulatorInstance.clickPointV2(780,591), 1)  # ok
+                    lambda: self.simulatorInstance.clickPointV2(486,646), 2, 1)  # distributeMin
+                wait(lambda: self.simulatorInstance.clickPointV2(993,646), 1)  # apply
+                wait(lambda: self.simulatorInstance.clickPointV2(782,591), 1)  # ok
                 continueWithUntilBy(
                     lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
                     lambda: self.inCityList(self.allCityList),
@@ -1110,7 +1112,7 @@ class UWTask(FrontTask):
     def dumpCrew(self):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(1274, 22),
-            lambda: self.hasSingleLineWordsInArea("company", A=[151, 17, 290, 38]),
+            lambda: self.hasSingleLineWordsInArea("舰队", A=self.titleArea),
             2,
             1,
             firstWait=2,
@@ -1834,7 +1836,7 @@ class UWTask(FrontTask):
     def sellOverload(self):
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
+            lambda: self.hasSingleLineWordsInArea("船队", A=self.menuCompany),
             2,
             15,
             firstWait=2,
@@ -2478,14 +2480,14 @@ class UWTask(FrontTask):
             return (True, lastCheckTime)
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.hasSingleLineWordsInArea("company", A=[143,17,206,36]),
+            lambda: self.hasSingleLineWordsInArea("船队", A=self.menuCompany),
             2,
             15,
             firstWait=2,
         )
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(170, 36),
-            lambda: self.hasSingleLineWordsInArea("company", A=self.titleArea),
+            lambda: self.hasSingleLineWordsInArea("舰队", A=self.titleArea),
             1,
             1,
             timeout=10,

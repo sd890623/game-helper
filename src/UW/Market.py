@@ -252,7 +252,7 @@ class Market:
         times=0
         prev_number = 30
         while(times<80):
-            number=self.uwtask.getNumberFromSingleLineInArea(A=[893,78,910,96])
+            number=self.uwtask.getNumberFromSingleLineInArea(A=[943,70,961,86])
             if(number and int(number)>=25):
                 break
             elif prev_number == 0 and number and number != 0:

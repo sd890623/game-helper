@@ -24,7 +24,7 @@ def run():
     # todo
 
     # Optional
-    # task.shipBuilding(options=[12,12],city="ceuta", times=1)
+    # task.shipBuilding(options=[12,12],city="休达", times=1)
     # task.targetCity="naples"
     task.setRouteOption(6)
 

@@ -29,8 +29,8 @@ def run(props):
     # todo
 
     # Optional
-    # task.shipBuilding(options=[12,12],city="ceuta", times=1)
-    # task.targetCity="naples"
+    # task.shipBuilding(options=[12,12],city="休达", times=1)
+    # task.targetCity="拿坡里"
 
     task.print("每日检查： 仓清空，市场购买勾，时间可用，检查道具多于3格")
     task.print(
@@ -45,7 +45,7 @@ def run(props):
     # task.enableSB("马六甲",options=[5])
 
     # each time 6s(not counted)+8s(counted) 8d=11min, limit 10d=14min, 14*(8/14)=8min=480ss
-    # kochi: 12d=18min, 18*8/14=10min=600
+    # 科钦: 12d=18min, 18*8/14=10min=600
     task.waitForCityTimeOut = 650
     task.battleMode = "run"
     task.goBM = goBM

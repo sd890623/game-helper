@@ -73,7 +73,7 @@ class UWTask(FrontTask):
     # VM screen size: 1440x900
 
     syncBetweenUsers = True
-    currentCity = "las"
+    currentCity = "拉斯帕尔"
     sbCity = None
     sbOptions = []
     pickedUpShip = False
@@ -134,7 +134,7 @@ class UWTask(FrontTask):
         self.goToRoute({"route": 4, "target": "热那亚"})
         # self.efficientHireInn=False
         # while(True):
-        #     self.checkInn("santa")
+        #     self.checkInn("圣诞")
         #     time.sleep(3600)
         self.click()
         self.initMarket()

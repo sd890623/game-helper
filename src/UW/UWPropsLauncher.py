@@ -77,7 +77,7 @@ def run(props):
             task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
             task.initialRun = False
         elif plainTradeTrade:
-            task.setRouteOption(3)
+            task.setRouteOption()
             task.startTradeRoute()
             task.initialRun = False
         else:

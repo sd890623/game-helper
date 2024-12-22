@@ -99,9 +99,10 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
     efficientHireInn = False
     dailyCheckedBattlePlaceLanding = False
-    onlyUseBuyFleetBuy = False
+    onlyUseBuyFleetBuy = True
 
     def testTask(self):
+        self.crossTunnel(True)
         routeObject = {
             "buyFleet": 4,
             "buyProducts": ["日本画", "中国画"],
@@ -247,7 +248,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(
                     self.allCityList, value.get("afterVillageBuyCities")
                 )
-        self.allCityList += ["塞得港", "科哈塞特"]
+        addNonExistArrayToArray(self.allCityList, ["塞得港", "科哈塞特","苏伊士"])
         self.allCityList += [
             dailyJobConf["merchatQuestCity"],
             dailyJobConf["buffCity"],
@@ -1528,7 +1529,7 @@ class UWTask(FrontTask):
 
     def getInitialRouteIndex(self):
         self.setCurrentCityFromScreen()
-        self.setRouteOption()
+        # self.setRouteOption()
         routeObjIndex = 0
         for index, obj in enumerate(self.routeList):
             if obj.get("buyCities") and self.currentCity in obj["buyCities"]:
@@ -1961,27 +1962,29 @@ class UWTask(FrontTask):
         self.sellOverload()
 
     def crossTunnel(self, goods=False):
-        self.clickInMenu(["mmigration"], ["mmigration"])
+        self.clickInMenu(["出境"], ["出境"])
         if goods:
             continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1332, 579),
-                lambda: self.isPositionColorSimilarTo(1188, 582, (85, 184, 43)),
+                lambda: self.simulatorInstance.clickPointV2(1271,568),
+                lambda: self.isPositionColorSimilarTo(1214,571, (90,222,33)),
                 2,
             )
 
         def backupFunc():
-            self.simulatorInstance.clickPointV2(1332, 579)
+            self.simulatorInstance.clickPointV2(1271,568)
             self.simulatorInstance.clickPointV2(1326, 643)
 
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1326, 643),
-            lambda: self.hasSingleLineWordsInArea("notice", A=[681, 314, 757, 337]),
+            lambda: self.simulatorInstance.clickPointV2(1305,624),
+            lambda: self.hasArrayStringEqualMultiLineWords(
+                ["通知"], A=self.largerNoticeTitleArea
+            ),
             2,
             2,
             backupFunc=backupFunc,
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(776, 568),
+            lambda: self.simulatorInstance.clickPointV2(773,557),
             lambda: self.inCityList(self.allCityList),
             5,
             timeout=60,

@@ -492,18 +492,18 @@ villageTradeList = {
 # 4 summer, 5autumn, 6winter 7 spring
 # v1 trade mapping
 monthToRoute = {
-    "3": 7,
-    "4": 7,
-    "5": 7,
-    "6": 4,
-    "7": 4,
-    "8": 4,
-    "9": 5,
-    "10": 5,
-    "11": 5,
-    "12": 6,
-    "1": 6,
-    "2": 6,
+    "3": 3,
+    "4": 3,
+    "5": 3,
+    "6": 3,
+    "7": 3,
+    "8": 3,
+    "9": 3,
+    "10": 3,
+    "11": 3,
+    "12": 3,
+    "1": 3,
+    "2": 3,
 }
 bartingMonthToRoute = {
     "3": 9,
@@ -534,7 +534,7 @@ dailyJobConf = {
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "芬瑟岛"],
     "leaveBattlecity": ["芬瑟岛", "kakatuwah"],
-    "negoTimes": 35,
+    "negoTimes": 6,
 }
 checkInnCities = ["比萨", "热那亚"]
 checkInnCitiesBack = [

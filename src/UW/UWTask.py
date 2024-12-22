@@ -99,7 +99,6 @@ class UWTask(FrontTask):
     villageTradeList = copy.copy(villageTradeList)
     efficientHireInn = False
     dailyCheckedBattlePlaceLanding = False
-    onlyUseBuyFleetBuy = True
 
     def testTask(self):
         self.crossTunnel(True)
@@ -248,7 +247,7 @@ class UWTask(FrontTask):
                 addNonExistArrayToArray(
                     self.allCityList, value.get("afterVillageBuyCities")
                 )
-        addNonExistArrayToArray(self.allCityList, ["塞得港", "科哈塞特","苏伊士"])
+        addNonExistArrayToArray(self.allCityList, ["塞得港", "科哈塞特", "苏伊士"])
         self.allCityList += [
             dailyJobConf["merchatQuestCity"],
             dailyJobConf["buffCity"],
@@ -816,7 +815,7 @@ class UWTask(FrontTask):
 
         # sell
         self.market.sellGoodsWithMargin(simple, types)
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(163, 674), 3, 1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(134, 691), 2, 1)
         time.sleep(3)
 
         def backup():
@@ -1470,7 +1469,7 @@ class UWTask(FrontTask):
                     products=routeObject["buyProducts"],
                     buyStrategy=routeObject.get("buyStrategy"),
                 )
-                if self.onlyUseBuyFleetBuy:
+                if routeObject.get("onlyUseBuyFleetBuy"):
                     self.secondBuyFin = True
                     return True
                 return False
@@ -1965,17 +1964,17 @@ class UWTask(FrontTask):
         self.clickInMenu(["出境"], ["出境"])
         if goods:
             continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1271,568),
-                lambda: self.isPositionColorSimilarTo(1214,571, (90,222,33)),
+                lambda: self.simulatorInstance.clickPointV2(1271, 568),
+                lambda: self.isPositionColorSimilarTo(1214, 571, (90, 222, 33)),
                 2,
             )
 
         def backupFunc():
-            self.simulatorInstance.clickPointV2(1271,568)
+            self.simulatorInstance.clickPointV2(1271, 568)
             self.simulatorInstance.clickPointV2(1326, 643)
 
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1305,624),
+            lambda: self.simulatorInstance.clickPointV2(1305, 624),
             lambda: self.hasArrayStringEqualMultiLineWords(
                 ["通知"], A=self.largerNoticeTitleArea
             ),
@@ -1984,7 +1983,7 @@ class UWTask(FrontTask):
             backupFunc=backupFunc,
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(773,557),
+            lambda: self.simulatorInstance.clickPointV2(773, 557),
             lambda: self.inCityList(self.allCityList),
             5,
             timeout=60,

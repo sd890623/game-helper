@@ -224,7 +224,7 @@ class Market:
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(46, 153),
             lambda: self.uwtask.hasSingleLineWordsInArea(
-                "sel", A=self.uwtask.titleArea
+                "出售", A=self.uwtask.titleArea
             ),
             2,
             2,
@@ -274,31 +274,31 @@ class Market:
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn), 5)
             self.bargin(True)
             doMoreTimesWithWait(
-                lambda: self.instance.clickPointV2(*self.randomPoint), 3, 0
+                lambda: self.instance.clickPointV2(*self.randomPoint), 2, 0
             )
 
-        self.uwtask.print("sell items")
+        self.uwtask.print("出售商品")
         sellItemsInScreen()
-        if not (self.uwtask.hasSingleLineWordsInArea("sel", A=[690, 467, 736, 496])):
+        if not (self.uwtask.hasSingleLineWordsInArea("出售", A=[638, 472, 672, 494])):
             sellItemsInScreen()
         ducatIconLocation = self.uwtask.hasImageInScreen(
-            "ducatInMarket", A=[891, 5, 985, 50]
+            "ducatInMarket", A=[929, 7, 1026, 41]
         )
         moneyScanArea = (
             [
                 ducatIconLocation[0] + 18,
                 ducatIconLocation[1] - 2,
-                ducatIconLocation[0] + 123,
+                1087,
                 ducatIconLocation[1] + 16,
             ]
             if ducatIconLocation
-            else [1007, 11, 1119, 39]
+            else [960, 9, 1090, 35]
         )
         savingOcr = self.uwtask.getSingleLineWordsInArea(A=moneyScanArea, ocrType=2)
         self.uwtask.sendMessage(
             "UW", "current saving is: " + (savingOcr if savingOcr else "undefined")
         )
-        self.uwtask.print("sell fin")
+        self.uwtask.print("出售完毕")
 
     def checkMaxBought(self, xDiff, yDiff):
         return self.uwtask.isPositionColorSimilarTo(

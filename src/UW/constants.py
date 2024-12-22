@@ -131,6 +131,7 @@ EADoubleBuy = {
     "fashions": ["赞助", "流行"],
     "waitForFashion": True,
     "waitHour": 1,
+    "useSkillCity": True,
 }
 EuropeDoubleBuy = {
     "buyFleet": 4,
@@ -156,6 +157,7 @@ EuropeDoubleBuy = {
     "fashions": ["赞助", "流行"],
     "waitForFashion": True,
     "waitHour": 1,
+    "useSkillCity": False,
 }
 EABuyBM = {
     "buyFleet": 4,
@@ -171,6 +173,7 @@ EABuyBM = {
     "dumpCrewCities": [],
     "supplyCities": [],
     "sellCities": [],
+    "useSkillCity": True,
 }
 
 ## yawuru or kalkat

@@ -106,8 +106,8 @@ class Battle:
     def hasResultsBtn(self):
         return (
             self.uwtask.hasSingleLineWordsInArea("确定", A=self.battleEnd["okBtn"])
-            or self.uwtask.hasSingleLineWordsInArea("close", A=self.battleEnd["okBtn"])
-            or self.uwtask.hasSingleLineWordsInArea("discard", A=[679, 667, 757, 682])
+            or self.uwtask.hasSingleLineWordsInArea("丢弃", A=self.battleEnd["okBtn"])
+            # or self.uwtask.hasSingleLineWordsInArea("discard", A=[679, 667, 757, 682])
         )
 
     def exitBattle(self):
@@ -203,10 +203,10 @@ class Battle:
 
         def backupFunc():
             self.exitBattle()
-            if self.uwtask.hasSingleLineWordsInArea("defeat", A=[1078, 781, 1162, 807]):
-                wait(lambda: self.instance.clickPointV2(1097, 798), 10)
-                doMoreTimesWithWait(lambda: self.instance.clickPointV2(859, 497), 2, 3)
-                wait(lambda: self.instance.clickPointV2(781, 663), 60)
+            if self.uwtask.hasSingleLineWordsInArea("战败", A=[1014,782,1161,816]):
+                wait(lambda: self.instance.clickPointV2(1088,799), 10)
+                doMoreTimesWithWait(lambda: self.instance.clickPointV2(856,540), 2, 3)
+                wait(lambda: self.instance.clickPointV2(777,643), 40)
             self.uwtask.checkForDailyPopup()
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 5, 3
@@ -245,6 +245,7 @@ class Battle:
         if getTimeDiffInSeconds(self.lastCallTime, now) > 1800:
             if now.minute >= 30:
                 self.uwtask.healInjury(town)
+                self.uwtask.sellInCity(town, simple=True)
             # if(self.uwtask.firstBuyFin==False):
             #    self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","doenjang","lris"],marketMode=1)
             self.lastCallTime = now

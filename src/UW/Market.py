@@ -95,7 +95,7 @@ BMfile = os.path.abspath(__file__ + "\\..\\blackMarket.json")
 class Market:
     randomPoint = 851, 668
     buySellWholeArea = [187, 99, 949, 395]
-    errorMsgTitleArea = [654, 285, 783, 303]
+    errorMsgTitleArea = [678,296,761,320]
     today = None
     goodsPurchaseBtn = 1274, 859
     goodClick = 343, 119
@@ -544,7 +544,7 @@ class Market:
                 or ("highcombat" in productName and "highest" not in productName)
                 or
                 #  "tanjaq" in productName or
-                #  "largef里加te" in productName or "hind" in productName or "bermuda" in productName or
+                #  "largef里加te" in productName or "hind" in productName or "百慕大" in productName or
                 #  "junk" in productName or "higaki" in productName or
                 # "teak" in productName or "largegunport" in productName or
                 # "largekeel" in productName or
@@ -888,69 +888,61 @@ class Market:
     def cleanupGoods(self, goods, leaveGoods=[]):
         continueWithUntilBy(
             lambda: self.instance.clickPointV2(*self.uwtask.rightTopTownIcon),
-            lambda: self.uwtask.hasSingleLineWordsInArea(
-                "company", A=[156, 22, 227, 39]
-            ),
+            lambda: self.uwtask.hasSingleLineWordsInArea("船队", A=self.uwtask.menuCompany),
             2,
             15,
             firstWait=2,
         )
-        doAndWaitUntilBy(
-            lambda: self.instance.clickPointV2(1390, 94),
+        continueWithUntilBy(
+            lambda: self.instance.clickPointV2(1401,106),
             lambda: self.uwtask.hasSingleLineWordsInArea(
-                "storage", A=self.uwtask.titleArea
-            ),
-            1,
-            1,
-            timeout=10,
-        )  # storage
-        doAndWaitUntilBy(
-            lambda: self.instance.clickPointV2(42, 339),
-            lambda: self.uwtask.hasSingleLineWordsInArea(
-                "storage", A=self.uwtask.titleArea
-            ),
-            2,
-            1,
+                "仓库", A=self.uwtask.titleArea
+            )
+        )
+        continueWithUntilBy(
+            lambda: self.instance.clickPointV2(37,308),
+            lambda: self.uwtask.hasSingleLineWordsInArea("货舱", A=[12,289,87,321]),
         )
         index = 5
         # first 242,264
         # 5th 567,264
         while index >= 0:
-            xDiff = int(index * 81.25)
+            xDiff = int(index * 73.2)
             # yDiff=int(index/4)*134
             index -= 1
             wait(lambda: self.instance.rightClickPointV2(*self.randomPoint), 0)
-            wait(lambda: self.instance.clickPointV2(242 + xDiff, 264), 2)
+            continueWithUntilBy(
+                lambda: self.instance.clickPointV2(214 + xDiff, 235),
+                lambda: self.uwtask.hasSingleLineWordsInArea("装载物", A=[671,230,763,254]),
+                timeout=1
+            )
             # do not drop some items
             if self.uwtask.hasArrayStringInSingleLineWords(
-                leaveGoods, A=[627, 245, 810, 272]
+                leaveGoods, A=[638,266,752,288]
             ):
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(1202, 837),
+                    lambda: self.instance.clickPointV2(*self.uwtask.randomPoint),
                     lambda: not self.uwtask.hasSingleLineWordsInArea(
-                        "cargo", A=self.errorMsgTitleArea
-                    ),
-                    1,
-                    1,
-                    timeout=5,
+                        "装载物", A=[671,230,763,254]
+                    )
                 )
                 continue
             if self.uwtask.hasArrayStringInSingleLineWords(
-                goods, A=[627, 245, 810, 272]
+                goods, A=[638,266,752,288]
             ):
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(570, 670),
+                    lambda: self.instance.clickPointV2(585,647),
                     lambda: self.uwtask.hasSingleLineWordsInArea(
-                        "discardgoods", A=self.errorMsgTitleArea
+                        "丢弃物品", A=self.errorMsgTitleArea
                     ),
                     1,
                     1,
                     timeout=5,
                 )
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(786, 602),
+                    lambda: self.instance.clickPointV2(775,584),
                     lambda: not self.uwtask.hasSingleLineWordsInArea(
-                        "discardgoods", A=self.errorMsgTitleArea
+                        "丢弃物品", A=self.errorMsgTitleArea
                     ),
                     1,
                     1,
@@ -958,7 +950,7 @@ class Market:
                 )
             else:
                 doAndWaitUntilBy(
-                    lambda: self.instance.clickPointV2(1202, 837),
+                    lambda: self.instance.clickPointV2(*self.uwtask.randomPoint),
                     lambda: not self.uwtask.hasSingleLineWordsInArea(
                         "discardgoods", A=self.errorMsgTitleArea
                     ),

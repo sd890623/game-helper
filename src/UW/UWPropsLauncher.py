@@ -50,7 +50,6 @@ def run(props):
     task.battleMode = "run"
     task.goBM = goBM
     task.focusedBarterTrade = focusedBarterTrade
-    task.setRouteOption()
     # task.playNotification()
 
     # test
@@ -74,11 +73,11 @@ def run(props):
             task.specialConfUpdate()
             task.setRouteOption()
             initialRouteIndex = task.getInitialRouteIndex()
-            task.startFocusedBartingTrade(initialRouteIndex if task.initialRun else 0)
+            task.startTradeByConfs(initialRouteIndex if task.initialRun else 0)
             task.initialRun = False
         elif plainTradeTrade:
             task.setRouteOption()
-            task.startTradeRoute()
+            task.startTradeByConfs(initialRouteIndex if task.initialRun else 0)
             task.initialRun = False
         else:
 

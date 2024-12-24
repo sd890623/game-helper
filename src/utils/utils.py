@@ -11,14 +11,14 @@ from strsimpy.damerau import Damerau
 
 stringDist = Damerau().distance
 
-def wait(func, seconds = 2,disableWait=False):
+def wait(func, seconds = 1,disableWait=False):
     func()
     if(not(disableWait)):
         time.sleep(seconds+random.uniform(0,1))
     else:
         time.sleep(seconds)
 
-def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=False):
+def doMoreTimesWithWait(func, times=1, seconds=1,disableWait=False):
     while(times>0):
         wait(func, seconds, disableWait)
         times-=1
@@ -68,7 +68,7 @@ class Utils:
         time.sleep(seconds+ random.randint(0,1))
         return True
     
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10):
+def doAndWaitUntilBy(func, untilFunc, seconds = 1, frequency = 1, backupFunc=None,timeout=10):
     wait(func, seconds)
     while(not(untilFunc()) and timeout >0):
         time.sleep(frequency)
@@ -86,7 +86,7 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
     time.sleep(random.randint(1,2))
     return True
 
-def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30,firstWait=0,backupFunc=None):
+def continueWithUntilBy(func, untilFunc, frequency = 2,timeout=30,firstWait=1,backupFunc=None):
     wait(func, firstWait)
     while(not(untilFunc()) and timeout>0):
         func()
@@ -105,7 +105,7 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30,firstWait=0,ba
     time.sleep(random.randint(0,1))
     return True
 
-def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
+def continueWithUntilByWithBackup(func, untilFunc, frequency = 2, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()

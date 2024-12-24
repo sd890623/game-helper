@@ -108,6 +108,7 @@ NEEASupplySell = {
     ],
 }
 EADoubleBuy = {
+    "mode": "plainTrade",
     "buyFleet": 4,
     "buyProducts": ["日本画", "中国画"],
     "buyCities": ["北京", "重庆", "长崎", "江户"],
@@ -134,7 +135,9 @@ EADoubleBuy = {
     "useSkillCity": True,
     "onlyUseBuyFleetBuy": False,
 }
+
 EuropeDoubleBuy = {
+    "mode": "plainTrade",
     "buyFleet": 4,
     "buyProducts": ["花窗玻璃", "镜子"],
     "buyCities": ["马赛", "卡利亚里", "威尼斯", "雅斯特", "安科纳"],
@@ -178,7 +181,7 @@ EABuyBM = {
     "useSkillCity": True,
 }
 
-## yawuru or kalkat
+# yawuru or kalkat
 yaruruOrKalkaOri = "yawuru"
 
 
@@ -188,7 +191,7 @@ def getYawuruOrKalka(secondVillage=False):
     return yaruruOrKalkaOri
 
 
-## witoto or varo
+# witoto or varo
 witotoOrVaro = "witoto"
 
 
@@ -499,9 +502,9 @@ villageTradeList = {
 monthToRoute = {
     "3": 3,
     "4": 3,
-    "5": 3,
-    "6": 3,
-    "7": 3,
+    "5": 15,
+    "6": 15,
+    "7": 15,
     "8": 3,
     "9": 3,
     "10": 3,
@@ -1210,6 +1213,32 @@ routeLists = [
     [
         {**EuropeDoubleBuy},
         {**EADoubleBuy},
+        {**EuropeDoubleBuy},
+        {**EADoubleBuy},
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         }
     ],
     # 4 Summer Jun-Aug, NorthE-EA
     [
@@ -1917,7 +1946,8 @@ routeLists = [
             "buyCities": ["科哈塞特"],
             "mode": "newlanding",
         },
-        {**samiRouteBase, "buyCities": ["azores"], "villages": ["samiWLumber"]},
+        {**samiRouteBase, "buyCities": ["azores"],
+            "villages": ["samiWLumber"]},
         {
             **yawuruRouteBase,
             "buyCities": ["杭州"],
@@ -2260,4 +2290,55 @@ routeLists = [
         # }
         {"buyCities": ["苏伊士"], "mode": "tunnel"},
     ],
+    #15
+    [
+        {**EuropeDoubleBuy},
+        {**EADoubleBuy},
+        {**EuropeDoubleBuy},
+        {**EADoubleBuy},
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+        {
+            "mode": "buff",
+            "buyCities": ["达沃"],
+        },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+         {"mode": "supply",
+             "supplyCities": ["休达"]},
+                     {
+            "buyCities": ["科哈塞特"],
+            "mode": "newlanding",
+            "supplyCities": ["休达"]
+        },
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
+         {"mode": "supply",
+             "supplyCities": ["江户"]},
+        {
+            "mode": "battle",
+            "buyCities": ["切尔斯基"],
+            # "supplyCities": ["江户","杭州","澳门","马六甲", "锡兰","苏伊士"],
+            "checkInnCities": True,
+        },
+        # {
+        #     "buyCities": ["切尔斯基"],
+        #     "mode": "landing",
+        #     "checkInnCities": True
+        # },
+        {
+            "mode": "reportAndAdvQuest",
+            "buyCities": ["江户", "安平"],
+            "supplyCities": ["堺"],
+            # "supplyCities": ["长崎","杭州","澳门","文莱","泗水","锡兰"],
+            "checkInnCities": True,
+        },
+
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+    ]
 ]

@@ -146,7 +146,7 @@ EuropeDoubleBuy = {
     "dumpCrewCities": [],
     "transportFleet": 2,
     "supplyCities": ["塞得港", "tunnel", "锡兰", "嘉定", "杭州"],
-    "sellPriceIndexByName": "花窗玻璃",
+    "sellPriceIndexByName": "镜子",
     "sellCityOptions": [
         "杭州",
         "澳门",
@@ -159,9 +159,9 @@ EuropeDoubleBuy = {
         "重庆",
     ],
     "fashions": ["赞助", "流行"],
-    "waitForFashion": True,
+    "waitForFashion": False,
     "waitHour": 1,
-    "useSkillCity": False,
+    "useSkillCity": True,
     "onlyUseBuyFleetBuy": True,
 }
 EABuyBM = {
@@ -537,14 +537,14 @@ dailyJobConf = {
     "battleFleet": 1,
     "endBattleCity": "江户",
     "landingTimes": 90,
-    "landingRounds": 2,
+    "landingRounds": 4,
     "reportAndAdvQuestCity": "江户",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "芬瑟岛"],
     "leaveBattlecity": ["芬瑟岛", "kakatuwah"],
     "negoTimes": 6,
 }
-checkInnCities = ["比萨", "热那亚"]
+checkInnCities = ["比萨", "热那亚","东莱"]
 checkInnCitiesBack = [
     "佛得角",
     "埃尔米纳",
@@ -2332,7 +2332,7 @@ routeLists = [
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["江户", "安平"],
-            "supplyCities": ["堺"],
+            "supplyCities": ["东莱"],
             # "supplyCities": ["长崎","杭州","澳门","文莱","泗水","锡兰"],
             "checkInnCities": True,
         },

@@ -101,6 +101,7 @@ class UWTask(FrontTask):
     dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
+        self.checkShouldBattle(0,"斯基")
         self.market.cleanupGoods(["薄荷","糖"],["蜡烛"])
         routeObject = {
             "buyFleet": 4,
@@ -1649,10 +1650,10 @@ class UWTask(FrontTask):
 
     def report(self):
         self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
-        self.clickInMenu(["estate"], ["estate"])
+        self.clickInMenu(["住宅"], ["住宅"])
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(48, 151),
-            lambda: self.hasSingleLineWordsInArea("report", A=self.titleArea),
+            lambda: self.hasSingleLineWordsInArea("报告", A=self.titleArea),
             2,
             1,
         )
@@ -1703,7 +1704,7 @@ class UWTask(FrontTask):
             )
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(1284, 852),
-                lambda: self.hasSingleLineWordsInArea("yes", A=[1047, 779, 1112, 812]),
+                lambda: self.hasSingleLineWordsInArea("圣院", A=[1047, 779, 1112, 812]),
                 2,
                 1,
                 timeout=10,
@@ -1920,22 +1921,22 @@ class UWTask(FrontTask):
         buffCity = dailyJobConf.get("buffCity")
         if buffCity:
             self.gotoCity(buffCity, express=True)
-            self.clickInMenu(["sanctuary"], ["sanctuary"])
+            self.clickInMenu(["圣院"], ["圣院"])
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(46, 146),
-                lambda: self.hasSingleLineWordsInArea("donate", A=self.titleArea),
+                lambda: self.simulatorInstance.clickPointV2(44,128),
+                lambda: self.hasSingleLineWordsInArea("捐赠", A=self.titleArea),
                 2,
                 1,
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(806, 318),
-                lambda: self.hasSingleLineWordsInArea("yes", A=[1007, 770, 1154, 816]),
+                lambda: self.simulatorInstance.clickPointV2(817,306),
+                lambda: self.hasSingleLineWordsInArea("是", A=[1020,779,1119,820]),
                 2,
                 1,
                 timeout=10,
             )
             doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(1075, 787), 3, 1
+                lambda: self.simulatorInstance.clickPointV2(1033,788), 2, 1
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
@@ -1953,18 +1954,18 @@ class UWTask(FrontTask):
         self.gotoCity(battleCity, express=True)
         # deactivate protection
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(42, 222),
-            lambda: self.hasSingleLineWordsInArea("保护", A=[622, 299, 806, 318]),
+            lambda: self.simulatorInstance.clickPointV2(42,220),
+            lambda: self.hasArrayStringEqualMultiLineWords(["保护"], A=self.largerNoticeTitleArea),
             2,
             1,
             timeout=6,
         )
-        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(780, 604), 3, 1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(780, 604), 2, 1)
         self.battleRoute(battleCity)
         # activate protection
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(42, 222),
-            lambda: self.isPositionColorSimilarTo(39, 232, (203, 255, 160)),
+            lambda: self.simulatorInstance.clickPointV2(42,220),
+            lambda: self.isPositionColorSimilarTo(37,231, (148,255,106)),
             5,
             timeout=10,
         )
@@ -2566,19 +2567,13 @@ class UWTask(FrontTask):
             return (True, lastCheckTime)
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
-            lambda: self.hasSingleLineWordsInArea("船队", A=self.menuCompany),
-            2,
-            15,
-            firstWait=2,
+            lambda: self.hasSingleLineWordsInArea("船队", A=self.menuCompany)
         )
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(170, 36),
-            lambda: self.hasSingleLineWordsInArea("舰队", A=self.titleArea),
-            1,
-            1,
-            timeout=10,
+            lambda: self.simulatorInstance.clickPointV2(149,39),
+            lambda: self.hasSingleLineWordsInArea("船队管理", A=self.titleArea)
         )
-        battleLeft = self.getNumberFromSingleLineInArea(A=[596, 325, 614, 344])
+        battleLeft = self.getNumberFromSingleLineInArea(A=[603,300,624,318])
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
             lambda: self.inCityList([battleCity]),

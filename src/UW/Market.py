@@ -272,7 +272,7 @@ class Market:
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033, 856), 3, 0)
             wait(lambda: self.instance.clickPointV2(*self.goodsPurchaseBtn), 1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn), 5)
-            self.bargin(True)
+            self.bargin(False if simple else True)
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 2, 0
             )

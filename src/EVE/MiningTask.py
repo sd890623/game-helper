@@ -215,7 +215,7 @@ class MiningTask(EVETask):
     def waitForOreFinish(self):
         def checkOre(totalSeconds):
             if totalSeconds%10==0:
-                return self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
+                return self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4) and self.getNumberFromSingleLineInArea(A=[0,137,24,159])!=100
             else:
                 return True
         if self.mode == 2:

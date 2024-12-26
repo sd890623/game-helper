@@ -32,7 +32,7 @@ def run(props):
     # task.shipBuilding(options=[12,12],city="休达", times=1)
     # task.targetCity="拿坡里"
 
-    task.print("每日检查： 仓清空，市场购买勾，时间可用，检查道具多于3格")
+    task.print("每日检查： 仓清空，市场购买勾，时间可用，检查道具多于3格,打开复制工具")
     task.print(
         "特别检查：检查航海道具；检查船耐久;检查忠诚；检查屏幕设置；检查探险工具超1000;钓鱼，探险工具使用中,adv/battle fast,set Sami village"
     )

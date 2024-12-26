@@ -220,7 +220,7 @@ class Market:
         doMoreTimesWithWait(lambda: self.instance.clickPointV2(*self.randomPoint), 3, 0)
         self.uwtask.print("buy fin")
 
-    def sellGoodsWithMargin(self, simple=False, types=None):
+    def sellGoodsWithMargin(self, simple=False, types=None, negoTimes=True):
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(46, 153),
             lambda: self.uwtask.hasSingleLineWordsInArea(
@@ -272,7 +272,7 @@ class Market:
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033, 856), 3, 0)
             wait(lambda: self.instance.clickPointV2(*self.goodsPurchaseBtn), 1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn), 5)
-            self.bargin(False if simple else True)
+            self.bargin(True if negoTimes else False)
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 2, 0
             )

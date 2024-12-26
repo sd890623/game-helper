@@ -101,7 +101,7 @@ class UWTask(FrontTask):
     dailyCheckedBattlePlaceLanding = False
 
     def testTask(self):
-        self.checkShouldBattle(0,"斯基")
+        self.goToVillage("百慕大",None)
         self.market.cleanupGoods(["薄荷","糖"],["蜡烛"])
         routeObject = {
             "buyFleet": 4,
@@ -576,15 +576,23 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
             lambda: self.hasArrayStringEqualSingleLineWords(
-                ["搜索", cityname], A=[124, 60, 181, 82]
+                ["搜索", cityname], A=[73,57,230,84]
             ),
             2,
             1,
             timeout=6,
             backupFunc=self.clearSearch,
         )
-        wait(lambda: self.simulatorInstance.clickPointV2(*self.searchClick), 1)
-        wait(lambda: self.simulatorInstance.chineseTypeWrite(cityname), 0)
+        def input():
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.searchClick), 1)
+            wait(lambda: self.simulatorInstance.chineseTypeWrite(cityname), 0)
+        doAndWaitUntilBy(
+            input,
+            lambda: self.hasArrayStringEqualSingleLineWords(
+                [cityname], A=[73,57,230,84]
+            ),
+            timeout=5
+        )
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(105, 99), 2, 1)
         wait(lambda: self.simulatorInstance.rightClickPointV2(*self.randomPoint), 1)
@@ -826,12 +834,12 @@ class UWTask(FrontTask):
         )
 
     # need to provide a city list
-    def sellInCity(self, cityName, simple=False, types=None):
+    def sellInCity(self, cityName, simple=False, types=None,negoTimes=True):
         self.print("去超市")
         self.clickInMenu(["交易所"], ["交易所"])
 
         # sell
-        self.market.sellGoodsWithMargin(simple, types)
+        self.market.sellGoodsWithMargin(simple, types,negoTimes)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(134, 691), 2, 1)
         time.sleep(3)
 
@@ -1355,22 +1363,27 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712, 27), 2, 1)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
-            lambda: self.hasSingleLineWordsInArea("搜索", A=[124, 60, 181, 82]),
+            lambda: self.hasSingleLineWordsInArea("搜索", A=[73,57,230,84]),
             2,
             1,
             timeout=15,
         )
-        doMoreTimesWithWait(
-            lambda: self.simulatorInstance.clickPointV2(*self.searchClick), 2, 1
-        )
         shortVillageName = None
         if villageObject and villageObject.get("shortVillageName"):
             shortVillageName = villageObject.get("shortVillageName")
-        wait(
-            lambda: self.simulatorInstance.chineseTypeWrite(
-                shortVillageName if shortVillageName else village
+        def input():
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.searchClick))
+            wait(
+                lambda: self.simulatorInstance.chineseTypeWrite(
+                    shortVillageName if shortVillageName else village
+                ),0
+            )
+        doAndWaitUntilBy(
+            input,
+            lambda: self.hasArrayStringEqualSingleLineWords(
+                [shortVillageName if shortVillageName else village], A=[73,57,230,84]
             ),
-            0,
+            timeout=5
         )
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(105, 99), 3, 1)
@@ -2341,15 +2354,21 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712, 27), 2, 1)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
-            lambda: self.hasSingleLineWordsInArea("搜索", A=[124, 60, 181, 82]),
+            lambda: self.hasSingleLineWordsInArea("搜索", A=[73,57,230,84]),
             2,
             1,
             timeout=15,
         )
-        doMoreTimesWithWait(
-            lambda: self.simulatorInstance.clickPointV2(*self.searchClick), 2, 1
+        def input():
+            wait(lambda: self.simulatorInstance.clickPointV2(*self.searchClick))
+            wait(lambda: self.simulatorInstance.chineseTypeWrite("阿帕奇"), 0)
+        doAndWaitUntilBy(
+            input,
+            lambda: self.hasArrayStringEqualSingleLineWords(
+                ["阿帕奇"], A=[73,57,230,84]
+            ),
+            timeout=5
         )
-        wait(lambda: self.simulatorInstance.chineseTypeWrite("阿帕奇"), 0)
         wait(lambda: self.simulatorInstance.send_enter(), 0)
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(105, 99), 2, 1)
         continueWithUntilBy(

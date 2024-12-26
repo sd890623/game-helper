@@ -245,7 +245,7 @@ class Battle:
         if getTimeDiffInSeconds(self.lastCallTime, now) > 1800:
             if now.minute >= 30:
                 self.uwtask.healInjury(town)
-                self.uwtask.sellInCity(town, simple=True)
+                self.uwtask.sellInCity(town, simple=True,negoTimes=False)
             # if(self.uwtask.firstBuyFin==False):
             #    self.uwtask.buyInCity([town], products=["agarwood","ylang-ylang","mace","chinesetea","gardenia","begonia","sweetolive","azalea","ginseng","doenjang","lris"],marketMode=1)
             self.lastCallTime = now

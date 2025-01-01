@@ -134,6 +134,7 @@ EADoubleBuy = {
     "waitHour": 1,
     "useSkillCity": True,
     "onlyUseBuyFleetBuy": False,
+    "checkInnCities": True,
 }
 
 EuropeDoubleBuy = {
@@ -163,6 +164,7 @@ EuropeDoubleBuy = {
     "waitHour": 1,
     "useSkillCity": True,
     "onlyUseBuyFleetBuy": True,
+    "checkInnCities": True,
 }
 EABuyBM = {
     "buyFleet": 4,
@@ -531,13 +533,13 @@ dailyJobConf = {
     "merchatQuestCity": "南特",
     "buffCity": "达沃",
     "basicFleet": 2,
-    "landingFleet": 5,
-    "preLandingCity": "科哈塞特",
-    "landingCity": "科哈塞特",
+    "landingFleet": 8,
+    "preLandingCity": "迪克森",
+    "landingCity": "迪克森",
     "battleFleet": 1,
-    "endBattleCity": "江户",
+    "endBattleCity": "迪克森",
     "landingTimes": 90,
-    "landingRounds": 4,
+    "landingRounds": 2,
     "reportAndAdvQuestCity": "江户",
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "芬瑟岛"],
@@ -2299,36 +2301,33 @@ routeLists = [
         {**EuropeDoubleBuy,
             "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
          },
+        {**EADoubleBuy,
+            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
+         },
+        #  {"mode": "supply","supplyCities": ["休达"]},
+        {**EuropeDoubleBuy,
+            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
+         },
         {
             "mode": "buff",
             "buyCities": ["达沃"],
         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
-         {"mode": "supply",
-             "supplyCities": ["休达"]},
-                     {
-            "buyCities": ["科哈塞特"],
-            "mode": "newlanding",
-            "supplyCities": ["休达"]
-        },
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
          {"mode": "supply",
              "supplyCities": ["江户"]},
         {
+            "titleNo": 5,
             "mode": "battle",
+            "beforeCities": ["切尔斯基","迪克森"],
             "buyCities": ["切尔斯基"],
             # "supplyCities": ["江户","杭州","澳门","马六甲", "锡兰","苏伊士"],
             "checkInnCities": True,
         },
-        # {
-        #     "buyCities": ["切尔斯基"],
-        #     "mode": "landing",
-        #     "checkInnCities": True
-        # },
+        {
+            
+            "buyCities": ["迪克森"],
+            "mode": "landing",
+            "afterCities": ["切尔斯基","江户"]
+        },
         {
             "mode": "reportAndAdvQuest",
             "buyCities": ["江户", "安平"],
@@ -2336,7 +2335,10 @@ routeLists = [
             # "supplyCities": ["长崎","杭州","澳门","文莱","泗水","锡兰"],
             "checkInnCities": True,
         },
-
+        {
+            "mode": "changeTitle",
+            "param":1
+        },
         {**EADoubleBuy,
             "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
          },

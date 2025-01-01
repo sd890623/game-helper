@@ -82,5 +82,5 @@ def run(props):
         else:
 
             task.startMerchantQuest()
-            task.startDailyBattle(battleCity)
+            task.startDailyBattle(battleCity,{})
         # task.startJourney()

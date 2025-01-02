@@ -575,7 +575,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
             lambda: self.hasArrayStringEqualSingleLineWords(
-                ["搜索", cityname], A=[73, 57, 230, 84]
+                ["搜", cityname], A=[73, 57, 230, 84]
             ),
             2,
             1,
@@ -1362,7 +1362,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712, 27), 2, 1)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
-            lambda: self.hasSingleLineWordsInArea("搜索", A=[73, 57, 230, 84]),
+            lambda: self.hasSingleLineWordsInArea("搜", A=[73, 57, 230, 84]),
             2,
             1,
             timeout=15,
@@ -2415,7 +2415,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(712, 27), 2, 1)
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.openSearchBar),
-            lambda: self.hasSingleLineWordsInArea("搜索", A=[73, 57, 230, 84]),
+            lambda: self.hasSingleLineWordsInArea("搜", A=[73, 57, 230, 84]),
             2,
             1,
             timeout=15,

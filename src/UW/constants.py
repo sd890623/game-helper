@@ -502,8 +502,8 @@ villageTradeList = {
 # 4 summer, 5autumn, 6winter 7 spring
 # v1 trade mapping
 monthToRoute = {
-    "3": 3,
-    "4": 3,
+    "3": 15,
+    "4": 15,
     "5": 15,
     "6": 15,
     "7": 15,

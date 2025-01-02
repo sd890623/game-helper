@@ -1012,7 +1012,7 @@ class Market:
         )
         doAndWaitUntilBy(
             lambda: self.instance.clickPointV2(35, 83),
-            lambda: self.uwtask.hasSingleLineWordsInArea("搜索", A=[124, 60, 181, 82]),
+            lambda: self.uwtask.hasSingleLineWordsInArea("搜", A=[124, 60, 181, 82]),
             2,
             1,
             timeout=15,
@@ -1096,11 +1096,11 @@ class Market:
                 lambda: self.instance.clickPointV2(*self.uwtask.searchClick), 1, 0
             )
             wait(self.instance.send_backspaces, 1)
-            if not self.uwtask.hasSingleLineWordsInArea("搜索", A=[124, 60, 181, 82]):
+            if not self.uwtask.hasSingleLineWordsInArea("搜", A=[124, 60, 181, 82]):
                 doAndWaitUntilBy(
                     lambda: self.instance.clickPointV2(*self.uwtask.openSearchBar),
                     lambda: self.uwtask.hasSingleLineWordsInArea(
-                        "搜索", A=[124, 60, 181, 82]
+                        "搜", A=[124, 60, 181, 82]
                     ),
                     2,
                     1,

@@ -135,8 +135,8 @@ EADoubleBuy = {
     "useSkillCity": True,
     "onlyUseBuyFleetBuy": False,
     "checkInnCities": True,
-    "buyTitleNo":1,
-    "normalTitleNo":3
+    "buyTitleNo": 1,
+    "normalTitleNo": 3,
 }
 
 EuropeDoubleBuy = {
@@ -167,8 +167,8 @@ EuropeDoubleBuy = {
     "useSkillCity": False,
     "onlyUseBuyFleetBuy": True,
     "checkInnCities": True,
-    "buyTitleNo":1,
-    "normalTitleNo":3
+    "buyTitleNo": 1,
+    "normalTitleNo": 3,
 }
 EABuyBM = {
     "buyFleet": 4,
@@ -550,7 +550,7 @@ dailyJobConf = {
     "leaveBattlecity": ["芬瑟岛", "kakatuwah"],
     "negoTimes": 24,
 }
-checkInnCities = ["比萨", "热那亚","东莱"]
+checkInnCities = ["比萨", "热那亚", "东莱"]
 checkInnCitiesBack = [
     "佛得角",
     "埃尔米纳",
@@ -1221,30 +1221,98 @@ routeLists = [
         {**EADoubleBuy},
         {**EuropeDoubleBuy},
         {**EADoubleBuy},
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         }
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
     ],
     # 4 Summer Jun-Aug, NorthE-EA
     [
@@ -1952,8 +2020,7 @@ routeLists = [
             "buyCities": ["科哈塞特"],
             "mode": "newlanding",
         },
-        {**samiRouteBase, "buyCities": ["azores"],
-            "villages": ["samiWLumber"]},
+        {**samiRouteBase, "buyCities": ["azores"], "villages": ["samiWLumber"]},
         {
             **yawuruRouteBase,
             "buyCities": ["杭州"],
@@ -2296,41 +2363,158 @@ routeLists = [
         # }
         {"buyCities": ["苏伊士"], "mode": "tunnel"},
     ],
-    #15
+    # 15
     [
-        {**EuropeDoubleBuy},
-        {**EADoubleBuy},
-        {**EuropeDoubleBuy},
-        {**EADoubleBuy},
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
+        # {**EuropeDoubleBuy},
+        # {**EADoubleBuy},
+        # {**EuropeDoubleBuy},
+        # {**EADoubleBuy},
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        # temp addition
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+        # end of temp
         #  {"mode": "supply","supplyCities": ["休达"]},
-        {**EuropeDoubleBuy,
-            "supplyCities": ["卡萨布兰卡", "塞拉利昂", "开普敦", "塔玛塔夫", "亚齐", "泉州"],
-         },
+        {
+            **EuropeDoubleBuy,
+            "supplyCities": [
+                "卡萨布兰卡",
+                "塞拉利昂",
+                "开普敦",
+                "塔玛塔夫",
+                "亚齐",
+                "泉州",
+            ],
+        },
         {
             "mode": "buff",
             "buyCities": ["达沃"],
         },
-         {"mode": "supply",
-             "supplyCities": ["江户"]},
+        {"mode": "supply", "supplyCities": ["江户"]},
         {
             "titleNo": 6,
             "mode": "battle",
-            "beforeCities": ["切尔斯基","迪克森"],
+            "beforeCities": ["切尔斯基", "迪克森"],
             "buyCities": ["切尔斯基"],
             # "supplyCities": ["江户","杭州","澳门","马六甲", "锡兰","苏伊士"],
             "checkInnCities": True,
         },
         {
-            
             "buyCities": ["迪克森"],
             "mode": "landing",
-            "afterCities": ["切尔斯基","江户"]
+            "afterCities": ["切尔斯基", "江户"],
         },
         {
             "mode": "reportAndAdvQuest",
@@ -2343,8 +2527,17 @@ routeLists = [
         #     "mode": "changeTitle",
         #     "param":1
         # },
-        {**EADoubleBuy,
-            "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
-         },
-    ]
+        {
+            **EADoubleBuy,
+            "supplyCities": [
+                "淡水",
+                "亚齐",
+                "塔玛塔夫",
+                "开普敦",
+                "塞拉利昂",
+                "卡萨布兰卡",
+                "热那亚",
+            ],
+        },
+    ],
 ]

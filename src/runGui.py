@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from UW import UWPropsLauncher
-from Gui import Application
+from gui import Application
 import multiprocessing
 
 
@@ -58,7 +58,7 @@ def on_cancel():
         messagebox.showinfo("Notifications", "还没启动呢")
 
 
-if __name__ == "__main__2":
+if __name__ == "__main__":
     # 创建主窗口
     root = tk.Tk()
 
@@ -127,6 +127,6 @@ if __name__ == "__main__2":
     # 运行主循环
     root.mainloop()
 
-if __name__ == "__main__":
+if __name__ == "__main__2":
     app = Application()
     app.mainloop()

@@ -135,6 +135,8 @@ EADoubleBuy = {
     "useSkillCity": True,
     "onlyUseBuyFleetBuy": False,
     "checkInnCities": True,
+    "buyTitleNo":1,
+    "normalTitleNo":3
 }
 
 EuropeDoubleBuy = {
@@ -162,9 +164,11 @@ EuropeDoubleBuy = {
     "fashions": ["赞助", "流行"],
     "waitForFashion": False,
     "waitHour": 1,
-    "useSkillCity": True,
+    "useSkillCity": False,
     "onlyUseBuyFleetBuy": True,
     "checkInnCities": True,
+    "buyTitleNo":1,
+    "normalTitleNo":3
 }
 EABuyBM = {
     "buyFleet": 4,
@@ -256,7 +260,7 @@ apachewine = {
         "佛得角",
         "拉斯帕尔",
         "圣多明各",
-        "特鲁希略",
+        "特鲁希",
         "波多贝罗",
         "圣多明各",
         "巴伊亚",
@@ -544,7 +548,7 @@ dailyJobConf = {
     "battleQuest": True,
     "gotoBattlecity": ["kakatuwah", "芬瑟岛"],
     "leaveBattlecity": ["芬瑟岛", "kakatuwah"],
-    "negoTimes": 6,
+    "negoTimes": 24,
 }
 checkInnCities = ["比萨", "热那亚","东莱"]
 checkInnCitiesBack = [
@@ -567,7 +571,7 @@ checkInnCitiesBack = [
     "圣多明各",
     "罗亚尔港",
     "波多贝罗",
-    "科哈塞特" "特鲁希略",
+    "科哈塞特" "特鲁希",
     "巴拿马",
     "索科特拉",
     "亚齐",
@@ -734,7 +738,7 @@ yawuruRouteBase = {
         "圣多明各",
         "韦拉克鲁斯",
         "梅里达",
-        "特鲁希略",
+        "特鲁希",
         "波多贝罗",
         "卡塔赫纳",
         "马拉开波",
@@ -746,7 +750,7 @@ yawuruRouteBase = {
         "罗亚尔港",
         "绍斯赛德",
         "哈瓦那",
-        "拿骚",
+        "拿索",
     ],
     "forceUseSequenceOptions": False,
     "fashions": ["赞助", "流行"],
@@ -2315,7 +2319,7 @@ routeLists = [
          {"mode": "supply",
              "supplyCities": ["江户"]},
         {
-            "titleNo": 5,
+            "titleNo": 6,
             "mode": "battle",
             "beforeCities": ["切尔斯基","迪克森"],
             "buyCities": ["切尔斯基"],
@@ -2335,10 +2339,10 @@ routeLists = [
             # "supplyCities": ["长崎","杭州","澳门","文莱","泗水","锡兰"],
             "checkInnCities": True,
         },
-        {
-            "mode": "changeTitle",
-            "param":1
-        },
+        # {
+        #     "mode": "changeTitle",
+        #     "param":1
+        # },
         {**EADoubleBuy,
             "supplyCities": ["淡水", "亚齐", "塔玛塔夫", "开普敦", "塞拉利昂", "卡萨布兰卡", "热那亚"],
          },

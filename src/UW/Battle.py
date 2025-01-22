@@ -34,7 +34,7 @@ class Battle:
     opentimeout = 0
     nameBoardInPrePanel = [57,147,141,171]
     sunk=False
-    skillShip=[1,3,4,5,6]
+    skillShip=[1,3,4,5,6,7]
 
     def __init__(self, instance: win, uwtask: UWTask) -> None:
         self.instance = instance
@@ -117,11 +117,11 @@ class Battle:
             wait(lambda: self.instance.clickPointV2(777, 607), 2)
 
     def doBattle(self):
-        skillUsed=[]
+        shipsDone = []
         x = 0
         continueWithUntilBy(
-            lambda: self.instance.clickPointV2(27,144),
-            lambda: not self.uwtask.isPositionColorSimilarTo(57,146, (244,244,243)),
+            lambda: self.instance.clickPointV2(27, 144),
+            lambda: not self.uwtask.isPositionColorSimilarTo(57, 146, (244, 244, 243)),
             1,
             10,
         )
@@ -141,7 +141,7 @@ class Battle:
         doAndWaitUntilBy(
             lambda: False,
             lambda: self.uwtask.hasSingleLineWordsInArea(
-                "托管", A=[786,860,831,882]
+                "托管", A=[786, 860, 831, 882]
             ),
             1,
             1,
@@ -154,21 +154,26 @@ class Battle:
         print("in battle")
         self.useFast()
 
-        centralPos = 712,457
-        expressskill = 1232,858
-        waitPos = 1399,798
+        centralPos = 712, 457
+        expressskill = 1232, 858
+        waitPos = 1399, 798
 
         def useSkill(shipNo):
-            if(shipNo in self.skillShip):
+            if shipNo in self.skillShip:
+                if(shipNo==1 and self.uwtask.getNumberFromSingleLineInArea(A=[1396,740,1415,756]) and self.uwtask.getNumberFromSingleLineInArea(A=[1396,740,1415,756])<55):
+                    wait(lambda: self.instance.longerClickPointV2(1398,726), 0.5)
+                    doMoreTimesWithWait(
+                        lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
+                    )
+                    time.sleep(3)
                 wait(lambda: self.instance.longerClickPointV2(*expressskill), 0.5)
                 doMoreTimesWithWait(
                     lambda: self.instance.longerClickPointV2(*centralPos), 2, 0.5
                 )
                 time.sleep(3)
-                skillUsed.append(shipNo)
             else:
                 wait(lambda: self.instance.clickPointV2(*waitPos), 2)
-
+            shipsDone.append(shipNo)
 
         def getSkillPosByIndex(index):
             xDiff = 76.3
@@ -176,19 +181,26 @@ class Battle:
             return (1161 + int(index % 4 * xDiff), 369 + int(index / 4) * yDiff)
 
         for x in range(7):
-            while not self.uwtask.isPositionColorSimilarTo(
-                29,112, (0,155,0)
-            ):
-                print("foe's turn, wait for 5s")
-                time.sleep(5)
-            number = self.uwtask.getNumberFromSingleLineInArea(A=[28,105,42,122])
-            if(number in skillUsed):
-                wait(lambda: self.instance.clickPointV2(*waitPos), 2)
-            useSkill(number)
+            while True:
+                while not self.uwtask.isPositionColorSimilarTo(29, 112, (0, 155, 0)):
+                    print("foe's turn, wait for 5s")
+                    time.sleep(5)
+                number = self.uwtask.getNumberFromSingleLineInArea(A=[28, 105, 42, 122])
+                print("shipsDone", shipsDone)
+                if number in shipsDone:
+                    print(
+                        "2nd same ship, rerun current iter after wait->so run next ship in current index"
+                    )
+                    wait(lambda: self.instance.clickPointV2(*waitPos), 2)
+                    continue
+                print("ship no", number)
+                print("index", x)
+                useSkill(number)
+                break
 
         self.clickAuto()
-        time.sleep(15)
-        number = self.uwtask.getNumberFromSingleLineInArea(A=[1345,85,1368,98])
+        time.sleep(10)
+        number = self.uwtask.getNumberFromSingleLineInArea(A=[1231,88,1256,101])
         if type(number) == int and number > 30:
             wait(
                 lambda: self.instance.clickPointV2(804 + randomInt(), 866 + randomInt()),
@@ -224,24 +236,28 @@ class Battle:
         )
         time.sleep(1)
         self.uwtask.checkForDailyPopup(4)
-        if not self.uwtask.inWater():
-            doAndWaitUntilBy(
-                lambda: self.instance.rightClickPointV2(*self.randomPoint),
-                lambda: self.uwtask.inWater(),
-                1,
-                1,
-            )
+        # if not self.uwtask.inWater():
+        #     doAndWaitUntilBy(
+        #         lambda: self.instance.rightClickPointV2(*self.randomPoint),
+        #         lambda: self.uwtask.inWater(),
+        #         1,
+        #         1,
+        #     )
 
     def checkStats(self, town):
         time.sleep(1)
         # 0 SHIP DOWN OR 0 SAILORS
         if self.sunk==True or self.uwtask.hasImageInScreen("shipSunk", A=[131,50,299,81]):
             self.goBackPort(town)
-            self.sunk=False
+            # set sunk false after in inn healing
             return False
         return True
 
     def checkInPort(self, town):
+        if(self.sunk):
+            self.uwtask.healInjury(town)
+            self.sunk=False
+        self.sunk=False
         now = datetime.now()
         if getTimeDiffInSeconds(self.lastCallTime, now) > 1800:
             if now.minute >= 30:
@@ -485,7 +501,7 @@ class Battle:
                 lambda: self.uwtask.hasSingleLineWordsInArea(
                     "战斗", A=[685,12,759,30]
                 ),
-                3,
+                1,
                 timeout=10,
             )
         continueWithUntilBy(

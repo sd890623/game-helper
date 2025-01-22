@@ -29,6 +29,8 @@ class Utils:
         self.uwtask=uwtask
         self.battle=battle
     def useSpecial(self, specialMode):
+        if(self.uwtask.inCityList(self.uwtask.allCityList)):
+            return False
         if(specialMode=="battle"):
             self.uwtask.print("special check from being assult")
             if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):

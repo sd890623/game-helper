@@ -7,7 +7,7 @@ import os
 
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 
-from CDKManager import CDKeyManager
+from CDKeyManager import CDKeyManager
 from UWLauncher import UWLauncher
 
 

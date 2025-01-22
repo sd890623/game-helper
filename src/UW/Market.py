@@ -272,6 +272,12 @@ class Market:
                 doMoreTimesWithWait(lambda: self.instance.clickPointV2(1033, 856), 3, 0)
             wait(lambda: self.instance.clickPointV2(*self.goodsPurchaseBtn), 1)
             wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn), 5)
+            if self.uwtask.hasArrayStringEqualMultiLineWords(
+                    ["通知"], A=self.uwtask.largerNoticeTitleArea
+                ):
+                doMoreTimesWithWait(
+                lambda: self.instance.clickPointV2(769,580), 2, 0
+            )
             self.bargin(True if negoTimes else False)
             doMoreTimesWithWait(
                 lambda: self.instance.clickPointV2(*self.randomPoint), 2, 0

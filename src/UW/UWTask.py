@@ -50,27 +50,30 @@ def importSB():
 
 
 class UWTask(FrontTask):
-    rightCatePoint1 = 1259, 78
-    rightCatePoint2 = 1308, 81
-    rightCatePoint3 = 1353, 82
+    rightCatePoint1 = 1266,81
+    rightCatePoint2 = 1306,74
+    rightCatePoint3 = 1358,79
 
-    titleArea = [41, 8, 307, 43]
-    rightTopTownIcon = 1406, 24
-    leftTopBackBtn = 18, 21
-    inTownCityNameArea = [108, 15, 236, 41]
-    inScreenConfirmYesButton = 1069, 801
-    enterCityButton = 1202, 837
-    outSeaWaterTitle = [72, 14, 175, 42]
-    randomPoint = 1084, 628
-    mapIcon = 1411, 173
-    noticeTitleArea = [666, 287, 780, 313]
-    largerNoticeTitleArea = [688, 262, 756, 361]
-    noticeOK = 766, 583
-    hideNoticeTick = 700, 557
-    searchClick = 217, 68
-    openSearchBar = 35, 83
-    menuCompany = 201, 17, 263, 38
-    # VM screen size: 1440x900 @ 95%
+    titleArea = [39,6,176,41]
+    rightTopTownIcon = 1407,22
+    leftTopBackBtn = 24,16
+    inTownCityNameArea = [105,14,208,40]
+    inScreenConfirmYesButton = 1071,800
+    enterCityButton = 1316,845
+    outSeaWaterTitle = [64,12,193,41]
+    randomPoint = 1115,586
+    mapIcon = 1412,172
+    noticeTitleArea = [684,303,763,325]
+    largerNoticeTitleArea = [664,282,776,342]
+    noticeOK = 767,574
+    hideNoticeTick = 641,548
+    searchClick = 33,74
+    openSearchBar = 33,74
+    menuCompany = 182,13,252,38
+    depotClick=1393,95
+    cargoClick=32,291
+    cargoTag=1330,87,1400,112
+    # VM screen size: 1440x900 @ 90%
 
     syncBetweenUsers = True
     currentCity = "拉斯帕尔"
@@ -181,7 +184,7 @@ class UWTask(FrontTask):
                 return 14
 
     def setRouteOptionFromScreen(self):
-        month = self.getSingleLineWordsInArea(A=[1330, 200, 1348, 216], ocrType=2)
+        month = self.getSingleLineWordsInArea(A=[1339,192,1355,205], ocrType=2)
         if self.focusedBarterTrade:
             mapping = bartingMonthToRoute
             if self.apacheFriendly:
@@ -892,7 +895,7 @@ class UWTask(FrontTask):
         def runFallback():
             yDiff = int(fallbackIndex % 15 * 35)
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1252, 240 + yDiff),
+                lambda: self.simulatorInstance.clickPointV2(1252, 224 + yDiff),
                 lambda: self.hasArrayStringEqualSingleLineWords(
                     inTitleArray, A=self.titleArea
                 ),
@@ -906,7 +909,7 @@ class UWTask(FrontTask):
                 menuArray, A=[area[0], area[1] + yDiff, area[2], area[3] + yDiff]
             ):
                 doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1252, 240 + yDiff),
+                    lambda: self.simulatorInstance.clickPointV2(1252, 224 + yDiff),
                     lambda: self.hasArrayStringEqualSingleLineWords(
                         inTitleArray, A=self.titleArea
                     ),
@@ -1951,12 +1954,12 @@ class UWTask(FrontTask):
             firstWait=2,
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1401, 106),
+            lambda: self.simulatorInstance.clickPointV2(*self.depotClick),
             lambda: self.hasSingleLineWordsInArea("仓库", A=self.titleArea),
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(37, 308),
-            lambda: self.hasSingleLineWordsInArea("货舱", A=[12, 289, 87, 321]),
+            lambda: self.simulatorInstance.clickPointV2(*self.cargoClick),
+            lambda: self.hasSingleLineWordsInArea("货舱管理", A=self.cargoTag),
         )
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(1352, 140), 2)
         continueWithUntilBy(

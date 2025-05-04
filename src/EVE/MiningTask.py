@@ -31,6 +31,7 @@ class MiningTask(EVETask):
 
     def isSafe(self):
         if self.mode == 0:
+            # self.restartDialogue()
             return super().isSafe()
         elif self.mode == 1:
             return True
@@ -211,6 +212,8 @@ class MiningTask(EVETask):
         if(self.bigWhale):
             wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
             wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
+            wait(lambda: self.simulatorInstance.click_point(1000, 644), 1)
+
 
     def waitForOreFinish(self):
         def checkOre(totalSeconds):
@@ -253,6 +256,7 @@ class MiningTask(EVETask):
                 time.sleep(600)
             else:
                 time.sleep(600 + random.randint(0, 5))
+                self.restartDialogue()
             self.havePirate = False
             return
         self.print("开始存货")
@@ -268,6 +272,7 @@ class MiningTask(EVETask):
             else:
                 self.print("有海盗，蹲站")
                 time.sleep(30 + random.randint(0, 5))
+                self.restartDialogue()
                 continue
         self.print("采矿等待中")
         self.waitForOreFinish()

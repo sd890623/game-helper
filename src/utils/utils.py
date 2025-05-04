@@ -182,6 +182,12 @@ def isArray(items):
         return False
     return isinstance(items, collections.abc.Sequence)
 
+def isALooseIncludedInB(stringA, stringB):
+    for char in stringA:
+        if char in stringB:
+            return True
+    return False
+
 # stringA in StringB
 def isStringSameOrSimilar(stringA, stringB):        
     """
@@ -196,9 +202,7 @@ def isStringSameOrSimilar(stringA, stringB):
     """
     if stringA==stringB:
         return True
-    elif stringA in stringB: #len(stringA)<7 and 
-        return True
-    elif stringDist(stringA,stringB)/len(stringA)<0.2:
+    elif stringA in stringB:
         return True
     else:
         return False
@@ -269,3 +273,14 @@ def getStockIdFromString(string):
         if isStringSameOrSimilar(value, string):
             return id
     return 0
+
+def while_with_timeout(condition_func, max_attempts=30, interval=0):
+    attempts = 0
+    
+    while condition_func():
+        if attempts >= max_attempts:
+            print("Timeout or max attempts reached, exiting loop.")
+            break
+        print(f"Waiting for {interval}s...")
+        time.sleep(interval)
+        attempts += 1

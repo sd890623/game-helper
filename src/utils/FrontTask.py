@@ -1,6 +1,6 @@
 from windows import getChildHwndByTitleAndParentHwnd
 from images import getOCRfromImageBlob,findImageFromSearchImage, getOCRfromImageBlobMultiLine, getNumberfromImageBlob
-from utils import wait, getDateTimeString, random, hasOneArrayStringInString, isStringSameOrSimilar, hasOneArrayStringSimilarToString
+from utils import wait, getDateTimeString, random, hasOneArrayStringInString, isStringSameOrSimilar, hasOneArrayStringSimilarToString,isALooseIncludedInB
 import guiUtils
 import psutil
 from Messager import Messager
@@ -94,7 +94,7 @@ class FrontTask(object):
             print(e)
             return ""
 
-    def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=4, debug=False):
+    def hasSingleLineWordsInArea(self, words, A=[0, 0, 0, 0], ocrType=4, debug=False, looseCheckName=False):
         try:
             if(not words):
                 self.print("null words provided")
@@ -106,12 +106,14 @@ class FrontTask(object):
             if (len(ocrObj) == 0 or len(ocrObj[0]) == 0):
                 return False
             str = "".join(ocrObj[0])
-
             self.print(words + "==" + str)
-            return isStringSameOrSimilar(words, str.lower())
+            return isStringSameOrSimilar(words.lower(), str.lower()) if looseCheckName is False else isALooseIncludedInB(words, str)
         except Exception as e:
             print(e)
             return False
+        
+    
+    
 
     def hasArrayStringEqualSingleLineWords(self, wordsArr, A=[0, 0, 0, 0], ocrType=4, debug=False):
         try:

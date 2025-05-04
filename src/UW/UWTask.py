@@ -67,7 +67,7 @@ class UWTask(FrontTask):
     largerNoticeTitleArea = [664, 282, 776, 342]
     noticeOK = 767, 574
     hideNoticeTick = 667, 552
-    searchClick = 33, 74
+    searchClick = 191,64
     openSearchBar = 33, 74
     searchBarTextArea = [73, 57, 230, 84]
     menuCompany = [182, 13, 252, 38]
@@ -83,9 +83,18 @@ class UWTask(FrontTask):
     landingClickBtn = 98, 699
     startAdvClickInPage = 782, 563
     advCheckoutTitle = [670, 241, 768, 271]
-    inAdvRoundCount = [1321, 120, 1351, 135]
+    inAdvRoundCount = [1319,119,1347,135]
     clickIntoCharProfile = 123, 36
     clickToggleProtection = 40, 223
+    checkLandingBtnTuple=(104, 698, (220, 219, 215))
+    endDiggingBtn=1351,248
+    dialogueYesArea=1028,780,1112,824
+    dialogueYesClick=1064,807
+    departSecondLineArea = [1237, 486, 1370, 505]
+    departSecondArrowBtn = 1411, 493
+    departBtn = 1317, 623
+    departRestockOkBtn = 777, 589
+
 
     # VM screen size: 1440x900 @ 90%
 
@@ -340,11 +349,9 @@ class UWTask(FrontTask):
 
     def restock(self):
         self.print("补给")
-        okBtn = 777, 589
         firstLineArea = [1234, 398, 1343, 422]
         firstArrowBtn = 1410, 409
-        secondLineArea = [1237, 486, 1370, 505]
-        secondArrowBtn = 1411, 493
+
         thirdLineArea = [1216, 511, 1373, 530]
         thirdArrowBtn = 1409, 521
         # Repair ship
@@ -358,25 +365,23 @@ class UWTask(FrontTask):
             def click():
                 wait(lambda: self.simulatorInstance.clickPointV2(1298, 867), 1)
                 doMoreTimesWithWait(
-                    lambda: self.simulatorInstance.clickPointV2(*okBtn), 2
+                    lambda: self.simulatorInstance.clickPointV2(*self.departRestockOkBtn), 2
                 )
 
             doAndWaitUntilBy(
                 click, lambda: self.hasSingleLineWordsInArea("出港所", A=self.titleArea)
             )
         # Restore crew
-        while self.hasSingleLineWordsInArea("不足", A=secondLineArea):
+        while self.hasSingleLineWordsInArea("不足", A=self.departSecondLineArea):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*secondArrowBtn),
+                lambda: self.simulatorInstance.clickPointV2(*self.departSecondArrowBtn),
                 lambda: self.hasSingleLineWordsInArea("船员", A=self.titleArea),
-                1,
-                2,
             )
 
             def click2():
                 wait(lambda: self.simulatorInstance.longerClickPointV2(1296, 451), 2)
                 doMoreTimesWithWait(
-                    lambda: self.simulatorInstance.clickPointV2(*okBtn), 2
+                    lambda: self.simulatorInstance.clickPointV2(*self.departRestockOkBtn), 2
                 )
 
             doAndWaitUntilBy(
@@ -386,9 +391,9 @@ class UWTask(FrontTask):
                 2,
             )
         # Remove extra crew
-        if self.hasSingleLineWordsInArea("超员", A=secondLineArea):
+        if self.hasSingleLineWordsInArea("超员", A=self.departSecondLineArea):
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*secondArrowBtn),
+                lambda: self.simulatorInstance.clickPointV2(*self.departSecondArrowBtn),
                 lambda: self.hasSingleLineWordsInArea("船员", A=self.titleArea),
                 1,
                 2,
@@ -438,14 +443,12 @@ class UWTask(FrontTask):
             )
 
     def inWater(self):
-        return self.hasArrayStringEqualSingleLineWords(
-            ["海域"],
-            A=self.outSeaWaterTitle,
+        return self.hasSingleLineWordsInArea(
+            "海",
+            A=self.outSeaWaterTitle
         )
 
     def depart(self, littleMove=True):
-        departBtn = 1317, 623
-
         def clickAndStock():
             doMoreTimesWithWait(
                 lambda: self.simulatorInstance.clickPointV2(*self.randomPoint), 2, 0.2
@@ -459,13 +462,13 @@ class UWTask(FrontTask):
             )
             if self.hasSingleLineWordsInArea("出港所", A=self.titleArea):
                 self.restock()
-                self.simulatorInstance.clickPointV2(*departBtn)
+                self.simulatorInstance.clickPointV2(*self.departBtn)
 
         clickAndStock()
         self.print("出海")
-        self.simulatorInstance.longerClickPointV2(*departBtn)
+        self.simulatorInstance.longerClickPointV2(*self.departBtn)
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(*departBtn),
+            lambda: self.simulatorInstance.clickPointV2(*self.departBtn),
             lambda: self.inWater(),
             4,
             1,
@@ -539,8 +542,8 @@ class UWTask(FrontTask):
 
         doAndWaitUntilBy(
             input,
-            lambda: self.hasArrayStringEqualSingleLineWords(
-                [cityname], A=self.searchBarTextArea
+            lambda: self.hasSingleLineWordsInArea(
+                cityname, A=self.searchBarTextArea, looseCheckName=True
             ),
             timeout=5,
         )
@@ -735,7 +738,7 @@ class UWTask(FrontTask):
             ):
                 wait(lambda: self.simulatorInstance.clickPointV2(753, 578))
             doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(*self.enterCityButton),
+                lambda: self.simulatorInstance.clickPointV2(*self.randomPoint),
                 2,
                 0.2,
             )
@@ -782,7 +785,7 @@ class UWTask(FrontTask):
 
         # sell
         self.market.sellGoodsWithMargin(simple, types, negoTimes)
-        # doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(134, 691), 2, 1)
+        doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(132,705), 2, 1)
         time.sleep(3)
 
         def backup():
@@ -1010,7 +1013,7 @@ class UWTask(FrontTask):
     def healInjury(self, city):
         self.clickInMenu(["旅馆"], ["旅馆"], infinite=True)
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(38, 288),
+            lambda: self.simulatorInstance.clickPointV2(56,232),
             lambda: self.hasSingleLineWordsInArea("航海士", A=self.titleArea),
             2,
             1,
@@ -1363,7 +1366,7 @@ class UWTask(FrontTask):
         self.print("到达村庄")
 
     def useTradeSkill(self, inCity=False):
-        skillMenuArea = (669, 273, 764, 307) if inCity else [678, 275, 762, 312]
+        skillMenuArea = (676,282,759,305) if inCity else [678, 275, 762, 312]
         openButton = (40, 717) if inCity else (41, 670)
         okBtn = 768, 583
         doAndWaitUntilBy(
@@ -1641,6 +1644,7 @@ class UWTask(FrontTask):
         )
 
     def report(self):
+        reportTitleArea=[672,241,777,270]
         # todo
         # self.changeFleet(dailyJobConf.get("landingFleet"), simple=True)
         self.clickInMenu(["住宅"], ["住宅"])
@@ -1650,29 +1654,29 @@ class UWTask(FrontTask):
             2,
             1,
         )
-        chestLocation = self.hasImageInScreen("chestInReport", A=[177, 165, 1132, 482])
+        chestLocation = self.hasImageInScreen("chestInReport", A=[155,207,1144,443])
         if chestLocation:
             chestClick = chestLocation[0] + 5, chestLocation[1] + 5
             doAndWaitUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*chestClick),
-                lambda: self.hasSingleLineWordsInArea("报告", A=[683, 236, 757, 256]),
+                lambda: self.hasSingleLineWordsInArea("报告", A=reportTitleArea),
             )
-            while self.getNumberFromSingleLineInArea(A=[808, 560, 883, 577]) > 2000:
-                self.inputNumber(200, (989, 564))
+            while self.getNumberFromSingleLineInArea(A=[842,553,877,571]) > 200:
+                self.inputNumber(200, (981,558))
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(790, 641),
+                lambda: self.simulatorInstance.clickPointV2(769,636),
                 lambda: not self.hasSingleLineWordsInArea(
-                    "报告", A=[683, 236, 757, 256]
+                    "报告", A=reportTitleArea
                 ),
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1233, 858),
-                lambda: self.hasSingleLineWordsInArea("是", A=[1001, 779, 1148, 822]),
+                lambda: self.simulatorInstance.clickPointV2(1229,862),
+                lambda: self.hasSingleLineWordsInArea("是", A=self.dialogueYesArea),
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1061, 796),
+                lambda: self.simulatorInstance.clickPointV2(*self.dialogueYesClick),
                 lambda: not self.hasSingleLineWordsInArea(
-                    "是", A=[1001, 779, 1148, 822]
+                    "是", A=self.dialogueYesArea
                 ),
             )
 
@@ -1710,10 +1714,6 @@ class UWTask(FrontTask):
             lambda: self.hasSingleLineWordsInArea("连续探险", A=[684, 322, 761, 345]),
         )
         if isEverydayLanding:
-            doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(*self.startAdvClickInPage),
-                2,
-            )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.startAdvClickInPage),
                 lambda: self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle),
@@ -1746,7 +1746,7 @@ class UWTask(FrontTask):
             lambda: (self.inWater()),
             2,
         )
-        while not self.isPositionColorSimilarTo(104, 698, (220, 219, 215)):
+        while not self.isPositionColorSimilarTo(*self.checkLandingBtnTuple):
             self.goToVillage("百慕大", None)
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.leftTopBackBtn),
@@ -1760,20 +1760,28 @@ class UWTask(FrontTask):
         for x in range(timesOfLanding):
             self.doLanding()
 
-            def checkNum():
+            def checkNum(number=None):
                 num = self.getNumberFromSingleLineInArea(A=self.inAdvRoundCount)
+                if(number):
+                    return num and num > number
                 return num and num > dailyJobConf.get("landingTimes")
 
             continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.startAdvClickInPage),
+                lambda: self.simulatorInstance.clickPointV2(
+                    *self.startAdvClickInPage
+                ),
+                lambda: checkNum(1)
+            )
+            continueWithUntilBy(
+                lambda: None,
                 lambda: checkNum()
-                or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle)
-                or self.hasSingleLineWordsInArea("探险信息", A=self.advCheckoutTitle),
+                or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle),
                 timeout=3900,
             )
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1345, 266),
-                lambda: self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle),
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(*self.endDiggingBtn),
+                lambda: self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle)
+                or self.hasSingleLineWordsInArea("探险信息", A=self.advCheckoutTitle),
                 10,
                 timeout=50,
             )
@@ -1812,7 +1820,7 @@ class UWTask(FrontTask):
         def goPortAndLeaveWithAdvConfidence():
             self.goToHarbor()
             battleInstance.depart()
-            while not self.isPositionColorSimilarTo(104, 698, (220, 219, 215)):
+            while not self.isPositionColorSimilarTo(*self.checkLandingBtnTuple):
                 battleInstance.goBackPort(dailyJobConf.get("landingCity"))
                 self.goToHarbor()
                 battleInstance.depart()
@@ -1826,19 +1834,26 @@ class UWTask(FrontTask):
         for x in range(timesOfLanding):
             self.doLanding()
 
-            def checkNum():
+            def checkNum(number=None):
                 num = self.getNumberFromSingleLineInArea(A=self.inAdvRoundCount)
+                if(number):
+                    return num and num > number
                 return num and num > dailyJobConf.get("landingTimes")
 
             continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(*self.startAdvClickInPage),
+                lambda: self.simulatorInstance.clickPointV2(
+                    *self.startAdvClickInPage
+                ),
+                lambda: checkNum(1)
+            )
+            continueWithUntilBy(
+                lambda: None,
                 lambda: checkNum()
-                or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle)
-                or self.hasSingleLineWordsInArea("探险信息", A=self.advCheckoutTitle),
+                or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle),
                 timeout=3900,
             )
-            doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1345, 266),
+            continueWithUntilBy(
+                lambda: self.simulatorInstance.clickPointV2(*self.endDiggingBtn),
                 lambda: self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle)
                 or self.hasSingleLineWordsInArea("探险信息", A=self.advCheckoutTitle),
                 10,
@@ -1878,7 +1893,7 @@ class UWTask(FrontTask):
         )
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(28, 397),
-            lambda: self.hasSingleLineWordsInArea("称号", A=[28, 397]),
+            lambda: self.hasSingleLineWordsInArea("称号", A=[1260,57,1312,82]),
         )
         # 289,214 xDiff 189.7 yDiff 169
         #
@@ -1887,8 +1902,8 @@ class UWTask(FrontTask):
         xDiff = int(index % 5 * 194)
         yDiff = int(index / 5) * 172
         # Loop through and find title
-        firstClick = 284, 181
-        firstColorCheck = 360, 100
+        firstClick = (284, 181)
+        firstColorCheck = (360, 100)
         doMoreTimesWithWait(
             lambda: self.simulatorInstance.clickPointV2(
                 firstClick[0] + xDiff, firstClick[1] + yDiff
@@ -1898,7 +1913,7 @@ class UWTask(FrontTask):
         doAndWaitUntilBy(
             lambda: self.simulatorInstance.clickPointV2(1285, 449),
             lambda: self.isPositionColorSimilarTo(
-                firstColorCheck[0] + xDiff, firstColorCheck[1] + yDiff, (60, 211, 30)
+                firstColorCheck[0] + xDiff, firstColorCheck[1] + yDiff, (31,224,0)
             ),
         )
         continueWithUntilBy(
@@ -1936,20 +1951,20 @@ class UWTask(FrontTask):
             self.gotoCity(buffCity, express=True)
             self.clickInMenu(["圣院"], ["圣院"])
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(44, 128),
+                lambda: self.simulatorInstance.clickPointV2(32,120),
                 lambda: self.hasSingleLineWordsInArea("捐赠", A=self.titleArea),
                 2,
                 1,
             )
             doAndWaitUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(817, 306),
-                lambda: self.hasSingleLineWordsInArea("是", A=[1020, 779, 1119, 820]),
+                lambda: self.simulatorInstance.clickPointV2(788,301),
+                lambda: self.hasSingleLineWordsInArea("是", A=self.dialogueYesArea),
                 2,
                 1,
                 timeout=10,
             )
             doMoreTimesWithWait(
-                lambda: self.simulatorInstance.clickPointV2(1033, 788), 2, 1
+                lambda: self.simulatorInstance.clickPointV2(*self.dialogueYesClick), 2, 1
             )
             continueWithUntilBy(
                 lambda: self.simulatorInstance.clickPointV2(*self.rightTopTownIcon),
@@ -1982,6 +1997,7 @@ class UWTask(FrontTask):
         doMoreTimesWithWait(lambda: self.simulatorInstance.clickPointV2(770, 594), 2, 1)
         self.battleRoute(battleCity)
         # activate protection
+
         continueWithUntilBy(
             lambda: self.simulatorInstance.clickPointV2(*self.clickToggleProtection),
             lambda: self.isPositionColorSimilarTo(
@@ -2004,29 +2020,28 @@ class UWTask(FrontTask):
 
     # todo
     def crossTunnel(self, goods=False):
+        clickForGoods=1293,565
         self.clickInMenu(["出境"], ["出境"])
         if goods:
             continueWithUntilBy(
-                lambda: self.simulatorInstance.clickPointV2(1271, 568),
-                lambda: self.isPositionColorSimilarTo(1214, 571, (90, 222, 33)),
+                lambda: self.simulatorInstance.clickPointV2(*clickForGoods),
+                lambda: self.isPositionColorSimilarTo(1223,565, (89,219,33)),
                 2,
             )
 
         def backupFunc():
-            self.simulatorInstance.clickPointV2(1271, 568)
+            self.simulatorInstance.clickPointV2(*clickForGoods)
             self.simulatorInstance.clickPointV2(1305, 624)
 
         doAndWaitUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(1305, 624),
+            lambda: self.simulatorInstance.clickPointV2(1329,619),
             lambda: self.hasArrayStringEqualMultiLineWords(
-                ["通知"], A=self.largerNoticeTitleArea
+                ["通知"], A=[673,326,767,358]
             ),
-            2,
-            2,
             backupFunc=backupFunc,
         )
         continueWithUntilBy(
-            lambda: self.simulatorInstance.clickPointV2(773, 557),
+            lambda: self.simulatorInstance.clickPointV2(767,549),
             lambda: self.inCityList(self.allCityList),
             5,
             timeout=60,
@@ -2647,6 +2662,8 @@ class UWTask(FrontTask):
                     lastCheckTime = checkResult[1]
                     if not checkResult[0]:
                         self.healInjury(battleCity)
+                        battle.leavePort()
+                        battle.goBackPort(battleCity)
                         break
                 if not (isWorkHour()):
                     self.print("not working hour,sleep for 30mins")
@@ -2660,7 +2677,7 @@ class UWTask(FrontTask):
             self.checkForGiftAndReceive()
             # Special check of landing item in north pole
             if not self.getDailyConfValByKey("dailyCheckedBattlePlaceLanding"):
-                while not self.isPositionColorSimilarTo(109, 689, (222, 223, 220)):
+                while not self.isPositionColorSimilarTo(*self.checkLandingBtnTuple):
                     battle.goBackPort(battleCity)
                     self.goToHarbor()
                     battle.depart()
@@ -2675,17 +2692,15 @@ class UWTask(FrontTask):
                         *self.startAdvClickInPage
                     ),
                     lambda: checkNum()
-                    or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle)
-                    or self.hasSingleLineWordsInArea(
-                        "探险信息", A=self.advCheckoutTitle
-                    ),
-                    timeout=200,
+                    or self.hasSingleLineWordsInArea("结算", A=self.advCheckoutTitle),
+                    timeout=200
                 )
-                doAndWaitUntilBy(
-                    lambda: self.simulatorInstance.clickPointV2(1345, 266),
+
+                continueWithUntilBy(
+                    lambda: self.simulatorInstance.clickPointV2(*self.endDiggingBtn),
                     lambda: self.hasSingleLineWordsInArea(
                         "结算", A=self.advCheckoutTitle
-                    ),
+                    ) or self.hasSingleLineWordsInArea("探险信息", A=self.advCheckoutTitle),
                     10,
                     timeout=50,
                 )

@@ -40,7 +40,7 @@ class Investment:
     goBM = False
     inn = True
     # Better do wi
-    investmentCitiesx = [
+    investmentCities = [
         "圣彼得堡",
         "科科拉",
         "斯德哥尔摩",
@@ -59,13 +59,14 @@ class Investment:
         "波尔多",
         "圣诞",
         "休达",
+        "帕尔玛",
         "蒙彼利埃",
         "马赛",
         "热那亚",
         "比萨",
         "卡尔维",
         "萨沙里",
-        "萨沙里",
+        "卡利亚里",
         "拿坡里",
         "锡拉库萨",
         "安科纳",
@@ -73,7 +74,7 @@ class Investment:
         "第里雅斯特",
         "扎达尔",
         "拉古萨",
-        "甘迪亚",
+        "甘地亚",
         "瓦尔纳",
         "敖德萨",
         "刻赤",
@@ -87,11 +88,12 @@ class Investment:
         "班加西",
         "的黎波里",
         "突尼斯",
+        "阿尔及尔",
         "卡萨布兰卡",
         "拉斯帕尔",
         "阿尔金",
         "佛得角",
-        "佛得角",
+        "巴瑟斯特",
         "比绍",
         "塞拉利昂",
         "阿比让",
@@ -102,6 +104,7 @@ class Investment:
         "罗安达",
         "本格拉",
         "卡里比布",
+        "苏打",
         "佛得角",
         "纳塔尔",
         "索法拉",
@@ -165,6 +168,7 @@ class Investment:
         "燕云",
         "长安",
         "北京",
+        "那霸",
         "淡水",
         "安平",
         "澳门",
@@ -208,22 +212,23 @@ class Investment:
         "纳尔维克",
         "爱丁堡",
     ]
-    investmentCities = [
+    investmentCitiesy = [
         "北京",
         "燕云",
         "长安",
         "重庆",
         "杭州",
-        "泉州",
-        "巨港",
-        "皮里",
-        "马六甲",
-        "科钦",
-        "苏伊士",
-        "tunnel",
-        "尼科西亚",
-        "安科纳",
-        "蒙彼利埃",
+        "泉州"
+        # "巨港",
+        # "皮里",
+        # "马六甲",
+        # "科钦",
+        # "苏伊士",
+        # "tunnel",
+        # "尼科西亚",
+        # "安科纳",
+        # "蒙彼利埃",
+        # "帕尔玛"
     ]
     investmentCitiesz = [
         "亚齐",
@@ -306,38 +311,7 @@ class Investment:
         "北京",
     ]
     buyGoods = [
-        "vodka",
-        "felt",
-        "paper",
-        "feather",
-        "amber",
-        "aquavit",
-        "twohand",
-        "whisky",
-        "velvet",
-        "western",
-        "oakmoss",
-        "narcissus",
-        "civet",
-        "damascus",
-        "chinesetea",
-        "huzhoubrush",
-        "ancientbone",
-        "gardenia",
-        "bingata",
-        "ramiefabric",
-        "sweetolive",
-        "shaoxingwine",
-        "blueandwhite",
-        "blackvineg",
-        "musa",
-        "staranise",
-        "beanpaste",
-        "chinesepainting",
-        "guqin",
-        "sanjiegun",
-        "firelance",
-        "shu",
+        "vodka"
     ]
     sellCities = ["泉州", "拿索"]
     # before going to a city
@@ -355,18 +329,18 @@ class Investment:
         #         investBtn[0]+30, investBtn[1]+5))
         #     wait(lambda: simuInstance.clickPointV2(1278, 853), 1)
         doAndWaitUntilBy(
-            lambda: simuInstance.clickPointV2(1266,394),
-            lambda: task.hasSingleLineWordsInArea("投资", A=[678,216,769,244]),
+            lambda: simuInstance.clickPointV2(1287,205),
+            lambda: task.hasSingleLineWordsInArea("投资", A=[678,232,768,258]),
             2,
             2,
             timeout=5,
         )
         if domax:
-            task.inputNumber(20000000, (828,372))
-        wait(lambda: simuInstance.clickPointV2(750,664))
+            task.inputNumber(30000000, (824,366))
+        wait(lambda: simuInstance.clickPointV2(733,652))
         doAndWaitUntilBy(
             lambda: simuInstance.clickPointV2(*task.randomPoint),
-            lambda: not task.hasSingleLineWordsInArea("投资", A=[678,216,769,244])
+            lambda: not task.hasSingleLineWordsInArea("投资", A=[678,232,768,258])
         )
 
     def investInCity(self):
@@ -384,7 +358,7 @@ class Investment:
             task.clickInMenu(["公馆"], ["公馆"], startIndex=5)
 
         doAndWaitUntilBy(
-            lambda: simuInstance.clickPointV2(34,77),
+            lambda: simuInstance.clickPointV2(31,66),
             lambda: task.hasSingleLineWordsInArea("投资", A=task.titleArea),
             2,
             2,
@@ -392,7 +366,7 @@ class Investment:
         )
         self.investOnce()
         while True:
-            xxxp = task.getSingleLineWordsInArea(A=[235,819,300,836], ocrType=4)
+            xxxp = task.getSingleLineWordsInArea(A=[223,812,293,830], ocrType=4)
             # if (num and num < 800 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
             if not xxxp:
                 break
@@ -443,9 +417,7 @@ class Investment:
 
 investment = Investment()
 task.allCityList = investment.investmentCities
-investment.investOnce(True)
 while True:
-    # investment.investInCity()
     if not task.inCityList(investment.investmentCities):
         task.print("没有在长途城市列表中，中断")
         wait(lambda: simuInstance.rightClickPointV2(*task.randomPoint))

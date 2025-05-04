@@ -237,6 +237,10 @@ class EVETask:
             lambda: self.hasSingleLineWordsInArea("离站", A=[1144,208,1221,255],ocrType=4),
         )
         self.w()
+    def restartDialogue(self):
+        doMoreTimesWithWait(
+            lambda: self.simulatorInstance.click_point(59,656),2,3
+        )
 
     def isSafe(self):
         return (

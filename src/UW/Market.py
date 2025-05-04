@@ -100,7 +100,7 @@ class Market:
     marketTransactOKBtn = 767, 660
     purchasePageBtn = 28, 77
     sellPageBtn = 30, 127
-    loadRatioClick = 275, 866
+    loadRatioClick = 323,869
     cargoItemTitle = [673, 238, 772, 268]
     cargoItemName = [642, 274, 731, 296]
 
@@ -220,7 +220,7 @@ class Market:
         wait(lambda: self.instance.clickPointV2(*self.marketTransactOKBtn), 5)
         self.bargin()
         doMoreTimesWithWait(
-            lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 3, 0
+            lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 1, 0
         )
         self.uwtask.print("buy fin")
 
@@ -229,9 +229,7 @@ class Market:
             lambda: self.instance.clickPointV2(*self.sellPageBtn),
             lambda: self.uwtask.hasSingleLineWordsInArea(
                 "出售", A=self.uwtask.titleArea
-            ),
-            2,
-            2,
+            )
         )
 
         def sellItemsInScreen():
@@ -285,7 +283,8 @@ class Market:
 
         self.uwtask.print("出售商品")
         sellItemsInScreen()
-        if not (self.uwtask.hasSingleLineWordsInArea("出售", A=[638, 472, 672, 494])):
+
+        if not (self.uwtask.hasSingleLineWordsInArea("出售", A=[588,464,727,495])):
             sellItemsInScreen()
         ducatIconLocation = self.uwtask.hasImageInScreen(
             "ducatInMarket", A=[935, 7, 1031, 42]
@@ -308,7 +307,7 @@ class Market:
 
     def checkMaxBought(self, xDiff, yDiff):
         return self.uwtask.isPositionColorSimilarTo(
-            299 + xDiff, 123 + yDiff, (225, 214, 204)
+            327 + xDiff, 190 + yDiff, (150,123,83)
         )
         if self.marketMode == 1:
             return self.uwtask.isPositionColorSimilarTo(
@@ -332,7 +331,7 @@ class Market:
                 if not self.uwtask.firstBuyFin and not self.uwtask.secondBuyFin:
                     self.uwtask.firstBuyFin = True
                     wait(lambda: self.instance.clickPointV2(*self.loadRatioClick))
-                    wait(lambda: self.instance.clickPointV2(272, 865))
+                    wait(lambda: self.instance.clickPointV2(989,863))
                     touchedOverbuy = True
                     self.uwtask.justStartsSecondBuy = True
                 elif self.uwtask.firstBuyFin and not self.uwtask.secondBuyFin:
@@ -489,22 +488,32 @@ class Market:
 
     def bargin(self, multiTimes=False):
         doMoreTimesWithWait(
-            lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 3, 0
+            lambda: self.instance.clickPointV2(*self.uwtask.randomPoint), 1, 0
         )
-        if self.uwtask.hasSingleLineWordsInArea("是", A=[1007, 776, 1147, 828]):
-            time.sleep(1)
-            if multiTimes:
-                # click yes
-                doMoreTimesWithWait(
+        if self.uwtask.hasSingleLineWordsInArea("进行", A=[1031,707,1136,745]):
+            doMoreTimesWithWait(
                     lambda: self.instance.clickPointV2(
-                        *self.uwtask.inScreenConfirmYesButton
+                        1065,726
                     ),
-                    dailyJobConf.get("negoTimes") or 5,
-                    1,
+                    2,
                 )
+            doMoreTimesWithWait(
+                lambda: self.instance.clickPointV2(1058,643), 3, 0.5
+            )
+        if self.uwtask.hasSingleLineWordsInArea("剩余", A=[943,779,1217,822]):
+            time.sleep(1)
+            # if multiTimes:
+            #     # click yes
+            #     doMoreTimesWithWait(
+            #         lambda: self.instance.clickPointV2(
+            #             *self.uwtask.inScreenConfirmYesButton
+            #         ),
+            #         dailyJobConf.get("negoTimes") or 5,
+            #         1,
+            #     )
             # wait for dialog, click no regardless of successful.
             doMoreTimesWithWait(
-                lambda: self.instance.clickPointV2(*self.uwtask.bargainNoBtn), 3, 0.5
+                lambda: self.instance.clickPointV2(1073,798), 2, 0.5
             )
 
     def shouldBuyBlackMarket(self, city):

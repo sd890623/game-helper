@@ -43,7 +43,7 @@ def getModeFromIndex(name):
     parts = name.split('-')
     winIndex = parts[-1]
     if(winIndex=="1"):
-        return 2
+        return 0
     elif(winIndex=="2"):
         return 0
     elif(winIndex=="3"):

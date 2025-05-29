@@ -1,14 +1,18 @@
-from datetime import datetime
+import json
+import os
+from utils import isStringSameOrSimilar
 
-# 获取两个时间点
-time1 = datetime.now()
-time2 = datetime(2023, 12, 31, 23, 59, 59)  # 示例时间点
+if __name__ == "__main__":
+    a = ["亚丁", "开普敦", "乌斯怀亚", "利马"]
+    print(isStringSameOrSimilar("马赛A", "马赛B"))
+    print(a[::-1])
+    filePath = os.path.abspath(__file__ + "\\..\\dailyConfFile.json")
 
-# 转换为时间戳
-timestamp1 = int(time1.timestamp())
-timestamp2 = int(time2.timestamp())
+    with open(filePath, "r") as f:
+        villageTrade = json.load(f)
+    print(villageTrade.get("samir"))
+    villageTrade["samir"] = True
+    villageTrade["samir2"] = False
 
-# 计算时间差（秒）
-time_difference = timestamp2 - timestamp1
-
-print("两个时间点之间的差（秒）:", time_difference)
+    with open(filePath, "w") as json_file:
+        json.dump(villageTrade, json_file)

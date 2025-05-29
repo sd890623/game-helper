@@ -1,24 +1,34 @@
 import re
 import sys
 import os
+
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
-from utils import doMoreTimesWithWait, doAndWaitUntilBy, continueWithUntilByWithBackup, wait,continueWithUntilBy,isStringSameOrSimilar
+from utils import (
+    doMoreTimesWithWait,
+    doAndWaitUntilBy,
+    continueWithUntilByWithBackup,
+    wait,
+    continueWithUntilBy,
+    isStringSameOrSimilar,
+)
 from UWTask import UWTask
 from windows import getAllWindowsWithTitle
 import time
+
 sys.path.append(os.path.abspath(__file__ + "\\..\\..\\utils"))
 sys.path.append(os.path.abspath(__file__ + "\\..\\"))
 
 
 def importMarket():
     from Market import Market
+
     return Market
 
 
 allWindowsWithTitle = getAllWindowsWithTitle("神盾虚拟机 NP版 - VMware Workstation")
-if (len(allWindowsWithTitle) > 0):
+if len(allWindowsWithTitle) > 0:
     hwndObject = allWindowsWithTitle[0]
 
 task = UWTask(hwndObject["hwnd"], "uw")
@@ -29,67 +39,283 @@ simuInstance = task.simulatorInstance
 class Investment:
     goBM = False
     inn = True
-    # Better do winter
+    # Better do wi
+    investmentCitiesx = [
+        "圣彼得堡",
+        "科科拉",
+        "斯德哥尔摩",
+        "维斯比",
+        "里加",
+        "但泽",
+        "卢贝克",
+        "哥本哈根",
+        "奥斯陆",
+        "卑尔根",
+        "爱丁堡",
+        "汉堡",
+        "不来梅",
+        "都柏林",
+        "南特",
+        "波尔多",
+        "圣诞",
+        "休达",
+        "帕尔玛",
+        "蒙彼利埃",
+        "马赛",
+        "热那亚",
+        "比萨",
+        "卡尔维",
+        "萨沙里",
+        "卡利亚里",
+        "拿坡里",
+        "锡拉库萨",
+        "安科纳",
+        "威尼斯",
+        "第里雅斯特",
+        "扎达尔",
+        "拉古萨",
+        "甘地亚",
+        "瓦尔纳",
+        "敖德萨",
+        "刻赤",
+        "塔甘罗格",
+        "安塔利亚",
+        "尼科西亚",
+        "贝鲁特",
+        "雅法",
+        "塞得港",
+        "开罗",
+        "班加西",
+        "的黎波里",
+        "突尼斯",
+        "阿尔及尔",
+        "卡萨布兰卡",
+        "拉斯帕尔",
+        "阿尔金",
+        "佛得角",
+        "巴瑟斯特",
+        "比绍",
+        "塞拉利昂",
+        "阿比让",
+        "埃尔米纳",
+        "贝宁",
+        "杜阿拉",
+        "圣多美",
+        "罗安达",
+        "本格拉",
+        "卡里比布",
+        "苏打",
+        "佛得角",
+        "纳塔尔",
+        "索法拉",
+        "克利马内",
+        "莫桑比克",
+        "基尔瓦",
+        "桑给巴尔",
+        "蒙巴萨",
+        "马林迪",
+        "摩加迪沙",
+        "亚丁",
+        "马萨瓦",
+        "苏伊士",
+        "吉达",
+        "索科特拉",
+        "杜法尔",
+        "马斯喀特",
+        "多哈",
+        "巴士拉",
+        "巴格达",
+        "设拉子",
+        "霍尔木兹",
+        "第乌",
+        "果阿",
+        "卡利卡特",
+        "科钦",
+        "锡兰",
+        "本地治里",
+        "默苏利珀德姆",
+        "加尔各答",
+        "勃固",
+        "亚齐",
+        "帕赛",
+        "马六甲",
+        "巨港",
+        "槟港",
+        "洛布里",
+        "嘉定",
+        "文莱",
+        "古晋",
+        "雅加达",
+        "泗水",
+        "马辰",
+        "平哈拉",
+        "皮里港",
+        "霍巴特",
+        "芬瑟岛",
+        "卡卡杜",
+        "帝力",
+        "班达",
+        "安汶",
+        "望加锡",
+        "特尔纳特",
+        "达沃",
+        "和鲁",
+        "马尼拉",
+        "河内",
+        "泉州",
+        "杭州",
+        "重庆",
+        "燕云",
+        "长安",
+        "北京",
+        "那霸",
+        "淡水",
+        "安平",
+        "澳门",
+        "帕赛",
+        "塔玛塔夫",
+        "开普敦",
+        "巴伊亚",
+        "布宜诺斯",
+        "乌斯怀亚",
+        "瓦尔帕莱索",
+        "通贝斯",
+        "阿卡普尔科",
+        "危地马拉",
+        "巴拿马",
+        "科皮亚波",
+        "乌斯怀亚",
+        "里约",
+        "伯南布哥",
+        "卡宴",
+        "波拉马尔",
+        "加拉卡斯",
+        "威廉斯塔德",
+        "马拉开波",
+        "卡塔赫纳",
+        "波多贝罗",
+        "特鲁希",
+        "梅里达",
+        "韦拉克鲁斯",
+        "哈瓦那",
+        "绍斯赛德",
+        "罗亚尔港",
+        "圣地亚哥",
+        "圣多明各",
+        "圣胡安",
+        "拿索",
+        "科哈塞特",
+        "努塔克",
+        "亚怀亚特",
+        "努塔克",
+        "雷克雅未克",
+        "纳尔维克",
+        "爱丁堡",
+    ]
     investmentCities = [
-        # "saint", "kokkola","stock", "visby","riga","gda", "beck", "copenhag", "oslo","bergen","edinburgh","hamburg","bremen", "dublin", "nantes","bordeaux","santa","ceuta", "montpell","marseille","genoa","pisa", "calvi","sassari","cagliari","naples", "syracuse","ancona", "venice","trieste","zadar", "ragusa", "candia", "varna","odesa","kerch","taganrog","antalya", "nicosia","beirut","jaffa", "said","cairo", "benghazi","tripoli","tunis","casablanca","las","arguin","verde", "bathurst","bissau", "sierra","abidjan","elmina","benin","douala", "tom","luanda","benguela","karibib","verde", "natal", "sofala","quelimane","mozambique","kilwa", "zanzibar","mombasa","malindi","mogadishu","aden","massawa","suez", "jeddah", "socotra", "dhofar","muscat", "doha", "basrah","baghdad","shiraz", "hormuz", "diu", "goa","kozhi","kochi",
-        "ceylon","pondi", "masuli","kolkata","pegu","aceh", "pasay", "malacca","palembang", "pangk", "lopburi", "prey", "brunei", "kuching", "jakarta", "surabaya","banjarmasin", "pinjarra","pirie", "hobart", "gari","kaka", "dili", "banda", "ambon", "makassar", "ternate", "davao","jolo", "manila", "hanoi","quanzhou", "naha",  "hangzhou", "chongqing", "yanyun", "chang", "peking", "tamsui",
-        "tainan","macau", "pasay", "toamasina", "town", "bahia", "aires", "ushuaia", "valpara", "lima", "tumbes", "acapulco", "guatemala", "panama", "copiap", "ushuaia", "rio", "pernambuco", "cayenne","porlamar","caracas","willemstad","maracaibo","cartagena","portobelo","trujillo","rida","veracruz","havana","southside","royal","santiago","santo","juan","nassau", "cohasset","nutak", "arviat", "nutak", "reykjav", "narvik","edinburgh"
+        "北京",
+        "燕云",
+        "长安",
+        "重庆",
+        "杭州",
+        "泉州",
+        "达沃",
+        "帝力",
+        "皮里",
+        "帕塞",
+        "卡利卡特",
+        # "tunnel",
+        # "尼科西亚",
+        # "安科纳",
+        # "蒙彼利埃",
+        # "帕尔玛"
     ]
-    investmentCitiesy = [
-        'peking',
-        'yanyun',
-        'chang',
-        'chongqing',
-        'hangzhou',
-        'quanzhou',
-        'tamsui',
-        'macau',
-        'jolo',
-        'davao',
-        'ternate',
-        'ambon',
-        'banda',
-        'dili',
-        'makassar',
-        'surabaya',
-        'banjarmasin',
-        'pangk',
-        'brunei',
-        'lopburi',
-        'aceh',
-        'masuli',
-        "kochi",
-        'socotra',
-        'toamasina',
-        'aden',
-        'suez',
-        'tunnel',
-        'nicosia',
-        'montpell'
+    investmentCitiesz = [
+        "亚齐",
+        "帕赛",
+        "马六甲",
+        "巨港",
+        "槟港",
+        "洛布里",
+        "嘉定",
+        "文莱",
+        "古晋",
+        "雅加达",
+        "泗水",
+        "马辰",
+        "平哈拉",
+        "皮里港",
+        "霍巴特",
+        "芬瑟岛",
+        "卡卡杜",
+        "帝力",
+        "班达",
+        "安汶",
+        "望加锡",
+        "特尔纳特",
+        "达沃",
+        "和鲁",
+        "马尼拉",
+        "河内",
+        "泉州",
+        "杭州",
+        "重庆",
+        "燕云",
+        "长安",
+        "北京",
+        "淡水",
+        "安平",
+        "澳门",
+        "帕赛",
+        "默苏利珀德姆",
+        "科钦",
+        "苏伊士",
+        "tunnel",
+        "尼科西亚",
+        "甘迪亚",
+        "安科纳",
+        "卡尔维",
+        "蒙彼利埃",
     ]
-    investmentCities4 = [
-        # "unalaska","tacoma",
-        "ohlone", "acapulco", "guatemala", "panama"
-    ]
+    investmentCities4 = ["ohlone", "阿卡普尔科", "危地马拉", "巴拿马"]
     # investmentCities=investmentCitiesArray[investmentRoute]
-    supplyCities = [
-    ]
+    supplyCities = []
     shippartsCities = [
-        "visby", "beirut", "town", "suez", "malacca", "jakarta", "rio", "aires", "lima", "valpara"
+        "维斯比",
+        "贝鲁特",
+        "开普敦",
+        "苏伊士",
+        "马六甲",
+        "雅加达",
+        "里约",
+        "布宜诺斯",
+        "瓦尔帕莱索",
     ]
     buyCities = [
-        "saint", "riga", "visby", "beck", "copenhag", "bergen", "dublin", "pisa", "candia", "antalya", "beirut"
-        "quanzhou", "naha", "hangzhou", "chongqing", "yanyun", "chang", "peking"
+        "圣彼得堡",
+        "里加",
+        "维斯比",
+        "卢贝克",
+        "哥本哈根",
+        "卑尔根",
+        "都柏林",
+        "比萨",
+        "甘迪亚",
+        "安塔利亚",
+        "贝鲁特" "泉州",
+        "淡水",
+        "杭州",
+        "重庆",
+        "燕云",
+        "长安",
+        "北京",
     ]
     buyGoods = [
-        "vodka", "felt", "paper", "feather", "amber", "aquavit", "twohand", "whisky", "velvet", "western", "oakmoss", "narcissus", "civet", "damascus",
-        "chinesetea", "huzhoubrush", "ancientbone", "gardenia", "bingata", "ramiefabric", "sweetolive", "shaoxingwine", "blueandwhite", "blackvineg", "musa", "staranise", "beanpaste", "chinesepainting", "guqin", "sanjiegun", "firelance","shu"
+        "vodka"
     ]
-    sellCities = [
-        "quanzhou", "nassau"
-    ]
+    sellCities = ["泉州", "拿索"]
     # before going to a city
-    changeFleet = ["cohasset"]
+    changeFleet = ["科哈塞特"]
 
     def investOnce(self, domax=False):
         # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
@@ -102,67 +328,88 @@ class Investment:
         #     wait(lambda: simuInstance.clickPointV2(
         #         investBtn[0]+30, investBtn[1]+5))
         #     wait(lambda: simuInstance.clickPointV2(1278, 853), 1)
-        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(1267,400), lambda:task.hasSingleLineWordsInArea("investment", A=[705,221,799,243]), 2,2,timeout=5)
-        if (domax):
-            doMoreTimesWithWait(lambda: simuInstance.clickPointV2(860,373),3,0)
-        wait(lambda: simuInstance.clickPointV2(758,664))
-        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(*task.randomPoint), lambda:not task.hasSingleLineWordsInArea("investment", A=[705,221,799,243]), 2,2,timeout=5)
-
+        doAndWaitUntilBy(
+            lambda: simuInstance.clickPointV2(1287,205),
+            lambda: task.hasSingleLineWordsInArea("投资", A=[678,232,768,258]),
+            2,
+            2,
+            timeout=5,
+        )
+        if domax:
+            task.inputNumber(30000000, (824,366))
+        wait(lambda: simuInstance.clickPointV2(733,652))
+        doAndWaitUntilBy(
+            lambda: simuInstance.clickPointV2(*task.randomPoint),
+            lambda: not task.hasSingleLineWordsInArea("投资", A=[678,232,768,258])
+        )
 
     def investInCity(self):
         task.print("去投资")
-        doMoreTimesWithWait(lambda: simuInstance.clickPointV2(
-            *task.rightCatePoint2), 1, 1)
-        if(not task.clickInMenu(["bureau"], ["bureau"], startIndex=5)):
-            continueWithUntilBy(lambda: simuInstance.clickPointV2(
-            *task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities), 3, 30)
-            task.clickInMenu(["bureau"], ["bureau"], startIndex=5)
+        doMoreTimesWithWait(
+            lambda: simuInstance.clickPointV2(*task.rightCatePoint2), 1, 1
+        )
+        if not task.clickInMenu(["公馆"], ["公馆"], startIndex=5):
+            continueWithUntilBy(
+                lambda: simuInstance.clickPointV2(*task.rightTopTownIcon),
+                lambda: task.inCityList(self.investmentCities),
+                3,
+                30,
+            )
+            task.clickInMenu(["公馆"], ["公馆"], startIndex=5)
 
-        doAndWaitUntilBy(lambda: simuInstance.clickPointV2(
-            39, 81), lambda: task.hasSingleLineWordsInArea("invest", A=task.titleArea), 2,2,timeout=5)
+        doAndWaitUntilBy(
+            lambda: simuInstance.clickPointV2(31,66),
+            lambda: task.hasSingleLineWordsInArea("投资", A=task.titleArea),
+            2,
+            2,
+            timeout=5,
+        )
         self.investOnce()
-        while (True):
-            xxxp = task.getSingleLineWordsInArea(A=[234,803,290,818],ocrType=3)
+        while True:
+            xxxp = task.getSingleLineWordsInArea(A=[223,812,293,830], ocrType=4)
             # if (num and num < 800 and task.hasSingleLineWordsInArea("p", A=[284,786,296,802])):
-            if (not xxxp):
+            if not xxxp:
                 break
-            match = re.search(r'\d+', xxxp)
-            if (match and int(match.group()) and int(match.group()) < 800):
+            match = re.findall(r"\d+", xxxp)
+            if ''.join(match) and int(''.join(match)) and int(''.join(match)) < 800:
                 self.investOnce(True)
                 continue
             break
-            
 
-        # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("sel", A=task.titleArea),2,2)
+        # doAndWaitUntilBy(lambda: simuInstance.clickPointV2(46,153), lambda: UWTask.hasSingleLineWordsInArea("出售", A=task.titleArea),2,2)
         # wait(lambda: simuInstance.clickPointV2(),1)
-        continueWithUntilByWithBackup(lambda: simuInstance.clickPointV2(
-            *task.rightTopTownIcon), lambda: task.inCityList(self.investmentCities), 3, 30)
+        continueWithUntilByWithBackup(
+            lambda: simuInstance.clickPointV2(*task.rightTopTownIcon),
+            lambda: task.inCityList(self.investmentCities),
+            3,
+            30,
+        )
 
     def runInvestmentTrip(self):
         for index, city in enumerate(self.investmentCities):
-            if (city in self.changeFleet):
+            if city in self.changeFleet:
                 task.changeFleet(7)
-            if(city=="tunnel"):
+            if city == "tunnel":
                 task.crossTunnel(goods=False)
                 continue
-            task.gotoCity(city, self.investmentCities,express=True)
-            if(isStringSameOrSimilar(city, "varna")):
+            task.gotoCity(city, self.investmentCities, express=True)
+            if isStringSameOrSimilar(city, "瓦尔纳"):
                 task.sendNotification("reached checkpoint")
-            if (not city in self.supplyCities):
+            if not city in self.supplyCities:
                 self.investInCity()
             # if (city in self.sellCities):
-                # task.sellInCity(city)
+            # task.sellInCity(city)
             # if (city in self.buyCities):
-                # task.buyInCity(self.investmentCities, products=self.buyGoods)
-            if (self.goBM):
+            # task.buyInCity(self.investmentCities, products=self.buyGoods)
+            if self.goBM:
                 task.buyBlackMarket(city)
-            if (self.inn):
+            if self.inn:
                 task.checkInn(city, {"checkInnCities": self.investmentCities})
             task.checkSB()
             task.checkReachCity()
 
             # if index is the last of the array
-            if (index is len(self.investmentCities)-1):
+            if index is len(self.investmentCities) - 1:
                 task.sendNotification("investment finished")
                 # stop the python program
                 sys.exit()
@@ -170,9 +417,8 @@ class Investment:
 
 investment = Investment()
 task.allCityList = investment.investmentCities
-while (True):
-    # task.setCurrentCityFromScreen()
-    if (not task.inCityList(investment.investmentCities)):
+while True:
+    if not task.inCityList(investment.investmentCities):
         task.print("没有在长途城市列表中，中断")
         wait(lambda: simuInstance.rightClickPointV2(*task.randomPoint))
         time.sleep(5)

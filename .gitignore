@@ -8,3 +8,4 @@ src/UW/reachCity.txt
 assets/screenshots/UW
 src/EVE/__pycache__
 src/utils/__pycache__
+node_modules/

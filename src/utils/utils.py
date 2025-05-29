@@ -11,14 +11,14 @@ from strsimpy.damerau import Damerau
 
 stringDist = Damerau().distance
 
-def wait(func, seconds = 3,disableWait=False):
+def wait(func, seconds = 1,disableWait=False):
     func()
     if(not(disableWait)):
         time.sleep(seconds+random.uniform(0,1))
     else:
         time.sleep(seconds)
 
-def doMoreTimesWithWait(func, times=1, seconds=random.uniform(2,4),disableWait=False):
+def doMoreTimesWithWait(func, times=1, seconds=1,disableWait=False):
     while(times>0):
         wait(func, seconds, disableWait)
         times-=1
@@ -29,6 +29,8 @@ class Utils:
         self.uwtask=uwtask
         self.battle=battle
     def useSpecial(self, specialMode):
+        if(self.uwtask.inCityList(self.uwtask.allCityList)):
+            return False
         if(specialMode=="battle"):
             self.uwtask.print("special check from being assult")
             if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):
@@ -36,7 +38,9 @@ class Utils:
                 time.sleep(30)
             # if(self.uwtask.hasSingleLineWordsInArea("retreat",A=[1053,771,1120,792])):
             #     time.sleep(30)
-            if(self.uwtask.hasSingleLineWordsInArea("auto",A=[789,856,844,877])):
+            if(self.uwtask.hasSingleLineWordsInArea(
+                "托管", A=[786,860,831,882]
+            )):
                 self.battle.useFast()
                 self.battle.clickAuto()
                 time.sleep(250)
@@ -66,7 +70,7 @@ class Utils:
         time.sleep(seconds+ random.randint(0,1))
         return True
     
-def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=None,timeout=10):
+def doAndWaitUntilBy(func, untilFunc, seconds = 1, frequency = 1, backupFunc=None,timeout=10):
     wait(func, seconds)
     while(not(untilFunc()) and timeout >0):
         time.sleep(frequency)
@@ -84,7 +88,7 @@ def doAndWaitUntilBy(func, untilFunc, seconds = 2, frequency = 4, backupFunc=Non
     time.sleep(random.randint(1,2))
     return True
 
-def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30,firstWait=0,backupFunc=None):
+def continueWithUntilBy(func, untilFunc, frequency = 2,timeout=30,firstWait=1,backupFunc=None):
     wait(func, firstWait)
     while(not(untilFunc()) and timeout>0):
         func()
@@ -103,7 +107,7 @@ def continueWithUntilBy(func, untilFunc, frequency = 5,timeout=30,firstWait=0,ba
     time.sleep(random.randint(0,1))
     return True
 
-def continueWithUntilByWithBackup(func, untilFunc, frequency = 5, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
+def continueWithUntilByWithBackup(func, untilFunc, frequency = 2, timeout=6000, notifyFunc=lambda: False, backupFunc=lambda: False):
     wait(func, 0)
     while(not(untilFunc()) and timeout>0):
         func()
@@ -178,6 +182,12 @@ def isArray(items):
         return False
     return isinstance(items, collections.abc.Sequence)
 
+def isALooseIncludedInB(stringA, stringB):
+    for char in stringA:
+        if char in stringB:
+            return True
+    return False
+
 # stringA in StringB
 def isStringSameOrSimilar(stringA, stringB):        
     """
@@ -192,9 +202,7 @@ def isStringSameOrSimilar(stringA, stringB):
     """
     if stringA==stringB:
         return True
-    elif stringA in stringB: #len(stringA)<7 and 
-        return True
-    elif stringDist(stringA,stringB)/len(stringA)<0.2:
+    elif stringA in stringB:
         return True
     else:
         return False
@@ -265,3 +273,14 @@ def getStockIdFromString(string):
         if isStringSameOrSimilar(value, string):
             return id
     return 0
+
+def while_with_timeout(condition_func, max_attempts=30, interval=0):
+    attempts = 0
+    
+    while condition_func():
+        if attempts >= max_attempts:
+            print("Timeout or max attempts reached, exiting loop.")
+            break
+        print(f"Waiting for {interval}s...")
+        time.sleep(interval)
+        attempts += 1

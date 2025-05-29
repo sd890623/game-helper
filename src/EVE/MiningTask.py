@@ -31,6 +31,7 @@ class MiningTask(EVETask):
 
     def isSafe(self):
         if self.mode == 0:
+            # self.restartDialogue()
             return super().isSafe()
         elif self.mode == 1:
             return True
@@ -160,9 +161,9 @@ class MiningTask(EVETask):
                 return True
 
         minerYDiff = 65
-        oreSiteCalibrater = random.randint(-2, 2)
+        oreSiteCalibrater = random.randint(-2, 1)
         while oreSiteCalibrater == self.lastOreSiteCalibrater or (oreSiteCalibrater==-2 and self.hasSingleLineWordsInArea("卫星",[1041,70,1157,103],4)) or (oreSiteCalibrater==2 and not self.hasSingleLineWordsInArea("小行",[1125,337,1165,362],4)):
-            oreSiteCalibrater = random.randint(-2, 2)
+            oreSiteCalibrater = random.randint(-2, 1)
         if self.mode == 1:
             oreSiteCalibrater = -2
         self.lastOreSiteCalibrater=oreSiteCalibrater
@@ -178,7 +179,7 @@ class MiningTask(EVETask):
         )
         wait(
             lambda: self.simulatorInstance.click_point(
-                819, 299 + oreSiteCalibrater * minerYDiff, 4
+                819, 295 + oreSiteCalibrater * minerYDiff, 4
             )
         )
         # 点平衡器
@@ -211,11 +212,13 @@ class MiningTask(EVETask):
         if(self.bigWhale):
             wait(lambda: self.simulatorInstance.click_point(848, 640), 1)
             wait(lambda: self.simulatorInstance.click_point(924, 644), 1)
+            wait(lambda: self.simulatorInstance.click_point(1000, 644), 1)
+
 
     def waitForOreFinish(self):
         def checkOre(totalSeconds):
             if totalSeconds%10==0:
-                return self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4)
+                return self.hasSingleLineWordsInArea("富勒体", [844, 104, 887, 122], 4) and self.getNumberFromSingleLineInArea(A=[0,137,24,159])!=100
             else:
                 return True
         if self.mode == 2:
@@ -253,6 +256,7 @@ class MiningTask(EVETask):
                 time.sleep(600)
             else:
                 time.sleep(600 + random.randint(0, 5))
+                self.restartDialogue()
             self.havePirate = False
             return
         self.print("开始存货")
@@ -268,6 +272,7 @@ class MiningTask(EVETask):
             else:
                 self.print("有海盗，蹲站")
                 time.sleep(30 + random.randint(0, 5))
+                self.restartDialogue()
                 continue
         self.print("采矿等待中")
         self.waitForOreFinish()

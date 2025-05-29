@@ -40,7 +40,7 @@ class Investment:
     goBM = False
     inn = True
     # Better do wi
-    investmentCities = [
+    investmentCitiesx = [
         "圣彼得堡",
         "科科拉",
         "斯德哥尔摩",
@@ -212,18 +212,18 @@ class Investment:
         "纳尔维克",
         "爱丁堡",
     ]
-    investmentCitiesy = [
+    investmentCities = [
         "北京",
         "燕云",
         "长安",
         "重庆",
         "杭州",
-        "泉州"
-        # "巨港",
-        # "皮里",
-        # "马六甲",
-        # "科钦",
-        # "苏伊士",
+        "泉州",
+        "达沃",
+        "帝力",
+        "皮里",
+        "帕塞",
+        "卡利卡特",
         # "tunnel",
         # "尼科西亚",
         # "安科纳",

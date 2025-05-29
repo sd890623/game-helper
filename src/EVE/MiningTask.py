@@ -161,9 +161,9 @@ class MiningTask(EVETask):
                 return True
 
         minerYDiff = 65
-        oreSiteCalibrater = random.randint(-2, 2)
+        oreSiteCalibrater = random.randint(-2, 1)
         while oreSiteCalibrater == self.lastOreSiteCalibrater or (oreSiteCalibrater==-2 and self.hasSingleLineWordsInArea("卫星",[1041,70,1157,103],4)) or (oreSiteCalibrater==2 and not self.hasSingleLineWordsInArea("小行",[1125,337,1165,362],4)):
-            oreSiteCalibrater = random.randint(-2, 2)
+            oreSiteCalibrater = random.randint(-2, 1)
         if self.mode == 1:
             oreSiteCalibrater = -2
         self.lastOreSiteCalibrater=oreSiteCalibrater
@@ -179,7 +179,7 @@ class MiningTask(EVETask):
         )
         wait(
             lambda: self.simulatorInstance.click_point(
-                819, 299 + oreSiteCalibrater * minerYDiff, 4
+                819, 295 + oreSiteCalibrater * minerYDiff, 4
             )
         )
         # 点平衡器

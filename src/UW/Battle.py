@@ -192,7 +192,7 @@ class Battle:
             while True:
                 def condition():
                     return not self.uwtask.isPositionColorSimilarTo(28, 107, (0, 155, 0))
-                while_with_timeout(condition_func=condition, max_attempts=50, interval=5)
+                while_with_timeout(condition_func=condition, max_attempts=30, interval=4)
 
                 number = self.uwtask.getNumberFromSingleLineInArea(A=[29,102,40,116])
                 print("shipsDone", shipsDone)
@@ -359,7 +359,7 @@ class Battle:
         clickAndStock()
         if self.uwtask.hasSingleLineWordsInArea("船员", A=[1225,490,1286,508]):
             crewWords = self.uwtask.getSingleLineWordsInArea(
-                A=[1286,490,1386,510], ocrType=2
+                A=[1291,487,1374,504], ocrType=2
             )
             if(len(crewWords.split("/")) > 1):
                 actualCrew = getNumberFromString(crewWords.split("/")[0])

@@ -16,7 +16,7 @@ opponentsInList = ["奇袭", "掠夺", "强盗"]
 # "golitsynpil","golitsynas","azubuikepi","azubuikeas","chenzuyipil","chenzuyias","kaikap","kaikaa"]
 # add ducunyong as it's double lines, so quick hack,only checked in board
 opponentNames = ["奇袭", "掠夺", "强盗"]
-blackListForBattle = ["piz", "zpi", "robeyn", "masa", "roberts"]
+blackListForBattle = ["宝物"]
 # rob: "rob",
 # 汉阳 chowta ass, chenziyu pirate fleet, shiyang ass
 # 淡水 azubuike, chenzuyi assu, lalkaika fleet, chowta rob, zubuike pill
@@ -132,7 +132,7 @@ EADoubleBuy = {
     "fashions": ["赞助", "流行"],
     "waitForFashion": False,
     "waitHour": 1,
-    "useSkillCity": True,
+    "useSkillCity": False,
     "onlyUseBuyFleetBuy": False,
     "checkInnCities": True,
     "buyTitleNo": 1,
@@ -142,7 +142,7 @@ EADoubleBuy = {
 EuropeDoubleBuy = {
     "mode": "plainTrade",
     "buyFleet": 4,
-    "buyProducts": ["花窗玻璃", "镜子"],
+    "buyProducts": ["花窗玻璃", "镜子","石榴","水晶"],
     "buyCities": ["马赛", "卡利亚里","马赛", "卡利亚里", "威尼斯", "雅斯特", "安科纳"],
     "buySupplyCities": [],
     "buyStrategy": "twice",
@@ -164,8 +164,8 @@ EuropeDoubleBuy = {
     "fashions": ["赞助", "流行"],
     "waitForFashion": False,
     "waitHour": 1,
-    "useSkillCity": False,
-    "onlyUseBuyFleetBuy": True,
+    "useSkillCity": True,
+    "onlyUseBuyFleetBuy": False,
     "checkInnCities": True,
     "buyTitleNo": 1,
     "normalTitleNo": 3,
@@ -571,7 +571,8 @@ checkInnCitiesBack = [
     "圣多明各",
     "罗亚尔港",
     "波多贝罗",
-    "科哈塞特" "特鲁希",
+    "科哈塞特",
+    "特鲁希",
     "巴拿马",
     "索科特拉",
     "亚齐",
